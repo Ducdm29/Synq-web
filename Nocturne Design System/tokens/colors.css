@@ -1,0 +1,77 @@
+/* ============================================================
+   NOCTURNE — COLOR SYSTEM
+   Dark, minimal, premium. Mint/teal accent that "glows".
+   ============================================================ */
+:root {
+  /* ---- Base neutrals (cool near-black ramp) ---- */
+  --ink-950: #07090b;   /* deepest background */
+  --ink-900: #0a0d10;   /* app background */
+  --ink-850: #101418;
+  --ink-800: #14181d;   /* elevated surface */
+  --ink-750: #191e24;
+  --ink-700: #1f252c;   /* raised card */
+  --ink-600: #2a3138;   /* hover surface */
+  --ink-500: #3a424b;   /* strong border / divider */
+  --ink-400: #545d67;
+  --ink-300: #79838d;   /* tertiary text */
+  --ink-200: #a6b0ba;   /* secondary text */
+  --ink-100: #d4dae0;
+  --ink-050: #f3f6f8;   /* primary text / near white */
+  --white:   #ffffff;
+
+  /* ---- Accent: mint/teal ---- */
+  --teal-300: #7af2dd;  /* lightest glow */
+  --teal-400: #5eead4;  /* PRIMARY accent */
+  --teal-500: #2dd4bf;  /* hover / strong */
+  --teal-600: #14b8a6;  /* pressed / deep */
+  --teal-700: #0f8c80;
+
+  /* ---- Semantic hues ---- */
+  --rose-400: #fb7185;  /* danger / destructive */
+  --rose-500: #f43f5e;
+  --amber-400: #fbbf24; /* warning */
+  --violet-400: #a78bfa;/* occasional secondary highlight */
+
+  /* ============================================================
+     SEMANTIC ALIASES — use these in components
+     ============================================================ */
+  /* Backgrounds & surfaces */
+  --bg-app: var(--ink-900);
+  --bg-sunken: var(--ink-950);
+  --surface-1: var(--ink-800);
+  --surface-2: var(--ink-700);
+  --surface-3: var(--ink-600);
+  --surface-hover: var(--ink-600);
+  --surface-glass: rgba(20, 24, 29, 0.72);
+
+  /* Text */
+  --text-primary: var(--ink-050);
+  --text-secondary: var(--ink-200);
+  --text-tertiary: var(--ink-300);
+  --text-disabled: var(--ink-400);
+  --text-on-accent: #042b25;   /* dark text on mint fill */
+
+  /* Accent roles */
+  --accent: var(--teal-400);
+  --accent-hover: var(--teal-300);
+  --accent-pressed: var(--teal-500);
+  --accent-deep: var(--teal-600);
+  --accent-soft: rgba(94, 234, 212, 0.14);
+  --accent-soft-strong: rgba(94, 234, 212, 0.24);
+  --on-accent: var(--text-on-accent);
+
+  /* Borders & dividers */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-accent: rgba(94, 234, 212, 0.55);
+
+  /* Status */
+  --danger: var(--rose-400);
+  --danger-soft: rgba(251, 113, 133, 0.14);
+  --warning: var(--amber-400);
+  --success: var(--teal-400);
+
+  /* Scrim / overlay */
+  --scrim: rgba(5, 7, 9, 0.66);
+}

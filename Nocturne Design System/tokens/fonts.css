@@ -1,0 +1,6 @@
+/* Nocturne webfonts.
+   Sora — display & headings. Space Grotesk — body, UI, numerals.
+   NOTE: served from Google Fonts CDN. These ARE the requested families
+   (no substitution). To fully self-host, replace the @import with local
+   @font-face rules pointing at copied .woff2 binaries. */
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");

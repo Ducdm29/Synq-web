@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Node (nếu sau này dùng)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Vercel local
+.vercel/
+
+# Env files (phòng ngừa)
+.env
+.env.local
+.env*.local

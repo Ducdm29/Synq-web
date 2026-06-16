@@ -1,0 +1,70 @@
+<!-- @dsCard group="Components" viewport="700x400" name="Player" subtitle="PlayButton, ProgressBar, PlayerBar, TrackRow" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--bg-app); padding: 20px 24px; }
+  .section { margin-bottom: 20px; }
+  .row { display: flex; align-items: center; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+  .lbl { font-family: var(--font-body); font-size: 10px; color: var(--text-tertiary); letter-spacing: .1em; text-transform: uppercase; }
+  .divider { height: 1px; background: var(--border-subtle); margin: 16px 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { PlayButton, ProgressBar, PlayerBar, TrackRow, IconButton } = window.NocturneDesignSystem_689054;
+
+function Card() {
+  const [playing, setPlaying] = React.useState(true);
+  const [prog, setProg] = React.useState(0.38);
+  const [liked, setLiked] = React.useState(false);
+  React.useEffect(() => { typeof lucide !== "undefined" && lucide.createIcons(); });
+  return (
+    <div>
+      <div className="section">
+        <div className="lbl">PlayButton — sizes</div>
+        <div className="row">
+          <PlayButton size={44} playing={playing} onClick={() => setPlaying(p => !p)} />
+          <PlayButton size={64} playing={playing} onClick={() => setPlaying(p => !p)} />
+          <PlayButton size={80} playing={playing} onClick={() => setPlaying(p => !p)} />
+          <PlayButton size={64} glow={false} playing={playing} />
+        </div>
+      </div>
+      <div className="divider"></div>
+      <div className="section">
+        <div className="lbl">ProgressBar</div>
+        <div style={{marginTop:8}}>
+          <ProgressBar progress={prog} duration={247} onSeek={setProg} />
+        </div>
+      </div>
+      <div className="divider"></div>
+      <div className="section">
+        <div className="lbl">TrackRow</div>
+        <div style={{marginTop:4,display:"flex",flexDirection:"column",gap:2}}>
+          <TrackRow index={1} title="Phố Không Em" artist="Thịnh Suy" duration="3:42" active liked />
+          <TrackRow index={2} title="Đường Tôi Chở Em Về" artist="Vũ." duration="4:12" />
+          <TrackRow index={3} title="Chạy Ngay Đi" artist="Sơn Tùng M-TP" duration="4:04" explicit />
+        </div>
+      </div>
+      <div className="divider"></div>
+      <div className="section">
+        <div className="lbl">PlayerBar (mini player)</div>
+        <div style={{marginTop:8}}>
+          <PlayerBar title="Phố Không Em" artist="Thịnh Suy" playing={playing} progress={prog} liked={liked} onToggle={() => setPlaying(p=>!p)} onLike={() => setLiked(l=>!l)} />
+        </div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Card />);
+</script>
+</body>
+</html>

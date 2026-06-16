@@ -1,0 +1,87 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Core Controls" subtitle="Button, IconButton, Badge, Tag, Avatar" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--bg-app); padding: 20px 24px; }
+  .section { margin-bottom: 18px; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
+  .lbl { font-family: var(--font-body); font-size: 10px; color: var(--text-tertiary); letter-spacing: .1em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Button, IconButton, Badge, Tag, Avatar } = window.NocturneDesignSystem_689054;
+
+function Card() {
+  React.useEffect(() => { typeof lucide !== "undefined" && lucide.createIcons(); });
+  return (
+    <div>
+      <div className="section">
+        <div className="lbl">Button variants</div>
+        <div className="row">
+          <Button variant="primary" size="sm">Primary</Button>
+          <Button variant="secondary" size="sm">Secondary</Button>
+          <Button variant="ghost" size="sm">Ghost</Button>
+          <Button variant="outline" size="sm">Outline</Button>
+          <Button variant="danger" size="sm">Danger</Button>
+          <Button variant="primary" size="sm" disabled>Disabled</Button>
+        </div>
+        <div className="row" style={{marginTop:6}}>
+          <Button variant="primary" size="md" shape="pill">Phát tất cả</Button>
+          <Button variant="secondary" size="md" shape="pill" leadingIcon={<i data-lucide="shuffle" style={{width:16,height:16}}></i>}>Trộn bài</Button>
+          <Button variant="primary" size="lg">Tải xuống</Button>
+        </div>
+      </div>
+      <div className="section">
+        <div className="lbl">IconButton</div>
+        <div className="row">
+          <IconButton icon="heart" size="sm" label="Like" />
+          <IconButton icon="heart" size="sm" active label="Liked" />
+          <IconButton icon="shuffle" size="md" label="Shuffle" />
+          <IconButton icon="repeat" size="md" active label="Repeat" />
+          <IconButton icon="play" size="lg" variant="accent" label="Play" />
+          <IconButton icon="more-horizontal" size="md" variant="surface" label="More" />
+        </div>
+      </div>
+      <div className="section">
+        <div className="lbl">Badge &amp; Tag</div>
+        <div className="row">
+          <Badge tone="accent" dot>Đang phát</Badge>
+          <Badge tone="neutral">Hi-Res</Badge>
+          <Badge tone="accent" solid>Mới</Badge>
+          <Badge tone="danger">Explicit</Badge>
+          <Badge tone="warning">Beta</Badge>
+        </div>
+        <div className="row" style={{marginTop:6}}>
+          <Tag selected>Tất cả</Tag>
+          <Tag>Chill</Tag>
+          <Tag>Lo-fi</Tag>
+          <Tag>V-Pop</Tag>
+          <Tag>Indie</Tag>
+        </div>
+      </div>
+      <div className="section">
+        <div className="lbl">Avatar</div>
+        <div className="row">
+          <Avatar size={32} name="Vũ" shape="circle" />
+          <Avatar size={44} name="Sơn Tùng" shape="circle" ring />
+          <Avatar size={56} shape="rounded" name="Album" />
+          <Avatar size={44} shape="circle" />
+        </div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Card />);
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- @dsCard group="Components" viewport="700x160" name="Navigation" subtitle="TabBar — bottom nav" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--bg-app); padding: 20px 24px 0; }
+  .lbl { font-family: var(--font-body); font-size: 10px; color: var(--text-tertiary); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { TabBar } = window.NocturneDesignSystem_689054;
+
+function Card() {
+  const [tab, setTab] = React.useState("home");
+  React.useEffect(() => { typeof lucide !== "undefined" && lucide.createIcons(); });
+  const items = [
+    { key: "home", icon: "house", label: "Trang chủ" },
+    { key: "search", icon: "search", label: "Tìm kiếm" },
+    { key: "library", icon: "library", label: "Thư viện" },
+    { key: "profile", icon: "user-round", label: "Hồ sơ" },
+  ];
+  return (
+    <div>
+      <div className="lbl">Tab Bar</div>
+      <TabBar items={items} active={tab} onChange={setTab} style={{borderRadius:"var(--radius-lg) var(--radius-lg) 0 0", border:"1px solid var(--border-default)", borderBottom:"none"}} />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Card />);
+</script>
+</body>
+</html>

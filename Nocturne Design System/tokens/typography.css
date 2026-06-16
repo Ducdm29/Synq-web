@@ -1,0 +1,42 @@
+/* ============================================================
+   NOCTURNE — TYPOGRAPHY
+   Display & headings: Sora.  Body / UI / numerals: Space Grotesk.
+   ============================================================ */
+:root {
+  /* Families */
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-numeric: "Space Grotesk", ui-monospace, monospace; /* tabular numerals */
+
+  /* Weights */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* Type scale (mobile-first) */
+  --text-display: 40px;   /* hero / now-playing title */
+  --text-h1: 30px;
+  --text-h2: 24px;
+  --text-h3: 20px;
+  --text-title: 17px;     /* row / card titles */
+  --text-body: 15px;
+  --text-label: 14px;
+  --text-caption: 13px;
+  --text-micro: 11px;     /* overline / meta */
+
+  /* Line heights */
+  --leading-tight: 1.05;
+  --leading-snug: 1.2;
+  --leading-normal: 1.45;
+  --leading-relaxed: 1.6;
+
+  /* Letter spacing */
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-overline: 0.16em; /* uppercase eyebrows */
+}

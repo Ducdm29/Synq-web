@@ -1,0 +1,330 @@
+<!-- @dsCard group="Mobile" viewport="390x844" name="Music App" subtitle="Home · Search · Library · Now Playing · Album detail" -->
+<!-- @startingPoint section="Mobile App" subtitle="Full interactive Nocturne music app" viewport="390x844" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nocturne — Mobile UI Kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; min-height: 100vh; background: #05070a; display: flex; align-items: center; justify-content: center; }
+  .phone { width: 390px; height: 844px; background: var(--bg-app); border-radius: 44px; overflow: hidden; position: relative; box-shadow: 0 40px 100px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.08); flex: 0 0 390px; }
+  @media (max-height: 900px) { .phone { transform: scale(0.92); transform-origin: center center; } }
+  @media (max-height: 800px) { .phone { transform: scale(0.82); } }
+</style>
+</head>
+<body>
+<div class="phone"><div id="root"></div></div>
+
+<script type="text/babel">
+const DS = window.NocturneDesignSystem_689054;
+const { Button, IconButton, Badge, Tag, Avatar, Input, Slider, Switch,
+        PlayButton, ProgressBar, PlayerBar, TrackRow, AlbumCard, TabBar } = DS;
+
+/* ── Data ── */
+const IMG = {
+  a1: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80",
+  a2: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80",
+  a3: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+  a4: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80",
+  a5: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&q=80",
+  p1: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+  p2: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80",
+};
+const ALBUMS = [
+  { id:1, title:"Hoàng Hôn", artist:"Vũ.", cover:IMG.a1 },
+  { id:2, title:"Chạy Ngay Đi", artist:"Sơn Tùng M-TP", cover:IMG.a2 },
+  { id:3, title:"Chill Nights", artist:"Thịnh Suy", cover:IMG.a3 },
+  { id:4, title:"Indochine", artist:"Mỹ Anh", cover:IMG.a4 },
+  { id:5, title:"Midnight Drive", artist:"Vũ Cát Tường", cover:IMG.a5 },
+];
+const TRACKS = [
+  { id:1, title:"Phố Không Em", artist:"Thịnh Suy", duration:"3:42", cover:IMG.a3 },
+  { id:2, title:"Đường Tôi Chở Em Về", artist:"Vũ.", duration:"4:12", cover:IMG.a1 },
+  { id:3, title:"Chạy Ngay Đi", artist:"Sơn Tùng M-TP", duration:"4:04", cover:IMG.a2, explicit:true },
+  { id:4, title:"Yêu Một Người Có Lẽ", artist:"Vũ Cát Tường", duration:"3:55", cover:IMG.a5 },
+  { id:5, title:"Tháng Tư Là Lời Nói Dối", artist:"Hà Anh Tuấn", duration:"5:02", cover:IMG.a4 },
+];
+const GENRES = ["Tất cả","Chill","V-Pop","Indie","Lo-fi","R&B","Electronic","Acoustic","Hip-hop","Jazz"];
+
+/* ── Icons helper ── */
+function Lci({ n, s=20, c }) {
+  return <i data-lucide={n} style={{ width:s, height:s, color:c, display:"block" }}></i>;
+}
+
+/* ── Status bar (mock) ── */
+function StatusBar() {
+  return (
+    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center",
+      padding:"14px 24px 8px", flexShrink:0 }}>
+      <span style={{ fontFamily:"var(--font-body)", fontSize:13, fontWeight:600, color:"var(--text-primary)" }}>9:41</span>
+      <div style={{ display:"flex", gap:6, alignItems:"center", color:"var(--text-primary)" }}>
+        <Lci n="signal" s={14}/><Lci n="wifi" s={14}/><Lci n="battery" s={14}/>
+      </div>
+    </div>
+  );
+}
+
+/* ── Section header ── */
+function SectionHead({ title, onMore }) {
+  return (
+    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 20px", marginBottom:12 }}>
+      <span style={{ fontFamily:"var(--font-display)", fontSize:17, fontWeight:600, color:"var(--text-primary)", letterSpacing:"-0.01em" }}>{title}</span>
+      {onMore && <button onClick={onMore} style={{ background:"none", border:"none", cursor:"pointer", fontFamily:"var(--font-body)", fontSize:13, color:"var(--accent)", padding:0 }}>Xem tất cả</button>}
+    </div>
+  );
+}
+
+/* ── HOME ── */
+function HomeScreen({ onAlbum }) {
+  return (
+    <div style={{ flex:1, overflowY:"auto", paddingBottom:8 }}>
+      <div style={{ padding:"0 20px 16px" }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div>
+            <div style={{ fontFamily:"var(--font-body)", fontSize:12, color:"var(--text-tertiary)", letterSpacing:".1em", textTransform:"uppercase" }}>Chào buổi tối</div>
+            <div style={{ fontFamily:"var(--font-display)", fontSize:26, fontWeight:700, color:"var(--text-primary)", letterSpacing:"-0.02em", marginTop:2 }}>Minh Tuấn</div>
+          </div>
+          <div style={{ display:"flex", gap:8 }}>
+            <IconButton icon="bell" size="md" variant="surface" label="Thông báo" />
+            <Avatar name="MT" size={40} ring />
+          </div>
+        </div>
+      </div>
+
+      {/* Featured banner */}
+      <div style={{ margin:"0 20px 20px", position:"relative", borderRadius:"var(--radius-xl)", overflow:"hidden", height:180 }} onClick={() => onAlbum(ALBUMS[0])}>
+        <img src={IMG.a2} alt="Featured" style={{ width:"100%", height:"100%", objectFit:"cover" }} />
+        <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top, rgba(10,13,16,.9) 0%, transparent 55%)" }}></div>
+        <div style={{ position:"absolute", bottom:16, left:16, right:16 }}>
+          <Badge tone="accent" dot>Thịnh hành</Badge>
+          <div style={{ fontFamily:"var(--font-display)", fontSize:20, fontWeight:700, color:"#fff", marginTop:6, letterSpacing:"-0.01em" }}>Phố Không Em</div>
+          <div style={{ fontFamily:"var(--font-body)", fontSize:13, color:"rgba(255,255,255,.65)", marginTop:2 }}>Thịnh Suy · 12.4M lượt nghe</div>
+        </div>
+      </div>
+
+      {/* Recent rail */}
+      <SectionHead title="Gần đây" onMore={() => {}} />
+      <div style={{ display:"flex", gap:12, padding:"0 20px 20px", overflowX:"auto" }}>
+        {ALBUMS.map(a => (
+          <AlbumCard key={a.id} cover={a.cover} title={a.title} subtitle={a.artist} size={130} onPlay={() => {}} onClick={() => onAlbum(a)} />
+        ))}
+      </div>
+
+      {/* Artists */}
+      <SectionHead title="Nghệ sĩ yêu thích" onMore={() => {}} />
+      <div style={{ display:"flex", gap:16, padding:"0 20px 8px", overflowX:"auto" }}>
+        {[{name:"Vũ.",img:IMG.p1},{name:"Thịnh Suy",img:IMG.p2},{name:"Mỹ Anh",img:IMG.a4},{name:"Sơn Tùng",img:IMG.a2}].map(a => (
+          <AlbumCard key={a.name} cover={a.img} title={a.name} size={90} circle />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── SEARCH ── */
+function SearchScreen() {
+  const [q, setQ] = React.useState("");
+  const [genre, setGenre] = React.useState("Tất cả");
+  return (
+    <div style={{ flex:1, overflowY:"auto", padding:"0 20px" }}>
+      <div style={{ paddingBottom:12 }}>
+        <Input variant="search" value={q} onChange={e=>setQ(e.target.value)}
+          placeholder="Bài hát, nghệ sĩ, album…"
+          leadingIcon={<Lci n="search" s={18} c="var(--text-tertiary)"/>} />
+      </div>
+      <div style={{ display:"flex", gap:8, overflowX:"auto", paddingBottom:16, flexWrap:"nowrap" }}>
+        {GENRES.map(g => <Tag key={g} selected={g===genre} onClick={()=>setGenre(g)}>{g}</Tag>)}
+      </div>
+      <SectionHead title="Kết quả" />
+      <div style={{ display:"flex", flexDirection:"column", gap:2 }}>
+        {TRACKS.map((t,i) => (
+          <TrackRow key={t.id} index={i+1} cover={t.cover} title={t.title} artist={t.artist}
+            duration={t.duration} active={i===0} explicit={t.explicit} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── LIBRARY ── */
+function LibraryScreen({ onAlbum }) {
+  const playlists = [
+    { title:"Chill tối", count:"28 bài", cover:IMG.a3 },
+    { title:"Đường về nhà", count:"14 bài", cover:IMG.a1 },
+    { title:"Workout", count:"42 bài", cover:IMG.a5 },
+    { title:"Morning Vibes", count:"19 bài", cover:IMG.a4 },
+  ];
+  return (
+    <div style={{ flex:1, overflowY:"auto" }}>
+      <div style={{ padding:"0 20px 16px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+        <span style={{ fontFamily:"var(--font-display)", fontSize:22, fontWeight:700, color:"var(--text-primary)", letterSpacing:"-0.01em" }}>Thư viện</span>
+        <IconButton icon="plus" size="md" variant="surface" label="Tạo playlist" />
+      </div>
+      <div style={{ display:"flex", gap:8, padding:"0 20px 16px", overflowX:"auto" }}>
+        {["Playlist","Album","Podcast","Nghệ sĩ"].map((t,i) => <Tag key={t} selected={i===0}>{t}</Tag>)}
+      </div>
+      <div style={{ padding:"0 20px", display:"flex", flexDirection:"column", gap:12 }}>
+        {playlists.map((p,i) => (
+          <div key={i} onClick={()=>onAlbum({title:p.title,artist:p.count,cover:p.cover,id:i+10})}
+            style={{ display:"flex", alignItems:"center", gap:14, cursor:"pointer", padding:"6px 0" }}
+            onMouseEnter={e=>e.currentTarget.style.opacity=".75"} onMouseLeave={e=>e.currentTarget.style.opacity="1"}>
+            <Avatar src={p.cover} shape="rounded" size={56} />
+            <div style={{ flex:1, minWidth:0 }}>
+              <div style={{ fontFamily:"var(--font-body)", fontSize:16, fontWeight:500, color:"var(--text-primary)" }}>{p.title}</div>
+              <div style={{ fontSize:13, color:"var(--text-tertiary)", marginTop:2 }}>{p.count}</div>
+            </div>
+            <Lci n="chevron-right" s={18} c="var(--text-tertiary)"/>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── ALBUM DETAIL ── */
+function AlbumScreen({ album, onBack }) {
+  return (
+    <div style={{ position:"absolute", inset:0, background:"var(--bg-app)", zIndex:10, display:"flex", flexDirection:"column" }}>
+      <StatusBar />
+      <div style={{ flex:1, overflowY:"auto" }}>
+        <div style={{ position:"relative", height:280 }}>
+          <img src={album.cover} alt={album.title} style={{ width:"100%", height:"100%", objectFit:"cover" }} />
+          <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(10,13,16,.3) 0%, var(--bg-app) 100%)" }}></div>
+          <button onClick={onBack} style={{ position:"absolute", top:8, left:16, background:"rgba(10,13,16,.6)", border:"1px solid var(--border-default)", borderRadius:"50%", width:36, height:36, display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", backdropFilter:"blur(8px)" }}>
+            <Lci n="chevron-left" s={18} c="var(--text-primary)"/>
+          </button>
+        </div>
+        <div style={{ padding:"0 20px" }}>
+          <div style={{ fontFamily:"var(--font-display)", fontSize:24, fontWeight:700, color:"var(--text-primary)", letterSpacing:"-0.02em" }}>{album.title}</div>
+          <div style={{ fontSize:15, color:"var(--text-secondary)", marginTop:4 }}>{album.artist}</div>
+          <div style={{ display:"flex", gap:10, marginTop:16, alignItems:"center" }}>
+            <Button variant="primary" size="md" shape="pill" style={{flex:1}} leadingIcon={<Lci n="play" s={16} c="var(--on-accent)"/>}>Phát</Button>
+            <Button variant="secondary" size="md" shape="pill" style={{flex:1}} leadingIcon={<Lci n="shuffle" s={16} c="var(--text-primary)"/>}>Trộn</Button>
+            <IconButton icon="heart" size="md" variant="surface" label="Like" />
+            <IconButton icon="more-horizontal" size="md" variant="surface" label="More" />
+          </div>
+        </div>
+        <div style={{ marginTop:16, padding:"0 12px" }}>
+          {TRACKS.map((t,i) => (
+            <TrackRow key={t.id} index={i+1} title={t.title} artist={t.artist}
+              duration={t.duration} active={i===0} explicit={t.explicit} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── NOW PLAYING ── */
+function NowPlayingScreen({ onClose, playing, onToggle, progress, onSeek }) {
+  const [liked, setLiked] = React.useState(false);
+  const track = TRACKS[0];
+  return (
+    <div style={{ position:"absolute", inset:0, background:"var(--bg-app)", zIndex:20, display:"flex", flexDirection:"column", paddingBottom:8 }}>
+      <StatusBar />
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 20px 8px" }}>
+        <IconButton icon="chevron-down" size="md" label="Thu nhỏ" onClick={onClose} />
+        <span style={{ fontFamily:"var(--font-body)", fontSize:13, fontWeight:600, color:"var(--text-tertiary)", letterSpacing:".08em", textTransform:"uppercase" }}>Đang phát</span>
+        <IconButton icon="more-horizontal" size="md" label="Thêm" />
+      </div>
+      <div style={{ flex:1, display:"flex", flexDirection:"column", padding:"0 28px" }}>
+        <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", padding:"16px 0" }}>
+          <div style={{ width:280, height:280, borderRadius:"var(--radius-xl)", overflow:"hidden", boxShadow:"var(--shadow-xl), var(--glow-sm)" }}>
+            <img src={track.cover} alt={track.title} style={{ width:"100%", height:"100%", objectFit:"cover" }} />
+          </div>
+        </div>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:16 }}>
+          <div>
+            <div style={{ fontFamily:"var(--font-display)", fontSize:22, fontWeight:700, color:"var(--text-primary)", letterSpacing:"-0.02em" }}>{track.title}</div>
+            <div style={{ fontFamily:"var(--font-body)", fontSize:14, color:"var(--text-secondary)", marginTop:3 }}>{track.artist}</div>
+          </div>
+          <IconButton icon={liked?"heart":"heart"} size="md" active={liked} label="Yêu thích" onClick={()=>setLiked(l=>!l)} />
+        </div>
+        <ProgressBar progress={progress} duration={222} onSeek={onSeek} />
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:28 }}>
+          <IconButton icon="shuffle" size="md" label="Trộn" />
+          <IconButton icon="skip-back" size="md" variant="ghost" label="Trước" />
+          <PlayButton size={68} playing={playing} onClick={onToggle} />
+          <IconButton icon="skip-forward" size="md" variant="ghost" label="Sau" />
+          <IconButton icon="repeat" size="md" label="Lặp" />
+        </div>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:24 }}>
+          <IconButton icon="airplay" size="sm" label="AirPlay" />
+          <div style={{ flex:1, padding:"0 12px" }}>
+            <Slider value={0.75} height={4} />
+          </div>
+          <IconButton icon="share-2" size="sm" label="Chia sẻ" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── APP SHELL ── */
+function App() {
+  const [tab, setTab] = React.useState("home");
+  const [overlay, setOverlay] = React.useState(null); // "nowplaying" | album obj
+  const [playing, setPlaying] = React.useState(false);
+  const [progress, setProgress] = React.useState(0.38);
+
+  React.useEffect(() => { typeof lucide !== "undefined" && lucide.createIcons(); });
+
+  const TABS = [
+    { key:"home", icon:"house", label:"Trang chủ" },
+    { key:"search", icon:"search", label:"Tìm kiếm" },
+    { key:"library", icon:"library", label:"Thư viện" },
+    { key:"profile", icon:"user-round", label:"Hồ sơ" },
+  ];
+
+  return (
+    <div style={{ width:"100%", height:"100%", display:"flex", flexDirection:"column", position:"relative", overflow:"hidden" }}>
+      <StatusBar />
+
+      {/* Main content */}
+      <div style={{ flex:1, overflowY:"hidden", display:"flex", flexDirection:"column" }}>
+        {tab==="home" && <HomeScreen onAlbum={a=>setOverlay(a)} />}
+        {tab==="search" && <SearchScreen />}
+        {tab==="library" && <LibraryScreen onAlbum={a=>setOverlay(a)} />}
+        {tab==="profile" && (
+          <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column", gap:12 }}>
+            <Avatar name="MT" size={80} ring />
+            <div style={{ fontFamily:"var(--font-display)", fontSize:20, fontWeight:700, color:"var(--text-primary)" }}>Minh Tuấn</div>
+            <div style={{ fontSize:14, color:"var(--text-tertiary)" }}>minh.tuan@example.com</div>
+          </div>
+        )}
+      </div>
+
+      {/* Mini player */}
+      <div style={{ padding:"0 12px 8px" }}>
+        <PlayerBar title="Phố Không Em" artist="Thịnh Suy" cover={TRACKS[0].cover}
+          playing={playing} progress={progress} liked={false}
+          onToggle={()=>setPlaying(p=>!p)}
+          onClick={()=>setOverlay("nowplaying")} />
+      </div>
+
+      <TabBar items={TABS} active={tab} onChange={t=>{setTab(t); setOverlay(null);}} />
+
+      {/* Overlays */}
+      {overlay && typeof overlay === "object" && (
+        <AlbumScreen album={overlay} onBack={()=>setOverlay(null)} />
+      )}
+      {overlay === "nowplaying" && (
+        <NowPlayingScreen onClose={()=>setOverlay(null)}
+          playing={playing} onToggle={()=>setPlaying(p=>!p)}
+          progress={progress} onSeek={setProgress} />
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

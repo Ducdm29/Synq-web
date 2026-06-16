@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Shadows" subtitle="Elevation system on dark backgrounds" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--bg-sunken); padding: 24px 28px; display: flex; gap: 16px; align-items: center; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .box { width: 80px; height: 60px; background: var(--surface-2); border-radius: var(--radius-md); }
+  .lbl { font-family: var(--font-body); font-size: 10px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+  <div class="item"><div class="box" style="box-shadow:var(--shadow-xs)"></div><div class="lbl">xs</div></div>
+  <div class="item"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="lbl">sm</div></div>
+  <div class="item"><div class="box" style="box-shadow:var(--shadow-md)"></div><div class="lbl">md</div></div>
+  <div class="item"><div class="box" style="box-shadow:var(--shadow-lg)"></div><div class="lbl">lg</div></div>
+  <div class="item"><div class="box" style="box-shadow:var(--shadow-xl)"></div><div class="lbl">xl</div></div>
+  <div class="item"><div class="box" style="background:var(--accent);box-shadow:var(--glow-sm)"></div><div class="lbl">glow-sm</div></div>
+  <div class="item"><div class="box" style="background:var(--accent);box-shadow:var(--glow-md)"></div><div class="lbl">glow-md</div></div>
+  <div class="item"><div class="box" style="background:var(--accent);box-shadow:var(--glow-lg)"></div><div class="lbl">glow-lg</div></div>
+</body>
+</html>

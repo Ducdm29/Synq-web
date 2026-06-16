@@ -1,0 +1,12 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Synq">
+  <defs>
+    <radialGradient id="noc-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"></stop>
+      <stop offset="100%" stop-color="#5eead4" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="#0a0d10"></circle>
+  <circle cx="60" cy="60" r="46" fill="url(#noc-glow)"></circle>
+  <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"></path>
+  <path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"></path>
+</svg>

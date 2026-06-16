@@ -1,0 +1,28 @@
+<!-- @dsCard group="Colors" viewport="700x160" name="Accent — Teal" subtitle="Mint glow palette" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--bg-app); padding: 20px 24px; display: flex; gap: 12px; align-items: flex-start; }
+  .group { display: flex; gap: 6px; flex: 1; }
+  .swatch { flex: 1; height: 100px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; }
+  .label { font-family: var(--font-body); font-size: 11px; font-weight: 600; }
+  .val { font-family: var(--font-body); font-size: 9px; margin-top: 2px; opacity: .7; }
+  .teal-soft { flex: 0 0 120px; height: 100px; border-radius: var(--radius-md); background: var(--accent-soft); border: 1px solid var(--border-accent); display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+  <div class="group">
+    <div class="swatch" style="background:var(--teal-300)"><span class="label" style="color:#042b25">300</span><span class="val" style="color:#042b25">#7af2dd</span></div>
+    <div class="swatch" style="background:var(--teal-400);box-shadow:var(--glow-md)"><span class="label" style="color:#042b25">400 ●</span><span class="val" style="color:#042b25">#5eead4</span></div>
+    <div class="swatch" style="background:var(--teal-500)"><span class="label" style="color:#042b25">500</span><span class="val" style="color:#042b25">#2dd4bf</span></div>
+    <div class="swatch" style="background:var(--teal-600)"><span class="label" style="color:#f0fdf4">600</span><span class="val" style="color:#f0fdf4">#14b8a6</span></div>
+    <div class="swatch" style="background:var(--teal-700)"><span class="label" style="color:#f0fdf4">700</span></div>
+  </div>
+  <div class="teal-soft">
+    <span style="font-family:var(--font-body);font-size:12px;color:var(--accent);text-align:center;padding:8px">accent-soft<br>rgba(94,234,212,.14)</span>
+  </div>
+</body>
+</html>

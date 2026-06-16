@@ -1,0 +1,41 @@
+/* ============================================================
+   NOCTURNE — SPACING & SIZING (4px base grid)
+   ============================================================ */
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+
+  /* Layout */
+  --gutter: 20px;          /* mobile screen side padding */
+  --safe-top: 12px;
+  --tabbar-height: 64px;
+  --playerbar-height: 64px;
+
+  /* Control sizing */
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 48px;
+  --control-xl: 56px;
+  --touch-min: 44px;       /* min hit target */
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+  --radius-card: var(--radius-lg);
+}

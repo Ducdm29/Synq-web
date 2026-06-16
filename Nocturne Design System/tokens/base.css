@@ -1,0 +1,49 @@
+/* ============================================================
+   NOCTURNE — base resets & helpers (shipped to consumers)
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tabular numerals for timecodes / counts */
+.noc-num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-snug);
+}
+
+/* Uppercase overline / eyebrow */
+.noc-overline {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* Focus ring */
+:where(button, a, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* Truncation helper */
+.noc-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,46 @@
+<!-- @dsCard group="Type" viewport="700x200" name="Body & UI" subtitle="Space Grotesk — all text/UI sizes" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--bg-app); padding: 20px 28px; display: flex; flex-direction: column; gap: 6px; }
+  .row { display: flex; align-items: baseline; gap: 16px; }
+  .tag { font-family: var(--font-body); font-size: 10px; color: var(--text-tertiary); width: 72px; flex: 0 0 72px; letter-spacing: .08em; text-transform: uppercase; }
+  .spec { font-family: var(--font-body); font-size: 10px; color: var(--ink-400); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <span class="tag">title</span>
+    <span style="font-family:var(--font-body);font-size:var(--text-title);font-weight:500;color:var(--text-primary);letter-spacing:var(--tracking-snug)">Phố Không Em</span>
+    <span class="spec">Space Grotesk 500 · 17px</span>
+  </div>
+  <div class="row">
+    <span class="tag">body</span>
+    <span style="font-family:var(--font-body);font-size:var(--text-body);color:var(--text-secondary)">Bài hát đang được phát — Thịnh Suy</span>
+    <span class="spec">400 · 15px</span>
+  </div>
+  <div class="row">
+    <span class="tag">label</span>
+    <span style="font-family:var(--font-body);font-size:var(--text-label);font-weight:500;color:var(--text-secondary)">Vũ Cát Tường · 3 phút trước</span>
+    <span class="spec">500 · 14px</span>
+  </div>
+  <div class="row">
+    <span class="tag">caption</span>
+    <span style="font-family:var(--font-body);font-size:var(--text-caption);color:var(--text-tertiary)">128 bài · 8 giờ 22 phút</span>
+    <span class="spec">400 · 13px</span>
+  </div>
+  <div class="row">
+    <span class="tag">micro</span>
+    <span style="font-family:var(--font-body);font-size:var(--text-micro);font-weight:600;letter-spacing:var(--tracking-overline);text-transform:uppercase;color:var(--text-tertiary)">Thịnh hành</span>
+    <span class="spec">600 · 11px · overline</span>
+  </div>
+  <div class="row">
+    <span class="tag">numeric</span>
+    <span style="font-family:var(--font-numeric);font-size:var(--text-title);font-weight:500;color:var(--text-primary);font-variant-numeric:tabular-nums">3:24 / 4:12</span>
+    <span class="spec">tabular-nums</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!-- @dsCard group="Colors" viewport="700x160" name="Neutrals" subtitle="Ink ramp — cool near-black to near-white" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--bg-app); padding: 20px 24px; }
+  .row { display: flex; gap: 6px; align-items: flex-end; }
+  .swatch { flex: 1; border-radius: var(--radius-sm); display: flex; flex-direction: column; justify-content: flex-end; padding: 6px 5px 5px; }
+  .label { font-family: var(--font-body); font-size: 10px; color: rgba(255,255,255,0.55); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .val { font-family: var(--font-body); font-size: 9px; color: rgba(255,255,255,0.35); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="swatch" style="height:100px;background:var(--ink-950)"><span class="label">950</span><span class="val">#07090b</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-900)"><span class="label">900</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-850)"><span class="label">850</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-800)"><span class="label">800</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-750)"><span class="label">750</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-700)"><span class="label">700</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-600)"><span class="label">600</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-500)"><span class="label">500</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-400)"><span class="label">400</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-300)"><span class="label">300</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-200)"><span class="label">200</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-100)"><span class="label">100</span></div>
+    <div class="swatch" style="height:100px;background:var(--ink-050);border:1px solid var(--border-subtle)"><span class="label" style="color:rgba(0,0,0,.4)">050</span></div>
+  </div>
+</body>
+</html>
