@@ -3,12 +3,309 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Synq — Music Player</title>
-  <meta name="description" content="Synq is a premium music player app. Visit our support and privacy policy pages." />
-  <meta http-equiv="refresh" content="0; url=/support" />
+  <title>Synq — Hear music the way it was meant to be</title>
+  <meta name="description" content="Synq is a premium music player with true lossless audio, AutoEQ for 6,000+ headphones, synced lyrics, and a smart library. Available on iOS and Android." />
+  <link rel="canonical" href="https://synq-web.vercel.app/" />
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/home.css" />
 </head>
 <body>
-  <p>Redirecting to <a href="/support">Support</a>...</p>
+
+<!-- Ambient orbs -->
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <!-- ── Header ── -->
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="lg1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#5eead4" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/>
+          <circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/>
+          <path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link">Support</a>
+        <a href="/privacy" class="nav-link">Privacy</a>
+        <a href="#download" class="nav-link nav-cta" id="nav-download-btn">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════ -->
+    <section class="hero-section" aria-labelledby="hero-h1">
+      <div class="hero-content">
+        <div class="hero-text">
+          <span class="eyebrow-pill" aria-label="Now available">✦ Now available on iOS &amp; Android</span>
+          <h1 id="hero-h1">
+            Hear music the way<br>
+            it was <em>meant to be</em>
+          </h1>
+          <p class="hero-sub">
+            Lossless audio, perfectly tuned to your headphones.<br>
+            No compression. No compromise.
+          </p>
+          <div class="hero-badges">
+            <span class="badge">True Lossless</span>
+            <span class="badge">AutoEQ 6,000+</span>
+            <span class="badge">Offline &amp; Cloud</span>
+          </div>
+          <div class="hero-ctas">
+            <a href="#download" class="btn-store btn-appstore" id="hero-appstore-btn" aria-label="Download on the App Store">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              <span>
+                <small>Download on the</small>
+                App Store
+              </span>
+            </a>
+            <a href="#download" class="btn-store btn-playstore" id="hero-playstore-btn" aria-label="Get it on Google Play">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
+              <span>
+                <small>Get it on</small>
+                Google Play
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="hero-phone-wrap" aria-hidden="true">
+          <img
+            src="/store/Synq_appstore_67_1_1290x2796.png"
+            alt="Synq Now Playing screen"
+            class="hero-phone"
+            width="280"
+            loading="eager"
+          />
+        </div>
+      </div>
+      <!-- Feature banner -->
+      <div class="feature-banner-wrap">
+        <img
+          src="/store/Synq_play_feature_1024x500.png"
+          alt="Synq — Hear music the way it was meant to be"
+          class="feature-banner"
+          loading="eager"
+        />
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         FEATURE SECTIONS  (alternating layout)
+    ══════════════════════════════════════════ -->
+
+    <!-- Feature 1 — AutoEQ -->
+    <section class="feature-row" aria-labelledby="feat1-heading">
+      <div class="feature-text feat-text-left">
+        <span class="feat-eyebrow">AutoEQ</span>
+        <h2 id="feat1-heading">Tuned to your <em>headphones</em></h2>
+        <p>AutoEQ analyzes and applies the perfect correction curve for 6,000+ headphone and IEM models — automatically. No manual tweaking needed.</p>
+        <ul class="feat-list">
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            6,000+ headphone &amp; IEM profiles
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Parametric EQ with custom presets
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Real-time frequency visualization
+          </li>
+        </ul>
+      </div>
+      <div class="feature-phone-wrap feat-phone-right">
+        <img src="/store/Synq_appstore_67_2_1290x2796.png" alt="AutoEQ screen" class="feature-phone" loading="lazy" width="220" />
+      </div>
+    </section>
+
+    <!-- Feature 2 — Library -->
+    <section class="feature-row feat-row-reverse" aria-labelledby="feat2-heading">
+      <div class="feature-phone-wrap feat-phone-left">
+        <img src="/store/Synq_appstore_67_3_1290x2796.png" alt="Library screen" class="feature-phone" loading="lazy" width="220" />
+      </div>
+      <div class="feature-text feat-text-right">
+        <span class="feat-eyebrow">Library</span>
+        <h2 id="feat2-heading">Your whole library, <em>in lossless</em></h2>
+        <p>Every track in FLAC. Browse by song, artist, album, or genre. Works entirely offline — no stream, no buffer, no compromise.</p>
+        <ul class="feat-list">
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            FLAC, ALAC, WAV, MP3, AAC
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            100% offline — no internet required
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Zero ads, forever
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Feature 3 — For You / Stats -->
+    <section class="feature-row" aria-labelledby="feat3-heading">
+      <div class="feature-text feat-text-left">
+        <span class="feat-eyebrow">For You</span>
+        <h2 id="feat3-heading">Made for the way <em>you listen</em></h2>
+        <p>Daily mixes built around your taste, listening stats that show how your habits evolve, and a Home feed that feels personal — not algorithmic noise.</p>
+        <ul class="feat-list">
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Daily mixes from your own library
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Listening time, plays &amp; track stats
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Day · Week · Month · Year views
+          </li>
+        </ul>
+      </div>
+      <div class="feature-phone-wrap feat-phone-right">
+        <img src="/store/Synq_appstore_67_4_1290x2796.png" alt="For You / Home Stats screen" class="feature-phone" loading="lazy" width="220" />
+      </div>
+    </section>
+
+    <!-- Feature 4 — Lyrics -->
+    <section class="feature-row feat-row-reverse" aria-labelledby="feat4-heading">
+      <div class="feature-phone-wrap feat-phone-left">
+        <img src="/store/Synq_appstore_67_5_1290x2796.png" alt="Synced Lyrics screen" class="feature-phone" loading="lazy" width="220" />
+      </div>
+      <div class="feature-text feat-text-right">
+        <span class="feat-eyebrow">Lyrics</span>
+        <h2 id="feat4-heading">Feel <em>every word</em></h2>
+        <p>Synced lyrics light up line by line as the song plays. Karaoke mode, live lyrics, and offset controls so the words always land on beat.</p>
+        <ul class="feat-list">
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Synced line-by-line lyrics
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Karaoke &amp; live lyrics support
+          </li>
+          <li>
+            <span class="feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            Fine-tune offset for perfect sync
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         STATS STRIP
+    ══════════════════════════════════════════ -->
+    <section class="stats-strip" aria-label="App stats">
+      <div class="stat-item">
+        <span class="stat-num">6,000<span class="stat-plus">+</span></span>
+        <span class="stat-label">Headphone profiles</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-num">Hi‑Res</span>
+        <span class="stat-label">Up to 32-bit / 384kHz</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-num">0</span>
+        <span class="stat-label">Ads. Ever.</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Offline capable</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         DOWNLOAD CTA
+    ══════════════════════════════════════════ -->
+    <section class="download-section" id="download" aria-labelledby="download-heading">
+      <div class="download-inner">
+        <span class="eyebrow">Download free</span>
+        <h2 id="download-heading">Start listening better, today.</h2>
+        <p>Free to download. No subscription required to play your local library.</p>
+        <div class="dl-store-buttons">
+          <a href="#" class="btn-store btn-appstore btn-lg" id="dl-appstore-btn" aria-label="Download on the App Store">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <span>
+              <small>Download on the</small>
+              App Store
+            </span>
+          </a>
+          <a href="#" class="btn-store btn-playstore btn-lg" id="dl-playstore-btn" aria-label="Get it on Google Play">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
+            <span>
+              <small>Get it on</small>
+              Google Play
+            </span>
+          </a>
+        </div>
+        <p class="dl-fine-print">
+          Questions? <a href="/support">Visit Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="mailto:support.synq@gmail.com">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
 </body>
 </html>

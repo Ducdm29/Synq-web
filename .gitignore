@@ -1,3 +1,6 @@
+# Store source assets (served from public/store/ instead)
+/store/
+
 # OS
 .DS_Store
 Thumbs.db
