@@ -464,6 +464,46 @@ ul, ol { list-style: none; }
 }
 .last-updated svg { width: 14px; height: 14px; color: var(--accent); }
 
+/* ---- Language toggle ---- */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+  gap: 0;
+  margin-left: var(--space-2);
+}
+.lang-btn {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+  line-height: 1.4;
+}
+.lang-btn:hover {
+  color: var(--text-primary);
+  background: var(--surface-3);
+}
+.lang-btn.active {
+  color: var(--text-on-accent);
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(94, 234, 212, 0.3);
+}
+.lang-btn.active:hover {
+  background: var(--accent-hover);
+}
+
 /* ---- Footer ---- */
 .site-footer {
   border-top: 1px solid var(--border-subtle);
