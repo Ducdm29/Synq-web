@@ -9,18 +9,19 @@
     'nav.support': { en: 'Support', vi: 'Hỗ trợ' },
     'nav.privacy': { en: 'Privacy', vi: 'Quyền riêng tư' },
     'nav.privacyPolicy': { en: 'Privacy Policy', vi: 'Chính sách bảo mật' },
+    'nav.privacyShort': { en: 'Privacy', vi: 'Bảo mật' },
     'nav.download': { en: 'Download', vi: 'Tải xuống' },
 
     // Hero
     'hero.eyebrow': { en: '✦ Now available on iOS & Android', vi: '✦ Đã có trên iOS & Android' },
     'hero.h1': { en: 'Hear music the way<br>it was <em>meant to be</em>', vi: 'Nghe nhạc đúng cách<br>như nó <em>phải là</em>' },
     'hero.sub': { en: 'Lossless audio, perfectly tuned to your headphones.<br>No compression. No compromise.', vi: 'Âm thanh lossless, tinh chỉnh hoàn hảo cho tai nghe của bạn.<br>Không nén. Không thỏa hiệp.' },
-    'hero.badge1': { en: 'True Lossless', vi: 'Lossless thực thụ' },
+    'hero.badge1': { en: 'True Lossless', vi: 'Chuẩn Lossless' },
     'hero.badge2': { en: 'AutoEQ 6,000+', vi: 'AutoEQ 6.000+' },
     'hero.badge3': { en: 'Offline & Cloud', vi: 'Offline & Cloud' },
     'hero.appstore.small': { en: 'Download on the', vi: 'Tải xuống trên' },
     'hero.appstore.label': { en: 'App Store', vi: 'App Store' },
-    'hero.playstore.small': { en: 'Coming soon on', vi: 'Sắp ra mắt trên' },
+    'hero.playstore.small': { en: 'Coming soon on', vi: 'Sắp có trên' },
     'hero.playstore.label': { en: 'Google Play', vi: 'Google Play' },
 
     // Feature 1 — AutoEQ
@@ -55,7 +56,7 @@
     'feat4.li3': { en: 'Fine-tune offset for perfect sync', vi: 'Tinh chỉnh offset cho đồng bộ hoàn hảo' },
 
     // Stats strip
-    'stat.headphones': { en: 'Headphone profiles', vi: 'Profile tai nghe' },
+    'stat.headphones': { en: 'Headphone profiles', vi: 'Mẫu tai nghe' },
     'stat.hires': { en: 'Up to 32-bit / 384kHz', vi: 'Lên đến 32-bit / 384kHz' },
     'stat.offline': { en: 'Offline capable', vi: 'Hoạt động offline' },
 
@@ -65,7 +66,7 @@
     'dl.sub': { en: 'Free to download. No subscription required to play your local library.', vi: 'Tải miễn phí. Không cần đăng ký để phát thư viện nhạc của bạn.' },
     'dl.appstore.small': { en: 'Download on the', vi: 'Tải xuống trên' },
     'dl.appstore.label': { en: 'App Store', vi: 'App Store' },
-    'dl.playstore.small': { en: 'Coming soon on', vi: 'Sắp ra mắt trên' },
+    'dl.playstore.small': { en: 'Coming soon on', vi: 'Sắp có trên' },
     'dl.playstore.label': { en: 'Google Play', vi: 'Google Play' },
     'dl.fineprint': {
       en: 'Questions? <a href="/support">Visit Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>',
