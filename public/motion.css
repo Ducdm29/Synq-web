@@ -1,0 +1,403 @@
+/* ============================================================
+   SYNQ MOTION CSS — Animation & Transition Styles
+   Companion to motion.js
+   ============================================================ */
+
+/* ── Scroll Progress Bar ── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--teal-400), var(--teal-300), var(--violet-400));
+  z-index: 9999;
+  pointer-events: none;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(94, 234, 212, 0.5);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── Header Motion ── */
+.site-header {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.3s ease,
+              box-shadow 0.3s ease,
+              padding 0.3s ease;
+}
+.header-scrolled {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(10, 13, 16, 0.92) !important;
+}
+.header-scrolled .nav-inner {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  transition: padding 0.3s ease;
+}
+.header-hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════
+   REVEAL ANIMATIONS
+   All elements start hidden and transition
+   to visible when .revealed is added
+══════════════════════════════════════════ */
+
+/* ── Base: hidden state ── */
+[data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ── Revealed: visible state ── */
+[data-reveal].revealed {
+  opacity: 1;
+}
+
+/* ── FADE UP ── */
+[data-reveal="fade-up"] {
+  transform: translate3d(0, 40px, 0);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="fade-up"].revealed {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── FADE DOWN ── */
+[data-reveal="fade-down"] {
+  transform: translate3d(0, -30px, 0);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="fade-down"].revealed {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── FADE LEFT (from right) ── */
+[data-reveal="fade-left"] {
+  transform: translate3d(60px, 0, 0);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="fade-left"].revealed {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── FADE RIGHT (from left) ── */
+[data-reveal="fade-right"] {
+  transform: translate3d(-60px, 0, 0);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="fade-right"].revealed {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── FADE UP + SCALE ── */
+[data-reveal="fade-up-scale"] {
+  transform: translate3d(0, 30px, 0) scale(0.92);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-reveal="fade-up-scale"].revealed {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* ── ZOOM IN ── */
+[data-reveal="zoom-in"] {
+  transform: scale(0.88);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="zoom-in"].revealed {
+  transform: scale(1);
+}
+
+/* ── ROTATE IN ── */
+[data-reveal="rotate-in"] {
+  transform: translate3d(0, 20px, 0) rotate(-3deg);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-reveal="rotate-in"].revealed {
+  transform: translate3d(0, 0, 0) rotate(0deg);
+}
+
+/* ── BLUR IN ── */
+[data-reveal="blur-in"] {
+  transform: translate3d(0, 20px, 0);
+  filter: blur(10px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="blur-in"].revealed {
+  transform: translate3d(0, 0, 0);
+  filter: blur(0px);
+}
+
+/* ══════════════════════════════════════════
+   TEXT REVEAL (word-by-word)
+══════════════════════════════════════════ */
+.word-reveal {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.word-reveal-inner {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--word-index, 0) * 60ms);
+}
+.text-revealed .word-reveal-inner {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ══════════════════════════════════════════
+   MICRO-INTERACTIONS
+══════════════════════════════════════════ */
+
+/* ── Button hover glow pulse ── */
+.motion-ready .btn-store {
+  position: relative;
+  overflow: hidden;
+}
+.motion-ready .btn-store::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(94, 234, 212, 0.12) 0%,
+    transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.motion-ready .btn-store:hover::after {
+  opacity: 1;
+}
+
+/* ── Badge shimmer ── */
+.motion-ready .badge {
+  position: relative;
+  overflow: hidden;
+}
+.motion-ready .badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(94, 234, 212, 0.08),
+    transparent
+  );
+  animation: badge-shimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes badge-shimmer {
+  0%, 100% { left: -100%; }
+  50% { left: 200%; }
+}
+
+/* ── Eyebrow pill pulse ── */
+.motion-ready .eyebrow-pill {
+  animation: eyebrow-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes eyebrow-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(94, 234, 212, 0);
+    border-color: rgba(94, 234, 212, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 20px -4px rgba(94, 234, 212, 0.2);
+    border-color: rgba(94, 234, 212, 0.6);
+  }
+}
+
+/* ── Feature icon bounce on reveal ── */
+.motion-ready .feat-icon {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.motion-ready .feat-list li.revealed .feat-icon {
+  animation: feat-icon-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes feat-icon-pop {
+  0% { transform: scale(0) rotate(-15deg); }
+  60% { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ── Phone float animation (idle) ── */
+.motion-ready .hero-phone,
+.motion-ready .feature-phone {
+  animation: phone-float 6s ease-in-out infinite;
+}
+
+@keyframes phone-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ── Stat number glow ── */
+.motion-ready .stat-num {
+  transition: text-shadow 0.3s ease;
+}
+.motion-ready .stat-item:hover .stat-num {
+  text-shadow: 0 0 20px rgba(94, 234, 212, 0.5),
+               0 0 40px rgba(94, 234, 212, 0.25);
+}
+
+/* ── Download section shimmer border ── */
+.motion-ready .download-inner {
+  position: relative;
+  overflow: hidden;
+}
+.motion-ready .download-inner::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    var(--teal-400),
+    transparent,
+    var(--violet-400),
+    transparent
+  );
+  border-radius: inherit;
+  z-index: -1;
+  animation: border-rotate 8s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes border-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ── Nav link hover underline ── */
+.motion-ready .nav-link:not(.nav-cta) {
+  position: relative;
+}
+.motion-ready .nav-link:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.motion-ready .nav-link:not(.nav-cta):hover::after {
+  width: 60%;
+  left: 20%;
+}
+
+/* ── Footer link hover ── */
+.motion-ready .footer-links a {
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.motion-ready .footer-links a:hover {
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════════════
+   AMBIENT GLOW ORB ENHANCEMENTS
+══════════════════════════════════════════ */
+.motion-ready .glow-orb {
+  transition: opacity 1s ease;
+}
+.motion-ready .glow-orb-1 {
+  opacity: 0.1;
+  animation: orb-pulse-1 12s ease-in-out infinite alternate;
+}
+.motion-ready .glow-orb-2 {
+  opacity: 0.08;
+  animation: orb-pulse-2 15s ease-in-out infinite alternate;
+}
+
+@keyframes orb-pulse-1 {
+  0% { opacity: 0.06; filter: blur(100px); }
+  50% { opacity: 0.12; filter: blur(140px); }
+  100% { opacity: 0.08; filter: blur(120px); }
+}
+
+@keyframes orb-pulse-2 {
+  0% { opacity: 0.05; filter: blur(80px); }
+  50% { opacity: 0.1; filter: blur(120px); }
+  100% { opacity: 0.06; filter: blur(100px); }
+}
+
+/* ══════════════════════════════════════════
+   PREFERS REDUCED MOTION
+══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  .word-reveal-inner {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .scroll-progress,
+  .motion-ready .download-inner::before {
+    display: none;
+  }
+
+  .motion-ready .hero-phone,
+  .motion-ready .feature-phone,
+  .motion-ready .eyebrow-pill,
+  .motion-ready .glow-orb-1,
+  .motion-ready .glow-orb-2 {
+    animation: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE MOTION ADJUSTMENTS
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Reduce motion distances on mobile */
+  [data-reveal="fade-left"],
+  [data-reveal="fade-right"] {
+    transform: translate3d(0, 30px, 0);
+  }
+
+  .scroll-progress {
+    height: 2px;
+  }
+
+  .motion-ready .hero-phone,
+  .motion-ready .feature-phone {
+    animation-duration: 8s;
+  }
+
+  @keyframes phone-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+}
