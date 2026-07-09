@@ -21,7 +21,7 @@
     'hero.badge3': { en: 'Offline & Cloud', vi: 'Offline & Cloud' },
     'hero.appstore.small': { en: 'Download on the', vi: 'Tải xuống trên' },
     'hero.appstore.label': { en: 'App Store', vi: 'App Store' },
-    'hero.playstore.small': { en: 'Coming soon on', vi: 'Sắp có trên' },
+    'hero.playstore.small': { en: 'Get it on', vi: 'Tải trên' },
     'hero.playstore.label': { en: 'Google Play', vi: 'Google Play' },
 
     // Feature 1 — AutoEQ
@@ -66,7 +66,7 @@
     'dl.sub': { en: 'Free to download. No subscription required to play your local library.', vi: 'Tải miễn phí. Không cần đăng ký để phát thư viện nhạc của bạn.' },
     'dl.appstore.small': { en: 'Download on the', vi: 'Tải xuống trên' },
     'dl.appstore.label': { en: 'App Store', vi: 'App Store' },
-    'dl.playstore.small': { en: 'Coming soon on', vi: 'Sắp có trên' },
+    'dl.playstore.small': { en: 'Get it on', vi: 'Tải trên' },
     'dl.playstore.label': { en: 'Google Play', vi: 'Google Play' },
     'dl.fineprint': {
       en: 'Questions? <a href="/support">Visit Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>',
