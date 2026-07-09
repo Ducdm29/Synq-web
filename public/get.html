@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download Synq — Hi-Res Music Player</title>
+  <meta name="description" content="Download Synq for iOS or Android. True lossless audio, AutoEQ for 6,000+ headphones, and synced lyrics." />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    /* ── Redirect page specific styles ── */
+    .redirect-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: var(--space-6);
+      position: relative;
+      z-index: 1;
+    }
+
+    .redirect-card {
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .redirect-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-6);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--glow-md), var(--shadow-lg);
+    }
+
+    .redirect-title {
+      font-family: var(--font-display);
+      font-size: var(--text-h1);
+      font-weight: var(--weight-extrabold);
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--leading-tight);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .redirect-sub {
+      font-size: var(--text-body);
+      color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+      margin-bottom: var(--space-8);
+    }
+
+    /* Spinner shown during redirect */
+    .redirect-spinner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--surface-3);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .redirect-msg {
+      font-size: var(--text-label);
+      color: var(--accent);
+      font-weight: var(--weight-medium);
+    }
+
+    /* Store buttons (shown on desktop or as fallback) */
+    .redirect-stores {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .redirect-stores .btn-store {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      background: var(--surface-2);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-6);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-family: var(--font-body);
+      width: 260px;
+      transition: border-color var(--dur-base) var(--ease-out),
+                  background var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base) var(--ease-out),
+                  transform var(--dur-fast) var(--ease-out);
+    }
+
+    .redirect-stores .btn-store:hover {
+      border-color: var(--border-accent);
+      background: var(--surface-3);
+      box-shadow: var(--glow-sm);
+      transform: translateY(-2px);
+    }
+
+    .redirect-stores .btn-store:active {
+      transform: translateY(0);
+    }
+
+    .redirect-stores .btn-store svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .redirect-stores .btn-store span {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.2;
+    }
+
+    .redirect-stores .btn-store small {
+      font-size: var(--text-micro);
+      color: var(--text-tertiary);
+      font-weight: var(--weight-regular);
+    }
+
+    .redirect-stores .btn-store .store-name {
+      font-size: var(--text-title);
+      font-weight: var(--weight-semibold);
+    }
+
+    .redirect-or {
+      font-size: var(--text-caption);
+      color: var(--text-disabled);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-overline);
+      font-weight: var(--weight-semibold);
+    }
+
+    .redirect-footer {
+      margin-top: var(--space-8);
+      font-size: var(--text-caption);
+      color: var(--text-disabled);
+    }
+
+    .redirect-footer a {
+      color: var(--text-tertiary);
+    }
+
+    /* Hide/show states */
+    .hidden { display: none !important; }
+
+    /* Detected platform highlight */
+    .btn-store.detected {
+      border-color: var(--border-accent);
+      background: rgba(94, 234, 212, 0.06);
+      box-shadow: var(--glow-sm);
+    }
+
+    .detected-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      margin-left: var(--space-2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Ambient orbs -->
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="redirect-wrapper">
+  <div class="redirect-card">
+    <!-- Logo -->
+    <svg class="redirect-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="lg1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#5eead4" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="#0a0d10"/>
+      <circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+      <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/>
+      <path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+    </svg>
+
+    <h1 class="redirect-title">Download Synq</h1>
+    <p class="redirect-sub">Hi-Res music, tuned to your headphones.</p>
+
+    <!-- Spinner (shown during redirect) -->
+    <div class="redirect-spinner hidden" id="redirect-spinner">
+      <div class="spinner"></div>
+      <p class="redirect-msg" id="redirect-msg">Redirecting to store…</p>
+    </div>
+
+    <!-- Store buttons -->
+    <div class="redirect-stores" id="store-buttons">
+      <a href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036"
+         class="btn-store" id="btn-ios" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span>
+          <small>Download on the</small>
+          <span class="store-name">App Store</span>
+        </span>
+      </a>
+      <span class="redirect-or">or</span>
+      <a href="https://play.google.com/store/apps/details?id=com.synqmusic.app"
+         class="btn-store" id="btn-android" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
+        <span>
+          <small>Get it on</small>
+          <span class="store-name">Google Play</span>
+        </span>
+      </a>
+    </div>
+
+    <p class="redirect-footer">
+      <a href="/">synqmusic.app</a>
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var IOS_URL = 'https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036';
+  var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.synqmusic.app';
+
+  var ua = navigator.userAgent || '';
+
+  function isIOS() {
+    return /iPhone|iPad|iPod/i.test(ua) ||
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function isAndroid() {
+    return /Android/i.test(ua);
+  }
+
+  var spinner = document.getElementById('redirect-spinner');
+  var msg = document.getElementById('redirect-msg');
+  var storeButtons = document.getElementById('store-buttons');
+  var btnIos = document.getElementById('btn-ios');
+  var btnAndroid = document.getElementById('btn-android');
+
+  if (isIOS()) {
+    // Show spinner and redirect
+    spinner.classList.remove('hidden');
+    msg.textContent = 'Opening App Store…';
+    storeButtons.classList.add('hidden');
+
+    setTimeout(function () {
+      window.location.href = IOS_URL;
+    }, 800);
+
+    // Show buttons as fallback after 3s
+    setTimeout(function () {
+      spinner.classList.add('hidden');
+      storeButtons.classList.remove('hidden');
+      btnIos.classList.add('detected');
+    }, 3000);
+
+  } else if (isAndroid()) {
+    // Show spinner and redirect
+    spinner.classList.remove('hidden');
+    msg.textContent = 'Opening Google Play…';
+    storeButtons.classList.add('hidden');
+
+    setTimeout(function () {
+      window.location.href = ANDROID_URL;
+    }, 800);
+
+    // Show buttons as fallback after 3s
+    setTimeout(function () {
+      spinner.classList.add('hidden');
+      storeButtons.classList.remove('hidden');
+      btnAndroid.classList.add('detected');
+    }, 3000);
+
+  } else {
+    // Desktop / unknown — show both buttons
+    // No redirect, just present the options
+  }
+})();
+</script>
+</body>
+</html>
