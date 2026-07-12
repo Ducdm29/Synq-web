@@ -66,11 +66,12 @@
   --shadow-sm: 0 2px 8px rgba(0,0,0,.35);
   --shadow-md: 0 8px 24px rgba(0,0,0,.45);
   --shadow-lg: 0 18px 48px rgba(0,0,0,.55);
+  --shadow-xl: 0 30px 80px rgba(0,0,0,.62);
   --glow-sm: 0 0 16px rgba(94,234,212,.30);
   --glow-md: 0 0 28px rgba(94,234,212,.38);
   --glow-lg: 0 0 48px rgba(94,234,212,.45);
   --ring-top: inset 0 1px 0 rgba(255,255,255,.05);
-  --blur-nav: blur(20px) saturate(140%);
+  --blur-nav: blur(12px) saturate(130%);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22,1,0.36,1);
@@ -575,4 +576,158 @@ ul, ol { list-style: none; }
   .nav-link { padding: var(--space-2) var(--space-2); font-size: 13px; }
   .lang-toggle { margin-left: var(--space-1); }
   .lang-btn { padding: 3px 6px; font-size: 10px; }
+}
+
+/* ============================================================
+   MOTION LAYER — shared across all pages
+   Activated only when <html class="anim"> is set (see inline
+   head script). Reduced-motion users never get the class, so
+   everything below is a safe progressive enhancement.
+   ============================================================ */
+
+/* ---- Ambient orbs: gentle drift ----
+   Only `transform: translate` is animated (composited, no repaint).
+   Scale is avoided so the expensive blur layer is never re-rasterized. */
+html.anim .glow-orb-1 { animation: orb-float-1 26s ease-in-out infinite; }
+html.anim .glow-orb-2 { animation: orb-float-2 32s ease-in-out infinite; }
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(-50px, 40px, 0); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(55px, -35px, 0); }
+}
+
+/* ---- Nav: elevate on scroll ---- */
+.site-header {
+  transition: background var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.site-header.scrolled {
+  background: rgba(10, 13, 16, 0.82);
+  border-bottom-color: var(--border-default);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* ---- Logo: gentle breathe ---- */
+html.anim .nav-logo svg {
+  animation: logo-breathe 6s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes logo-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+.nav-logo:hover svg { animation-play-state: paused; }
+
+/* ---- Scroll reveal ---- */
+html.anim .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+html.anim .reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered children inside a revealed container */
+html.anim .reveal.reveal-stagger.in-view > * {
+  animation: rise-in 0.6s var(--ease-out) both;
+}
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(1) { animation-delay: 0.05s; }
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(2) { animation-delay: 0.12s; }
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(3) { animation-delay: 0.19s; }
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(4) { animation-delay: 0.26s; }
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(5) { animation-delay: 0.33s; }
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(6) { animation-delay: 0.40s; }
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(7) { animation-delay: 0.47s; }
+html.anim .reveal.reveal-stagger.in-view > *:nth-child(8) { animation-delay: 0.54s; }
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- Card & FAQ hover lift ---- */
+.card {
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-lg), var(--ring-top);
+}
+.faq-item { transition: border-color var(--dur-base) var(--ease-out),
+                        transform var(--dur-fast) var(--ease-out); }
+.faq-item:hover { transform: translateX(3px); }
+
+/* Contact card: breathing glow (composited pseudo, no per-frame repaint) */
+.contact-card { position: relative; }
+.contact-card > * { position: relative; z-index: 1; }
+html.anim .contact-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  box-shadow: var(--glow-md);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: card-glow 5s ease-in-out infinite;
+}
+@keyframes card-glow {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.7; }
+}
+
+/* ---- Primary button: sheen sweep ---- */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+}
+html.anim .btn-primary:hover::after {
+  animation: sheen 0.7s var(--ease-out);
+}
+@keyframes sheen {
+  0%   { left: -60%; opacity: 0; }
+  15%  { opacity: 1; }
+  100% { left: 130%; opacity: 0; }
+}
+
+/* ---- Animated accent gradient text (shared helper) ---- */
+html.anim .grad-accent {
+  background: linear-gradient(100deg, var(--teal-400), var(--teal-300), var(--violet-400), var(--teal-400));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: grad-shift 8s ease-in-out infinite;
+}
+@keyframes grad-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* ---- Respect reduced motion (belt & suspenders) ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
 }

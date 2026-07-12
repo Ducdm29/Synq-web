@@ -548,3 +548,163 @@
 
   .eyebrow-pill { font-size: 11px; }
 }
+
+/* ============================================================
+   HOME — MOTION LAYER
+   Gated behind <html class="anim">. Reduced-motion users are
+   never given the class, so content renders fully static.
+   ============================================================ */
+
+/* ---- Hero entrance (staggered fade-up on load) ---- */
+html.anim .eyebrow-pill,
+html.anim .hero-text h1,
+html.anim .hero-sub,
+html.anim .hero-badges,
+html.anim .hero-ctas,
+html.anim .hero-phone-wrap,
+html.anim .feature-banner-wrap {
+  animation: hero-in 0.8s var(--ease-out) both;
+}
+html.anim .eyebrow-pill      { animation-delay: 0.05s; }
+html.anim .hero-text h1      { animation-delay: 0.15s; }
+html.anim .hero-sub          { animation-delay: 0.28s; }
+html.anim .hero-badges       { animation-delay: 0.40s; }
+html.anim .hero-ctas         { animation-delay: 0.52s; }
+html.anim .hero-phone-wrap   { animation-delay: 0.35s; }
+html.anim .feature-banner-wrap { animation-delay: 0.65s; }
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- Eyebrow pill: soft pulsing halo ---- */
+html.anim .eyebrow-pill {
+  position: relative;
+}
+html.anim .eyebrow-pill::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 var(--accent-soft-strong);
+  animation: pill-pulse 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes pill-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(94,234,212,0.28); }
+  50%      { box-shadow: 0 0 14px 2px rgba(94,234,212,0.16); }
+}
+
+/* ---- Static gradient on accent (em) words ----
+   Kept static: background-clip:text can't be composited, so animating
+   it repaints every frame. A fixed gradient looks just as vivid, free. */
+html.anim .hero-text h1 em,
+html.anim .feature-text h2 em,
+html.anim .download-inner h2 {
+  background: linear-gradient(100deg, var(--teal-400) 0%, var(--teal-300) 40%, var(--violet-400) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---- Hero phone: floating + hover base ---- */
+html.anim .hero-phone {
+  animation: phone-float 6.5s ease-in-out infinite;
+}
+@keyframes phone-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+.hero-phone,
+.feature-phone {
+  transition: transform var(--dur-slow) var(--ease-out),
+              box-shadow var(--dur-slow) var(--ease-out);
+}
+.feature-phone-wrap:hover .feature-phone,
+.hero-phone-wrap:hover .hero-phone {
+  box-shadow: var(--shadow-xl), var(--glow-md);
+}
+
+/* ---- Feature phones: gentle drift (offset per row) ---- */
+html.anim .feat-phone-right .feature-phone { animation: phone-float 7.5s ease-in-out infinite; }
+html.anim .feat-phone-left  .feature-phone { animation: phone-float 8.2s ease-in-out infinite 0.6s; }
+
+/* ---- Feature icon check: pop when row reveals ---- */
+html.anim .feature-row.in-view .feat-icon,
+html.anim .feat-row-reverse.in-view .feat-icon {
+  animation: icon-pop 0.5s var(--ease-spring) both;
+}
+html.anim .feature-row.in-view .feat-list li:nth-child(1) .feat-icon { animation-delay: 0.15s; }
+html.anim .feature-row.in-view .feat-list li:nth-child(2) .feat-icon { animation-delay: 0.25s; }
+html.anim .feature-row.in-view .feat-list li:nth-child(3) .feat-icon { animation-delay: 0.35s; }
+html.anim .feat-row-reverse.in-view .feat-list li:nth-child(1) .feat-icon { animation-delay: 0.15s; }
+html.anim .feat-row-reverse.in-view .feat-list li:nth-child(2) .feat-icon { animation-delay: 0.25s; }
+html.anim .feat-row-reverse.in-view .feat-list li:nth-child(3) .feat-icon { animation-delay: 0.35s; }
+@keyframes icon-pop {
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* ---- Store buttons: sheen sweep on hover ---- */
+.btn-store { position: relative; overflow: hidden; }
+.btn-store::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.28), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+html.anim .btn-store:hover::after {
+  animation: store-sheen 0.75s var(--ease-out);
+}
+@keyframes store-sheen {
+  0%   { left: -70%; opacity: 0; }
+  15%  { opacity: 1; }
+  100% { left: 140%; opacity: 0; }
+}
+
+/* ---- Stats: hover + reveal ---- */
+.stat-item {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.stat-item:hover { transform: translateY(-4px); }
+.stat-num {
+  display: inline-block;
+  transition: transform var(--dur-base) var(--ease-spring),
+              text-shadow var(--dur-base) var(--ease-out);
+}
+.stat-item:hover .stat-num {
+  transform: scale(1.08);
+  text-shadow: var(--glow-sm);
+}
+
+/* ---- Download CTA: soft breathing glow ----
+   Glow uses a composited pseudo-element (opacity), not an animated
+   box-shadow, so it never triggers a repaint of the card itself. */
+.download-inner { position: relative; }
+.download-inner > * { position: relative; z-index: 1; }
+html.anim .download-inner::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  box-shadow: var(--glow-lg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: dl-glow 6s ease-in-out infinite;
+}
+@keyframes dl-glow {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.85; }
+}
+
+/* Download heading uses its own gradient — override sizing quirk */
+html.anim .download-inner h2 { display: inline-block; }

@@ -7,6 +7,7 @@
   <meta name="description" content="Download Synq for iOS or Android. True lossless audio, AutoEQ for 6,000+ headphones, and synced lyrics." />
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <style>
     /* ── Redirect page specific styles ── */
     .redirect-wrapper {
@@ -155,6 +156,22 @@
 
     .redirect-footer a {
       color: var(--text-tertiary);
+    }
+
+    /* Motion (only when html.anim is set) */
+    html.anim .redirect-card {
+      animation: card-in 0.7s var(--ease-out) both;
+    }
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to   { opacity: 1; transform: none; }
+    }
+    html.anim .redirect-logo {
+      animation: logo-float 5s ease-in-out infinite;
+    }
+    @keyframes logo-float {
+      0%, 100% { transform: translateY(0); box-shadow: var(--glow-md), var(--shadow-lg); }
+      50%      { transform: translateY(-8px); box-shadow: var(--glow-lg), var(--shadow-lg); }
     }
 
     /* Hide/show states */

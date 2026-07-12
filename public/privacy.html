@@ -7,6 +7,7 @@
   <meta name="description" content="Read the Synq Music Player privacy policy. Learn how we collect, use, and protect your data." />
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3185559875440369"
      crossorigin="anonymous"></script>
@@ -53,7 +54,7 @@
   <main class="page-main" id="main-content">
 
     <!-- Hero -->
-    <section class="page-hero" aria-labelledby="privacy-heading">
+    <section class="page-hero reveal reveal-stagger" aria-labelledby="privacy-heading">
       <span class="eyebrow" data-i18n="privacy.eyebrow">Legal</span>
       <h1 id="privacy-heading" data-i18n="privacy.heading">Privacy Policy</h1>
       <p class="subtitle" data-i18n="privacy.subtitle">
@@ -71,7 +72,7 @@
     <article aria-label="Privacy Policy content">
 
       <!-- 1. Introduction -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">1</span>
           Introduction
@@ -90,7 +91,7 @@
       <hr class="divider" />
 
       <!-- 2. Information We Collect -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">2</span>
           Information We Collect
@@ -121,7 +122,7 @@
       <hr class="divider" />
 
       <!-- 3. How We Use Your Information -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">3</span>
           How We Use Your Information
@@ -145,7 +146,7 @@
       <hr class="divider" />
 
       <!-- 4. Data Sharing -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">4</span>
           Data Sharing and Disclosure
@@ -171,7 +172,7 @@
       <hr class="divider" />
 
       <!-- 5. Data Retention -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">5</span>
           Data Retention
@@ -187,7 +188,7 @@
       <hr class="divider" />
 
       <!-- 6. Your Rights -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">6</span>
           Your Rights and Choices
@@ -208,7 +209,7 @@
       <hr class="divider" />
 
       <!-- 7. Security -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">7</span>
           Security
@@ -224,7 +225,7 @@
       <hr class="divider" />
 
       <!-- 8. Children's Privacy -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">8</span>
           Children's Privacy
@@ -237,7 +238,7 @@
       <hr class="divider" />
 
       <!-- 9. Third-Party Services -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">9</span>
           Third-Party Services
@@ -253,7 +254,7 @@
       <hr class="divider" />
 
       <!-- 10. Changes -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">10</span>
           Changes to This Privacy Policy
@@ -269,7 +270,7 @@
       <hr class="divider" />
 
       <!-- 11. Contact -->
-      <section class="policy-section">
+      <section class="policy-section reveal">
         <h2>
           <span class="num" aria-hidden="true">11</span>
           Contact Us
@@ -289,7 +290,7 @@
     </article>
 
     <!-- Contact CTA -->
-    <div class="contact-card" aria-labelledby="privacy-contact-heading">
+    <div class="contact-card reveal" aria-labelledby="privacy-contact-heading">
       <p class="contact-label" data-i18n="privacy.contact.label">Questions about your data?</p>
       <h2 id="privacy-contact-heading" data-i18n="privacy.contact.heading">We're here to help</h2>
       <p data-i18n="privacy.contact.desc">
@@ -318,6 +319,7 @@
 </div>
 
 <script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     if (window.lucide) { lucide.createIcons(); }

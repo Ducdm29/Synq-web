@@ -9,6 +9,7 @@
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/home.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3185559875440369"
      crossorigin="anonymous"></script>
 </head>
@@ -116,7 +117,7 @@
     ══════════════════════════════════════════ -->
 
     <!-- Feature 1 — AutoEQ -->
-    <section class="feature-row" aria-labelledby="feat1-heading">
+    <section class="feature-row reveal" aria-labelledby="feat1-heading">
       <div class="feature-text feat-text-left">
         <span class="feat-eyebrow" data-i18n="feat1.eyebrow">AutoEQ</span>
         <h2 id="feat1-heading" data-i18n="feat1.heading" data-i18n-html>Tuned to your <em>headphones</em></h2>
@@ -148,7 +149,7 @@
     </section>
 
     <!-- Feature 2 — Library -->
-    <section class="feature-row feat-row-reverse" aria-labelledby="feat2-heading">
+    <section class="feature-row feat-row-reverse reveal" aria-labelledby="feat2-heading">
       <div class="feature-phone-wrap feat-phone-left">
         <img src="/store/Synq_appstore_67_3_1290x2796.png" alt="Library screen" class="feature-phone" loading="lazy" width="220" />
       </div>
@@ -174,7 +175,7 @@
     </section>
 
     <!-- Feature 3 — For You / Stats -->
-    <section class="feature-row" aria-labelledby="feat3-heading">
+    <section class="feature-row reveal" aria-labelledby="feat3-heading">
       <div class="feature-text feat-text-left">
         <span class="feat-eyebrow" data-i18n="feat3.eyebrow">For You</span>
         <h2 id="feat3-heading" data-i18n="feat3.heading" data-i18n-html>Made for the way <em>you listen</em></h2>
@@ -206,7 +207,7 @@
     </section>
 
     <!-- Feature 4 — Lyrics -->
-    <section class="feature-row feat-row-reverse" aria-labelledby="feat4-heading">
+    <section class="feature-row feat-row-reverse reveal" aria-labelledby="feat4-heading">
       <div class="feature-phone-wrap feat-phone-left">
         <img src="/store/Synq_appstore_67_5_1290x2796.png" alt="Synced Lyrics screen" class="feature-phone" loading="lazy" width="220" />
       </div>
@@ -240,7 +241,7 @@
     <!-- ══════════════════════════════════════════
          STATS STRIP
     ══════════════════════════════════════════ -->
-    <section class="stats-strip" aria-label="App stats">
+    <section class="stats-strip reveal reveal-stagger" aria-label="App stats">
       <div class="stat-item">
         <span class="stat-num">6,000<span class="stat-plus">+</span></span>
         <span class="stat-label" data-i18n="stat.headphones">Headphone profiles</span>
@@ -260,7 +261,7 @@
     <!-- ══════════════════════════════════════════
          DOWNLOAD CTA
     ══════════════════════════════════════════ -->
-    <section class="download-section" id="download" aria-labelledby="download-heading">
+    <section class="download-section reveal" id="download" aria-labelledby="download-heading">
       <div class="download-inner">
         <span class="eyebrow" data-i18n="dl.eyebrow">Download free</span>
         <h2 id="download-heading" data-i18n="dl.heading">Start listening better, today.</h2>
@@ -304,6 +305,7 @@
 </div><!-- /site-wrapper -->
 
 <script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
