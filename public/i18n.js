@@ -78,6 +78,7 @@
     'footer.support': { en: 'Support', vi: 'Hỗ trợ' },
     'footer.privacy': { en: 'Privacy Policy', vi: 'Chính sách bảo mật' },
     'footer.contact': { en: 'Contact', vi: 'Liên hệ' },
+    'footer.delete': { en: 'Delete Account', vi: 'Xóa tài khoản' },
 
     // ─── DELETE ACCOUNT PAGE ───
     'del.eyebrow': { en: 'Legal', vi: 'Pháp lý' },
