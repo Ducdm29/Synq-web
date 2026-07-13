@@ -79,6 +79,42 @@
     'footer.privacy': { en: 'Privacy Policy', vi: 'Chính sách bảo mật' },
     'footer.contact': { en: 'Contact', vi: 'Liên hệ' },
 
+    // ─── DELETE ACCOUNT PAGE ───
+    'del.eyebrow': { en: 'Legal', vi: 'Pháp lý' },
+    'del.heading': { en: 'Delete Your Account', vi: 'Xóa tài khoản' },
+    'del.subtitle': {
+      en: 'You can delete your Synq account and the data linked to it at any time. This page explains how, and exactly what is removed.',
+      vi: 'Bạn có thể xóa tài khoản Synq và dữ liệu liên kết bất cứ lúc nào. Trang này hướng dẫn cách làm và nêu rõ những gì sẽ bị xóa.'
+    },
+    'del.updated': { en: 'Last updated: July 14, 2026', vi: 'Cập nhật lần cuối: 14 tháng 7, 2026' },
+
+    'del.s1.h': { en: 'Delete from inside the app', vi: 'Xóa ngay trong ứng dụng' },
+    'del.s1.p': {
+      en: 'Signing in is optional in Synq — the app works fully offline. If you did sign in to sync across devices, you can delete your account directly in the app:',
+      vi: 'Đăng nhập là tùy chọn trong Synq — ứng dụng chạy hoàn toàn offline. Nếu bạn đã đăng nhập để đồng bộ đa thiết bị, bạn có thể xóa tài khoản ngay trong ứng dụng:'
+    },
+    'del.s1.li1': { en: 'Open <strong>Synq</strong> and go to the <strong>Account</strong> screen (Settings → Account).', vi: 'Mở <strong>Synq</strong> và vào màn hình <strong>Tài khoản</strong> (Cài đặt → Tài khoản).' },
+    'del.s1.li2': { en: 'Tap <strong>Delete account</strong>.', vi: 'Chạm <strong>Xóa tài khoản</strong>.' },
+    'del.s1.li3': { en: 'Confirm. Your account and its synced data are permanently removed from our servers.', vi: 'Xác nhận. Tài khoản và dữ liệu đã đồng bộ sẽ bị xóa vĩnh viễn khỏi máy chủ của chúng tôi.' },
+
+    'del.s2.h': { en: 'What is deleted', vi: 'Những gì bị xóa' },
+    'del.s2.p': { en: 'Deleting your account permanently removes the data we hold for that account:', vi: 'Xóa tài khoản sẽ xóa vĩnh viễn dữ liệu chúng tôi lưu cho tài khoản đó:' },
+    'del.s2.li1': { en: 'Your account profile — email address, display name, and account ID.', vi: 'Hồ sơ tài khoản — địa chỉ email, tên hiển thị và ID tài khoản.' },
+    'del.s2.li2': { en: 'Synced listening history (track title, artist, album, and play time).', vi: 'Lịch sử nghe đã đồng bộ (tên bài, nghệ sĩ, album và thời lượng nghe).' },
+    'del.s2.li3': { en: 'Synced equalizer (EQ) profiles.', vi: 'Các hồ sơ EQ đã đồng bộ.' },
+    'del.s2.retention': { en: 'This data is deleted within <strong>30 days</strong>, except where we must retain limited records for legal or financial compliance.', vi: 'Dữ liệu này bị xóa trong vòng <strong>30 ngày</strong>, trừ khi chúng tôi buộc phải giữ một số hồ sơ hạn chế để tuân thủ pháp lý hoặc tài chính.' },
+
+    'del.s3.h': { en: 'What is not affected', vi: 'Những gì KHÔNG bị ảnh hưởng' },
+    'del.s3.li1': { en: 'Your <strong>music files</strong> and any data stored only on your device — Synq never uploads your audio files.', vi: '<strong>Tệp nhạc</strong> và dữ liệu chỉ lưu trên thiết bị của bạn — Synq không bao giờ tải tệp âm thanh của bạn lên.' },
+    'del.s3.li2': { en: 'The app keeps working offline after deletion; you can sign in again anytime to start a fresh account.', vi: 'Ứng dụng vẫn chạy offline sau khi xóa; bạn có thể đăng nhập lại bất cứ lúc nào để tạo tài khoản mới.' },
+
+    'del.s4.h': { en: "Can't access the app?", vi: 'Không vào được ứng dụng?' },
+    'del.s4.p': { en: "If you can't sign in to delete your account yourself, email us from the address linked to your account and we'll delete it for you within 30 days:", vi: 'Nếu bạn không thể đăng nhập để tự xóa, hãy gửi email từ địa chỉ liên kết với tài khoản của bạn, chúng tôi sẽ xóa giúp trong vòng 30 ngày:' },
+
+    'del.contact.label': { en: 'Need help?', vi: 'Cần hỗ trợ?' },
+    'del.contact.heading': { en: "We'll handle your request", vi: 'Chúng tôi sẽ xử lý yêu cầu của bạn' },
+    'del.contact.desc': { en: 'Questions about account deletion or your data? Reach out and we\'ll help.', vi: 'Có thắc mắc về việc xóa tài khoản hoặc dữ liệu? Hãy liên hệ, chúng tôi sẽ giúp.' },
+
     // ─── SUPPORT PAGE ───
     'support.eyebrow': { en: 'Help Center', vi: 'Trung tâm hỗ trợ' },
     'support.heading': { en: 'How can we help you?', vi: 'Chúng tôi có thể giúp gì?' },

@@ -3,6 +3,7 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/support", "destination": "/support.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/delete-account", "destination": "/delete-account.html" },
     { "source": "/get", "destination": "/get.html" }
   ],
   "headers": [
