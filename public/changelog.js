@@ -112,6 +112,12 @@
       .replace(/>/g, '&gt;');
   }
 
+  var APPSTORE_URL = 'https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036';
+  var PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.synqmusic.app';
+  var APPLE_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>';
+  var PLAY_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>';
+  var DL_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>';
+
   function renderLatest(lang) {
     var host = document.getElementById('latest-download');
     if (!host) return;
@@ -123,17 +129,19 @@
         '<h2>' + esc(t(STR.dlTitle, lang)) + ' <span class="dl-latest-ver">v' + esc(apk.version) + '</span></h2>' +
         '<p class="dl-latest-meta">' + esc(t(STR.dlMeta, lang)) + size + '</p>' +
       '</div>' +
-      '<a class="btn-primary dl-latest-btn" href="' + esc(apk.url) + '" download>' +
-        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>' +
-        '<span>' + esc(t(STR.dlBtn, lang)) + '</span>' +
-      '</a>';
+      '<div class="dl-latest-actions">' +
+        '<a class="cl-btn cl-btn-apk" href="' + esc(apk.url) + '" download>' + DL_ICON +
+          '<span>' + esc(t(STR.dlBtn, lang)) + '</span></a>' +
+        '<a class="cl-btn cl-btn-appstore" href="' + APPSTORE_URL + '" target="_blank" rel="noopener">' + APPLE_ICON +
+          '<span>App Store</span></a>' +
+        '<a class="cl-btn cl-btn-playstore" href="' + PLAYSTORE_URL + '" target="_blank" rel="noopener">' + PLAY_ICON +
+          '<span>Google Play</span></a>' +
+      '</div>';
   }
 
   function renderNote(lang) {
     var el = document.getElementById('sideload-note');
     if (el) el.textContent = t(STR.sideloadNote, lang);
-    var hint = document.getElementById('latest-hint');
-    if (hint) hint.innerHTML = t(STR.dlHint, lang);
   }
 
   function renderTimeline(lang) {

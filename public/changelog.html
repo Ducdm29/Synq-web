@@ -58,16 +58,46 @@
       color: var(--text-tertiary);
       margin-top: var(--space-2);
     }
-    .dl-latest-btn { flex-shrink: 0; }
-    .dl-latest-btn svg { flex-shrink: 0; }
-
-    #latest-hint {
-      font-size: var(--text-caption);
-      color: var(--text-tertiary);
-      margin-bottom: var(--space-4);
+    /* Latest download action buttons (APK + stores) */
+    .dl-latest-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
     }
-    #latest-hint a { color: var(--accent); }
-    #latest-hint a:hover { text-decoration: underline; }
+    .cl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      height: 46px;
+      padding: 0 var(--space-5);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-weight: var(--weight-semibold);
+      font-size: var(--text-label);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out),
+                  background var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out);
+    }
+    .cl-btn svg { flex-shrink: 0; }
+    .cl-btn:hover { transform: translateY(-2px); }
+    .cl-btn-apk {
+      background: var(--accent);
+      color: var(--text-on-accent);
+      box-shadow: var(--glow-md);
+    }
+    .cl-btn-apk:hover { background: var(--accent-hover); box-shadow: var(--glow-lg); color: var(--text-on-accent); }
+    .cl-btn-appstore { background: var(--text-primary); color: var(--ink-900); box-shadow: var(--shadow-sm); }
+    .cl-btn-appstore:hover { color: var(--ink-900); box-shadow: var(--shadow-md); }
+    .cl-btn-playstore {
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+    }
+    .cl-btn-playstore:hover { border-color: var(--accent); box-shadow: var(--glow-sm); color: var(--text-primary); }
 
     .sideload-note {
       display: flex;
@@ -232,7 +262,6 @@
 
     <!-- Latest download (rendered by changelog.js) -->
     <div id="latest-download" aria-live="polite"><!-- injected --></div>
-    <p id="latest-hint"><!-- injected --></p>
 
     <!-- Sideload note -->
     <div class="sideload-note">
