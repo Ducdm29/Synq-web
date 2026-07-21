@@ -708,3 +708,32 @@ html.anim .download-inner::before {
 
 /* Download heading uses its own gradient — override sizing quirk */
 html.anim .download-inner h2 { display: inline-block; }
+
+/* ── Direct APK download row (below store buttons) ── */
+.dl-apk-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.btn-apk {
+  background: var(--accent-soft);
+  border: 1px solid var(--border-accent);
+  color: var(--accent);
+  box-shadow: none;
+}
+.btn-apk small { color: var(--text-tertiary); }
+.btn-apk .store-name { color: var(--text-primary); }
+.btn-apk:hover {
+  transform: scale(1.04);
+  background: var(--accent-soft-strong);
+  box-shadow: var(--glow-sm);
+  color: var(--accent);
+}
+.dl-whatsnew-link {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+}
+.dl-whatsnew-link:hover { color: var(--accent); }

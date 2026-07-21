@@ -248,10 +248,18 @@
           <span class="store-name">Google Play</span>
         </span>
       </a>
+      <span class="redirect-or" data-i18n="get.or2">or install directly</span>
+      <a href="#" class="btn-store" id="btn-apk" data-apk-link download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span>
+          <small data-i18n="dl.apkMeta">Direct install · Android 8+</small>
+          <span class="store-name" data-i18n="dl.apk">Download APK (Android)</span>
+        </span>
+      </a>
     </div>
 
     <p class="redirect-footer">
-      <a href="/">synqstudio.cloud</a>
+      <a href="/changelog" data-i18n="nav.changelog">What's New</a> · <a href="/">synqstudio.cloud</a>
     </p>
   </div>
 </div>
@@ -320,6 +328,8 @@
   }
 })();
 </script>
+<script src="/i18n.js"></script>
+<script src="/apk.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

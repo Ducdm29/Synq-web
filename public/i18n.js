@@ -11,6 +11,19 @@
     'nav.privacyPolicy': { en: 'Privacy Policy', vi: 'Chính sách bảo mật' },
     'nav.privacyShort': { en: 'Privacy', vi: 'Bảo mật' },
     'nav.download': { en: 'Download', vi: 'Tải xuống' },
+    'nav.changelog': { en: "What's New", vi: 'Có gì mới' },
+
+    // Changelog page
+    'cl.eyebrow': { en: 'Release Notes', vi: 'Nhật ký cập nhật' },
+    'cl.heading': { en: "What's new in Synq", vi: 'Có gì mới trong Synq' },
+    'cl.subtitle': { en: 'Every improvement, fix and new feature — and the latest build to download.', vi: 'Mọi cải tiến, sửa lỗi và tính năng mới — cùng bản mới nhất để tải.' },
+    'cl.history': { en: 'Version history', vi: 'Lịch sử phiên bản' },
+
+    // Direct APK (home + get page)
+    'dl.apk': { en: 'Download APK (Android)', vi: 'Tải APK (Android)' },
+    'dl.apkMeta': { en: 'Direct install · Android 8+', vi: 'Cài trực tiếp · Android 8+' },
+    'dl.whatsnew': { en: "See what's new →", vi: 'Xem có gì mới →' },
+    'get.or2': { en: 'or install directly', vi: 'hoặc cài trực tiếp' },
 
     // Hero
     'hero.eyebrow': { en: '✦ Now available on iOS & Android', vi: '✦ Đã có trên iOS & Android' },

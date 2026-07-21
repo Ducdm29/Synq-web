@@ -41,6 +41,7 @@
       </a>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
         <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
         <a href="#download" class="nav-link nav-cta" id="nav-download-btn" data-i18n="nav.download">Download</a>
         <!-- Language toggle -->
@@ -282,6 +283,16 @@
             </span>
           </a>
         </div>
+        <div class="dl-apk-row">
+          <a class="btn-store btn-apk" data-apk-link href="#" download aria-label="Download Android APK">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+            <span>
+              <small data-i18n="dl.apkMeta">Direct install · Android 8+</small>
+              <span class="store-name" data-i18n="dl.apk">Download APK (Android)</span>
+            </span>
+          </a>
+          <a class="dl-whatsnew-link" href="/changelog" data-i18n="dl.whatsnew">See what's new →</a>
+        </div>
         <p class="dl-fine-print" data-i18n="dl.fineprint" data-i18n-html>
           Questions? <a href="/support">Visit Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
         </p>
@@ -306,6 +317,7 @@
 </div><!-- /site-wrapper -->
 
 <script src="/i18n.js"></script>
+<script src="/apk.js"></script>
 <script src="/enhance.js" defer></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
