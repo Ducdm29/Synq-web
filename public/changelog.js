@@ -79,8 +79,8 @@
   /* ---- Chuỗi giao diện (EN/VI) ---- */
   var STR = {
     latestBadge: { en: 'Latest', vi: 'Mới nhất' },
-    dlTitle: { en: 'Synq for Android', vi: 'Synq cho Android' },
-    dlMeta: { en: 'Direct APK · Android 8+', vi: 'APK cài trực tiếp · Android 8+' },
+    dlTitle: { en: 'Get Synq', vi: 'Tải Synq' },
+    dlMeta: { en: 'iOS & Android', vi: 'iOS & Android' },
     dlBtn: { en: 'Download APK', vi: 'Tải APK' },
     dlHint: {
       en: 'Prefer the store? Get it on <a href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">Google Play</a> or the <a href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">App Store</a>.',
@@ -130,8 +130,9 @@
         '<p class="dl-latest-meta">' + esc(t(STR.dlMeta, lang)) + size + '</p>' +
       '</div>' +
       '<div class="dl-latest-actions">' +
-        '<a class="cl-btn cl-btn-apk" href="' + esc(apk.url) + '" download>' + DL_ICON +
-          '<span>' + esc(t(STR.dlBtn, lang)) + '</span></a>' +
+        // APK sideload tạm ẩn (kẹt in-app-update Play). Bật lại: bỏ comment dòng dưới.
+        // '<a class="cl-btn cl-btn-apk" href="' + esc(apk.url) + '" download>' + DL_ICON +
+        //   '<span>' + esc(t(STR.dlBtn, lang)) + '</span></a>' +
         '<a class="cl-btn cl-btn-appstore" href="' + APPSTORE_URL + '" target="_blank" rel="noopener">' + APPLE_ICON +
           '<span>App Store</span></a>' +
         '<a class="cl-btn cl-btn-playstore" href="' + PLAYSTORE_URL + '" target="_blank" rel="noopener">' + PLAY_ICON +
@@ -140,8 +141,12 @@
   }
 
   function renderNote(lang) {
+    // Ghi chú sideload APK tạm ẩn cùng nút APK. Bật lại: bỏ khối dưới +
+    // đặt lại el.textContent = t(STR.sideloadNote, lang).
     var el = document.getElementById('sideload-note');
-    if (el) el.textContent = t(STR.sideloadNote, lang);
+    if (!el) return;
+    var box = el.closest('.sideload-note');
+    if (box) box.style.display = 'none';
   }
 
   function renderTimeline(lang) {

@@ -90,6 +90,10 @@
                 <span data-i18n="hero.playstore.label">Google Play</span>
               </span>
             </a>
+            <!-- APK sideload tạm ẩn: bản APK ký-Play khi sideload bị kẹt luồng
+                 in-app-update của Google Play (bắt update nhưng update không chạy).
+                 Bật lại: bỏ comment khối dưới. -->
+            <!--
             <a class="btn-store btn-apk" data-apk-link href="#" download aria-label="Download Android APK">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
               <span>
@@ -97,6 +101,7 @@
                 <span class="store-name" data-i18n="dl.apk">Download APK (Android)</span>
               </span>
             </a>
+            -->
           </div>
         </div>
         <div class="hero-phone-wrap" aria-hidden="true">
@@ -291,6 +296,7 @@
           </a>
         </div>
         <div class="dl-apk-row">
+          <!-- APK sideload tạm ẩn (kẹt in-app-update Play). Bật lại: bỏ comment.
           <a class="btn-store btn-apk" data-apk-link href="#" download aria-label="Download Android APK">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
             <span>
@@ -298,6 +304,7 @@
               <span class="store-name" data-i18n="dl.apk">Download APK (Android)</span>
             </span>
           </a>
+          -->
           <a class="dl-whatsnew-link" href="/changelog" data-i18n="dl.whatsnew">See what's new →</a>
         </div>
         <p class="dl-fine-print" data-i18n="dl.fineprint" data-i18n-html>
