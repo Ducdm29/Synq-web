@@ -10,7 +10,7 @@
 (function () {
   'use strict';
 
-  var APK_VERSION = '1.3.0';   // ⬅ mỗi bản mới chỉ cần sửa dòng này (versionCode 7)
+  var APK_VERSION = '1.4.0';   // ⬅ mỗi bản mới chỉ cần sửa dòng này (versionCode 8)
   var APK_SIZE_MB = 78;        // dung lượng ~ (MB) để hiện cho người tải
 
   // URL công khai trên Cloudflare R2 (bucket synq-sample-audio, gắn
