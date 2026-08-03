@@ -11,10 +11,35 @@
   /* ---- Dữ liệu phát hành (mới nhất lên đầu) ---- */
   var RELEASES = [
     {
+      version: '1.4.0',
+      date: { en: 'August 3, 2026', vi: '3 tháng 8, 2026' },
+      platforms: ['Android', 'iOS'],
+      latest: true,
+      notes: {
+        en: [
+          'Silent or crackling USB DAC? The app now auto-recovers to your device output — no more dead silence mid-song.',
+          'Native DSD playback (DoP + raw DSD up to DSD128), with hardware USB volume even when the screen is off.',
+          'Stream your NAS over WebDAV, plus fast A–Z scrolling for large cloud libraries.',
+          'Community: listening leaderboards, badges synced to your account, and a nickname (or stay anonymous).',
+          'New $0.99/month plan unlocks everything for a full month.',
+          'Multi-select to favourite or add to playlists across your whole library and cloud; separate Auto/Manual lyrics tabs; your mini-player and queue survive an app restart.',
+          '17 bug fixes: Purist Mode no longer switches itself off, FLAC no longer stutters, ALAC (.m4a) plays, Google/Apple sign-in crash fixed, smoother shuffle, and more.'
+        ],
+        vi: [
+          'DAC USB bị câm hoặc rè? App tự khôi phục về ngõ ra máy — không còn im bặt giữa bài.',
+          'Phát DSD gốc (DoP + raw DSD tới DSD128), chỉnh âm lượng phần cứng USB kể cả khi tắt màn hình.',
+          'Stream nhạc từ NAS qua WebDAV, thanh cuộn A–Z nhanh cho thư viện cloud lớn.',
+          'Cộng đồng: bảng xếp hạng nghe, huy hiệu đồng bộ theo tài khoản, đặt biệt danh (hoặc ẩn danh).',
+          'Gói $0.99/tháng mở khoá toàn bộ trong một tháng.',
+          'Chọn nhiều bài để thả tim hoặc thêm vào playlist trên toàn thư viện + cloud; tách tab lời Auto/Tự chọn; giữ mini-player và hàng đợi sau khi khởi động lại app.',
+          '17 sửa lỗi: Purist hết tự tắt, FLAC hết giật, phát được ALAC (.m4a), hết crash đăng nhập Google/Apple, shuffle mượt hơn, v.v.'
+        ]
+      }
+    },
+    {
       version: '1.3.0',
       date: { en: 'July 14, 2026', vi: '14 tháng 7, 2026' },
       platforms: ['iOS', 'Android'],
-      latest: true,
       notes: {
         en: [
           'USB bit-perfect playback for external DACs — native sample rate, up to 32-bit.',
