@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nghe cả kho nhạc ở NAS/máy tính qua Synq — Hướng dẫn đầy đủ</title>
-  <meta name="description" content="Hướng dẫn từng bước cho người không rành kỹ thuật: dựng máy chủ WebDAV trên NAS, Windows hoặc Ubuntu, rồi nghe nhạc lossless qua Synq khi ở nhà và khi đi ngoài đường bằng 4G/5G." />
+  <meta name="description" content="Hướng dẫn từng bước cho người không rành kỹ thuật: dựng máy chủ WebDAV trên NAS, Windows hoặc Ubuntu, rồi nghe nhạc lossless qua Synq khi ở nhà và khi đi ở ngoài đường bằng 4G/5G." />
   <link rel="canonical" href="https://synqstudio.cloud/guides/nas-setup" />
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="stylesheet" href="/styles.css" />
@@ -173,11 +173,11 @@
 
     <div class="prose">
 
-      <p>Bạn có cả một ổ cứng đầy nhạc FLAC/DSD ở nhà — trong NAS, hoặc ngay trên máy tính — nhưng không muốn chép qua chép lại vào điện thoại? Synq có thể phát thẳng kho nhạc đó vào điện thoại của bạn qua một giao thức tên là <strong>WebDAV</strong>. Nhạc được phát bit-perfect (đúng nguyên bản, không nén lại), và app <strong>không bao giờ chỉnh sửa file gốc</strong>. Dù ở nhà hay đang đi ngoài đường bằng 4G/5G, bạn đều nghe được.</p>
+      <p>Bạn có cả một ổ cứng đầy nhạc FLAC/DSD ở nhà — trong NAS, hoặc ngay trên máy tính — nhưng không muốn chép qua chép lại vào điện thoại? Synq có thể phát thẳng kho nhạc đó vào điện thoại của bạn qua một giao thức tên là <strong>WebDAV</strong>. Nhạc được phát bit-perfect (đúng nguyên bản, không nén lại), và app <strong>không bao giờ chỉnh sửa file gốc</strong>. Dù ở nhà hay đang đi ở ngoài đường bằng 4G/5G, bạn đều nghe được.</p>
 
       <!-- SƠ ĐỒ TỔNG QUAN -->
       <figure>
-        <svg viewBox="0 0 820 320" role="img" aria-label="Sơ đồ: điện thoại chạy Synq kết nối tới NAS/máy tính ở nhà qua WiFi khi ở nhà, và qua Internet (Tailscale/Cloudflare) khi đi ngoài">
+        <svg viewBox="0 0 820 320" role="img" aria-label="Sơ đồ: điện thoại chạy Synq kết nối tới NAS/máy tính ở nhà qua WiFi khi ở nhà, và qua Internet (Tailscale/Cloudflare) khi đi ở ngoài">
           <!-- home box -->
           <rect x="24" y="70" width="300" height="180" rx="16" fill="#12181d" stroke="#243038"/>
           <text x="44" y="100" fill="#9fb0bd" font-family="sans-serif" font-size="13" letter-spacing="1.5">Ở NHÀ</text>
@@ -203,9 +203,9 @@
           <text x="530" y="222" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Tailscale / Cloudflare</text>
           <line x1="590" y1="210" x2="700" y2="210" stroke="#7c8b96" stroke-width="2" stroke-dasharray="6 5"/>
           <polygon points="700,210 690,205 690,215" fill="#7c8b96"/>
-          <text x="452" y="250" fill="#7c8b96" font-family="sans-serif" font-size="13" text-anchor="middle">Đi ngoài: 4G / 5G (HTTPS)</text>
+          <text x="452" y="250" fill="#7c8b96" font-family="sans-serif" font-size="13" text-anchor="middle">Đi ở ngoài: 4G / 5G (HTTPS)</text>
         </svg>
-        <figcaption>Hai đường kết nối: cùng WiFi khi ở nhà, và qua Internet (Tailscale/Cloudflare) khi đi ngoài đường.</figcaption>
+        <figcaption>Hai đường kết nối: cùng WiFi khi ở nhà, và qua Internet (Tailscale/Cloudflare) khi đi ở ngoài đường.</figcaption>
       </figure>
 
       <div class="result">
@@ -324,7 +324,7 @@
 
       <hr class="rule" />
 
-      <h2 id="phan-5">Phần 5 — Dùng khi đi ngoài đường (4G/5G)</h2>
+      <h2 id="phan-5">Phần 5 — Dùng khi đi ở ngoài đường (4G/5G)</h2>
       <p>Ra khỏi nhà thì địa chỉ nội bộ 192.168.x.x không còn truy cập được. Cần một "đường vào" từ Internet tới NAS/máy tính. An toàn và dễ nhất là dùng <strong>Tailscale</strong> — nó tạo một mạng riêng ảo giữa các thiết bị của bạn, không cần mở cổng trên router.</p>
       <ol class="steps">
         <li>Cài Tailscale trên máy chủ và trên điện thoại. NAS Synology/QNAP có sẵn gói Tailscale trong kho ứng dụng; máy tính tải tại <code class="inline">tailscale.com</code>; điện thoại tải trên App Store / Google Play. <strong>Quan trọng: đăng nhập cùng một tài khoản</strong> trên cả hai.</li>
@@ -333,7 +333,7 @@
         <li>Xem địa chỉ vừa tạo bằng lệnh <code class="inline">tailscale serve status</code> → dạng <code class="inline">https://ten-may.ten-tailnet.ts.net</code>. Địa chỉ này dùng được mọi nơi, kể cả 4G/5G.</li>
         <li>Trong Synq, nhập địa chỉ https đó (không cần gõ cổng), giữ nguyên tên đăng nhập/mật khẩu. Xong.</li>
       </ol>
-      <div class="callout warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><strong>Vì sao phải HTTPS khi đi ngoài:</strong> iPhone chặn kết nối http thường khi ra ngoài mạng nhà, nên 4G/5G bắt buộc dùng https (Tailscale ở trên đã lo phần này). Android dễ tính hơn nhưng vẫn nên dùng https.</span></div>
+      <div class="callout warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span><strong>Vì sao phải HTTPS khi đi ở ngoài:</strong> iPhone chặn kết nối http thường khi ra ngoài mạng nhà, nên 4G/5G bắt buộc dùng https (Tailscale ở trên đã lo phần này). Android dễ tính hơn nhưng vẫn nên dùng https.</span></div>
       <p><strong>Riêng người dùng NAS Synology</strong> có cách gọn khác: Control Panel → External Access → DDNS, tạo tên miễn phí dạng <code class="inline">tenban.synology.me</code>, rồi dùng https với cổng 5006: <code class="inline">https://tenban.synology.me:5006</code>.</p>
 
       <hr class="rule" />
@@ -364,7 +364,7 @@ cloudflared tunnel route dns nas nhac.tenban.com</code></pre>
       <h2 id="tom-tat">Tóm tắt — 3 thông tin để đăng nhập vào Synq</h2>
       <div class="result">
         <ul>
-          <li><strong>Địa chỉ máy chủ.</strong> Ở nhà: <code class="inline">http://địa-chỉ-nội-bộ:cổng</code> (Synology 5005, dufs 5000). Đi ngoài: <code class="inline">https://ten.ts.net</code> (Tailscale) hoặc <code class="inline">https://nhac.tenban.com</code> (tên miền riêng) hoặc <code class="inline">https://tenban.synology.me:5006</code> (DDNS Synology).</li>
+          <li><strong>Địa chỉ máy chủ.</strong> Ở nhà: <code class="inline">http://địa-chỉ-nội-bộ:cổng</code> (Synology 5005, dufs 5000). Đi ở ngoài: <code class="inline">https://ten.ts.net</code> (Tailscale) hoặc <code class="inline">https://nhac.tenban.com</code> (tên miền riêng) hoặc <code class="inline">https://tenban.synology.me:5006</code> (DDNS Synology).</li>
           <li><strong>Tên đăng nhập</strong>: tài khoản bạn tạo ở Phần 1.</li>
           <li><strong>Mật khẩu</strong>: mật khẩu của tài khoản đó.</li>
         </ul>
@@ -372,8 +372,8 @@ cloudflared tunnel route dns nas nhac.tenban.com</code></pre>
 
       <h3>Một số lỗi thường gặp</h3>
       <ul>
-        <li><strong>Ở nhà được, ra ngoài không được:</strong> bình thường nếu mới làm Phần 4; muốn nghe khi đi ngoài phải làm thêm Phần 5 hoặc Phần 6.</li>
-        <li><strong>iPhone báo lỗi khi dùng http lúc đi ngoài:</strong> iPhone bắt buộc https khi ra ngoài mạng nhà — dùng địa chỉ https từ Tailscale hoặc Cloudflare.</li>
+        <li><strong>Ở nhà được, ra ngoài không được:</strong> bình thường nếu mới làm Phần 4; muốn nghe khi đi ở ngoài phải làm thêm Phần 5 hoặc Phần 6.</li>
+        <li><strong>iPhone báo lỗi khi dùng http lúc đi ở ngoài:</strong> iPhone bắt buộc https khi ra ngoài mạng nhà — dùng địa chỉ https từ Tailscale hoặc Cloudflare.</li>
         <li><strong>Tắt cửa sổ dufs là mất kết nối:</strong> mở lại và chạy lại lệnh; muốn ổn định thì để máy chủ luôn bật.</li>
         <li><strong>Kết nối được nhưng không thấy nhạc:</strong> kiểm tra tài khoản có quyền đọc đúng thư mục chưa, và URL có trỏ đúng thư mục không.</li>
       </ul>
