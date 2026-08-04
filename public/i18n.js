@@ -12,7 +12,7 @@
     'nav.privacyShort': { en: 'Privacy', vi: 'Bảo mật' },
     'nav.download': { en: 'Download', vi: 'Tải xuống' },
     'nav.changelog': { en: "What's New", vi: 'Có gì mới' },
-    'nav.guides': { en: 'Guides', vi: 'Hướng dẫn' },
+    'nav.guides': { en: 'Threads', vi: 'Thảo luận' },
 
     // Changelog page
     'cl.eyebrow': { en: 'Release Notes', vi: 'Nhật ký cập nhật' },
