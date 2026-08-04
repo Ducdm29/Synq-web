@@ -5,7 +5,9 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/delete-account", "destination": "/delete-account.html" },
     { "source": "/get", "destination": "/get.html" },
-    { "source": "/changelog", "destination": "/changelog.html" }
+    { "source": "/changelog", "destination": "/changelog.html" },
+    { "source": "/guides", "destination": "/guides.html" },
+    { "source": "/guides/nas-setup", "destination": "/guides/nas-setup.html" }
   ],
   "headers": [
     {

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synq — Hướng dẫn</title>
+  <meta name="description" content="Hướng dẫn sử dụng Synq: kết nối NAS/WebDAV, nghe nhạc lossless mọi nơi, mẹo cấu hình và nhiều bài viết khác." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <style>
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-5);
+      margin-top: var(--space-8);
+    }
+    .guide-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-sm), var(--ring-top);
+      padding: var(--space-7);
+      text-decoration: none;
+      transition: border-color var(--dur-base) var(--ease-out),
+                  transform var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base) var(--ease-out);
+    }
+    .guide-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+      box-shadow: var(--glow-sm), var(--shadow-md);
+    }
+    .guide-tag {
+      align-self: flex-start;
+      font-size: var(--text-micro);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-overline);
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--surface-2);
+      border: 1px solid var(--border-accent);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+    }
+    .guide-card h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-tight);
+      color: var(--text-primary);
+      line-height: var(--leading-snug);
+    }
+    .guide-card p {
+      font-size: var(--text-body);
+      color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+    }
+    .guide-meta {
+      margin-top: auto;
+      padding-top: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-caption);
+      color: var(--text-tertiary);
+    }
+    .guide-readmore {
+      color: var(--accent);
+      font-weight: var(--weight-semibold);
+    }
+    .guides-soon {
+      margin-top: var(--space-9);
+      font-size: var(--text-caption);
+      color: var(--text-tertiary);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="lg1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#5eead4" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/>
+          <circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/>
+          <path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <div class="page-hero">
+      <span class="eyebrow">Hướng dẫn · Guides</span>
+      <h1>Hướng dẫn sử dụng Synq</h1>
+      <p class="subtitle">Các bài hướng dẫn từng bước — kết nối NAS, nghe nhạc lossless mọi nơi, và nhiều mẹo khác. Cập nhật dần.</p>
+    </div>
+
+    <div class="guides-grid">
+
+      <a class="guide-card" href="/guides/nas-setup">
+        <span class="guide-tag">NAS · WebDAV</span>
+        <h2>Nghe cả kho nhạc ở NAS/máy tính qua Synq — mọi lúc, mọi nơi</h2>
+        <p>Hướng dẫn đầy đủ cho người không rành kỹ thuật: dựng máy chủ WebDAV trên NAS, Windows hoặc Ubuntu; nghe khi cùng WiFi và khi đi ngoài đường bằng 4G/5G; tạo tên miền riêng dễ nhớ.</p>
+        <span class="guide-meta">
+          <span class="guide-readmore">Đọc hướng dẫn →</span>
+        </span>
+      </a>
+
+    </div>
+
+    <p class="guides-soon">Sẽ có thêm nhiều bài hướng dẫn khác. Theo dõi để không bỏ lỡ.</p>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
