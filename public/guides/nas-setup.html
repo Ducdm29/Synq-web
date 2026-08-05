@@ -278,7 +278,7 @@
         <li>Bấm Start, gõ "cmd" mở Command Prompt. Di chuyển tới thư mục chứa dufs.exe (hoặc kéo thả file vào cửa sổ để lấy đường dẫn).</li>
         <li>Chạy dòng lệnh sau, thay đường dẫn nhạc và tên đăng nhập/mật khẩu theo ý bạn:
           <pre><code>dufs C:\Music -a admin:matkhau123@/:rw</code></pre>
-          (<code class="inline">C:\Music</code> là thư mục nhạc; <code class="inline">admin</code> là tên đăng nhập; <code class="inline">matkhau123</code> là mật khẩu bạn đặt; <code class="inline">:rw</code> là cho phép đọc–ghi.)
+          (<code class="inline">C:\Music</code> là thư mục nhạc; <code class="inline">admin</code> và <code class="inline">matkhau123</code> là <strong>tên đăng nhập / mật khẩu do bạn tự đặt ngay trong lệnh này</strong> — muốn đặt gì cũng được; <code class="inline">:rw</code> là cho phép đọc–ghi.)
         </li>
         <li>Cứ để nguyên cửa sổ dòng lệnh đó chạy, <strong>đừng tắt</strong> — tắt là máy chủ ngừng, điện thoại không nghe được.</li>
       </ol>
@@ -286,9 +286,10 @@
         <span class="rl-label">Bạn có</span>
         <ul>
           <li>Địa chỉ máy chủ: <code class="inline">http://IP-MÁY-TÍNH:5000</code> (dufs mặc định cổng 5000)</li>
-          <li>Tên đăng nhập / mật khẩu: admin / matkhau123</li>
+          <li>Tên đăng nhập / mật khẩu: đúng cặp bạn vừa đặt trong lệnh (ví dụ admin / matkhau123)</li>
         </ul>
       </div>
+      <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><strong>Về tên đăng nhập / mật khẩu:</strong> đây là cặp bạn tự nghĩ ra và gõ vào lệnh dufs — <strong>không phải</strong> mật khẩu đăng nhập Windows hay tài khoản nào khác. dufs tạo một tài khoản riêng cho máy chủ nhạc bằng đúng cặp đó, và đây cũng chính là tên đăng nhập / mật khẩu bạn nhập vào Synq ở Phần 3.</span></div>
       <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Chức năng "Map network drive" của Windows <strong>không</strong> tạo máy chủ được — nó chỉ là bên đọc dữ liệu người khác. Muốn chia sẻ nhạc của mình, dùng dufs như trên.</span></div>
 
       <h3 id="case-c">Trường hợp C: Bạn dùng máy Ubuntu / Linux</h3>
@@ -302,7 +303,7 @@
         <span class="rl-label">Bạn có</span>
         <ul>
           <li>Địa chỉ máy chủ: <code class="inline">http://IP-MÁY:5000</code></li>
-          <li>Tên đăng nhập / mật khẩu: admin / matkhau123</li>
+          <li>Tên đăng nhập / mật khẩu: đúng cặp bạn vừa đặt trong lệnh (ví dụ admin / matkhau123)</li>
         </ul>
       </div>
       <p>Muốn nó chạy nền như một dịch vụ cố định thì dùng Apache2 với mô-đun mod_dav — chuẩn hơn nhưng phức tạp hơn nhiều. Với hầu hết mọi người, dufs là đủ.</p>
