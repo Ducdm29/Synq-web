@@ -113,15 +113,22 @@
     .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); text-align: center; background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
     .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-3); }
     .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
-    .btn {
-      display: inline-flex; align-items: center; gap: var(--space-2); height: 46px; padding: 0 var(--space-5);
+    .store-btns { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btns.hero-store { margin-top: var(--space-6); }
+    /* Two classes (.store-btn.appstore) keep specificity above the site's
+       generic link colour so button text/icons never inherit the teal accent. */
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px;
       border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold);
       font-size: var(--text-label); text-decoration: none; white-space: nowrap;
       transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
     }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-appstore { background: var(--text-primary); color: var(--ink-900); box-shadow: var(--shadow-sm); }
-    .btn-playstore { background: var(--accent); color: var(--text-on-accent); box-shadow: var(--glow-md); }
+    .store-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.appstore:hover { color: #0a0d10; box-shadow: var(--glow-sm), var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+    .store-btn.playstore:hover { color: #04120f; box-shadow: var(--glow-lg); }
 
     hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
   </style>
@@ -168,6 +175,16 @@
         <span>Đọc khoảng 10 phút</span>
         <span>·</span>
         <span>Cho iOS &amp; Android</span>
+      </div>
+      <div class="store-btns hero-store">
+        <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span>App Store</span>
+        </a>
+        <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
+          <span>Google Play</span>
+        </a>
       </div>
     </div>
 
@@ -390,8 +407,14 @@ cloudflared tunnel route dns nas nhac.tenban.com</code></pre>
         <h3>Chưa có Synq?</h3>
         <p style="color:var(--text-secondary)">Trình phát nhạc lossless với AutoEQ cho 6.000+ tai nghe — nghe cả thư viện của bạn, đúng nguyên bản.</p>
         <div class="cta-row">
-          <a class="btn btn-appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">App Store</a>
-          <a class="btn btn-playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">Google Play</a>
+          <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <span>App Store</span>
+          </a>
+          <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
+            <span>Google Play</span>
+          </a>
         </div>
       </div>
 
