@@ -9,7 +9,10 @@
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="stylesheet" href="/styles.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
   <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
     .guides-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -122,33 +125,43 @@
 
     <div class="page-hero">
       <span class="eyebrow">Thảo luận · Threads</span>
-      <h1>Thảo luận &amp; hướng dẫn Synq</h1>
-      <p class="subtitle">Bài viết, hướng dẫn từng bước và mẹo dùng Synq — kết nối NAS, nghe nhạc lossless mọi nơi. Cập nhật dần.</p>
+      <h1 data-lang-block="vi">Thảo luận &amp; hướng dẫn Synq</h1>
+      <h1 data-lang-block="en">Synq threads &amp; guides</h1>
+      <p class="subtitle" data-lang-block="vi">Bài viết, hướng dẫn từng bước và mẹo dùng Synq — kết nối NAS, nghe nhạc lossless mọi nơi. Cập nhật dần.</p>
+      <p class="subtitle" data-lang-block="en">Articles, step-by-step guides and tips for Synq — connect a NAS, listen to lossless anywhere. Added over time.</p>
     </div>
 
     <div class="guides-grid">
 
       <a class="guide-card" href="/guides/fake-lossless">
-        <span class="guide-tag">Lossless · Mẹo</span>
-        <h2>Cái FLAC bạn tải về có thật là lossless không?</h2>
-        <p>Rất nhiều file "lossless" trôi nổi thật ra là MP3 encode ngược lại thành FLAC. Cách nhìn phổ tần để nhận ra lossless giả và hi-res giả trong vài phút — cùng mấy cái bẫy khiến bạn kết tội oan.</p>
+        <span class="guide-tag" data-lang-block="vi">Lossless · Mẹo</span>
+        <span class="guide-tag" data-lang-block="en">Lossless · Tips</span>
+        <h2 data-lang-block="vi">Cái FLAC bạn tải về có thật là lossless không?</h2>
+        <h2 data-lang-block="en">Is that FLAC you downloaded really lossless?</h2>
+        <p data-lang-block="vi">Rất nhiều file "lossless" trôi nổi thật ra là MP3 encode ngược lại thành FLAC. Cách nhìn phổ tần để nhận ra lossless giả và hi-res giả trong vài phút — cùng mấy cái bẫy khiến bạn kết tội oan.</p>
+        <p data-lang-block="en">A lot of "lossless" files out there are really MP3 re-encoded into FLAC. How to read a spectrogram to spot fake lossless and fake hi-res in minutes — plus the traps that make you convict the innocent.</p>
         <span class="guide-meta">
-          <span class="guide-readmore">Đọc bài →</span>
+          <span class="guide-readmore" data-lang-block="vi">Đọc bài →</span>
+          <span class="guide-readmore" data-lang-block="en">Read article →</span>
         </span>
       </a>
 
       <a class="guide-card" href="/guides/nas-setup">
         <span class="guide-tag">NAS · WebDAV</span>
-        <h2>Nghe cả kho nhạc ở NAS/máy tính qua Synq — mọi lúc, mọi nơi</h2>
-        <p>Hướng dẫn đầy đủ cho người không rành kỹ thuật: dựng máy chủ WebDAV trên NAS, Windows hoặc Ubuntu; nghe khi cùng WiFi và khi đi ở ngoài đường bằng 4G/5G; tạo tên miền riêng dễ nhớ.</p>
+        <h2 data-lang-block="vi">Nghe cả kho nhạc ở NAS/máy tính qua Synq — mọi lúc, mọi nơi</h2>
+        <h2 data-lang-block="en">Play your whole NAS/PC music library through Synq — anywhere</h2>
+        <p data-lang-block="vi">Hướng dẫn đầy đủ cho người không rành kỹ thuật: dựng máy chủ WebDAV trên NAS, Windows hoặc Ubuntu; nghe khi cùng WiFi và khi đi ở ngoài đường bằng 4G/5G; tạo tên miền riêng dễ nhớ.</p>
+        <p data-lang-block="en">A full walkthrough for non-technical users: set up a WebDAV server on a NAS, Windows or Ubuntu; listen on the same WiFi and out on 4G/5G; and get your own easy-to-remember domain.</p>
         <span class="guide-meta">
-          <span class="guide-readmore">Đọc hướng dẫn →</span>
+          <span class="guide-readmore" data-lang-block="vi">Đọc hướng dẫn →</span>
+          <span class="guide-readmore" data-lang-block="en">Read guide →</span>
         </span>
       </a>
 
     </div>
 
-    <p class="guides-soon">Sẽ có thêm nhiều bài hướng dẫn khác. Theo dõi để không bỏ lỡ.</p>
+    <p class="guides-soon" data-lang-block="vi">Sẽ có thêm nhiều bài hướng dẫn khác. Theo dõi để không bỏ lỡ.</p>
+    <p class="guides-soon" data-lang-block="en">More articles coming. Check back so you don't miss them.</p>
 
   </main>
 

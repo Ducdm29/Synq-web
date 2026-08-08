@@ -9,7 +9,16 @@
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="stylesheet" href="/styles.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <!-- Set language synchronously (matches i18n.js default 'en') so the correct
+       language block shows on first paint — no flash of the other language. -->
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
   <style>
+    /* Bilingual: i18n.js sets <html lang> on load and on toggle; show the block
+       that matches. Uses data-lang-block (NOT data-lang) to avoid hiding the
+       nav's own language buttons. */
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
     .article-back {
       display: inline-flex; align-items: center; gap: var(--space-2);
       font-size: var(--text-caption); color: var(--text-tertiary);
@@ -42,6 +51,7 @@
     }
     .prose p { margin-bottom: var(--space-4); }
     .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
     .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
     .prose ul li { position: relative; padding-left: var(--space-5); }
     .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
@@ -68,14 +78,20 @@
       padding: var(--space-4) var(--space-5); margin: var(--space-4) 0;
       font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed);
     }
-    .callout.warn { border-left-color: #f5a524; }
     .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
-    .callout.warn svg { color: #f5a524; }
     .callout strong { color: var(--text-primary); }
 
     figure { margin: var(--space-6) 0; }
     figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
     figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    /* Phone screenshots */
+    figure.shot { max-width: 300px; margin-left: auto; margin-right: auto; }
+    figure.shot img {
+      width: 100%; height: auto; display: block;
+      border-radius: 22px; border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-md); background: #05080a;
+    }
 
     .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
     .verdict-card {
@@ -94,7 +110,6 @@
     .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); text-align: center; background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
     .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-3); }
     .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
-    .store-btns { display: flex; flex-wrap: wrap; gap: var(--space-3); }
     .store-btn {
       display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px;
       border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold);
@@ -143,154 +158,228 @@
 
   <main class="page-main" id="main-content">
 
-    <a class="article-back" href="/guides">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
 
-    <div class="page-hero">
-      <span class="eyebrow">Thảo luận · Nghe nhạc lossless</span>
-      <h1>Cái FLAC bạn tải về có thật là lossless không?</h1>
-      <p class="subtitle">Rất nhiều file "lossless" trôi nổi ngoài kia thật ra là MP3 encode ngược lại. Cách nhìn ra chúng trong vài phút — và mấy cái bẫy khiến bạn kết tội oan.</p>
-      <div class="article-meta">
-        <span>Đọc khoảng 8 phút</span>
-        <span>·</span>
-        <span>Cho người thích sưu tầm nhạc</span>
-      </div>
-    </div>
-
-    <div class="prose">
-
-      <p>Có một tối tôi tải về nguyên album FLAC của một ông ca sĩ mình mê, dung lượng ngót 400MB, đề rõ ràng "FLAC 16bit/44.1kHz". Nghe qua tai nghe tử tế mà cứ thấy tiếng cymbal, tiếng gió trong giọng hát nó… mỏng, hơi bẩn. Không mở như cái đĩa CD gốc tôi từng nghe. Ban đầu tôi đổ tại tai nghe, tại tâm trạng. Đến khi mở file ra soi thì ngã ngửa: cả album là MP3 bị người ta giải mã rồi nén lại thành FLAC.</p>
-
-      <p>Đó là <strong>lossless giả</strong>. Và một khi biết cách nhìn, bạn sẽ thấy nó ở khắp nơi — trong mấy link tải trôi nổi, trong vài "kho nhạc hi-res" bán vé tháng, thậm chí trong đống nhạc bạn cóp từ bạn bè nhiều năm trước.</p>
-
-      <h2>Vì sao lại có chuyện vô lý này</h2>
-      <p>FLAC là định dạng nén không mất dữ liệu — nhưng nó chỉ trung thực với cái <em>đầu vào</em> mà nó nhận. Đưa cho nó một file MP3 128kbps đã giải mã ra, nó sẽ gói lại y nguyên cái chất lượng 128kbps đó thành một file to đùng mang đuôi <code class="inline">.flac</code>. Bạn trả tiền, trả ổ cứng cho dung lượng lossless, nhưng âm thanh vẫn là đồ lossy. Không phép màu nào lấy lại được những gì MP3 đã vứt đi từ trước.</p>
-      <p>Người ta làm vậy vì lười, vì gom nhạc từ nhiều nguồn tạp nham rồi "đồng bộ" hết về FLAC cho đẹp đội hình, hoặc cố tình đánh lận để bán.</p>
-
-      <h2>Dấu vân tay mà mọi codec lossy để lại</h2>
-      <p>Đây là chỗ hay. Mấy codec nén mất dữ liệu như MP3 hay AAC đều dùng chung một mánh để tiết kiệm dung lượng: <strong>cắt phăng phần tần số cao</strong> mà tai người khó nghe rõ. Và chúng cắt rất dứt khoát — dựng lên một "bức tường" nằm ngang.</p>
-      <ul>
-        <li>MP3 320kbps thường cắt quanh <strong>20kHz</strong></li>
-        <li>MP3 256 / 192kbps quanh <strong>19kHz</strong></li>
-        <li>MP3 128kbps cắt sớm, quanh <strong>16kHz</strong></li>
-        <li>AAC thì tùy bản, nhưng vẫn có đường cắt riêng của nó</li>
-      </ul>
-      <p>Trong khi đó, một file lossless thật lấy từ đĩa CD (44.1kHz) sẽ có năng lượng chạy lên tận sát <strong>22kHz</strong> — trần vật lý của định dạng — và tắt dần một cách tự nhiên, lấm tấm, không đều. Không có bức tường phẳng lì nào cả.</p>
-      <p>Cho nên trò kiểm tra nằm ở chỗ: <strong>nhìn phổ tần (spectrogram) của bài hát</strong>. Nhìn phát là thấy.</p>
-
-      <figure>
-        <svg viewBox="0 0 820 380" role="img" aria-label="So sánh phổ tần: lossless thật có năng lượng lên sát 22kHz và tắt tự nhiên; lossless giả bị cắt cụt bằng một đường ngang cứng ở 16kHz, phía trên đen kịt">
-          <defs>
-            <linearGradient id="realE" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0%" stop-color="#5eead4" stop-opacity="0.95"/>
-              <stop offset="45%" stop-color="#5eead4" stop-opacity="0.5"/>
-              <stop offset="80%" stop-color="#5eead4" stop-opacity="0.16"/>
-              <stop offset="100%" stop-color="#5eead4" stop-opacity="0.04"/>
-            </linearGradient>
-            <linearGradient id="fakeE" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0%" stop-color="#5eead4" stop-opacity="0.95"/>
-              <stop offset="70%" stop-color="#5eead4" stop-opacity="0.55"/>
-              <stop offset="100%" stop-color="#5eead4" stop-opacity="0.4"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Panel titles -->
-          <text x="30" y="34" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">LOSSLESS THẬT</text>
-          <text x="452" y="34" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">LOSSLESS GIẢ (từ MP3)</text>
-
-          <!-- LEFT PANEL: real -->
-          <rect x="30" y="50" width="360" height="270" rx="10" fill="#05080a" stroke="#243038"/>
-          <!-- energy fills nearly to the top, natural rolloff -->
-          <rect x="30" y="70" width="360" height="250" fill="url(#realE)"/>
-          <!-- speckle near the ceiling to look natural -->
-          <g fill="#5eead4" opacity="0.5">
-            <rect x="60" y="74" width="10" height="3"/><rect x="120" y="80" width="12" height="3"/>
-            <rect x="200" y="72" width="9" height="3"/><rect x="270" y="82" width="11" height="3"/>
-            <rect x="330" y="76" width="10" height="3"/><rect x="95" y="88" width="14" height="3"/>
-            <rect x="240" y="90" width="10" height="3"/><rect x="160" y="86" width="9" height="3"/>
-          </g>
-          <text x="210" y="308" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="middle">thời gian →</text>
-
-          <!-- RIGHT PANEL: fake -->
-          <rect x="452" y="50" width="338" height="270" rx="10" fill="#05080a" stroke="#243038"/>
-          <!-- energy only up to the cut line (~16kHz => 62% up from bottom) -->
-          <rect x="452" y="167" width="338" height="153" fill="url(#fakeE)"/>
-          <!-- hard cutoff line -->
-          <line x1="452" y1="167" x2="790" y2="167" stroke="#f5a524" stroke-width="2.5"/>
-          <!-- black void above the cut is just the panel background; label it -->
-          <text x="621" y="110" fill="#3a4750" font-family="sans-serif" font-size="12" text-anchor="middle">(không còn gì phía trên)</text>
-          <text x="621" y="308" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="middle">thời gian →</text>
-          <!-- cut annotation -->
-          <text x="798" y="171" fill="#f5a524" font-family="sans-serif" font-size="12" font-weight="bold">← bức tường ~16kHz</text>
-
-          <!-- shared frequency axis marks -->
-          <text x="16" y="74" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">22k</text>
-          <text x="16" y="175" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">16k</text>
-          <text x="16" y="316" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">0</text>
-          <text x="18" y="352" fill="#7c8b96" font-family="sans-serif" font-size="12">Trục dọc = tần số (kHz) · càng sáng = càng nhiều năng lượng</text>
-        </svg>
-        <figcaption>Bên trái: năng lượng chạy lên sát 22kHz rồi tắt dần tự nhiên. Bên phải: bị chặt cụt bằng một đường ngang cứng ở 16kHz — dấu hiệu kinh điển của MP3 đội lốt FLAC.</figcaption>
-      </figure>
-
-      <h2>Tự soi trong 5 phút</h2>
-      <p>Không cần tai vàng, chỉ cần con mắt. Cách nhanh nhất là dùng <strong>Spek</strong> — phần mềm miễn phí, kéo file thả vào là nó vẽ ra phổ tần. Ai xài foobar2000, Audacity, hay dân Mac dùng Spectro thì cũng có công cụ tương tự sẵn.</p>
-      <ol class="steps">
-        <li>Tải và mở <strong>Spek</strong> (miễn phí, có cho Windows/macOS/Linux).</li>
-        <li>Kéo bài hát cần soi thả vào cửa sổ. Chờ một hai giây nó vẽ xong phổ tần.</li>
-        <li>Nhìn trục dọc (tần số, tính bằng kHz) và xem phần đỉnh:</li>
-      </ol>
-      <div class="verdict">
-        <div class="verdict-card good">
-          <span class="vc-tag">Nhiều khả năng thật</span>
-          <h4>Chạy lên sát 22kHz, tắt dần</h4>
-          <p>Phổ leo tự nhiên gần trần, thưa dần, lấm tấm không đều. Không có đường kẻ ngang cứng nào.</p>
-        </div>
-        <div class="verdict-card bad">
-          <span class="vc-tag">Lossless giả</span>
-          <h4>Cắt cụt bằng đường ngang</h4>
-          <p>Bị chặt phẳng ở 16 / 19 / 20kHz, trên đó tối đen. Đây chính là MP3/AAC đội lốt FLAC.</p>
-        </div>
-      </div>
-      <p>Làm vài lần bạn sẽ nhận ra ngay. Cái đường "brick wall" đó nhìn phát biết luôn, không lẫn đi đâu được.</p>
-
-      <h2>Đừng vội kết tội — mấy cái bẫy cần biết</h2>
-      <p>Chỗ này mới tách người biết chuyện với người vừa đọc xong một bài hướng dẫn.</p>
-
-      <h3>1. Không phải cứ thiếu tần số cao là giả</h3>
-      <p>Một số bản thu cũ, thu mộc, hoặc master analog ngày xưa <strong>vốn dĩ</strong> đã ít năng lượng trên 20kHz — do nhạc cụ, do phòng thu, do băng từ thời đó. Khác biệt nằm ở <em>kiểu</em> tắt: rolloff tự nhiên thì <strong>dốc thoải, mờ dần</strong>; còn dấu của codec là <strong>bức tường phẳng, dứt khoát, cùng một độ cao suốt cả bài</strong>. Nhìn nhiều sẽ phân biệt được kiểu cắt nhân tạo với kiểu tắt tự nhiên.</p>
-
-      <h3>2. Hi-res giả còn độc hơn</h3>
-      <p>Bạn thấy file đề "24bit/96kHz" hay "24/192" và tưởng vớ được hàng khủng. Nhưng rất nhiều file kiểu này chỉ là CD 16/44.1 (tệ hơn là MP3) được <strong>upsample</strong> lên cho ra con số cho oách. File 96kHz thật phải có năng lượng chạy lên trên 30–40kHz; file upsample thì trên ~22kHz là trống trơn hoặc chỉ còn một dải nhiễu mờ. Vẫn là nhìn phổ tần mà bắt.</p>
-
-      <h3>3. Với đĩa CD rip, có cách chắc hơn nhìn mắt</h3>
-      <p>Đối chiếu bản rip của bạn với cơ sở dữ liệu <strong>AccurateRip / CUETools</strong>: nó so checksum bản rip của bạn với hàng nghìn người khác rip cùng cái đĩa đó. Khớp thì gần như chắc bản rip sạch, đúng bit.</p>
-
-      <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Nói cho công bằng: soi phổ tần là <strong>bằng chứng rất mạnh</strong>, nhưng không phải tòa án. Ghép nhiều dấu hiệu lại — đường cắt, dung lượng bất thường, nguồn tải mờ ám — thì kết luận mới chắc.</span></div>
-
-      <h2>Biết là giả thì sao?</h2>
-      <p>Thành thật mà nói: tai bạn có nghe ra khác biệt giữa FLAC thật và MP3 320 encode lại hay không còn tùy bài, tùy dàn, tùy tai — nhiều người thử mù (blind test) còn đoán trật. Nhưng vấn đề không hẳn ở chỗ "nghe có sướng hơn không". Vấn đề là bạn đang <strong>cất giữ một bộ sưu tập mà mình tưởng là bản gốc</strong>, tốn ổ cứng cho dung lượng lossless, để rồi cái giữ lại là bản đã bị cắt xén từ đời nào. Với người thích sưu tầm cho tử tế thì đó là điều đáng bực.</p>
-      <p>Biết rồi thì bạn lọc được nguồn: kho nào ra kho nào, ai chia sẻ đàng hoàng, chỗ nào toàn hàng dựng. Chỉ vậy thôi đã đủ đổi cả cái tủ nhạc của bạn.</p>
-
-      <hr class="rule" />
-
-      <p>Thú thật, ngồi kéo từng bài vào Spek để nhìn thì vài album còn được, chứ cả thư viện mấy nghìn bài thì chịu. Nên trong <strong>Synq</strong> tôi để sẵn một nút <strong>Thẩm định</strong>: nó tự đọc phổ tần của file, tìm cái đường cắt đặc trưng đó, rồi báo file này "lossless thật" hay "nghi ngờ dựng từ lossy" — ngay trên điện thoại, không phải chép qua máy tính. Không phải phép thần, vẫn đúng cái nguyên lý ở trên, chỉ là làm hộ bạn phần nhìn mắt mỏi người.</p>
-      <p>Còn nếu thích tự tay soi thì cứ Spek mà chiến. Quan trọng là từ hôm nay, trước khi tin cái đuôi <code class="inline">.flac</code>, bạn nhìn cái phổ tần một cái đã. Thử ngay đi: lấy bài "lossless" bạn tin tưởng nhất trong máy ra kiểm tra — kết quả có khi làm bạn giật mình.</p>
-
-      <div class="cta-box">
-        <h3>Lười soi tay? Để Synq làm hộ.</h3>
-        <p style="color:var(--text-secondary)">Trình phát nhạc lossless với AutoEQ cho 6.000+ tai nghe — và nút Thẩm định giúp bạn biết file nào là lossless thật, ngay trên điện thoại.</p>
-        <div class="cta-row">
-          <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <span>App Store</span>
-          </a>
-          <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
-            <span>Google Play</span>
-          </a>
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Nghe nhạc lossless</span>
+        <h1>Cái FLAC bạn tải về có thật là lossless không?</h1>
+        <p class="subtitle">Rất nhiều file "lossless" trôi nổi ngoài kia thật ra là MP3 encode ngược lại. Cách nhìn ra chúng trong vài phút — và mấy cái bẫy khiến bạn kết tội oan.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Cho người thích sưu tầm nhạc</span>
         </div>
       </div>
 
-    </div><!-- /prose -->
+      <div class="prose">
+        <p>Có một tối tôi tải về nguyên album FLAC của một ông ca sĩ mình mê, dung lượng ngót 400MB, đề rõ ràng "FLAC 16bit/44.1kHz". Nghe qua tai nghe tử tế mà cứ thấy tiếng cymbal, tiếng gió trong giọng hát nó… mỏng, hơi bẩn. Không mở như cái đĩa CD gốc tôi từng nghe. Ban đầu tôi đổ tại tai nghe, tại tâm trạng. Đến khi mở file ra soi thì ngã ngửa: cả album là MP3 bị người ta giải mã rồi nén lại thành FLAC.</p>
+        <p>Đó là <strong>lossless giả</strong>. Và một khi biết cách nhìn, bạn sẽ thấy nó ở khắp nơi — trong mấy link tải trôi nổi, trong vài "kho nhạc hi-res" bán vé tháng, thậm chí trong đống nhạc bạn cóp từ bạn bè nhiều năm trước.</p>
+
+        <figure class="shot">
+          <img src="/guides/img/synq-nowplaying-specs.png" width="900" height="1780" loading="lazy" alt="Màn hình Now Playing của Synq hiện thông số file: FLAC, LOSSLESS, 44.1kHz, 16-bit, 1005 kbps" />
+          <figcaption>Synq hiện thẳng thông số thật của file ngay khi phát: FLAC · LOSSLESS · 44.1kHz · 16-bit · bitrate · dung lượng.</figcaption>
+        </figure>
+
+        <h2>Vì sao lại có chuyện vô lý này</h2>
+        <p>FLAC là định dạng nén không mất dữ liệu — nhưng nó chỉ trung thực với cái <em>đầu vào</em> mà nó nhận. Đưa cho nó một file MP3 128kbps đã giải mã ra, nó sẽ gói lại y nguyên cái chất lượng 128kbps đó thành một file to đùng mang đuôi <code class="inline">.flac</code>. Bạn trả tiền, trả ổ cứng cho dung lượng lossless, nhưng âm thanh vẫn là đồ lossy. Không phép màu nào lấy lại được những gì MP3 đã vứt đi từ trước.</p>
+        <p>Người ta làm vậy vì lười, vì gom nhạc từ nhiều nguồn tạp nham rồi "đồng bộ" hết về FLAC cho đẹp đội hình, hoặc cố tình đánh lận để bán.</p>
+
+        <h2>Dấu vân tay mà mọi codec lossy để lại</h2>
+        <p>Đây là chỗ hay. Mấy codec nén mất dữ liệu như MP3 hay AAC đều dùng chung một mánh để tiết kiệm dung lượng: <strong>cắt phăng phần tần số cao</strong> mà tai người khó nghe rõ. Và chúng cắt rất dứt khoát — dựng lên một "bức tường" nằm ngang.</p>
+        <ul>
+          <li>MP3 320kbps thường cắt quanh <strong>20kHz</strong></li>
+          <li>MP3 256 / 192kbps quanh <strong>19kHz</strong></li>
+          <li>MP3 128kbps cắt sớm, quanh <strong>16kHz</strong></li>
+          <li>AAC thì tùy bản, nhưng vẫn có đường cắt riêng của nó</li>
+        </ul>
+        <p>Trong khi đó, một file lossless thật lấy từ đĩa CD (44.1kHz) sẽ có năng lượng chạy lên tận sát <strong>22kHz</strong> — trần vật lý của định dạng — và tắt dần một cách tự nhiên, lấm tấm, không đều. Không có bức tường phẳng lì nào cả.</p>
+        <p>Cho nên trò kiểm tra nằm ở chỗ: <strong>nhìn phổ tần (spectrogram) của bài hát</strong>. Nhìn phát là thấy.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 380" role="img" aria-label="So sánh phổ tần: lossless thật có năng lượng lên sát 22kHz và tắt tự nhiên; lossless giả bị cắt cụt bằng một đường ngang cứng ở 16kHz">
+            <defs>
+              <linearGradient id="realE" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.95"/><stop offset="45%" stop-color="#5eead4" stop-opacity="0.5"/><stop offset="80%" stop-color="#5eead4" stop-opacity="0.16"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0.04"/></linearGradient>
+              <linearGradient id="fakeE" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.95"/><stop offset="70%" stop-color="#5eead4" stop-opacity="0.55"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0.4"/></linearGradient>
+            </defs>
+            <text x="30" y="34" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">LOSSLESS THẬT</text>
+            <text x="452" y="34" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">LOSSLESS GIẢ (từ MP3)</text>
+            <rect x="30" y="50" width="360" height="270" rx="10" fill="#05080a" stroke="#243038"/>
+            <rect x="30" y="70" width="360" height="250" fill="url(#realE)"/>
+            <g fill="#5eead4" opacity="0.5"><rect x="60" y="74" width="10" height="3"/><rect x="120" y="80" width="12" height="3"/><rect x="200" y="72" width="9" height="3"/><rect x="270" y="82" width="11" height="3"/><rect x="330" y="76" width="10" height="3"/><rect x="95" y="88" width="14" height="3"/><rect x="240" y="90" width="10" height="3"/><rect x="160" y="86" width="9" height="3"/></g>
+            <text x="210" y="308" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="middle">thời gian →</text>
+            <rect x="452" y="50" width="338" height="270" rx="10" fill="#05080a" stroke="#243038"/>
+            <rect x="452" y="167" width="338" height="153" fill="url(#fakeE)"/>
+            <line x1="452" y1="167" x2="790" y2="167" stroke="#f5a524" stroke-width="2.5"/>
+            <text x="621" y="110" fill="#3a4750" font-family="sans-serif" font-size="12" text-anchor="middle">(không còn gì phía trên)</text>
+            <text x="621" y="308" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="middle">thời gian →</text>
+            <text x="783" y="158" fill="#f5a524" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="end">bức tường ~16kHz ↓</text>
+            <text x="16" y="74" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">22k</text>
+            <text x="16" y="175" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">16k</text>
+            <text x="16" y="316" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">0</text>
+            <text x="18" y="352" fill="#7c8b96" font-family="sans-serif" font-size="12">Trục dọc = tần số (kHz) · càng sáng = càng nhiều năng lượng</text>
+          </svg>
+          <figcaption>Bên trái: năng lượng chạy lên sát 22kHz rồi tắt dần tự nhiên. Bên phải: bị chặt cụt bằng một đường ngang cứng ở 16kHz — dấu hiệu kinh điển của MP3 đội lốt FLAC.</figcaption>
+        </figure>
+
+        <h2>Tự soi trong 5 phút</h2>
+        <p>Không cần tai vàng, chỉ cần con mắt. Cách nhanh nhất là dùng <strong>Spek</strong> — phần mềm miễn phí, kéo file thả vào là nó vẽ ra phổ tần. Ai xài foobar2000, Audacity, hay dân Mac dùng Spectro thì cũng có công cụ tương tự sẵn.</p>
+        <ol class="steps">
+          <li>Tải và mở <strong>Spek</strong> (miễn phí, có cho Windows/macOS/Linux).</li>
+          <li>Kéo bài hát cần soi thả vào cửa sổ. Chờ một hai giây nó vẽ xong phổ tần.</li>
+          <li>Nhìn trục dọc (tần số, tính bằng kHz) và xem phần đỉnh:</li>
+        </ol>
+        <div class="verdict">
+          <div class="verdict-card good"><span class="vc-tag">Nhiều khả năng thật</span><h4>Chạy lên sát 22kHz, tắt dần</h4><p>Phổ leo tự nhiên gần trần, thưa dần, lấm tấm không đều. Không có đường kẻ ngang cứng nào.</p></div>
+          <div class="verdict-card bad"><span class="vc-tag">Lossless giả</span><h4>Cắt cụt bằng đường ngang</h4><p>Bị chặt phẳng ở 16 / 19 / 20kHz, trên đó tối đen. Đây chính là MP3/AAC đội lốt FLAC.</p></div>
+        </div>
+        <p>Làm vài lần bạn sẽ nhận ra ngay. Cái đường "brick wall" đó nhìn phát biết luôn, không lẫn đi đâu được.</p>
+
+        <h2>Đừng vội kết tội — mấy cái bẫy cần biết</h2>
+        <p>Chỗ này mới tách người biết chuyện với người vừa đọc xong một bài hướng dẫn.</p>
+        <h3>1. Không phải cứ thiếu tần số cao là giả</h3>
+        <p>Một số bản thu cũ, thu mộc, hoặc master analog ngày xưa <strong>vốn dĩ</strong> đã ít năng lượng trên 20kHz — do nhạc cụ, do phòng thu, do băng từ thời đó. Khác biệt nằm ở <em>kiểu</em> tắt: rolloff tự nhiên thì <strong>dốc thoải, mờ dần</strong>; còn dấu của codec là <strong>bức tường phẳng, dứt khoát, cùng một độ cao suốt cả bài</strong>. Nhìn nhiều sẽ phân biệt được kiểu cắt nhân tạo với kiểu tắt tự nhiên.</p>
+        <h3>2. Hi-res giả còn độc hơn</h3>
+        <p>Bạn thấy file đề "24bit/96kHz" hay "24/192" và tưởng vớ được hàng khủng. Nhưng rất nhiều file kiểu này chỉ là CD 16/44.1 (tệ hơn là MP3) được <strong>upsample</strong> lên cho ra con số cho oách. File 96kHz thật phải có năng lượng chạy lên trên 30–40kHz; file upsample thì trên ~22kHz là trống trơn hoặc chỉ còn một dải nhiễu mờ. Vẫn là nhìn phổ tần mà bắt.</p>
+        <h3>3. Với đĩa CD rip, có cách chắc hơn nhìn mắt</h3>
+        <p>Đối chiếu bản rip của bạn với cơ sở dữ liệu <strong>AccurateRip / CUETools</strong>: nó so checksum bản rip của bạn với hàng nghìn người khác rip cùng cái đĩa đó. Khớp thì gần như chắc bản rip sạch, đúng bit.</p>
+        <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Nói cho công bằng: soi phổ tần là <strong>bằng chứng rất mạnh</strong>, nhưng không phải tòa án. Ghép nhiều dấu hiệu lại — đường cắt, dung lượng bất thường, nguồn tải mờ ám — thì kết luận mới chắc.</span></div>
+
+        <h2>Biết là giả thì sao?</h2>
+        <p>Thành thật mà nói: tai bạn có nghe ra khác biệt giữa FLAC thật và MP3 320 encode lại hay không còn tùy bài, tùy dàn, tùy tai — nhiều người thử mù (blind test) còn đoán trật. Nhưng vấn đề không hẳn ở chỗ "nghe có sướng hơn không". Vấn đề là bạn đang <strong>cất giữ một bộ sưu tập mà mình tưởng là bản gốc</strong>, tốn ổ cứng cho dung lượng lossless, để rồi cái giữ lại là bản đã bị cắt xén từ đời nào. Với người thích sưu tầm cho tử tế thì đó là điều đáng bực.</p>
+        <p>Biết rồi thì bạn lọc được nguồn: kho nào ra kho nào, ai chia sẻ đàng hoàng, chỗ nào toàn hàng dựng. Chỉ vậy thôi đã đủ đổi cả cái tủ nhạc của bạn.</p>
+
+        <hr class="rule" />
+
+        <p>Thú thật, ngồi kéo từng bài vào Spek để nhìn thì vài album còn được, chứ cả thư viện mấy nghìn bài thì chịu. Nên trong <strong>Synq</strong> tôi để sẵn một nút <strong>Thẩm định</strong>: nó tự đọc phổ tần của file, tìm cái đường cắt đặc trưng đó, rồi báo file này "lossless thật" hay "nghi ngờ dựng từ lossy" — ngay trên điện thoại, không phải chép qua máy tính. Không phải phép thần, vẫn đúng cái nguyên lý ở trên, chỉ là làm hộ bạn phần nhìn mắt mỏi người.</p>
+
+        <figure class="shot">
+          <img src="/guides/img/synq-library-lossless.png" width="900" height="1780" loading="lazy" alt="Thư viện Synq với badge LOSSLESS trên từng bài hát" />
+          <figcaption>Mỗi bài đều có badge lossless ngay trong thư viện — luôn biết mình đang thật sự nghe cái gì.</figcaption>
+        </figure>
+
+        <p>Còn nếu thích tự tay soi thì cứ Spek mà chiến. Quan trọng là từ hôm nay, trước khi tin cái đuôi <code class="inline">.flac</code>, bạn nhìn cái phổ tần một cái đã. Thử ngay đi: lấy bài "lossless" bạn tin tưởng nhất trong máy ra kiểm tra — kết quả có khi làm bạn giật mình.</p>
+
+        <div class="cta-box">
+          <h3>Lười soi tay? Để Synq làm hộ.</h3>
+          <p style="color:var(--text-secondary)">Trình phát nhạc lossless với AutoEQ cho 6.000+ tai nghe — và nút Thẩm định giúp bạn biết file nào là lossless thật, ngay trên điện thoại.</p>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Discussion · Lossless listening</span>
+        <h1>Is that FLAC you downloaded really lossless?</h1>
+        <p class="subtitle">A lot of "lossless" files out there are just MP3 re-encoded back to FLAC. How to spot them in a couple of minutes — and the traps that make you convict the innocent.</p>
+        <div class="article-meta">
+          <span>About an 8-minute read</span><span>·</span><span>For people who collect music</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>One evening I downloaded a full FLAC album from an artist I love — nearly 400MB, clearly labelled "FLAC 16bit/44.1kHz". Through a decent pair of headphones something felt off: the cymbals, the breath in the vocals, all a bit thin and grainy. Not as open as the CD I remembered. At first I blamed the headphones, or my mood. Then I opened the file up and looked — the whole album turned out to be MP3 that someone had decoded and re-encoded into FLAC.</p>
+        <p>That's <strong>fake lossless</strong>. And once you know how to look, you start seeing it everywhere — in random download links, in a few subscription "hi-res" libraries, even in music you copied off friends years ago.</p>
+
+        <figure class="shot">
+          <img src="/guides/img/synq-nowplaying-specs.png" width="900" height="1780" loading="lazy" alt="Synq's Now Playing screen showing file specs: FLAC, LOSSLESS, 44.1kHz, 16-bit, 1005 kbps" />
+          <figcaption>Synq shows a file's real specs right as it plays: FLAC · LOSSLESS · 44.1kHz · 16-bit · bitrate · size.</figcaption>
+        </figure>
+
+        <h2>Why this nonsense happens</h2>
+        <p>FLAC is a lossless format — but it's only honest about the <em>input</em> it's given. Hand it an MP3 at 128kbps that's already been decoded, and it will faithfully wrap up that 128kbps quality into a big file ending in <code class="inline">.flac</code>. You pay the money, and the disk space, for a lossless-sized file, but the sound is still lossy. No magic brings back what MP3 threw away in the first place.</p>
+        <p>People do it out of laziness — gathering music from all sorts of messy sources and "tidying" everything into FLAC to look uniform — or to deliberately pass off junk as the real thing.</p>
+
+        <h2>The fingerprint every lossy codec leaves</h2>
+        <p>Here's the good part. Lossy codecs like MP3 and AAC all use the same trick to save space: they <strong>chop off the high frequencies</strong> the ear struggles to hear. And they cut sharply — a flat horizontal wall.</p>
+        <ul>
+          <li>MP3 320kbps usually cuts around <strong>20kHz</strong></li>
+          <li>MP3 256 / 192kbps around <strong>19kHz</strong></li>
+          <li>MP3 128kbps cuts early, around <strong>16kHz</strong></li>
+          <li>AAC varies by encoder, but still leaves its own cut</li>
+        </ul>
+        <p>A genuine lossless file from a CD (44.1kHz), on the other hand, carries energy right up to nearly <strong>22kHz</strong> — the format's physical ceiling — and fades out naturally, speckled and uneven. No flat wall anywhere.</p>
+        <p>So the test is this: <strong>look at the track's spectrogram</strong>. One glance is usually enough.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 380" role="img" aria-label="Spectrogram comparison: real lossless carries energy up to nearly 22kHz and fades naturally; fake lossless is chopped off by a hard flat line at 16kHz">
+            <defs>
+              <linearGradient id="realE2" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.95"/><stop offset="45%" stop-color="#5eead4" stop-opacity="0.5"/><stop offset="80%" stop-color="#5eead4" stop-opacity="0.16"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0.04"/></linearGradient>
+              <linearGradient id="fakeE2" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.95"/><stop offset="70%" stop-color="#5eead4" stop-opacity="0.55"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0.4"/></linearGradient>
+            </defs>
+            <text x="30" y="34" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">REAL LOSSLESS</text>
+            <text x="452" y="34" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">FAKE LOSSLESS (from MP3)</text>
+            <rect x="30" y="50" width="360" height="270" rx="10" fill="#05080a" stroke="#243038"/>
+            <rect x="30" y="70" width="360" height="250" fill="url(#realE2)"/>
+            <g fill="#5eead4" opacity="0.5"><rect x="60" y="74" width="10" height="3"/><rect x="120" y="80" width="12" height="3"/><rect x="200" y="72" width="9" height="3"/><rect x="270" y="82" width="11" height="3"/><rect x="330" y="76" width="10" height="3"/><rect x="95" y="88" width="14" height="3"/><rect x="240" y="90" width="10" height="3"/><rect x="160" y="86" width="9" height="3"/></g>
+            <text x="210" y="308" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="middle">time →</text>
+            <rect x="452" y="50" width="338" height="270" rx="10" fill="#05080a" stroke="#243038"/>
+            <rect x="452" y="167" width="338" height="153" fill="url(#fakeE2)"/>
+            <line x1="452" y1="167" x2="790" y2="167" stroke="#f5a524" stroke-width="2.5"/>
+            <text x="621" y="110" fill="#3a4750" font-family="sans-serif" font-size="12" text-anchor="middle">(nothing above this line)</text>
+            <text x="621" y="308" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="middle">time →</text>
+            <text x="783" y="158" fill="#f5a524" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="end">wall at ~16kHz ↓</text>
+            <text x="16" y="74" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">22k</text>
+            <text x="16" y="175" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">16k</text>
+            <text x="16" y="316" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="end">0</text>
+            <text x="18" y="352" fill="#7c8b96" font-family="sans-serif" font-size="12">Vertical = frequency (kHz) · brighter = more energy</text>
+          </svg>
+          <figcaption>Left: energy runs up to nearly 22kHz and fades naturally. Right: chopped off by a hard flat line at 16kHz — the classic sign of an MP3 wearing a FLAC costume.</figcaption>
+        </figure>
+
+        <h2>Check it yourself in 5 minutes</h2>
+        <p>You don't need golden ears, just your eyes. The quickest way is <strong>Spek</strong> — a free spectral analyzer; drag a file in and it draws the spectrogram. foobar2000, Audacity, or Spectro on Mac have the same thing built in.</p>
+        <ol class="steps">
+          <li>Download and open <strong>Spek</strong> (free, on Windows/macOS/Linux).</li>
+          <li>Drag the track you want to check into the window. Give it a second to draw.</li>
+          <li>Look at the vertical axis (frequency in kHz) and check the top:</li>
+        </ol>
+        <div class="verdict">
+          <div class="verdict-card good"><span class="vc-tag">Probably real</span><h4>Runs up near 22kHz, fading</h4><p>The spectrum climbs naturally toward the ceiling, thinning out, speckled and uneven. No hard horizontal line.</p></div>
+          <div class="verdict-card bad"><span class="vc-tag">Fake lossless</span><h4>Chopped off by a flat line</h4><p>Cut flat at 16 / 19 / 20kHz, black above. That's MP3/AAC in a FLAC costume.</p></div>
+        </div>
+        <p>Do it a few times and you'll spot it instantly. That "brick wall" is unmistakable.</p>
+
+        <h2>Don't convict too fast — traps to know</h2>
+        <p>This is what separates people who actually know from people who just finished reading a how-to.</p>
+        <h3>1. Missing highs doesn't always mean fake</h3>
+        <p>Some old recordings, acoustic sessions, or analog masters from decades ago <strong>genuinely</strong> have little energy above 20kHz — the instruments, the room, the tape of the era. The difference is in <em>how</em> it fades: a natural rolloff slopes off gently and blurrily; a codec's signature is a <strong>flat, decisive wall sitting at the same height across the whole track</strong>. Look at enough of them and you'll tell the artificial cut from the natural fade.</p>
+        <h3>2. Fake hi-res is even nastier</h3>
+        <p>You see a file labelled "24bit/96kHz" or "24/192" and assume you've struck gold. But plenty of these are just CD 16/44.1 (or worse, MP3) <strong>upsampled</strong> to make the numbers look impressive. A real 96kHz recording carries energy past 30–40kHz; an upsampled one is empty above ~22kHz, or just a faint band of noise. Again — the spectrogram gives it away.</p>
+        <h3>3. For CD rips, there's something surer than eyeballing</h3>
+        <p>Check your rip against the <strong>AccurateRip / CUETools</strong> database: it compares your rip's checksum against thousands of other people who ripped the same disc. A match all but guarantees a clean, bit-accurate rip.</p>
+        <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>To be fair: the spectrogram is <strong>strong evidence</strong>, not a courtroom verdict. Stack several signals together — the cut, an odd file size, a shady source — and then you can be confident.</span></div>
+
+        <h2>So it's fake — now what?</h2>
+        <p>Honestly: whether your ears can tell a real FLAC from a re-encoded MP3 320 depends on the track, the gear and the ears — plenty of people flunk a blind test. But the point isn't really "does it sound better." The point is that you're <strong>keeping a collection you believe is the real thing</strong>, spending disk space on lossless-sized files, when what you're holding is a copy that was trimmed down who-knows-when. For anyone who likes to collect properly, that stings.</p>
+        <p>Once you know, you can filter your sources: which libraries are which, who shares things properly, and which places are all fakes. That alone can change your whole music shelf.</p>
+
+        <hr class="rule" />
+
+        <p>Honestly, dragging every track into Spek is fine for a couple of albums, but a whole library of a few thousand songs? No thanks. So in <strong>Synq</strong> I built in a <strong>Verify</strong> button: it reads the file's spectrogram, looks for that tell-tale cut, and tells you whether it's "genuinely lossless" or "likely rebuilt from lossy" — right on your phone, no copying to a computer. No magic; the same principle as above, just doing the eye-straining part for you.</p>
+
+        <figure class="shot">
+          <img src="/guides/img/synq-library-lossless.png" width="900" height="1780" loading="lazy" alt="Synq's library with a LOSSLESS badge on every track" />
+          <figcaption>Every track carries a lossless badge in the library — so you always know what you're actually playing.</figcaption>
+        </figure>
+
+        <p>And if you'd rather look yourself, fire up Spek. The point is that from today, before you trust that <code class="inline">.flac</code> extension, you take one look at the spectrogram first. Try it now: take the "lossless" track you trust most and check it — the result might surprise you.</p>
+
+        <div class="cta-box">
+          <h3>Rather not check by hand? Let Synq do it.</h3>
+          <p style="color:var(--text-secondary)">A lossless player with AutoEQ for 6,000+ headphones — plus a Verify button that tells you which files are genuinely lossless, right on your phone.</p>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
 
   </main>
 
