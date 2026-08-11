@@ -244,7 +244,7 @@
     },
     'mcp.s2.l1': { en: 'Advertising and device identifiers', vi: 'Mã nhận dạng quảng cáo và mã nhận dạng thiết bị' },
     'mcp.s2.l2': { en: 'IP address, and approximate location derived from it (country or region level)', vi: 'Địa chỉ IP và vị trí gần đúng suy ra từ đó (mức quốc gia hoặc khu vực)' },
-    'mcp.s2.l3': { en: 'Device and operating-system information', vi: 'Thông tin thiết bị và hệ điều hành' },
+    'mcp.s2.l3': { en: 'Device and operating-system information, and diagnostic data such as crash logs', vi: 'Thông tin thiết bị, hệ điều hành, và dữ liệu chẩn đoán như nhật ký sự cố' },
     'mcp.s2.l4': { en: 'Your interactions with adverts', vi: 'Thao tác của bạn với quảng cáo' },
     'mcp.s2.p2': {
       en: 'Google uses this to select and measure adverts and to detect fraud. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google\'s Privacy Policy</a> and <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">how Google uses information from apps that use its services</a>.',
