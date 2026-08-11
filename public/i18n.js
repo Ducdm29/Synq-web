@@ -211,6 +211,102 @@
     'privacy.contact.desc': {
       en: 'Have a question about how we handle your data or want to exercise your privacy rights? Contact our team.',
       vi: 'Có câu hỏi về cách chúng tôi xử lý dữ liệu hoặc muốn thực hiện quyền riêng tư? Liên hệ đội ngũ của chúng tôi.'
+    },
+
+    // ─── MUSIC CHECK PRIVACY PAGE ───
+    // A separate app with a separate policy. Do not fold these into the Synq
+    // keys above: the Synq policy states it does not use data for targeted
+    // advertising, which is true of Synq and false of Music Check.
+    'mcp.eyebrow': { en: 'Legal · Music Check', vi: 'Pháp lý · Music Check' },
+    'mcp.heading': { en: 'Music Check — Privacy Policy', vi: 'Music Check — Chính sách bảo mật' },
+    'mcp.subtitle': {
+      en: 'Music Check analyses music files already on your device and tells you whether they are genuinely lossless. It has no accounts, no cloud storage, and no server of its own.',
+      vi: 'Music Check phân tích các file nhạc đã có sẵn trong máy bạn để cho biết chúng có thật sự là lossless hay không. App không có tài khoản, không lưu trữ đám mây, và không có máy chủ riêng.'
+    },
+    'mcp.updated': { en: 'Effective: 12 August 2026', vi: 'Hiệu lực từ: 12 tháng 8, 2026' },
+
+    'mcp.s0.h': { en: 'Which app this covers', vi: 'Chính sách này áp dụng cho app nào' },
+    'mcp.s0.p': {
+      en: 'This policy applies to <strong>Music Check</strong> only (package <code>com.verifymusic.app</code>). Synq is a different app with a different policy, which you can read <a href="/privacy">here</a>.',
+      vi: 'Chính sách này chỉ áp dụng cho <strong>Music Check</strong> (tên gói <code>com.verifymusic.app</code>). Synq là một app khác với chính sách riêng, đọc <a href="/privacy">tại đây</a>.'
+    },
+
+    'mcp.s1.h': { en: 'What Music Check itself collects: nothing', vi: 'Bản thân Music Check thu thập gì: không gì cả' },
+    'mcp.s1.p': {
+      en: 'Your music files, the analysis results, your library index, favourites and playlists <strong>never leave your device</strong>. We do not operate a server, we cannot see your files, and we have no way to identify you. There is no account to create and no sign-in.',
+      vi: 'File nhạc, kết quả thẩm định, danh mục thư viện, mục yêu thích và playlist của bạn <strong>không bao giờ rời khỏi máy</strong>. Chúng tôi không vận hành máy chủ nào, không nhìn thấy file của bạn, và không có cách nào nhận ra bạn là ai. Không có tài khoản để đăng ký, không có đăng nhập.'
+    },
+
+    'mcp.s2.h': { en: 'Advertising — Google AdMob', vi: 'Quảng cáo — Google AdMob' },
+    'mcp.s2.p1': {
+      en: 'The free version shows adverts supplied by Google AdMob. Google may collect:',
+      vi: 'Bản miễn phí có quảng cáo do Google AdMob cung cấp. Google có thể thu thập:'
+    },
+    'mcp.s2.l1': { en: 'Advertising and device identifiers', vi: 'Mã nhận dạng quảng cáo và mã nhận dạng thiết bị' },
+    'mcp.s2.l2': { en: 'IP address, and approximate location derived from it (country or region level)', vi: 'Địa chỉ IP và vị trí gần đúng suy ra từ đó (mức quốc gia hoặc khu vực)' },
+    'mcp.s2.l3': { en: 'Device and operating-system information', vi: 'Thông tin thiết bị và hệ điều hành' },
+    'mcp.s2.l4': { en: 'Your interactions with adverts', vi: 'Thao tác của bạn với quảng cáo' },
+    'mcp.s2.p2': {
+      en: 'Google uses this to select and measure adverts and to detect fraud. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google\'s Privacy Policy</a> and <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">how Google uses information from apps that use its services</a>.',
+      vi: 'Google dùng những dữ liệu này để chọn và đo lường quảng cáo, và để phát hiện gian lận. Xem <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Chính sách bảo mật của Google</a> và <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">cách Google sử dụng thông tin từ ứng dụng dùng dịch vụ của Google</a>.'
+    },
+    'mcp.s2.p3': {
+      en: '<strong>Your choices.</strong> In the European Economic Area, the United Kingdom and Switzerland, Music Check shows Google\'s consent dialog before personalised adverts are used. On iOS, Music Check <strong>does not</strong> ask for App Tracking Transparency permission and therefore does not use the cross-app tracking identifier. On Android you can reset or delete your advertising ID in Settings → Privacy → Ads.',
+      vi: '<strong>Quyền lựa chọn của bạn.</strong> Ở Khu vực Kinh tế châu Âu, Vương quốc Anh và Thuỵ Sĩ, Music Check hiện hộp thoại xin đồng ý của Google trước khi dùng quảng cáo cá nhân hoá. Trên iOS, Music Check <strong>không</strong> xin quyền App Tracking Transparency, nên không sử dụng mã theo dõi xuyên ứng dụng. Trên Android bạn có thể đặt lại hoặc xoá mã quảng cáo trong Cài đặt → Quyền riêng tư → Quảng cáo.'
+    },
+    'mcp.s2.p4': {
+      en: '<strong>Buying the one-time unlock removes all adverts permanently</strong>, and with them this entire category of data collection.',
+      vi: '<strong>Mua gói mở khoá một lần là gỡ sạch quảng cáo vĩnh viễn</strong>, và cùng với đó là toàn bộ nhóm dữ liệu nói trên.'
+    },
+
+    'mcp.s3.h': { en: 'Payments — Apple and Google', vi: 'Thanh toán — Apple và Google' },
+    'mcp.s3.p': {
+      en: 'The one-time unlock is sold through the App Store and Google Play. Those stores handle the payment and their own privacy policies apply. Music Check receives only a confirmation that the unlock was purchased. <strong>No card or bank details ever reach the app or us.</strong>',
+      vi: 'Gói mở khoá một lần được bán qua App Store và Google Play. Hai cửa hàng đó xử lý việc thanh toán và áp dụng chính sách bảo mật của chính họ. Music Check chỉ nhận được tín hiệu xác nhận rằng gói đã được mua. <strong>Không có thông tin thẻ hay ngân hàng nào đi tới app hay tới chúng tôi.</strong>'
+    },
+
+    'mcp.s4.h': { en: 'What is stored on your device only', vi: 'Những gì chỉ được lưu dưới máy bạn' },
+    'mcp.s4.l1': { en: 'An index of the music files you added, and cached analysis results', vi: 'Danh mục các file nhạc bạn đã thêm, và kết quả thẩm định đã lưu tạm' },
+    'mcp.s4.l2': { en: 'Your favourites and playlists', vi: 'Mục yêu thích và playlist của bạn' },
+    'mcp.s4.l3': { en: 'How many free deep scans you have used, and whether you bought the unlock', vi: 'Số lần quét chuyên sâu miễn phí đã dùng, và bạn đã mua gói mở khoá hay chưa' },
+    'mcp.s4.l4': { en: 'A counter used to space out adverts', vi: 'Một bộ đếm để giãn cách quảng cáo' },
+    'mcp.s4.p': {
+      en: 'None of this is transmitted anywhere. <strong>Uninstalling Music Check deletes all of it.</strong>',
+      vi: 'Không thứ nào trong số này được gửi đi đâu cả. <strong>Gỡ Music Check là xoá sạch tất cả.</strong>'
+    },
+
+    'mcp.s5.h': { en: 'Permissions', vi: 'Quyền truy cập' },
+    'mcp.s5.l1': {
+      en: '<strong>Music and audio access (Android)</strong> — to find and read the music files you ask it to analyse',
+      vi: '<strong>Truy cập nhạc và âm thanh (Android)</strong> — tìm và đọc file nhạc bạn yêu cầu thẩm định'
+    },
+    'mcp.s5.l2': {
+      en: '<strong>Foreground service / media playback</strong> — to keep playing while the app is in the background',
+      vi: '<strong>Dịch vụ nền / phát nhạc</strong> — phát tiếp khi app chạy nền'
+    },
+    'mcp.s5.l3': {
+      en: '<strong>Prevent sleeping</strong> — to keep a long deep scan running to the end',
+      vi: '<strong>Chống ngủ màn hình</strong> — giữ cho một lượt quét chuyên sâu dài chạy tới cùng'
+    },
+    'mcp.s5.p': {
+      en: 'Music Check does not request location, contacts, camera, microphone, or storage beyond your audio files.',
+      vi: 'Music Check không xin quyền vị trí, danh bạ, camera, micro, hay bộ nhớ ngoài phạm vi file âm thanh của bạn.'
+    },
+
+    'mcp.s6.h': { en: 'Children', vi: 'Trẻ em' },
+    'mcp.s6.p': {
+      en: 'Music Check is not directed at children under 13, and we do not knowingly collect information from them.',
+      vi: 'Music Check không nhắm tới trẻ em dưới 13 tuổi và chúng tôi không cố ý thu thập thông tin từ các em.'
+    },
+
+    'mcp.s7.h': { en: 'Changes and contact', vi: 'Thay đổi và liên hệ' },
+    'mcp.s7.p1': {
+      en: 'If this policy changes, we will update the effective date at the top of this page.',
+      vi: 'Nếu chính sách này thay đổi, chúng tôi sẽ cập nhật ngày hiệu lực ở đầu trang.'
+    },
+    'mcp.s7.p2': {
+      en: 'Questions about your data? Write to <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>.',
+      vi: 'Có câu hỏi về dữ liệu của bạn? Gửi thư tới <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>.'
     }
   };
 
