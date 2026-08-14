@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bit-perfect là gì, và có đáng để bạn quan tâm không?</title>
+  <meta name="description" content="Cắm DAC xịn vào điện thoại mà vẫn thấy nhạc 'thường thường'? Rất có thể máy đang âm thầm resample lại nhạc của bạn. Giải thích bit-perfect bằng ngôn ngữ người thường — nó sửa cái gì, khi nào nghe ra khác, khi nào chỉ là ảo giác." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/bit-perfect" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <!-- Set language synchronously (matches i18n.js default 'en') so the correct
+       language block shows on first paint — no flash of the other language. -->
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-caption); color: var(--text-tertiary);
+      text-decoration: none; margin-bottom: var(--space-5);
+    }
+    .article-back:hover { color: var(--accent); }
+    .article-meta {
+      display: flex; flex-wrap: wrap; gap: var(--space-3);
+      font-size: var(--text-caption); color: var(--text-tertiary);
+      margin-top: var(--space-3);
+    }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    /* Prose */
+    .prose { max-width: 760px; }
+    .prose h2 {
+      font-family: var(--font-display); font-size: var(--text-h2);
+      font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight);
+      color: var(--text-primary); line-height: var(--leading-snug);
+      margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px;
+    }
+    .prose h3 {
+      font-family: var(--font-display); font-size: var(--text-h3);
+      font-weight: var(--weight-semibold); color: var(--text-primary);
+      margin: var(--space-6) 0 var(--space-3);
+    }
+    .prose p, .prose li {
+      font-size: var(--text-body); color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+    }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    ol.steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: var(--space-4); margin: var(--space-5) 0; }
+    ol.steps > li {
+      counter-increment: step; position: relative; padding-left: 46px;
+      color: var(--text-secondary); line-height: var(--leading-relaxed); font-size: var(--text-body);
+    }
+    ol.steps > li::before {
+      content: counter(step); position: absolute; left: 0; top: -2px;
+      width: 30px; height: 30px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--surface-2); border: 1px solid var(--border-accent);
+      color: var(--accent); font-family: var(--font-body); font-weight: var(--weight-bold); font-size: var(--text-caption);
+    }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout {
+      display: flex; gap: var(--space-3); align-items: flex-start;
+      background: var(--surface-1); border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent); border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5); margin: var(--space-4) 0;
+      font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed);
+    }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    /* Phone screenshots */
+    figure.shot { max-width: 300px; margin-left: auto; margin-right: auto; }
+    figure.shot img {
+      width: 100%; height: auto; display: block;
+      border-radius: 22px; border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-md); background: #05080a;
+    }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card {
+      display: flex; flex-direction: column; gap: var(--space-2);
+      background: var(--surface-1); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card); padding: var(--space-5);
+    }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.good .vc-tag { color: var(--accent); }
+    .verdict-card.bad { border-left: 3px solid #f5a524; }
+    .verdict-card.bad .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); text-align: center; background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-3); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px;
+      border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold);
+      font-size: var(--text-label); text-decoration: none; white-space: nowrap;
+      transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+    }
+    .store-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.appstore:hover { color: #0a0d10; box-shadow: var(--glow-sm), var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+    .store-btn.playstore:hover { color: #04120f; box-shadow: var(--glow-lg); }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Bit-perfect</span>
+        <h1>Bit-perfect là gì, và có đáng để bạn quan tâm không?</h1>
+        <p class="subtitle">Cắm cái DAC xịn vào điện thoại mà nhạc vẫn nghe "thường thường"? Rất có thể máy đang âm thầm chỉnh sửa nhạc của bạn trước khi nó kịp ra tới DAC. Nói thẳng thắn về bit-perfect — không tô vẽ.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 7 phút</span><span>·</span><span>Cho người mới cắm DAC lần đầu</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Lần đầu tôi cắm cái DAC USB nhỏ xíu vào điện thoại, tôi đã chờ một khoảnh khắc "wow". Tai nghe tử tế, DAC rời hẳn hoi, file FLAC 24-bit đàng hoàng — đáng lẽ phải khác chứ. Nghe xong tôi hơi cụt hứng: nó… y như cắm thẳng vào điện thoại, chỉ to hơn một chút. Mãi sau tôi mới hiểu tại sao. Cái điện thoại đang <em>âm thầm nghiền lại</em> toàn bộ nhạc của tôi trước khi nó kịp chạm tới DAC. Và đó là lúc tôi biết tới hai chữ <strong>bit-perfect</strong>.</p>
+        <p>Nếu bạn cũng vừa mua một con dongle DAC, hoặc đang phân vân "cái nút Bit-Perfect / Purist trong app kia có tác dụng gì", thì bài này dành cho bạn. Tôi sẽ cố nói bằng tiếng người, và quan trọng hơn: nói luôn cả những lúc nó <em>không</em> tạo ra khác biệt, để bạn khỏi tốn tiền oan.</p>
+
+        <h2>Bit-perfect, hiểu đơn giản</h2>
+        <p>Không màu mè: bit-perfect nghĩa là những con số 0 và 1 nằm trong file nhạc được gửi tới DAC <strong>đúng y như vậy</strong> — không thêm, không bớt, không "làm đẹp" dọc đường. DAC nhận đúng cái mà người kỹ sư mix nhạc đã bấm nút xuất ra. Nghe thì hiển nhiên, nhưng đây mới là chỗ bất ngờ: <strong>mặc định, điện thoại của bạn không làm thế.</strong></p>
+        <p>DAC (Digital-to-Analog Converter) là con chip biến dãy số đó thành tín hiệu điện cho tai nghe. Bạn muốn nó nhận được bản gốc, chứ không phải một bản đã bị chỉnh sửa qua tay hệ điều hành. Nhưng hệ điều hành thì có lý do riêng của nó để nhúng tay vào.</p>
+
+        <h2>Kẻ phá đám: cái "bàn trộn" trong máy</h2>
+        <p>Điện thoại là máy đa nhiệm. Nó phải trộn nhạc bạn đang nghe với tiếng thông báo Messenger, tiếng bàn phím, chuông báo, tiếng "tách" khi chụp màn hình… Để trộn được nhiều nguồn cùng lúc, hệ điều hành gom tất cả về <strong>một tần số lấy mẫu cố định</strong> — trên phần lớn máy Android là 48kHz.</p>
+        <p>Vấn đề: đĩa CD và đại đa số nhạc lossless là <strong>44.1kHz</strong>. Thế là mỗi lần phát, máy phải "quy đổi" 44.1 sang 48 — dân kỹ thuật gọi là <em>resample</em> (SRC). Phép quy đổi này không bao giờ tuyệt đối hoàn hảo, và nếu bộ resample của máy làm ẩu, cái mất đi là một chút độ trong ở dải cao, sân khấu âm thanh co lại, tiếng nghe "phẳng" hơn bản gốc. Bạn có file hi-res 96kHz? Nó cũng bị kéo tuột về 48kHz luôn — coi như tiền mua nhạc hi-res đổ sông.</p>
+        <p>Chưa hết. Trên đường đi, hệ thống còn có thể:</p>
+        <ul>
+          <li>Chỉnh âm lượng bằng cách <strong>nhân số</strong> — giảm volume kiểu số là vứt bớt độ phân giải, nhất là ở mức âm lượng nhỏ.</li>
+          <li>Bật sẵn mấy <strong>"hiệu ứng" của nhà sản xuất</strong>: giả lập loa to, tăng bass, "âm thanh vòm"… nghe hay trên loa điện thoại nhưng là thứ bạn không hề yêu cầu.</li>
+        </ul>
+        <p>Tổng lại: cái file bạn nâng niu đã bị qua vài bàn tay trước khi tới DAC. Bit-perfect chính là <em>tắt hết mấy bàn tay đó đi</em>.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 380" role="img" aria-label="Sơ đồ so sánh đường tín hiệu: đường thường đi qua bộ trộn hệ thống resample về 48kHz; đường bit-perfect gửi thẳng file tới DAC đúng tần số gốc">
+            <defs>
+              <marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7c8b96"/></marker>
+              <marker id="ahA" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#5eead4"/></marker>
+            </defs>
+
+            <!-- Row 1: normal path -->
+            <text x="30" y="40" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">ĐƯỜNG THƯỜNG</text>
+            <rect x="30" y="54" width="150" height="58" rx="10" fill="#05080a" stroke="#243038"/>
+            <text x="105" y="80" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">File nhạc</text>
+            <text x="105" y="99" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">FLAC 44.1kHz</text>
+            <line x1="180" y1="83" x2="236" y2="83" stroke="#7c8b96" stroke-width="2" marker-end="url(#ah)"/>
+            <rect x="240" y="54" width="230" height="58" rx="10" fill="#1a1206" stroke="#7a5a1e"/>
+            <text x="355" y="78" fill="#f5a524" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">Bộ trộn hệ thống</text>
+            <text x="355" y="98" fill="#b98a3c" font-family="sans-serif" font-size="11" text-anchor="middle">resample → 48kHz · chỉnh volume · hiệu ứng</text>
+            <line x1="470" y1="83" x2="526" y2="83" stroke="#7c8b96" stroke-width="2" marker-end="url(#ah)"/>
+            <rect x="530" y="54" width="180" height="58" rx="10" fill="#05080a" stroke="#243038"/>
+            <text x="620" y="80" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">DAC</text>
+            <text x="620" y="99" fill="#b98a3c" font-family="sans-serif" font-size="11" text-anchor="middle">nhận 48kHz đã đổi</text>
+
+            <line x1="60" y1="150" x2="760" y2="150" stroke="#243038" stroke-width="1" stroke-dasharray="4 5"/>
+
+            <!-- Row 2: bit-perfect path -->
+            <text x="30" y="210" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">BIT-PERFECT</text>
+            <rect x="30" y="224" width="150" height="58" rx="10" fill="#05080a" stroke="#243038"/>
+            <text x="105" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">File nhạc</text>
+            <text x="105" y="269" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">FLAC 44.1kHz</text>
+            <line x1="180" y1="253" x2="526" y2="253" stroke="#5eead4" stroke-width="2.5" marker-end="url(#ahA)"/>
+            <text x="353" y="244" fill="#5eead4" font-family="sans-serif" font-size="12" text-anchor="middle" font-weight="bold">đi thẳng · độc quyền (exclusive)</text>
+            <text x="353" y="274" fill="#3a4750" font-family="sans-serif" font-size="11" text-anchor="middle">không trộn · không resample · không đụng bit</text>
+            <rect x="530" y="224" width="180" height="58" rx="10" fill="#04140f" stroke="#2f6a5c"/>
+            <text x="620" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">DAC</text>
+            <text x="620" y="269" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">khớp đúng 44.1kHz gốc</text>
+
+            <text x="30" y="330" fill="#7c8b96" font-family="sans-serif" font-size="12">Bit-perfect = bỏ qua bàn trộn của hệ điều hành, để DAC nhận đúng bản gốc và tự chỉnh</text>
+            <text x="30" y="352" fill="#7c8b96" font-family="sans-serif" font-size="12">tần số lấy mẫu theo từng bài.</text>
+          </svg>
+          <figcaption>Đường thường: file đi qua bộ trộn, bị resample về 48kHz rồi mới tới DAC. Bit-perfect: file đi thẳng, DAC nhận đúng tần số gốc.</figcaption>
+        </figure>
+
+        <h2>Vậy bit-perfect sửa được cái gì</h2>
+        <p>Về cơ bản là ba việc, và cả ba đều là chuyện "gỡ bỏ" chứ không phải "thêm thắt":</p>
+        <ul>
+          <li><strong>Bỏ resample:</strong> app giành lấy DAC ở chế độ độc quyền và bảo DAC đổi <em>tần số lấy mẫu theo đúng từng bài</em> — bài 44.1 thì DAC chạy 44.1, bài 96k thì chạy 96k. Không còn khâu quy đổi nào ở giữa.</li>
+          <li><strong>Bỏ can thiệp âm lượng số:</strong> âm lượng được trả về cho DAC (nút vặn cứng, hoặc mức gốc), nên không bị vứt bit khi vặn nhỏ.</li>
+          <li><strong>Bỏ hiệu ứng hệ thống:</strong> không giả lập, không "tăng cường", không trộn lẫn tiếng thông báo.</li>
+        </ul>
+        <p>Nói cách khác: bạn nghe đúng cái đĩa/bản master, chứ không phải phiên bản mà điện thoại nghĩ là bạn muốn.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Nói thật lòng một câu:</strong> bit-perfect không phải nút "hay hơn", nó là nút "đúng". Nó không cứu được bản thu tệ, không biến MP3 thành hi-res, và nghe qua <em>Bluetooth</em> thì gần như vô nghĩa — vì Bluetooth tự nó đã nén lại tín hiệu rồi. Nó chỉ thật sự có đất diễn khi bạn dùng <strong>DAC/dongle cắm dây</strong>.</div>
+        </div>
+
+        <h2>Nghe có thật sự khác không? Thành thật nhé</h2>
+        <p>Câu trả lời trung thực là: <strong>còn tùy</strong>. Tùy con DAC, tùy tai nghe, tùy bản thu, và tùy cả bộ resample của cái máy bạn đang dùng tốt hay dở.</p>
+        <p>Có lúc bạn bật lên và "ồ" ngay — dải cao mở hơn, tiếng cymbal tự nhiên hơn, các nhạc cụ tách bạch hơn một chút. Có lúc bạn thề là chả nghe ra gì khác. Cả hai đều bình thường. Máy nào resample tốt sẵn thì khác biệt nhỏ; máy nào làm ẩu thì bật bit-perfect lên nghe rõ ràng dễ chịu hơn. Nhạc hi-res (88.2/96kHz trở lên) thường là chỗ dễ nhận ra nhất, đơn giản vì đó là lúc chuyện "kéo tuột về 48kHz" gây thiệt hại nhiều nhất.</p>
+        <p>Điều tôi muốn bạn nhớ: đừng nghe theo mấy lời quảng cáo kiểu "âm thanh thay đổi cả cuộc đời". Hãy coi bit-perfect như việc <em>lau sạch cửa kính</em>. Cửa kính bẩn thì lau xong thấy khác liền; cửa vốn đã sạch thì lau cũng chẳng sao — nhưng ít nhất bạn biết chắc mình đang nhìn qua tấm kính trong, không phải qua lớp bụi ai đó bôi lên.</p>
+
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Đáng bật khi</span>
+            <h4>Bạn dùng DAC/dongle cắm dây</h4>
+            <p>Nghe FLAC/hi-res qua DAC USB hoặc jack cắm. Đây là lúc bit-perfect có ý nghĩa thật sự.</p>
+          </div>
+          <div class="verdict-card bad">
+            <span class="vc-tag">Đừng kỳ vọng khi</span>
+            <h4>Bạn nghe qua Bluetooth / loa điện thoại</h4>
+            <p>Bluetooth đã nén lại tín hiệu; loa điện thoại thì quá nhỏ để lộ khác biệt. Bit-perfect ở đây gần như vô hình.</p>
+          </div>
+        </div>
+
+        <h2>Vì sao trên Android nó lại khó đến vậy</h2>
+        <p>Trên máy tính, chuyện này khá dễ: Windows có WASAPI exclusive, dân chuyên có ASIO — app chiếm DAC, xong. Trên Android thì khổ hơn nhiều. Bao năm nay, muốn bit-perfect thật sự qua cổng USB gần như phải <strong>root máy</strong>, hoặc dùng vài app chuyên dụng biết cách "giành" quyền điều khiển USB khỏi tay hệ điều hành. Người dùng phổ thông gần như bị bỏ lại.</p>
+        <p>Đó chính là lý do khi làm <strong>Synq</strong> tôi nhét hẳn vào một <strong>driver USB Audio riêng</strong> — nó nói chuyện trực tiếp với DAC, <strong>không cần root</strong>. Bật chế độ <strong>Purist / Bit-Perfect</strong> lên là app giành lấy DAC ở chế độ độc quyền, khớp đúng tần số gốc của từng bài, và đẩy thẳng bit ra ngoài, không qua bàn trộn của Android. (Một mẹo nhỏ tôi để mặc định: khi bật bit-perfect, âm lượng khởi đầu ở mức an toàn ~50%, vì nhiều dongle không có nút vặn cứng, bật lên 100% là chói tai ngay.)</p>
+
+        <figure class="shot">
+          <img src="/guides/img/synq-nowplaying-specs.png" width="900" height="1780" loading="lazy" alt="Màn hình Now Playing của Synq hiện thông số file: FLAC, LOSSLESS, 44.1kHz, 16-bit" />
+          <figcaption>Synq hiện thẳng tần số lấy mẫu của bài đang phát. Bit-perfect nghĩa là DAC nhận đúng con số này — không bị đổi thành 48kHz.</figcaption>
+        </figure>
+
+        <h2>Làm sao biết mình đang bit-perfect thật?</h2>
+        <p>Đừng chỉ tin vào cái nút bật/tắt. Mấy dấu hiệu này cho biết bit đang thật sự đi thẳng:</p>
+        <ol class="steps">
+          <li><strong>Tần số hiển thị đổi theo từng bài.</strong> Phát bài 44.1kHz rồi nhảy sang bài 96kHz — nếu con số nhảy theo (và DAC có đèn/màn thì đèn cũng đổi), là ngon. Nếu lúc nào cũng lì ở 48kHz, tức là đang bị resample.</li>
+          <li><strong>DAC báo đúng native rate.</strong> Nhiều DAC/dongle có đèn LED đổi màu theo tần số, hoặc màn hình nhỏ hiện 44.1 / 96 / 192. Màu/số đó phải khớp với file.</li>
+          <li><strong>Âm lượng do DAC nắm.</strong> Ở chế độ bit-perfect đúng nghĩa, nút âm lượng thường được giao cho DAC (hoặc nút cứng trên dongle), chứ app không chỉnh số nữa.</li>
+        </ol>
+
+        <hr class="rule" />
+
+        <p>Còn một điều đáng nói, để bạn khỏi vỡ mộng: bit-perfect chỉ đảm bảo đường đi <em>sạch</em>, chứ không đảm bảo <em>nguồn</em> sạch. Nếu cái file FLAC của bạn thật ra là MP3 encode ngược lại (chuyện này nhiều hơn bạn tưởng), thì bit-perfect sẽ chuyển nguyên vẹn… cái bản MP3 đó tới DAC. Rác vào thì rác ra, chỉ có điều là rác được vận chuyển rất trung thực.</p>
+        <p>Nếu bạn tò mò file của mình có "thật" không, tôi có viết hẳn một bài về <a href="/guides/fake-lossless" style="color:var(--accent)">cách nhận ra lossless giả</a> — đọc kèm bài này là đủ bộ.</p>
+
+        <div class="cta-box">
+          <h3>Muốn nghe bit-perfect mà không phải root máy?</h3>
+          <p style="color:var(--text-secondary)">Synq có driver USB Audio riêng: cắm DAC/dongle, bật Purist, app giành DAC và khớp đúng tần số gốc từng bài — trên cả Android lẫn iPhone, không cần root.</p>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Bit-perfect</span>
+        <h1>What "bit-perfect" actually means — and whether you should care</h1>
+        <p class="subtitle">Plugged a nice DAC into your phone and the music still sounds… ordinary? Odds are your phone is quietly reworking the audio before it ever reaches the DAC. A plain-English take on bit-perfect — no hype.</p>
+        <div class="article-meta">
+          <span>About a 7-minute read</span><span>·</span><span>For first-time DAC owners</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>The first time I plugged a tiny USB DAC into my phone, I was waiting for a "wow" moment. Decent headphones, a proper outboard DAC, an honest 24-bit FLAC — surely this would sound different. It didn't, really. It sounded like the phone jack, just louder. It took me a while to understand why: the phone was <em>quietly grinding up</em> all my music before it ever reached the DAC. That's when I learned the phrase <strong>bit-perfect</strong>.</p>
+        <p>If you've just bought a little DAC dongle, or you're wondering what that "Bit-Perfect / Purist" toggle in an app actually does, this is for you. I'll try to keep it human — and, more importantly, I'll be honest about when it makes <em>no</em> difference at all, so you don't waste money chasing ghosts.</p>
+
+        <h2>Bit-perfect, in plain terms</h2>
+        <p>No frills: bit-perfect means the ones and zeros inside your music file arrive at the DAC <strong>exactly as they are</strong> — nothing added, nothing removed, nothing "improved" along the way. The DAC gets precisely what the mastering engineer bounced out. Sounds obvious, right? Here's the twist: <strong>by default, your phone doesn't do this.</strong></p>
+        <p>The DAC (Digital-to-Analog Converter) is the chip that turns those numbers into the electrical signal your headphones play. You want it to receive the original, not a version that's been quietly edited by the operating system. But the OS has its own reasons to meddle.</p>
+
+        <h2>The culprit: the mixer inside your phone</h2>
+        <p>A phone is a multitasker. It has to blend your music with the Messenger ping, the keyboard clicks, alarms, the screenshot "click"… To mix several sources at once, the OS forces everything to <strong>one fixed sample rate</strong> — on most Android devices that's 48kHz.</p>
+        <p>The problem: CDs and the vast majority of lossless music are <strong>44.1kHz</strong>. So every time you press play, the phone has to convert 44.1 to 48 — engineers call it <em>resampling</em> (SRC). That conversion is never perfectly transparent, and if the phone's resampler is sloppy, what you lose is a bit of air up top, a narrower soundstage, a flatter sound than the original. Got a 96kHz hi-res file? It also gets dragged down to 48kHz — so much for paying extra for hi-res.</p>
+        <p>And there's more. On the way through, the system may also:</p>
+        <ul>
+          <li>Change the volume by <strong>multiplying numbers</strong> — digital volume cuts throw away resolution, especially at low levels.</li>
+          <li>Apply the manufacturer's <strong>"enhancements"</strong>: fake loudness, bass boost, "surround"… nice on the phone speaker, but things you never asked for.</li>
+        </ul>
+        <p>Bottom line: the file you treasure passes through several hands before it reaches the DAC. Bit-perfect is simply <em>switching all those hands off</em>.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 380" role="img" aria-label="Signal-path diagram: the normal path runs through the system mixer and resamples to 48kHz; the bit-perfect path sends the file straight to the DAC at its native rate">
+            <defs>
+              <marker id="ah2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7c8b96"/></marker>
+              <marker id="ahA2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#5eead4"/></marker>
+            </defs>
+            <text x="30" y="40" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">NORMAL PATH</text>
+            <rect x="30" y="54" width="150" height="58" rx="10" fill="#05080a" stroke="#243038"/>
+            <text x="105" y="80" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">Music file</text>
+            <text x="105" y="99" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">FLAC 44.1kHz</text>
+            <line x1="180" y1="83" x2="236" y2="83" stroke="#7c8b96" stroke-width="2" marker-end="url(#ah2)"/>
+            <rect x="240" y="54" width="230" height="58" rx="10" fill="#1a1206" stroke="#7a5a1e"/>
+            <text x="355" y="78" fill="#f5a524" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">System mixer</text>
+            <text x="355" y="98" fill="#b98a3c" font-family="sans-serif" font-size="11" text-anchor="middle">resample → 48kHz · volume · effects</text>
+            <line x1="470" y1="83" x2="526" y2="83" stroke="#7c8b96" stroke-width="2" marker-end="url(#ah2)"/>
+            <rect x="530" y="54" width="180" height="58" rx="10" fill="#05080a" stroke="#243038"/>
+            <text x="620" y="80" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">DAC</text>
+            <text x="620" y="99" fill="#b98a3c" font-family="sans-serif" font-size="11" text-anchor="middle">gets altered 48kHz</text>
+
+            <line x1="60" y1="150" x2="760" y2="150" stroke="#243038" stroke-width="1" stroke-dasharray="4 5"/>
+
+            <text x="30" y="210" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">BIT-PERFECT</text>
+            <rect x="30" y="224" width="150" height="58" rx="10" fill="#05080a" stroke="#243038"/>
+            <text x="105" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">Music file</text>
+            <text x="105" y="269" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">FLAC 44.1kHz</text>
+            <line x1="180" y1="253" x2="526" y2="253" stroke="#5eead4" stroke-width="2.5" marker-end="url(#ahA2)"/>
+            <text x="353" y="244" fill="#5eead4" font-family="sans-serif" font-size="12" text-anchor="middle" font-weight="bold">straight through · exclusive</text>
+            <text x="353" y="274" fill="#3a4750" font-family="sans-serif" font-size="11" text-anchor="middle">no mixing · no resample · bits untouched</text>
+            <rect x="530" y="224" width="180" height="58" rx="10" fill="#04140f" stroke="#2f6a5c"/>
+            <text x="620" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">DAC</text>
+            <text x="620" y="269" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">locks to native 44.1kHz</text>
+
+            <text x="30" y="330" fill="#7c8b96" font-family="sans-serif" font-size="12">Bit-perfect bypasses the OS mixer so the DAC gets the original and sets its own</text>
+            <text x="30" y="352" fill="#7c8b96" font-family="sans-serif" font-size="12">sample rate per track.</text>
+          </svg>
+          <figcaption>Normal path: the file goes through the mixer, gets resampled to 48kHz, then reaches the DAC. Bit-perfect: the file goes straight through and the DAC locks to the native rate.</figcaption>
+        </figure>
+
+        <h2>So what does bit-perfect actually fix</h2>
+        <p>Three things, really — and all three are about <em>removing</em> steps, not adding them:</p>
+        <ul>
+          <li><strong>No resampling:</strong> the app takes the DAC in exclusive mode and tells it to switch <em>sample rate per track</em> — a 44.1 track plays at 44.1, a 96k track at 96k. No conversion in the middle.</li>
+          <li><strong>No digital volume math:</strong> volume goes back to the DAC (a hardware knob, or its native level), so nothing gets thrown away when you turn it down.</li>
+          <li><strong>No system effects:</strong> no fake anything, no "enhancement", no notifications mixed in.</li>
+        </ul>
+        <p>In other words: you hear the actual master, not the version your phone thought you wanted.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>One honest line:</strong> bit-perfect isn't a "sounds better" button, it's a "sounds correct" button. It won't rescue a bad recording, it won't turn MP3 into hi-res, and over <em>Bluetooth</em> it's basically meaningless — Bluetooth re-compresses the signal anyway. It only earns its keep with a <strong>wired DAC/dongle</strong>.</div>
+        </div>
+
+        <h2>Will you actually hear a difference? Straight answer</h2>
+        <p>The honest answer is: <strong>it depends</strong>. On the DAC, the headphones, the recording — and on whether your particular phone's resampler is any good.</p>
+        <p>Sometimes you flip it on and go "oh" immediately — more open highs, more natural cymbals, instruments a touch more separated. Sometimes you'd swear it's identical. Both are normal. Phones with a good resampler show a small difference; phones with a sloppy one make bit-perfect an obvious, welcome improvement. Hi-res material (88.2/96kHz and up) is usually where it's easiest to hear, simply because that's where the "dragged down to 48kHz" damage is worst.</p>
+        <p>Here's what I want you to remember: ignore the "life-changing audio" marketing. Think of bit-perfect as <em>cleaning a window</em>. A dirty window looks obviously better once cleaned; a window that was already clean won't change much — but at least you know for sure you're looking through clear glass, not through dust someone smeared on for you.</p>
+
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Worth it when</span>
+            <h4>You use a wired DAC/dongle</h4>
+            <p>Playing FLAC/hi-res through a USB DAC or a headphone jack. This is where bit-perfect genuinely matters.</p>
+          </div>
+          <div class="verdict-card bad">
+            <span class="vc-tag">Don't expect much when</span>
+            <h4>You're on Bluetooth / phone speaker</h4>
+            <p>Bluetooth already re-compresses; the phone speaker is too small to reveal the difference. Bit-perfect here is nearly invisible.</p>
+          </div>
+        </div>
+
+        <h2>Why this is so hard on Android</h2>
+        <p>On a computer it's easy: Windows has WASAPI exclusive, pros have ASIO — the app grabs the DAC, done. On Android it's a much bigger pain. For years, getting true bit-perfect over USB essentially meant <strong>rooting your phone</strong>, or using a handful of specialist apps that know how to wrestle USB control away from the OS. Regular users were mostly left out.</p>
+        <p>That's exactly why, when I built <strong>Synq</strong>, I put in a dedicated <strong>USB Audio driver</strong> — it talks to the DAC directly, <strong>no root required</strong>. Turn on <strong>Purist / Bit-Perfect</strong> and the app takes the DAC in exclusive mode, matches each track's native rate, and pushes the bits straight out, bypassing Android's mixer. (One small default I set: on bit-perfect, volume starts at a safe ~50%, because a lot of dongles have no hardware knob and jumping to 100% is instantly painful.)</p>
+
+        <figure class="shot">
+          <img src="/guides/img/synq-nowplaying-specs.png" width="900" height="1780" loading="lazy" alt="Synq's Now Playing showing the file's specs: FLAC, LOSSLESS, 44.1kHz, 16-bit" />
+          <figcaption>Synq shows the playing track's sample rate up front. Bit-perfect means the DAC gets exactly this number — not silently bumped to 48kHz.</figcaption>
+        </figure>
+
+        <h2>How do you know it's really bit-perfect?</h2>
+        <p>Don't just trust the toggle. These are the signs the bits are truly going straight through:</p>
+        <ol class="steps">
+          <li><strong>The displayed sample rate changes per track.</strong> Play a 44.1kHz track, then jump to a 96kHz one — if the number follows (and, on a DAC with a light/screen, the light changes too), you're good. If it's always stuck at 48kHz, you're being resampled.</li>
+          <li><strong>The DAC reports the native rate.</strong> Many DACs/dongles have an LED that changes colour by rate, or a tiny screen showing 44.1 / 96 / 192. That colour/number should match the file.</li>
+          <li><strong>The DAC owns the volume.</strong> In true bit-perfect mode, volume is usually handed to the DAC (or a hardware knob on the dongle) rather than adjusted in software.</li>
+        </ol>
+
+        <hr class="rule" />
+
+        <p>One more thing, so you don't get the wrong idea: bit-perfect only guarantees a <em>clean path</em>, not a clean <em>source</em>. If your FLAC is secretly an MP3 re-encoded backwards (more common than you'd think), bit-perfect will faithfully deliver… that MP3, straight to the DAC. Garbage in, garbage out — just very honestly transported.</p>
+        <p>If you're curious whether your files are the real thing, I wrote a whole piece on <a href="/guides/fake-lossless" style="color:var(--accent)">how to spot fake lossless</a> — read it alongside this one for the full set.</p>
+
+        <div class="cta-box">
+          <h3>Want bit-perfect without rooting your phone?</h3>
+          <p style="color:var(--text-secondary)">Synq ships its own USB Audio driver: plug in a DAC/dongle, turn on Purist, and the app grabs the DAC and matches each track's native rate — on both Android and iPhone, no root needed.</p>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

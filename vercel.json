@@ -9,7 +9,8 @@
     { "source": "/changelog", "destination": "/changelog.html" },
     { "source": "/guides", "destination": "/guides.html" },
     { "source": "/guides/nas-setup", "destination": "/guides/nas-setup.html" },
-    { "source": "/guides/fake-lossless", "destination": "/guides/fake-lossless.html" }
+    { "source": "/guides/fake-lossless", "destination": "/guides/fake-lossless.html" },
+    { "source": "/guides/bit-perfect", "destination": "/guides/bit-perfect.html" }
   ],
   "headers": [
     {
