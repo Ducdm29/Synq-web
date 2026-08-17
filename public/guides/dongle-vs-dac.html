@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dongle hay DAC để bàn? Chọn sao cho khỏi phí tiền</title>
+  <meta name="description" content="Cùng là 'DAC rời' nhưng một cái nhét túi, một cái nằm bàn — và khác nhau ở những chỗ bạn không ngờ. Cách chọn dongle hay DAC để bàn theo đúng tai nghe và cách nghe của bạn, không bị dụ mua thừa." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/dongle-vs-dac" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-caption); color: var(--text-tertiary);
+      text-decoration: none; margin-bottom: var(--space-5);
+    }
+    .article-back:hover { color: var(--accent); }
+    .article-meta {
+      display: flex; flex-wrap: wrap; gap: var(--space-3);
+      font-size: var(--text-caption); color: var(--text-tertiary);
+      margin-top: var(--space-3);
+    }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 {
+      font-family: var(--font-display); font-size: var(--text-h2);
+      font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight);
+      color: var(--text-primary); line-height: var(--leading-snug);
+      margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px;
+    }
+    .prose h3 {
+      font-family: var(--font-display); font-size: var(--text-h3);
+      font-weight: var(--weight-semibold); color: var(--text-primary);
+      margin: var(--space-6) 0 var(--space-3);
+    }
+    .prose p, .prose li {
+      font-size: var(--text-body); color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+    }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout {
+      display: flex; gap: var(--space-3); align-items: flex-start;
+      background: var(--surface-1); border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent); border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5); margin: var(--space-4) 0;
+      font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed);
+    }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card {
+      display: flex; flex-direction: column; gap: var(--space-2);
+      background: var(--surface-1); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card); padding: var(--space-5);
+    }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.good .vc-tag { color: var(--accent); }
+    .verdict-card.bad { border-left: 3px solid #f5a524; }
+    .verdict-card.bad .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Download row + CTA */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px;
+      border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold);
+      font-size: var(--text-label); text-decoration: none; white-space: nowrap;
+      transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+    }
+    .store-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.appstore:hover { color: #0a0d10; box-shadow: var(--glow-sm), var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+    .store-btn.playstore:hover { color: #04120f; box-shadow: var(--glow-lg); }
+
+    .dl-top {
+      margin: var(--space-6) 0 var(--space-4); padding: var(--space-5);
+      background: var(--surface-1); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); text-align: center;
+    }
+    .dl-top p { font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: 2px; }
+    .dl-top .cta-row { margin-top: var(--space-3); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); text-align: center; background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-3); }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Thiết bị nghe</span>
+        <h1>Dongle hay DAC để bàn? Chọn sao cho khỏi phí tiền</h1>
+        <p class="subtitle">Cùng gọi là "DAC rời", nhưng một cái nhét túi, một cái nằm bàn — và khác nhau ở những chỗ bạn không ngờ. Cách chọn theo đúng tai nghe và cách nghe của bạn.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Cho người sắp lên đời DAC</span>
+        </div>
+      </div>
+
+      <!-- Download button (TOP) -->
+      <div class="dl-top">
+        <p>Nghe thử nhạc lossless của bạn qua DAC — bit-perfect, không cần root:</p>
+        <div class="cta-row">
+          <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+          <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Con dongle DAC đầu tiên của tôi bé bằng cục tẩy, cắm vào điện thoại là có ngay tiếng hay hơn hẳn cái jack cắm sẵn. Đang sướng thì lên diễn đàn, thấy người ta khoe mấy cục DAC để bàn to bằng viên gạch, đèn xanh đỏ, giá gấp mười lần. Kiểu gì cũng hay hơn chứ? Tôi suýt rút ví. May là kịp dừng lại hỏi một câu đơn giản: <em>hay hơn để làm gì, với cái tai nghe tôi đang có?</em></p>
+        <p>Nếu bạn cũng đang đứng giữa ngã ba đó, bài này để dành cho bạn. Tôi sẽ nói cả chỗ hai loại khác nhau thật, lẫn chỗ người ta hay thổi phồng.</p>
+
+        <h2>Nói nhanh: hai thứ này là gì</h2>
+        <p><strong>Dongle DAC</strong> là một cục DAC + khuếch đại (amp) tí hon, cắm thẳng cổng USB-C của điện thoại, lấy điện từ điện thoại. Nhẹ, bỏ túi, giá thường vài trăm nghìn đến vài triệu.</p>
+        <p><strong>DAC để bàn</strong> (và thường kèm amp) là thiết bị lớn hơn nhiều, có <em>nguồn điện riêng</em>, nằm cố định trên bàn. Nhờ nguồn riêng nên nó khỏe hơn hẳn, nhiều ngõ vào/ra, hay có ngõ balanced, màn hình, nút vặn cơ. Giá trải rộng từ vài triệu đến… vô cực.</p>
+        <p>Điểm chung: cả hai đều thay cho con DAC bé tí bên trong điện thoại, và cả hai đều cắm điện thoại được. Khác nhau nằm ở bốn chỗ dưới đây.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 420" role="img" aria-label="Biểu đồ đánh đổi: DAC để bàn nằm ở góc công suất cao nhưng ít di động; dongle nằm ở góc rất di động nhưng công suất thấp hơn">
+            <defs>
+              <radialGradient id="dp" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.9"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0.15"/></radialGradient>
+              <radialGradient id="bp" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#8aa0ad" stop-opacity="0.85"/><stop offset="100%" stop-color="#8aa0ad" stop-opacity="0.12"/></radialGradient>
+            </defs>
+            <!-- axes -->
+            <line x1="90" y1="60" x2="90" y2="350" stroke="#3a4750" stroke-width="1.5"/>
+            <line x1="90" y1="350" x2="760" y2="350" stroke="#3a4750" stroke-width="1.5"/>
+            <text x="76" y="70" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="end">cao</text>
+            <text x="76" y="348" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="end">thấp</text>
+            <text x="40" y="210" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" transform="rotate(-90 40 210)" text-anchor="middle">Công suất / khả năng →</text>
+            <text x="425" y="382" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Tính di động →</text>
+            <text x="120" y="368" fill="#7c8b96" font-family="sans-serif" font-size="12">ít</text>
+            <text x="735" y="368" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="end">nhiều</text>
+            <!-- desktop DAC: high power, low portability (top-left) -->
+            <circle cx="235" cy="130" r="66" fill="url(#dp)"/>
+            <text x="235" y="126" fill="#04120f" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle">DAC</text>
+            <text x="235" y="146" fill="#04120f" font-family="sans-serif" font-size="13" text-anchor="middle">để bàn</text>
+            <!-- dongle: low power, high portability (bottom-right) -->
+            <circle cx="620" cy="270" r="60" fill="url(#bp)"/>
+            <text x="620" y="266" fill="#0a0d10" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle">Dongle</text>
+            <text x="620" y="286" fill="#0a0d10" font-family="sans-serif" font-size="12" text-anchor="middle">USB-C</text>
+            <text x="90" y="405" fill="#7c8b96" font-family="sans-serif" font-size="12">Không có "cái nào hay hơn" — chỉ có đánh đổi. Chọn theo tai nghe và nơi bạn nghe.</text>
+          </svg>
+          <figcaption>Đây là một sự đánh đổi, không phải bậc thang. Dongle thắng về gọn nhẹ; DAC để bàn thắng về công suất và tính năng.</figcaption>
+        </figure>
+
+        <h2>1. Công suất — chỗ khác nhau lớn nhất</h2>
+        <p>Đây mới là điều thật sự quan trọng, hơn hẳn "chất âm". Tai nghe càng <strong>khó kéo</strong> (trở kháng cao, hoặc độ nhạy thấp — điển hình là mấy con planar, hoặc tai studio 250/300 ohm) thì càng cần nhiều công suất để chạy ra hết sức: đủ động lực, bass có lực, không bị "hụt hơi" ở đoạn to.</p>
+        <p>Dongle lấy điện từ điện thoại nên công suất có giới hạn. Với tai nghe in-ear (IEM) hay tai nghe di động dễ kéo, dongle thừa sức. Nhưng cắm một con planar đói điện vào dongle, bạn sẽ nghe thấy nó <em>nghe được nhưng nhạt</em> — vặn to gần hết mà vẫn thấy thiếu lực. Đó là lúc DAC/amp để bàn với nguồn riêng thể hiện: nó có thừa công suất để cái tai đó "nở" ra đúng chất.</p>
+
+        <h2>2. Chất âm — khác, nhưng ít hơn bạn tưởng</h2>
+        <p>Nói thật: khi cả hai đều đủ sức kéo tai nghe của bạn, khác biệt <em>chất âm</em> giữa một con dongle tốt và một con DAC để bàn tốt thường nhỏ hơn nhiều so với những gì quảng cáo vẽ ra. Không phải ngày và đêm. Cái quyết định độ hay của bộ dàn, theo thứ tự sức nặng, gần như luôn là: <strong>tai nghe → bản thu/file gốc → khả năng kéo (công suất) → rồi mới tới màu âm của DAC</strong>.</p>
+        <p>Nghĩa là nếu ngân sách có hạn, tiền bỏ vào tai nghe tốt hơn thường "lời" hơn nhiều so với nâng cấp từ dongle ngon lên DAC để bàn.</p>
+
+        <h2>3. Tính năng & sự tiện</h2>
+        <ul>
+          <li><strong>Ngõ balanced (4.4mm/XLR):</strong> DAC/amp để bàn hay có, cho nhiều công suất và tách kênh tốt hơn. Vài dongle cao cấp cũng có cổng 4.4mm.</li>
+          <li><strong>Nhiều ngõ vào:</strong> DAC để bàn cắm được cả máy tính, đầu CD, điện thoại cùng lúc — làm trung tâm cho cả bàn nghe.</li>
+          <li><strong>Pin điện thoại:</strong> dongle <em>rút pin</em> điện thoại (nó ăn điện từ máy). Nghe lâu sẽ thấy máy tụt pin nhanh hơn. DAC để bàn dùng nguồn riêng, không đụng tới pin.</li>
+          <li><strong>Nút vặn cơ:</strong> nhiều DAC để bàn có núm âm lượng vật lý — hợp với chế độ bit-perfect (âm lượng do phần cứng nắm, không chỉnh bằng số).</li>
+        </ul>
+
+        <h2>4. Giá & điểm hoà vốn</h2>
+        <p>Dongle rẻ và dễ mua thử. DAC để bàn đắt hơn nhiều, và đường cong "thêm tiền = thêm hay" <strong>dốc xuống rất nhanh</strong>: từ con DAC 2 triệu lên 6 triệu, khác biệt còn nghe ra; từ 20 triệu lên 60 triệu thì phần lớn người nghe sẽ không phân biệt nổi trong test mù. Đừng để con số to làm bạn tưởng tai mình đang thiệt thòi.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Bẫy hay gặp:</strong> mua DAC xịn để "cứu" một cái tai nghe tầm trung, hoặc để nghe mấy file nhạc lossless giả / bản thu tệ. DAC không làm được phép màu đó. Nâng tai nghe trước, kiểm tra file gốc trước — rồi mới tính tới việc lên DAC.</div>
+        </div>
+
+        <h2>Vậy nên mua cái nào?</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Chọn Dongle nếu</span>
+            <h4>Bạn nghe di động, dùng IEM / tai dễ kéo</h4>
+            <p>Nghe trên đường, tai nghe in-ear hoặc tai on-ear dễ kéo, muốn gọn nhẹ và rẻ. 90% người nghe phổ thông dừng ở đây là đủ sướng.</p>
+          </div>
+          <div class="verdict-card bad">
+            <span class="vc-tag">Lên DAC để bàn nếu</span>
+            <h4>Tai khó kéo, nghe cố định ở nhà</h4>
+            <p>Tai nghe trở kháng cao / planar đói điện, có góc nghe cố định, cần balanced hoặc nhiều nguồn vào. Lúc đó công suất dư của DAC để bàn mới đáng tiền.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Một điểm hay ít người để ý: <strong>cả dongle lẫn DAC để bàn đều cắm điện thoại được</strong>, và cả hai đều nghe <em>bit-perfect</em> được nếu app biết đẩy tín hiệu đúng cách — tức không để hệ điều hành resample hay chỉnh sửa dọc đường. Nếu bạn chưa rõ bit-perfect là gì và vì sao nó quan trọng, đọc thêm bài <a href="/guides/bit-perfect" style="color:var(--accent)">Bit-perfect là gì</a>.</p>
+        <p>Dù bạn chọn dongle bỏ túi hay DAC để bàn hầm hố, thứ chạy vào nó vẫn phải là bản nhạc sạch. Chọn thiết bị theo tai nghe của bạn, đừng theo cái đèn xanh đỏ đẹp nhất diễn đàn.</p>
+
+        <div class="cta-box">
+          <h3>Cắm DAC nào cũng được — Synq lo phần bit-perfect</h3>
+          <p style="color:var(--text-secondary)">Cắm dongle hay DAC để bàn, bật Purist, app giành DAC và khớp đúng tần số gốc từng bài — trên cả Android lẫn iPhone, không cần root. Kèm AutoEQ cho 6.000+ tai nghe.</p>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Gear</span>
+        <h1>Dongle or desktop DAC? How to choose without overspending</h1>
+        <p class="subtitle">Both are "external DACs", but one lives in your pocket and one lives on your desk — and they differ in places you wouldn't expect. How to pick based on your headphones and how you listen.</p>
+        <div class="article-meta">
+          <span>About an 8-minute read</span><span>·</span><span>For anyone eyeing a DAC upgrade</span>
+        </div>
+      </div>
+
+      <!-- Download button (TOP) -->
+      <div class="dl-top">
+        <p>Hear your own lossless music through a DAC — bit-perfect, no root needed:</p>
+        <div class="cta-row">
+          <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+          <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>My first DAC dongle was the size of an eraser, and plugging it into my phone gave me noticeably better sound than the built-in jack. I was happy — until I hit the forums and saw people showing off brick-sized desktop DACs with glowing lights, costing ten times more. Surely those are better? I almost reached for my wallet. Luckily I stopped to ask one simple question: <em>better for what — with the headphones I actually own?</em></p>
+        <p>If you're standing at that same fork, this is for you. I'll cover both where the two genuinely differ and where the marketing is blowing smoke.</p>
+
+        <h2>Quick version: what each one is</h2>
+        <p>A <strong>DAC dongle</strong> is a tiny DAC + amplifier that plugs straight into your phone's USB-C port and draws power from the phone. Light, pocketable, usually cheap to moderate.</p>
+        <p>A <strong>desktop DAC</strong> (usually with an amp) is a much larger unit with its <em>own power supply</em> that stays put on your desk. Because of that power supply it's far stronger, with more inputs/outputs, often a balanced output, a screen, physical knobs. Prices run from moderate to… infinity.</p>
+        <p>What they share: both replace the tiny DAC inside your phone, and both can plug into a phone. The differences come down to the four things below.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 420" role="img" aria-label="Trade-off chart: the desktop DAC sits in the high-power, low-portability corner; the dongle sits in the highly-portable, lower-power corner">
+            <defs>
+              <radialGradient id="dp2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.9"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0.15"/></radialGradient>
+              <radialGradient id="bp2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#8aa0ad" stop-opacity="0.85"/><stop offset="100%" stop-color="#8aa0ad" stop-opacity="0.12"/></radialGradient>
+            </defs>
+            <line x1="90" y1="60" x2="90" y2="350" stroke="#3a4750" stroke-width="1.5"/>
+            <line x1="90" y1="350" x2="760" y2="350" stroke="#3a4750" stroke-width="1.5"/>
+            <text x="76" y="70" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="end">high</text>
+            <text x="76" y="348" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="end">low</text>
+            <text x="40" y="210" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" transform="rotate(-90 40 210)" text-anchor="middle">Power / capability →</text>
+            <text x="425" y="382" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Portability →</text>
+            <text x="120" y="368" fill="#7c8b96" font-family="sans-serif" font-size="12">less</text>
+            <text x="735" y="368" fill="#7c8b96" font-family="sans-serif" font-size="12" text-anchor="end">more</text>
+            <circle cx="235" cy="130" r="66" fill="url(#dp2)"/>
+            <text x="235" y="126" fill="#04120f" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle">Desktop</text>
+            <text x="235" y="146" fill="#04120f" font-family="sans-serif" font-size="13" text-anchor="middle">DAC</text>
+            <circle cx="620" cy="270" r="60" fill="url(#bp2)"/>
+            <text x="620" y="266" fill="#0a0d10" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle">Dongle</text>
+            <text x="620" y="286" fill="#0a0d10" font-family="sans-serif" font-size="12" text-anchor="middle">USB-C</text>
+            <text x="90" y="405" fill="#7c8b96" font-family="sans-serif" font-size="12">There's no "which is better" — only a trade-off. Choose by your headphones and where you listen.</text>
+          </svg>
+          <figcaption>This is a trade-off, not a ladder. The dongle wins on portability; the desktop DAC wins on power and features.</figcaption>
+        </figure>
+
+        <h2>1. Power — the biggest difference</h2>
+        <p>This is what actually matters, far more than "sound signature". The <strong>harder your headphones are to drive</strong> (high impedance, or low sensitivity — classic examples are planars, or 250/300-ohm studio cans), the more power they need to reach their full potential: proper dynamics, bass with authority, no running out of steam in loud passages.</p>
+        <p>A dongle draws power from the phone, so its output is limited. For in-ear monitors (IEMs) or easy-to-drive portable headphones, a dongle has plenty to spare. But plug a power-hungry planar into a dongle and you'll hear it <em>work, but sound flat</em> — near max volume yet still lacking punch. That's where a desktop DAC/amp with its own power supply shines: it has power to spare so those headphones can open up properly.</p>
+
+        <h2>2. Sound quality — different, but less than you think</h2>
+        <p>Honestly: when both can comfortably drive your headphones, the <em>sound-quality</em> gap between a good dongle and a good desktop DAC is usually far smaller than the ads suggest. It's not night and day. What determines how good a rig sounds, in rough order of importance, is almost always: <strong>headphones → the recording/source file → having enough power → and only then the DAC's tonal flavour</strong>.</p>
+        <p>Which means if your budget is limited, money spent on better headphones usually pays off far more than upgrading from a good dongle to a desktop DAC.</p>
+
+        <h2>3. Features & convenience</h2>
+        <ul>
+          <li><strong>Balanced output (4.4mm/XLR):</strong> common on desktop gear, for more power and better channel separation. Some higher-end dongles have a 4.4mm port too.</li>
+          <li><strong>Multiple inputs:</strong> a desktop DAC can take a computer, a CD player and a phone at once — a hub for the whole listening desk.</li>
+          <li><strong>Phone battery:</strong> a dongle <em>drains</em> your phone (it feeds on the phone's power). Long sessions noticeably cut battery. A desktop DAC uses its own supply and never touches your battery.</li>
+          <li><strong>Physical knob:</strong> many desktop DACs have an analog volume knob — great for bit-perfect mode, where volume is handled by hardware rather than in software.</li>
+        </ul>
+
+        <h2>4. Price & diminishing returns</h2>
+        <p>Dongles are cheap and easy to try. Desktop DACs cost far more, and the "more money = more sound" curve <strong>flattens fast</strong>: going from a $100 DAC to a $300 one is audible; going from $800 to $2,500 is something most listeners can't tell apart in a blind test. Don't let a big number convince you your ears are missing out.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Common trap:</strong> buying a fancy DAC to "rescue" mid-tier headphones, or to play fake-lossless files / bad recordings. A DAC can't work that magic. Upgrade the headphones first, check the source files first — then think about a bigger DAC.</div>
+        </div>
+
+        <h2>So which should you buy?</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Pick a dongle if</span>
+            <h4>You listen on the move, with IEMs / easy headphones</h4>
+            <p>On-the-go listening, in-ears or easy-to-drive on-ears, want light and cheap. 90% of regular listeners are perfectly happy stopping here.</p>
+          </div>
+          <div class="verdict-card bad">
+            <span class="vc-tag">Step up to a desktop DAC if</span>
+            <h4>Hard-to-drive headphones, a fixed listening spot</h4>
+            <p>High-impedance / power-hungry planars, a fixed desk to listen at, need balanced or multiple inputs. That's when a desktop DAC's spare power is worth the money.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>One thing few people notice: <strong>both a dongle and a desktop DAC can plug into a phone</strong>, and both can play <em>bit-perfect</em> if the app pushes the signal correctly — i.e. without the OS resampling or altering it on the way. If you're not sure what bit-perfect is or why it matters, read <a href="/guides/bit-perfect" style="color:var(--accent)">What bit-perfect means</a>.</p>
+        <p>Whether you go pocket dongle or big desktop DAC, what feeds into it still has to be a clean recording. Choose the gear for your headphones — not for the shiniest lights on the forum.</p>
+
+        <div class="cta-box">
+          <h3>Whatever DAC you plug in — Synq handles bit-perfect</h3>
+          <p style="color:var(--text-secondary)">Dongle or desktop DAC, turn on Purist and the app grabs the DAC and matches each track's native rate — on both Android and iPhone, no root. Plus AutoEQ for 6,000+ headphones.</p>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

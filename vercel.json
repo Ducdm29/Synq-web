@@ -10,7 +10,8 @@
     { "source": "/guides", "destination": "/guides.html" },
     { "source": "/guides/nas-setup", "destination": "/guides/nas-setup.html" },
     { "source": "/guides/fake-lossless", "destination": "/guides/fake-lossless.html" },
-    { "source": "/guides/bit-perfect", "destination": "/guides/bit-perfect.html" }
+    { "source": "/guides/bit-perfect", "destination": "/guides/bit-perfect.html" },
+    { "source": "/guides/dongle-vs-dac", "destination": "/guides/dongle-vs-dac.html" }
   ],
   "headers": [
     {
