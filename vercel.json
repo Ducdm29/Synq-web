@@ -4,6 +4,7 @@
     { "source": "/support", "destination": "/support.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/music-check-privacy", "destination": "/music-check-privacy.html" },
+    { "source": "/music-check", "destination": "/music-check.html" },
     { "source": "/delete-account", "destination": "/delete-account.html" },
     { "source": "/get", "destination": "/get.html" },
     { "source": "/changelog", "destination": "/changelog.html" },
@@ -15,6 +16,12 @@
     { "source": "/guides/hi-res-vs-cd", "destination": "/guides/hi-res-vs-cd.html" }
   ],
   "headers": [
+    {
+      "source": "/.well-known/apple-app-site-association",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

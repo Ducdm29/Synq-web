@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Check — Thẩm định nhạc lossless</title>
+  <meta name="description" content="Music Check phân tích file nhạc của bạn — codec, tần số lấy mẫu, phổ tần, tần số cắt — và nói thật đó là lossless xịn hay MP3 đội lốt FLAC. Kèm player nghe nhạc local. Tải cho iOS & Android." />
+  <link rel="canonical" href="https://synqstudio.cloud/music-check" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .mc-wrap { max-width: 720px; margin: 0 auto; text-align: center; }
+    .mc-feat { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); margin: var(--space-7) 0; text-align: left; }
+    .mc-card { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .mc-card h3 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 6px; }
+    .mc-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+    .mc-stores { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-5); }
+    .store-btn { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-label); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+    .store-btn.highlight { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .mc-redirect { font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-4); min-height: 1.2em; }
+    .mc-back { display:inline-flex; gap:6px; font-size: var(--text-caption); color: var(--text-tertiary); text-decoration:none; margin-bottom: var(--space-5); }
+    .mc-back:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+    <div class="mc-wrap">
+
+      <a class="mc-back" href="/" data-lang-block="vi">← Về trang chủ Synq</a>
+      <a class="mc-back" href="/" data-lang-block="en">← Back to Synq</a>
+
+      <div class="page-hero">
+        <span class="eyebrow">Music Check</span>
+        <h1 data-lang-block="vi">File nhạc của bạn có thật là lossless?</h1>
+        <h1 data-lang-block="en">Is your music really lossless?</h1>
+        <p class="subtitle" data-lang-block="vi">Music Check phân tích file nhạc trên máy bạn và nói thật: lossless xịn, hay chỉ là đồ up-scale từ MP3. Kèm một player nghe nhạc local đơn giản.</p>
+        <p class="subtitle" data-lang-block="en">Music Check analyses the files on your device and tells you the truth: genuine lossless, or just an upscale from MP3. Plus a simple local music player.</p>
+      </div>
+
+      <div class="mc-feat">
+        <div class="mc-card">
+          <h3 data-lang-block="vi">Phổ tần &amp; tần số cắt</h3>
+          <h3 data-lang-block="en">Spectrum &amp; cutoff</h3>
+          <p data-lang-block="vi">Giải mã PCM, phân tích FFT và tìm "bức tường" tần số — dấu hiệu kinh điển của MP3 đội lốt FLAC.</p>
+          <p data-lang-block="en">Decodes PCM, runs an FFT and finds the frequency "wall" — the classic sign of an MP3 dressed up as FLAC.</p>
+        </div>
+        <div class="mc-card">
+          <h3 data-lang-block="vi">Verdict trung thực</h3>
+          <h3 data-lang-block="en">An honest verdict</h3>
+          <p data-lang-block="vi">Kết hợp codec, sample rate, bit-depth và LSB để đưa ra kết luận thẳng thắn — không tô vẽ.</p>
+          <p data-lang-block="en">Combines codec, sample rate, bit-depth and LSB analysis into a straight, no-spin verdict.</p>
+        </div>
+        <div class="mc-card">
+          <h3 data-lang-block="vi">Riêng tư, offline</h3>
+          <h3 data-lang-block="en">Private, offline</h3>
+          <p data-lang-block="vi">Chạy hoàn toàn trên máy — không tài khoản, không tải file lên đâu cả.</p>
+          <p data-lang-block="en">Runs entirely on-device — no account, nothing uploaded anywhere.</p>
+        </div>
+      </div>
+
+      <div class="mc-stores">
+        <a id="mc-appstore" class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener" aria-label="Download Music Check on the App Store"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+        <a id="mc-playstore" class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener" aria-label="Get Music Check on Google Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+      </div>
+      <p class="mc-redirect" id="mc-redirect" aria-live="polite"></p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/music-check-privacy">Music Check Privacy</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script>
+  // Smart "universal" download link: send mobile visitors straight to the right
+  // store, highlight it on desktop. Both buttons stay as a manual fallback.
+  (function () {
+    var IOS = 'https://apps.apple.com/vn/app/music-check/id6800414074';
+    var ANDROID = 'https://play.google.com/store/apps/details?id=com.verifymusic.app';
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/.test(ua);
+    var vi = (document.documentElement.lang === 'vi');
+    var note = document.getElementById('mc-redirect');
+
+    if (isIOS || isAndroid) {
+      var target = isIOS ? IOS : ANDROID;
+      var btn = document.getElementById(isIOS ? 'mc-appstore' : 'mc-playstore');
+      if (btn) btn.classList.add('highlight');
+      if (note) note.textContent = vi ? 'Đang chuyển tới cửa hàng ứng dụng…' : 'Taking you to the app store…';
+      // Small delay so the page paints before we navigate away.
+      setTimeout(function () { window.location.replace(target); }, 900);
+    }
+  })();
+</script>
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

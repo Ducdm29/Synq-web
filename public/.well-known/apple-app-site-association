@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "QX93LT7782.com.verifymusic.app",
+        "paths": [ "/music-check", "/music-check/*" ]
+      }
+    ]
+  }
+}

@@ -87,6 +87,16 @@
       vi: 'Câu hỏi? <a href="/support">Hỗ trợ</a> · <a href="/privacy">Chính sách bảo mật</a> · <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>'
     },
 
+    // Companion app — Music Check
+    'mc.eyebrow': { en: 'Companion app', vi: 'App chị em' },
+    'mc.heading': { en: 'Not sure your FLAC is <em>really</em> lossless?', vi: 'Không chắc file FLAC của bạn có <em>thật</em> là lossless?' },
+    'mc.sub': {
+      en: 'Music Check is our companion app. It analyses any music file — codec, sample rate, spectrum and cutoff — and tells you honestly whether it’s genuine lossless or a lossy upscale (an MP3 dressed up as FLAC). Plus a simple local player.',
+      vi: 'Music Check là app chị em của Synq. Nó phân tích file nhạc — codec, tần số lấy mẫu, phổ tần và tần số cắt — rồi nói thật cho bạn biết đó là lossless xịn hay đồ up-scale (MP3 đội lốt FLAC). Kèm một player nghe nhạc local đơn giản.'
+    },
+    'mc.cta': { en: 'Get Music Check', vi: 'Tải Music Check' },
+    'mc.learn': { en: 'Learn more →', vi: 'Tìm hiểu thêm →' },
+
     // Footer
     'footer.copy': { en: '© 2025 Synq. All rights reserved.', vi: '© 2025 Synq. Mọi quyền được bảo lưu.' },
     'footer.support': { en: 'Support', vi: 'Hỗ trợ' },
