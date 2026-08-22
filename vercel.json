@@ -13,7 +13,8 @@
     { "source": "/guides/fake-lossless", "destination": "/guides/fake-lossless.html" },
     { "source": "/guides/bit-perfect", "destination": "/guides/bit-perfect.html" },
     { "source": "/guides/dongle-vs-dac", "destination": "/guides/dongle-vs-dac.html" },
-    { "source": "/guides/hi-res-vs-cd", "destination": "/guides/hi-res-vs-cd.html" }
+    { "source": "/guides/hi-res-vs-cd", "destination": "/guides/hi-res-vs-cd.html" },
+    { "source": "/guides/flac-wav-alac-aiff", "destination": "/guides/flac-wav-alac-aiff.html" }
   ],
   "headers": [
     {

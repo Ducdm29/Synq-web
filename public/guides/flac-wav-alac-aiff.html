@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FLAC vs WAV vs ALAC vs AIFF — nên lưu nhạc bằng định dạng nào?</title>
+  <meta name="description" content="Bốn định dạng lossless phổ biến nhất, khác nhau ở đâu và nên chọn cái nào để lưu trữ nhạc? Nói rõ chuyện nén không mất dữ liệu, metadata, tương thích — kèm bảng so sánh và gợi ý thẳng thắn." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/flac-wav-alac-aiff" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    /* Comparison table */
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 620px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); line-height: var(--leading-snug); vertical-align: top; }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-caption); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--accent); font-weight: var(--weight-bold); white-space: nowrap; }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #8aa0ad; }
+    .verdict-card.alt .vc-tag { color: #8aa0ad; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Store buttons + dual-app blocks */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 9px; height: 46px; padding: 0 18px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-app .dl-name { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); color: var(--text-primary); margin-bottom: 2px; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Định dạng</span>
+        <h1>FLAC vs WAV vs ALAC vs AIFF — nên lưu nhạc bằng cái nào?</h1>
+        <p class="subtitle">Bốn định dạng lossless phổ biến nhất, nghe giống hệt nhau nhưng khác nhau ở dung lượng, metadata và độ tương thích. Chọn sao cho khỏi phí ổ cứng và khỏi rối thư viện.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 7 phút</span><span>·</span><span>Cho người bắt đầu xây tủ nhạc</span>
+        </div>
+      </div>
+
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <span class="dl-name">Synq</span>
+          <span class="dl-desc">Nghe cả bốn định dạng (và DSD) — bit-perfect, offline.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <span class="dl-name">Music Check</span>
+          <span class="dl-desc">Kiểm tra file có thật là lossless hay MP3 đội lốt.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Hồi mới gom nhạc, mình từng lưu cả tủ bằng WAV vì nghĩ "không nén thì mới xịn nhất". Kết quả: ổ cứng đầy nhanh gấp đôi, mà mở lên player thì bài nào cũng trơ trọi — không tên album, không ảnh bìa, sắp xếp loạn xạ. Lúc đó mình chưa hiểu rằng chuyện chọn định dạng lossless <em>không liên quan gì tới chất lượng âm thanh cả</em>.</p>
+        <p>Đây là câu hỏi người mới hay hỏi nhất, nên mình gom lại cho gọn: bốn "ứng viên" FLAC, WAV, ALAC, AIFF khác nhau ở đâu, và nên chọn cái nào.</p>
+
+        <h2>Sự thật đầu tiên: cả bốn đều lossless, nghe giống hệt nhau</h2>
+        <p>Cả bốn định dạng này đều là <strong>lossless</strong> — tức giữ nguyên vẹn từng bit so với bản gốc. Khi phát ra, chúng cho <em>đúng cùng một tín hiệu âm thanh</em>. Nghĩa là: không có cái nào "nghe hay hơn" cái nào. Nếu ai đó bảo WAV nghe "mở" hơn FLAC, đó là tâm lý, không phải vật lý.</p>
+        <p>Vậy chọn để làm gì? Ba thứ hoàn toàn thực tế: <strong>dung lượng</strong>, <strong>metadata</strong> (tên bài/album/ảnh bìa), và <strong>độ tương thích</strong> với thiết bị của bạn.</p>
+
+        <h2>Bốn ứng viên, gọn trong vài dòng</h2>
+        <ul>
+          <li><strong>FLAC</strong> — nén không mất dữ liệu, mã nguồn mở, miễn phí. Nhỏ gọn (~một nửa WAV), lưu tên bài + ảnh bìa cực tốt. Là "tiêu chuẩn ngầm" của giới lưu trữ lossless.</li>
+          <li><strong>ALAC</strong> (Apple Lossless) — bản "FLAC của Apple": cũng nén không mất dữ liệu, dung lượng tương đương, chạy <em>native</em> trong hệ sinh thái Apple (Nhạc/iTunes/iOS). Nay cũng đã mở mã nguồn.</li>
+          <li><strong>WAV</strong> — <em>không nén</em> (PCM thô). To gấp đôi, và điểm yếu chí mạng: hỗ trợ metadata rất kém, chắp vá — nên tủ nhạc dễ trơ trọi không tên, không bìa.</li>
+          <li><strong>AIFF</strong> — bản "WAV của Apple": cũng không nén, to như WAV, nhưng <strong>gắn tag tốt hơn WAV nhiều</strong> (giữ được tên/bìa). Nếu buộc phải xài đồ không nén trên máy Apple thì AIFF hơn WAV.</li>
+        </ul>
+
+        <h2>Chỗ hay bị hiểu nhầm: "nén" không có nghĩa là "mất chất"</h2>
+        <p>Nhiều người tránh FLAC/ALAC vì tưởng "nén là bị cắt xén như MP3". Không phải. Nén <strong>không mất dữ liệu</strong> giống hệt việc bạn nén file bằng ZIP: dung lượng nhỏ lại, nhưng khi giải nén ra thì <em>từng byte y hệt bản gốc</em>. FLAC/ALAC làm đúng vậy với âm thanh — nhỏ hơn WAV/AIFF chừng một nửa mà không mất một hạt dữ liệu nào. Chi phí duy nhất là máy phải "giải nén" khi phát, nhưng nhẹ tới mức điện thoại đời cũ cũng chả hề hấn gì.</p>
+
+        <h2>Bảng so sánh nhanh</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead>
+              <tr><th>Định dạng</th><th>Nén?</th><th>Dung lượng (CD 16/44.1)</th><th>Metadata / bìa</th><th>Hợp nhất cho</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="fmt">FLAC</td><td>Có (không mất dữ liệu)</td><td>~5–7 MB/phút (≈½ WAV)</td><td>Rất tốt</td><td>Lưu trữ &amp; chia sẻ phổ thông</td></tr>
+              <tr><td class="fmt">ALAC</td><td>Có (không mất dữ liệu)</td><td>~5–7 MB/phút</td><td>Tốt, native Apple</td><td>Người sống trong hệ Apple</td></tr>
+              <tr><td class="fmt">WAV</td><td>Không (PCM thô)</td><td>~10 MB/phút</td><td>Kém, chắp vá</td><td>DAW / thiết bị cũ cần PCM</td></tr>
+              <tr><td class="fmt">AIFF</td><td>Không (PCM thô)</td><td>~10 MB/phút</td><td>Tốt hơn WAV</td><td>Không nén nhưng vẫn cần tag (Apple)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Vậy nên chọn gì?</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Cho hầu hết mọi người</span>
+            <h4>FLAC</h4>
+            <p>Nhỏ gọn, tag/bìa ngon, mở mã nguồn, gần như thiết bị/app nào cũng chơi được. Không nghĩ nhiều thì cứ FLAC.</p>
+          </div>
+          <div class="verdict-card good">
+            <span class="vc-tag">Nếu bạn sống trong hệ Apple</span>
+            <h4>ALAC</h4>
+            <p>Mọi ưu điểm như FLAC nhưng chạy thẳng trong app Nhạc/iTunes/iOS. Đỡ phải chuyển đổi khi đồng bộ Apple.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Chỉ khi thật sự cần</span>
+            <h4>WAV / AIFF</h4>
+            <p>Dành cho làm nhạc (DAW) hoặc thiết bị chỉ đọc PCM thô. Với nghe thường thì phí gấp đôi ổ cứng — WAV còn hay mất tag. Buộc phải không nén trên Apple thì chọn AIFF.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Chuyển đổi giữa bốn cái này thì an toàn</strong> — vì đều lossless, đổi FLAC ↔ ALAC ↔ WAV qua lại bao nhiêu lần cũng không mất chất. <strong>Nhưng</strong> đổi từ một file <em>lossy</em> (MP3/AAC) sang FLAC thì KHÔNG lấy lại được gì đã mất — chỉ tạo ra một file "lossless giả" to xác mà chất lượng vẫn là MP3.</div>
+        </div>
+
+        <h2>Trước khi tin cái đuôi file</h2>
+        <p>Cái đuôi <code class="inline">.flac</code> không đảm bảo bên trong là lossless thật. Rất nhiều file trôi nổi thực chất là MP3 được "nhồi" ngược thành FLAC. Nếu bạn đang gom tủ nhạc, việc đáng làm nhất không phải là chọn giữa FLAC hay ALAC, mà là <strong>kiểm tra xem file có thật là lossless hay không</strong> đã. (Mình có viết riêng một bài về <a href="/guides/fake-lossless" style="color:var(--accent)">cách nhận ra lossless giả</a>.)</p>
+        <p>Chọn xong định dạng rồi, thứ bạn cần là một app chơi được hết cả bốn (kể cả DSD) và một cách kiểm tra nhanh file thật/giả. Đó đúng là việc của hai app dưới đây.</p>
+
+        <div class="cta-box">
+          <h3>Nghe mọi định dạng — và biết chắc nó là thật</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <span class="dl-name">Synq</span>
+              <span class="dl-desc">Player lossless: phát FLAC/ALAC/WAV/AIFF/DSD, bit-perfect qua DAC (không cần root), AutoEQ 6.000+ tai nghe, offline.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <span class="dl-name">Music Check</span>
+              <span class="dl-desc">Thẩm định file: phân tích phổ tần + tần số cắt để nói thật đó là lossless xịn hay MP3 đội lốt FLAC.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Formats</span>
+        <h1>FLAC vs WAV vs ALAC vs AIFF — which should you store your music in?</h1>
+        <p class="subtitle">The four most common lossless formats sound identical, but differ in size, metadata and compatibility. How to choose so you don't waste disk space or end up with a messy library.</p>
+        <div class="article-meta">
+          <span>About a 7-minute read</span><span>·</span><span>For anyone starting a music library</span>
+        </div>
+      </div>
+
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <span class="dl-name">Synq</span>
+          <span class="dl-desc">Plays all four formats (and DSD) — bit-perfect, offline.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <span class="dl-name">Music Check</span>
+          <span class="dl-desc">Check whether a file is genuinely lossless or an MP3 in disguise.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>When I first started collecting music, I stored the whole thing in WAV because I figured "uncompressed must be the best". The result: my drive filled up twice as fast, and every track showed up bare in the player — no album name, no cover art, sorting all over the place. Back then I didn't understand that choosing a lossless format <em>has nothing to do with sound quality</em>.</p>
+        <p>It's the question beginners ask most, so here's the short of it: how FLAC, WAV, ALAC and AIFF differ, and which to pick.</p>
+
+        <h2>First truth: all four are lossless and sound identical</h2>
+        <p>All four are <strong>lossless</strong> — they preserve every bit of the original. On playback they produce the <em>exact same audio signal</em>. Meaning: none of them "sounds better" than another. If someone says WAV sounds more "open" than FLAC, that's psychology, not physics.</p>
+        <p>So what are you actually choosing between? Three entirely practical things: <strong>file size</strong>, <strong>metadata</strong> (titles/album/artwork), and <strong>compatibility</strong> with your gear.</p>
+
+        <h2>The four candidates, in a few lines</h2>
+        <ul>
+          <li><strong>FLAC</strong> — lossless compression, open and free. Small (~half of WAV), excellent at storing titles + artwork. The de-facto standard for storing lossless.</li>
+          <li><strong>ALAC</strong> (Apple Lossless) — "Apple's FLAC": also lossless compression, similar size, plays <em>natively</em> across the Apple ecosystem (Music/iTunes/iOS). Now open-source too.</li>
+          <li><strong>WAV</strong> — <em>uncompressed</em> (raw PCM). Twice the size, with one fatal weakness: very poor, patchy metadata support — so your library ends up nameless and cover-less.</li>
+          <li><strong>AIFF</strong> — "Apple's WAV": also uncompressed, as big as WAV, but <strong>tags far better than WAV</strong> (keeps titles/art). If you must go uncompressed on Apple gear, AIFF beats WAV.</li>
+        </ul>
+
+        <h2>The big misconception: "compressed" doesn't mean "degraded"</h2>
+        <p>Many people avoid FLAC/ALAC thinking "compression cuts things out like MP3". It doesn't. <strong>Lossless</strong> compression is exactly like zipping a file: it gets smaller, but when unpacked it's <em>byte-for-byte the original</em>. FLAC/ALAC do that with audio — roughly half the size of WAV/AIFF with not a single bit lost. The only cost is a tiny bit of decoding work on playback, so small that even an old phone won't notice.</p>
+
+        <h2>Quick comparison</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead>
+              <tr><th>Format</th><th>Compressed?</th><th>Size (CD 16/44.1)</th><th>Metadata / art</th><th>Best for</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="fmt">FLAC</td><td>Yes (lossless)</td><td>~5–7 MB/min (≈½ WAV)</td><td>Excellent</td><td>General storage &amp; sharing</td></tr>
+              <tr><td class="fmt">ALAC</td><td>Yes (lossless)</td><td>~5–7 MB/min</td><td>Good, Apple-native</td><td>People inside the Apple ecosystem</td></tr>
+              <tr><td class="fmt">WAV</td><td>No (raw PCM)</td><td>~10 MB/min</td><td>Poor, patchy</td><td>DAW / older PCM-only gear</td></tr>
+              <tr><td class="fmt">AIFF</td><td>No (raw PCM)</td><td>~10 MB/min</td><td>Better than WAV</td><td>Uncompressed but still tagged (Apple)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>So what should you pick?</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">For most people</span>
+            <h4>FLAC</h4>
+            <p>Small, great tags/art, open, plays on nearly every device and app. If you don't want to overthink it, just use FLAC.</p>
+          </div>
+          <div class="verdict-card good">
+            <span class="vc-tag">If you live in Apple's world</span>
+            <h4>ALAC</h4>
+            <p>All the upsides of FLAC but native to the Music app / iTunes / iOS. No converting when you sync with Apple.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Only if you truly need it</span>
+            <h4>WAV / AIFF</h4>
+            <p>For music production (DAW) or hardware that only reads raw PCM. For listening it just wastes double the space — and WAV tends to lose tags. If you must go uncompressed on Apple, pick AIFF.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Converting between these four is safe</strong> — since all are lossless, going FLAC ↔ ALAC ↔ WAV as many times as you like loses nothing. <strong>But</strong> converting from a <em>lossy</em> file (MP3/AAC) into FLAC does NOT restore what was thrown away — it just creates a bloated "fake lossless" file that still sounds like MP3.</div>
+        </div>
+
+        <h2>Before you trust the file extension</h2>
+        <p>A <code class="inline">.flac</code> extension is no guarantee that the inside is truly lossless. Plenty of files out there are really MP3s re-packed into FLAC. If you're building a library, the most worthwhile thing isn't choosing between FLAC and ALAC — it's <strong>checking whether the file is genuinely lossless</strong> in the first place. (I wrote a separate piece on <a href="/guides/fake-lossless" style="color:var(--accent)">how to spot fake lossless</a>.)</p>
+        <p>Once you've picked a format, what you need is an app that plays all four (plus DSD) and a quick way to check real vs fake. That's exactly what the two apps below are for.</p>
+
+        <div class="cta-box">
+          <h3>Play every format — and know it's the real thing</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <span class="dl-name">Synq</span>
+              <span class="dl-desc">Lossless player: plays FLAC/ALAC/WAV/AIFF/DSD, bit-perfect through a DAC (no root), AutoEQ for 6,000+ headphones, offline.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <span class="dl-name">Music Check</span>
+              <span class="dl-desc">Verify a file: spectrum + cutoff analysis to tell you honestly whether it's genuine lossless or an MP3 dressed up as FLAC.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
