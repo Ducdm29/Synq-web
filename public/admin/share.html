@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tạo link chia sẻ · Synq admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .adm { max-width: 720px; margin: 0 auto; padding: clamp(24px,5vw,48px) 20px 80px; }
+    .adm h1 { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; color: var(--text-primary); letter-spacing:-.02em; margin: 0 0 6px; }
+    .adm .lede { color: var(--text-secondary); font-size: .95rem; line-height: 1.55; margin: 0 0 24px; }
+    .card { background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-subtle); border-radius: 18px; padding: 22px; margin-bottom: 20px; }
+    .card h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 14px; }
+    label { display:block; font-size: .82rem; color: var(--text-secondary); margin: 0 0 6px; font-weight: 500; }
+    input {
+      width: 100%; box-sizing: border-box; padding: 12px 14px; margin-bottom: 14px;
+      background: var(--bg-sunken); border: 1px solid var(--border-subtle); border-radius: 10px;
+      color: var(--text-primary); font-size: .95rem; font-family: inherit;
+    }
+    input:focus { outline: none; border-color: var(--accent); }
+    button {
+      font-family: var(--font-display); font-weight: 600; font-size: .95rem; cursor: pointer;
+      padding: 12px 18px; border-radius: 10px; border: none; transition: filter .15s ease, transform .1s ease;
+    }
+    button:active { transform: translateY(1px); }
+    .btn-primary { background: var(--accent); color: #04110f; }
+    .btn-primary:hover { filter: brightness(1.06); }
+    .btn-ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border-subtle); }
+    .btn-sm { padding: 7px 12px; font-size: .82rem; }
+    .result { margin-top: 14px; padding: 14px; border-radius: 12px; background: var(--accent-soft); border: 1px solid var(--border-accent); display: none; }
+    .result.show { display: block; }
+    .result .url { font-family: var(--font-mono, monospace); color: var(--accent); word-break: break-all; font-size: .95rem; }
+    .row { display:flex; gap: 10px; align-items:center; flex-wrap: wrap; }
+    .steps { color: var(--text-secondary); font-size: .88rem; line-height: 1.7; padding-left: 20px; margin: 0; }
+    .steps strong { color: var(--text-primary); }
+    table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+    th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    th { color: var(--text-tertiary, var(--text-secondary)); font-weight: 600; font-size: .76rem; text-transform: uppercase; letter-spacing: .03em; }
+    td.title { color: var(--text-primary); }
+    td.code code { color: var(--accent); }
+    .muted { color: var(--text-secondary); font-size: .85rem; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--text-primary); color: var(--bg-app); padding: 10px 18px; border-radius: 999px; font-size: .88rem; font-weight: 600; opacity: 0; transition: opacity .2s ease; pointer-events:none; }
+    .toast.show { opacity: 1; }
+    [hidden] { display:none !important; }
+  </style>
+</head>
+<body>
+  <main class="adm">
+    <h1>Tạo link chia sẻ nhạc</h1>
+    <p class="lede">Dán link Google Drive (đã bật <em>“Anyone with the link”</em>) → nhận về một link ngắn <code>synqstudio.cloud/s/…</code> để gửi cho người khác. Link Drive gốc <strong>không bao giờ lộ trên web</strong> — người nhận phải mở bằng app Synq.</p>
+
+    <div class="card">
+      <h2>Khoá admin</h2>
+      <label for="key">ADMIN_KEY (chỉ lưu trong phiên trình duyệt này)</label>
+      <input id="key" type="password" placeholder="dán ADMIN_KEY của worker" autocomplete="off" />
+      <div class="row">
+        <button class="btn-ghost btn-sm" id="save-key">Lưu khoá</button>
+        <span class="muted" id="key-state">Chưa nhập khoá.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Cách chuẩn bị link Drive (làm 1 lần cho mỗi bài)</h2>
+      <ol class="steps">
+        <li>Up file nhạc lên Google Drive.</li>
+        <li>Chuột phải file → <strong>Share</strong> → đổi quyền thành <strong>“Anyone with the link”</strong> (nếu không, app cũng không tải được).</li>
+        <li>Bấm <strong>Copy link</strong> → dán vào ô bên dưới. Dạng <code>drive.google.com/file/d/…</code> đều được.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Tạo link mới</h2>
+      <label for="url">Link Google Drive *</label>
+      <input id="url" type="url" placeholder="https://drive.google.com/file/d/…/view?usp=sharing" />
+      <label for="title">Tên bài (hiện trên trang landing, không bắt buộc)</label>
+      <input id="title" type="text" placeholder="Ví dụ: Hotel California" />
+      <label for="artist">Nghệ sĩ (không bắt buộc)</label>
+      <input id="artist" type="text" placeholder="Ví dụ: Eagles" />
+      <button class="btn-primary" id="create">Tạo link chia sẻ</button>
+
+      <div class="result" id="result">
+        <div class="muted" style="margin-bottom:6px">Link để gửi cho người nhận:</div>
+        <div class="url" id="result-url"></div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn-primary btn-sm" id="copy">Copy link</button>
+          <button class="btn-ghost btn-sm" id="open">Mở thử</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">Link đã tạo</h2>
+        <button class="btn-ghost btn-sm" id="refresh">Tải lại</button>
+      </div>
+      <div style="overflow-x:auto; margin-top:12px">
+        <table>
+          <thead><tr><th>Bài</th><th>Code</th><th>Xem</th><th>Mở app</th><th></th></tr></thead>
+          <tbody id="rows"><tr><td colspan="5" class="muted">Nhập khoá rồi bấm “Tải lại”.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    var WORKER = 'https://synq-sync.support-synq-149.workers.dev';
+    var $ = function (id) { return document.getElementById(id); };
+
+    function toast(msg) {
+      var t = $('toast'); t.textContent = msg; t.classList.add('show');
+      setTimeout(function () { t.classList.remove('show'); }, 1800);
+    }
+    function getKey() { return sessionStorage.getItem('synq_admin_key') || ''; }
+    function setKeyState() {
+      $('key-state').textContent = getKey() ? 'Đã lưu khoá trong phiên này.' : 'Chưa nhập khoá.';
+    }
+    // text/plain + no custom header ⇒ simple request ⇒ không dính CORS preflight.
+    function post(path, body) {
+      return fetch(WORKER + path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(body)
+      }).then(function (r) { return r.json().catch(function(){return {};}).then(function(j){ return { ok: r.ok, j: j }; }); });
+    }
+
+    $('save-key').onclick = function () {
+      sessionStorage.setItem('synq_admin_key', $('key').value.trim());
+      setKeyState(); toast('Đã lưu khoá'); loadList();
+    };
+
+    $('create').onclick = function () {
+      var key = getKey();
+      if (!key) { toast('Nhập ADMIN_KEY trước'); return; }
+      var url = $('url').value.trim();
+      if (!/^https?:\/\//i.test(url)) { toast('Link phải bắt đầu bằng http(s)'); return; }
+      $('create').disabled = true;
+      post('/s/create', { key: key, url: url, title: $('title').value.trim(), artist: $('artist').value.trim() })
+        .then(function (res) {
+          $('create').disabled = false;
+          if (!res.ok || !res.j || !res.j.success) {
+            toast(res.j && res.j.error ? res.j.error.message : 'Tạo thất bại (sai khoá?)');
+            return;
+          }
+          var link = res.j.data.shareUrl;
+          $('result-url').textContent = link;
+          $('result').classList.add('show');
+          $('copy').onclick = function () { navigator.clipboard.writeText(link); toast('Đã copy'); };
+          $('open').onclick = function () { window.open(link, '_blank'); };
+          $('url').value = ''; $('title').value = ''; $('artist').value = '';
+          loadList();
+        })
+        .catch(function () { $('create').disabled = false; toast('Lỗi mạng'); });
+    };
+
+    function fmtDate(sec) {
+      try { return new Date(sec * 1000).toLocaleDateString('vi-VN'); } catch (e) { return ''; }
+    }
+
+    function loadList() {
+      var key = getKey();
+      if (!key) return;
+      post('/s/list', { key: key }).then(function (res) {
+        var tb = $('rows');
+        if (!res.ok || !res.j || !res.j.success) { tb.innerHTML = '<tr><td colspan="5" class="muted">Không tải được (sai khoá?).</td></tr>'; return; }
+        var shares = res.j.data.shares || [];
+        if (!shares.length) { tb.innerHTML = '<tr><td colspan="5" class="muted">Chưa có link nào.</td></tr>'; return; }
+        tb.innerHTML = '';
+        shares.forEach(function (s) {
+          var tr = document.createElement('tr');
+          var label = (s.title || '(không tên)') + (s.artist ? ' — ' + s.artist : '');
+          tr.innerHTML =
+            '<td class="title"></td>' +
+            '<td class="code"><code>' + s.code + '</code></td>' +
+            '<td>' + (s.hits || 0) + '</td>' +
+            '<td>' + (s.opens || 0) + '</td>' +
+            '<td></td>';
+          tr.children[0].textContent = label;
+          var td = tr.children[4];
+          var copyBtn = document.createElement('button');
+          copyBtn.className = 'btn-ghost btn-sm'; copyBtn.textContent = 'Copy';
+          copyBtn.onclick = function () { navigator.clipboard.writeText('https://synqstudio.cloud/s/' + s.code); toast('Đã copy'); };
+          var delBtn = document.createElement('button');
+          delBtn.className = 'btn-ghost btn-sm'; delBtn.textContent = 'Xoá'; delBtn.style.marginLeft = '6px';
+          delBtn.onclick = function () {
+            if (!confirm('Xoá link ' + s.code + '?')) return;
+            post('/s/delete', { key: getKey(), code: s.code }).then(function () { toast('Đã xoá'); loadList(); });
+          };
+          td.appendChild(copyBtn); td.appendChild(delBtn);
+          tb.appendChild(tr);
+        });
+      });
+    }
+
+    $('refresh').onclick = loadList;
+
+    // init
+    $('key').value = getKey();
+    setKeyState();
+    if (getKey()) loadList();
+  </script>
+</body>
+</html>

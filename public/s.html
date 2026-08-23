@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài hát được chia sẻ · Synq</title>
+  <meta name="description" content="Ai đó đã chia sẻ một bài hát với bạn qua Synq. Cài Synq để mở và nghe ở chất lượng lossless." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <style>
+    .share-wrap { min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .share-card {
+      width: 100%; max-width: 460px; text-align: center;
+      background: linear-gradient(135deg, var(--surface-2), var(--surface-1));
+      border: 1px solid var(--border-subtle); border-radius: 24px;
+      padding: clamp(28px, 6vw, 40px);
+    }
+    .share-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-display); font-size: .78rem; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-soft);
+      border-radius: 999px; padding: 7px 14px; margin-bottom: 20px;
+    }
+    .share-art {
+      width: 92px; height: 92px; margin: 0 auto 18px; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent-soft-strong); color: var(--accent);
+    }
+    .share-art svg { width: 44px; height: 44px; }
+    .share-title {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(1.4rem, 4.5vw, 1.9rem); color: var(--text-primary);
+      line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 4px; text-wrap: balance;
+    }
+    .share-artist { color: var(--text-secondary); font-size: 1.02rem; margin: 0 0 6px; }
+    .share-sub { color: var(--text-tertiary, var(--text-secondary)); font-size: .95rem; line-height: 1.55; margin: 14px 0 26px; }
+    .share-stores { display: flex; flex-direction: column; gap: 12px; }
+    .store-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 18px; border-radius: 14px; font-family: var(--font-display);
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .store-btn:active { transform: translateY(1px); }
+    .store-btn.primary { background: var(--accent); color: #04110f; }
+    .store-btn.primary:hover { filter: brightness(1.06); }
+    .store-btn.ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border-subtle); }
+    .store-btn.ghost:hover { border-color: var(--border-accent); }
+    .store-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .share-note { color: var(--text-secondary); font-size: .84rem; margin-top: 22px; line-height: 1.5; }
+    .share-note a { color: var(--accent); text-decoration: none; }
+    .share-foot { margin-top: 26px; }
+    .share-foot a { color: var(--text-secondary); font-size: .85rem; text-decoration: none; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="share-wrap">
+    <section class="share-card">
+      <span class="share-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+        Đã chia sẻ với bạn
+      </span>
+
+      <div class="share-art">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+
+      <h1 class="share-title" id="title">Một bài hát trên Synq</h1>
+      <p class="share-artist" id="artist" hidden></p>
+
+      <p class="share-sub" id="sub">Cài <strong>Synq</strong> để mở bài này và nghe ở chất lượng lossless nguyên bản.</p>
+
+      <div class="share-stores">
+        <a class="store-btn primary" id="btn-ios" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.42 2.2-1.13 3-.77.87-2.02 1.54-3.05 1.46-.13-1.1.42-2.28 1.1-3.02.77-.85 2.09-1.48 3.08-1.44zM20.7 17.14c-.55 1.28-.82 1.85-1.53 2.98-.99 1.58-2.39 3.55-4.12 3.56-1.54.02-1.94-1-4.03-.99-2.09.01-2.53 1.01-4.07.99-1.73-.02-3.06-1.8-4.05-3.38C.13 16.06-.35 10.9 1.4 8.17c1.03-1.62 2.66-2.57 4.19-2.57 1.56 0 2.54 1.02 3.83 1.02 1.25 0 2.01-1.02 3.82-1.02 1.36 0 2.8.74 3.83 2.02-3.36 1.84-2.82 6.64.63 7.94z"/></svg>
+          Tải trên App Store
+        </a>
+        <a class="store-btn ghost" id="btn-android" href="https://play.google.com/store/apps/details?id=com.synqmusic.app">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3 13 11.7 3.6 21.1c-.3-.2-.5-.6-.5-1V3.3c0-.4.2-.8.5-1zm11.1 8.3L5.9 2.1l10.6 6.1-1.8 2.4zm0 2.8 1.8 2.4-10.6 6.1 8.8-8.5zm2.9-3.2 2.4 1.4c.7.4.7 1.5 0 1.9l-2.4 1.4L15.9 12l1.7-1.8z"/></svg>
+          Tải trên Google Play
+        </a>
+      </div>
+
+      <p class="share-note" id="mismatch-note" hidden></p>
+      <p class="share-note">Đã cài Synq? Mở app rồi bấm lại link này để nghe ngay.</p>
+
+      <div class="share-foot">
+        <a href="/">← Về synqstudio.cloud</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var WORKER = 'https://synq-sync.support-synq-149.workers.dev';
+      // /s/<code>  → lấy code từ path
+      var parts = location.pathname.split('/').filter(Boolean);
+      var code = parts.length >= 2 && parts[0] === 's' ? parts[1] : '';
+
+      // Điều hướng nút store theo nền tảng (đưa nút phù hợp lên trước).
+      var ua = navigator.userAgent || '';
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
+      var isAndroid = /Android/i.test(ua);
+      var stores = document.querySelector('.share-stores');
+      if (isAndroid && stores) {
+        stores.insertBefore(document.getElementById('btn-android'), document.getElementById('btn-ios'));
+        document.getElementById('btn-android').classList.remove('ghost');
+        document.getElementById('btn-android').classList.add('primary');
+        document.getElementById('btn-ios').classList.remove('primary');
+        document.getElementById('btn-ios').classList.add('ghost');
+      }
+
+      if (!code) return;
+
+      fetch(WORKER + '/s/' + encodeURIComponent(code) + '/meta')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          if (!j || !j.success || !j.data) return;
+          var d = j.data;
+          if (d.title) {
+            document.getElementById('title').textContent = d.title;
+            document.title = d.title + (d.artist ? ' · ' + d.artist : '') + ' · Synq';
+          }
+          if (d.artist) {
+            var a = document.getElementById('artist');
+            a.textContent = d.artist;
+            a.hidden = false;
+          }
+        })
+        .catch(function () { /* im lặng: vẫn hiện nút tải */ });
+    })();
+  </script>
+</body>
+</html>
