@@ -12,6 +12,32 @@
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3185559875440369"
      crossorigin="anonymous"></script>
+  <style>
+    /* Two-app showcase at the very top of the homepage */
+    .apps-hero { max-width: 1120px; margin: 0 auto; padding: clamp(20px,4vw,40px) 24px 0; }
+    .apps-hero-head { text-align: center; margin-bottom: clamp(20px,3vw,32px); }
+    .apps-hero-head .eyebrow { color: var(--accent); }
+    .apps-hero-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.55rem, 3.6vw, 2.3rem); color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.15; margin-top: 8px; text-wrap: balance; }
+    .apps-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 780px){ .apps-hero-grid { grid-template-columns: 1fr; } }
+    .apphero-card { display: flex; gap: 16px; align-items: center; background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-subtle); border-radius: 22px; padding: 20px; transition: border-color .2s ease, transform .2s ease; }
+    .apphero-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+    .apphero-phone { width: clamp(112px, 30vw, 140px); height: auto; border-radius: 16px; flex-shrink: 0; box-shadow: 0 12px 30px rgba(0,0,0,.5); background: #05080a; }
+    .apphero-body { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+    .apphero-title { display: flex; align-items: center; gap: 11px; }
+    .apphero-title .ah-icon { width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0; display: grid; place-items: center; }
+    .apphero-title img.ah-mc { background: #fff; padding: 4px; object-fit: contain; }
+    .apphero-title .ah-synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .apphero-title .ah-synq svg { width: 30px; height: 30px; }
+    .apphero-title span.ah-name { font-family: var(--font-display); font-weight: 700; font-size: 1.28rem; color: var(--text-primary); }
+    .apphero-tag { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+    .apphero-ctas { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 4px; }
+    .apphero-ctas a { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 15px; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; text-decoration: none; white-space: nowrap; transition: transform .15s ease, box-shadow .15s ease; }
+    .apphero-ctas a:hover { transform: translateY(-2px); }
+    .apphero-ctas svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .apphero-ctas .ah-ios { background: #fff; color: #0a0d10; }
+    .apphero-ctas .ah-play { background: var(--accent); color: #04120f; }
+  </style>
 </head>
 <body>
 
@@ -55,6 +81,57 @@
   </header>
 
   <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         TWO-APP SHOWCASE (top of page)
+    ══════════════════════════════════════════ -->
+    <section class="apps-hero" aria-labelledby="apps-hero-h">
+      <div class="apps-hero-head">
+        <span class="eyebrow" data-i18n="apps.eyebrow">Two apps for your music</span>
+        <h2 id="apps-hero-h" data-i18n="apps.heading">Listen properly — and know it's real.</h2>
+      </div>
+      <div class="apps-hero-grid">
+
+        <!-- Synq -->
+        <div class="apphero-card">
+          <img class="apphero-phone" src="/store/Synq_appstore_67_1_1290x2796.png" alt="Synq — Now Playing with lossless specs" width="140" loading="eager" />
+          <div class="apphero-body">
+            <div class="apphero-title">
+              <span class="ah-icon ah-synq">
+                <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs><radialGradient id="ahlg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+                  <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#ahlg)"/>
+                  <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+                </svg>
+              </span>
+              <span class="ah-name">Synq</span>
+            </div>
+            <p class="apphero-tag" data-i18n="apps.synq.tag">Lossless player: FLAC/DSD, AutoEQ for 6,000+ headphones, bit-perfect via USB DAC, fully offline.</p>
+            <div class="apphero-ctas">
+              <a class="ah-ios" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener" aria-label="Download Synq on the App Store"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+              <a class="ah-play" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener" aria-label="Get Synq on Google Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Music Check -->
+        <div class="apphero-card">
+          <img class="apphero-phone" src="/store/musiccheck_phone.png" alt="Music Check — Genuine lossless verdict with spectrum" width="140" loading="eager" />
+          <div class="apphero-body">
+            <div class="apphero-title">
+              <img class="ah-icon ah-mc" src="/store/musiccheck_icon.png" alt="Music Check icon" width="46" height="46" />
+              <span class="ah-name">Music Check</span>
+            </div>
+            <p class="apphero-tag" data-i18n="apps.mc.tag">Is that FLAC real lossless or a fake MP3? Analyse the spectrum right on your phone.</p>
+            <div class="apphero-ctas">
+              <a class="ah-ios" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener" aria-label="Download Music Check on the App Store"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+              <a class="ah-play" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener" aria-label="Get Music Check on Google Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <!-- ══════════════════════════════════════════
          HERO
@@ -269,18 +346,6 @@
       <div class="stat-item">
         <span class="stat-num">100%</span>
         <span class="stat-label" data-i18n="stat.offline">Offline capable</span>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         COMPANION APP — MUSIC CHECK
-    ══════════════════════════════════════════ -->
-    <section class="reveal" aria-labelledby="mc-heading" style="max-width:1080px;margin:var(--space-9,64px) auto 0;padding:0 24px">
-      <div style="background:linear-gradient(135deg, var(--surface-2), var(--surface-1));border:1px solid var(--border-accent);border-radius:var(--radius-xl,24px);padding:clamp(28px,5vw,56px);text-align:center;box-shadow:var(--glow-sm)">
-        <span class="eyebrow" data-i18n="mc.eyebrow">Companion app</span>
-        <h2 id="mc-heading" style="font-family:var(--font-display);font-size:var(--text-h2);color:var(--text-primary);letter-spacing:var(--tracking-tight);line-height:var(--leading-snug);margin:12px 0" data-i18n="mc.heading" data-i18n-html>Not sure your FLAC is <em>really</em> lossless?</h2>
-        <p style="max-width:640px;margin:0 auto 24px;color:var(--text-secondary);line-height:var(--leading-relaxed)" data-i18n="mc.sub">Music Check is our companion app. It analyses any music file — codec, sample rate, spectrum and cutoff — and tells you honestly whether it’s genuine lossless or a lossy upscale (an MP3 dressed up as FLAC). Plus a simple local player.</p>
-        <a href="/music-check" style="display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 30px;border-radius:999px;background:var(--accent);color:#04120f;font-family:var(--font-body);font-weight:700;font-size:var(--text-label);text-decoration:none;box-shadow:var(--glow-md);transition:transform .15s ease" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'" data-i18n="mc.cta">Get Music Check</a>
       </div>
     </section>
 

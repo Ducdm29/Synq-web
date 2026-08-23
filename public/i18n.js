@@ -97,6 +97,12 @@
     'mc.cta': { en: 'Get Music Check', vi: 'Tải Music Check' },
     'mc.learn': { en: 'Learn more →', vi: 'Tìm hiểu thêm →' },
 
+    // Two-app showcase (top of homepage)
+    'apps.eyebrow': { en: 'Two apps for your music', vi: 'Hai app cho người nghe nhạc' },
+    'apps.heading': { en: 'Listen properly — and know it\'s real.', vi: 'Nghe nhạc tử tế — và biết chắc nó là thật.' },
+    'apps.synq.tag': { en: 'Lossless player: FLAC/DSD, AutoEQ for 6,000+ headphones, bit-perfect via USB DAC, fully offline.', vi: 'Player lossless: FLAC/DSD, AutoEQ 6.000+ tai nghe, bit-perfect qua DAC, hoàn toàn offline.' },
+    'apps.mc.tag': { en: 'Is that FLAC real lossless or a fake MP3? Analyse the spectrum right on your phone.', vi: 'File FLAC là lossless thật hay MP3 đội lốt? Phân tích phổ tần ngay trên máy.' },
+
     // Footer
     'footer.copy': { en: '© 2025 Synq. All rights reserved.', vi: '© 2025 Synq. Mọi quyền được bảo lưu.' },
     'footer.support': { en: 'Support', vi: 'Hỗ trợ' },
