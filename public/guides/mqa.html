@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MQA đã chết chưa? Vì sao cộng đồng audiophile quay lưng</title>
+  <meta name="description" content="MQA là gì, vì sao nó gây tranh cãi dữ dội (không thật sự lossless, cần giải mã độc quyền, đèn xanh xác thực đáng ngờ), và MQA đã chết chưa sau khi phá sản 2023 và Tidal bỏ sang FLAC? Nói thẳng — kèm sơ đồ và bảng so sánh." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/mqa" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 520px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.yes { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.no { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block (smaller than homepage) */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · MQA</span>
+        <h1>MQA đã chết chưa? Vì sao cộng đồng audiophile quay lưng</h1>
+        <p class="subtitle">Vài năm trước MQA và cái "đèn xanh" trên Tidal được quảng bá như tương lai của hi-res. Rồi cộng đồng đào sâu, công ty phá sản, Tidal bỏ nó sang FLAC. Chuyện gì đã xảy ra — và MQA thật sự chết chưa? Nói thẳng.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Có sơ đồ + bảng so sánh</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="mq1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#mq1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Chơi lossless thật (FLAC/ALAC/WAV/AIFF) bit-perfect — không cần đèn xanh, không cần giải mã độc quyền.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Kiểm tra file lossless của bạn là thật hay MP3 đội lốt — phân tích ngay trên máy.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Lần đầu thấy cái đèn nhỏ chuyển sang <strong>xanh dương</strong> trên app Tidal, mình đã tin sái cổ: "MQA đã xác thực — đây đúng là bản master của phòng thu". Nghe cũng thấy hay. Mãi sau mình mới hiểu cái đèn đó nói lên ít hơn nhiều so với mình tưởng — và cả một chuỗi thu phí đứng phía sau nó.</p>
+        <p>MQA là một trong những chủ đề gây chia rẽ nhất giới audiophile mấy năm gần đây. Bài này nói cả lời hứa của nó, vì sao cộng đồng phản ứng dữ dội, và tình trạng hiện tại.</p>
+
+        <h2>MQA là gì — lời hứa "gấp gọn bản master"</h2>
+        <p><strong>MQA</strong> (Master Quality Authenticated) là một định dạng độc quyền do công ty MQA Ltd (gắn với Bob Stuart của Meridian) tạo ra. Ý tưởng bán hàng: nhét chất lượng "bản master phòng thu" vào một file <em>nhỏ hơn</em> file hi-res thường, bằng kỹ thuật họ gọi là "audio origami" — gấp phần thông tin tần số cao xuống các bit thấp; kèm lời hứa "gỡ nhòe thời gian" (deblurring) để âm thanh chuẩn hơn về mặt thời gian.</p>
+        <p>Điểm mấu chốt: muốn "mở gấp" (unfold) hết, bạn cần <strong>bộ giải mã MQA</strong> — một phần "core decode" trong app/phần mềm, và một "renderer" trong DAC. Không có giải mã, bạn chỉ nhận một dòng gần 44.1/48kHz, <em>không phải</em> bản gốc.</p>
+
+        <h2>Vì sao gây tranh cãi dữ dội</h2>
+        <p>Đây là phần khiến cộng đồng nổi giận. Bốn điểm chính:</p>
+        <ul>
+          <li><strong>Nó không thật sự lossless.</strong> Đây là điều gây sốc nhất. Các phân tích độc lập (nổi tiếng nhất là loạt thử nghiệm của kênh GoldenSound năm 2021) cho thấy khi cho tín hiệu chuẩn đi qua quy trình mã hóa MQA rồi giải mã ra, kết quả <em>khác</em> file gốc và có thêm nhiễu — tức là MQA <strong>lossy</strong>, có mất mát, chứ không bảo toàn nguyên vẹn như FLAC.</li>
+          <li><strong>Cần giải mã độc quyền — một trạm thu phí trên cả chuỗi.</strong> Muốn nghe đúng, cả app lẫn DAC đều phải được cấp phép MQA. Hãng đĩa trả phí để mã hóa, dịch vụ stream trả phí, hãng DAC trả phí để dán nhãn "MQA". Một công nghệ đứng chắn giữa bạn và nhạc — trái ngược tinh thần mở của lossless.</li>
+          <li><strong>"Đèn xanh xác thực" không đáng tin như quảng bá.</strong> Đèn xanh được bán như "được nghệ sĩ/phòng thu xác nhận là bản master". Nhưng thử nghiệm độc lập cho thấy có thể làm đèn sáng xanh với cả những file <em>đã bị chỉnh sửa</em>, không phải từ master. Vậy nó xác thực cái gì?</li>
+          <li><strong>Chiếm bit và thêm nhiễu.</strong> Cách "gấp" của MQA chiếm các bit thấp để chứa dữ liệu siêu âm đã mã hóa; nếu không mở gấp hết, bạn nghe kèm chút nhiễu nền — thứ mà một file FLAC 16/44.1 sạch không hề có.</li>
+        </ul>
+        <p>Còn phần "gỡ nhòe thời gian"? Giới kỹ thuật cho rằng cái "nhòe" mà MQA nói đến phần lớn nằm ngoài ngưỡng nghe, và bộ lọc của MQA là một lựa chọn đánh đổi chứ không phải phép màu khách quan.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 320" role="img" aria-label="Sơ đồ so sánh: chuỗi MQA có nhiều trạm thu phí (mã hóa, core decode, renderer) giữa bản master và người nghe; chuỗi FLAC đi thẳng từ master tới người nghe">
+            <!-- MQA chain -->
+            <text x="20" y="46" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold">MQA</text>
+            <rect x="20" y="60" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="80" y="88" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">Bản master</text>
+            <rect x="172" y="60" width="132" height="46" rx="8" fill="#2a2114" stroke="#f5a524"/>
+            <text x="238" y="82" fill="#f5a524" font-family="sans-serif" font-size="11.5" text-anchor="middle">Mã hóa MQA</text>
+            <text x="238" y="98" fill="#f5a524" font-family="sans-serif" font-size="10.5" text-anchor="middle">🔒 phí license</text>
+            <rect x="336" y="60" width="120" height="46" rx="8" fill="#2a2114" stroke="#f5a524"/>
+            <text x="396" y="82" fill="#f5a524" font-family="sans-serif" font-size="11.5" text-anchor="middle">Core decode</text>
+            <text x="396" y="98" fill="#f5a524" font-family="sans-serif" font-size="10.5" text-anchor="middle">🔒 app cấp phép</text>
+            <rect x="488" y="60" width="128" height="46" rx="8" fill="#2a2114" stroke="#f5a524"/>
+            <text x="552" y="82" fill="#f5a524" font-family="sans-serif" font-size="11.5" text-anchor="middle">Renderer / DAC</text>
+            <text x="552" y="98" fill="#f5a524" font-family="sans-serif" font-size="10.5" text-anchor="middle">🔒 DAC cấp phép</text>
+            <rect x="648" y="60" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="708" y="88" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">Bạn</text>
+            <!-- arrows MQA -->
+            <g stroke="#f5a524" stroke-width="2" fill="#f5a524">
+              <line x1="140" y1="83" x2="170" y2="83"/><polygon points="170,79 178,83 170,87"/>
+              <line x1="304" y1="83" x2="334" y2="83"/><polygon points="334,79 342,83 334,87"/>
+              <line x1="456" y1="83" x2="486" y2="83"/><polygon points="486,79 494,83 486,87"/>
+              <line x1="616" y1="83" x2="646" y2="83"/><polygon points="646,79 654,83 646,87"/>
+            </g>
+
+            <!-- FLAC chain -->
+            <text x="20" y="212" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold">FLAC (lossless thật)</text>
+            <rect x="20" y="226" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="80" y="254" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">Bản master</text>
+            <rect x="172" y="226" width="132" height="46" rx="8" fill="#0e201d" stroke="#5eead4"/>
+            <text x="238" y="248" fill="#5eead4" font-family="sans-serif" font-size="11.5" text-anchor="middle">Nén FLAC</text>
+            <text x="238" y="264" fill="#5eead4" font-family="sans-serif" font-size="10.5" text-anchor="middle">mở, miễn phí</text>
+            <rect x="648" y="226" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="708" y="254" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">Bạn</text>
+            <g stroke="#5eead4" stroke-width="2" fill="#5eead4">
+              <line x1="140" y1="249" x2="170" y2="249"/><polygon points="170,245 178,249 170,253"/>
+              <line x1="304" y1="249" x2="646" y2="249"/><polygon points="646,245 654,249 646,253"/>
+            </g>
+            <text x="475" y="242" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">bit-perfect, không trạm thu phí</text>
+          </svg>
+          <figcaption>MQA cài nhiều trạm cấp phép giữa bản master và bạn. FLAC đi thẳng, mở, và bit-perfect.</figcaption>
+        </figure>
+
+        <h2>MQA vs FLAC — nhìn nhanh</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Tiêu chí</th><th>FLAC (lossless thật)</th><th>MQA</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Bit-perfect với bản master?</td><td class="yes">Có</td><td class="no">Không (lossy, "gấp")</td></tr>
+              <tr><td class="fmt">Cần giải mã độc quyền?</td><td class="yes">Không</td><td class="no">Có (core decode + renderer)</td></tr>
+              <tr><td class="fmt">Cần DAC/đèn riêng để nghe đủ?</td><td class="yes">Không</td><td class="no">Cần renderer cấp phép</td></tr>
+              <tr><td class="fmt">Phí bản quyền trên cả chuỗi?</td><td class="yes">Không</td><td class="no">Có (label, service, hãng DAC)</td></tr>
+              <tr><td class="fmt">Mở nguồn, ai cũng kiểm chứng được?</td><td class="yes">Có</td><td class="no">Không (độc quyền)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Vậy MQA đã chết chưa?</h2>
+        <p>Ngắn gọn: <strong>chết trên dòng chính, nhưng phần sở hữu trí tuệ vẫn còn sống dưới chủ mới.</strong> Mốc chính:</p>
+        <ul>
+          <li><strong>Tháng 4/2023:</strong> MQA Ltd rơi vào tình trạng <em>administration</em> (mất khả năng thanh toán ở Anh) và tìm người mua. Đây là cú giáng lớn về niềm tin.</li>
+          <li><strong>Cuối 2023:</strong> tài sản MQA được <strong>Lenbrook</strong> (tập đoàn Canada, sở hữu NAD &amp; Bluesound) mua lại. MQA không biến mất, nhưng đổi chủ và xoay hướng sang công nghệ mới (họ đẩy thứ tên SCL6/AIRIA thay vì tiếp tục dựa vào MQA cũ).</li>
+          <li><strong>2024:</strong> <strong>Tidal</strong> — sân khấu lớn nhất của MQA — chuyển hẳn kho "Master/HiFi" sang <strong>FLAC hi-res</strong> và gỡ bỏ MQA. Khi flagship rời đi, MQA gần như hết chỗ đứng trên streaming phổ thông.</li>
+        </ul>
+        <p>Nên nếu ai hỏi "MQA còn không?": công nghệ vẫn tồn tại trong một số thiết bị và dưới quyền Lenbrook, nhưng với người nghe phổ thông năm nay, nó <strong>gần như không còn liên quan</strong> — dòng chính đã quay lại lossless mở.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Điều này nghĩa gì với bạn:</strong> đừng mua thiết bị hay trả tiền chỉ vì cái nhãn MQA/đèn xanh. Thứ đáng giá là <strong>lossless thật</strong> (FLAC/ALAC/WAV) từ một bản master tử tế, phát <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>. Không cần trạm thu phí nào ở giữa.</div>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Nên làm</span>
+            <h4>Nghe lossless mở, bit-perfect</h4>
+            <p>FLAC/ALAC/WAV/AIFF giữ nguyên vẹn bản master, ai cũng kiểm chứng được, không cần giải mã độc quyền. Đây là thứ MQA hứa nhưng lossless thật đã làm sẵn.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Đừng</span>
+            <h4>Trả tiền cho cái đèn xanh</h4>
+            <p>Đừng săn DAC "có MQA" hay tin đèn xác thực. Nó lossy, độc quyền, và dòng chính đã bỏ. Lo bản master và đường phát sạch thì hơn.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: MQA là một câu chuyện cảnh tỉnh về việc gắn nhãn độc quyền và marketing lên nhạc số. Cộng đồng đã đúng khi hoài nghi. Còn thứ bạn thật sự cần thì đơn giản: file <a href="/guides/fake-lossless" style="color:var(--accent)">thật là lossless</a>, máy phát <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, và một bản master tốt. Đó là lý do Synq chỉ chơi lossless mở — không đèn xanh, không giải mã độc quyền, thứ bạn nghe đúng bằng thứ trong file.</p>
+
+        <div class="cta-box">
+          <h3>Nghe lossless thật — không đèn xanh, không khoá độc quyền</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="mq2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#mq2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Player lossless: FLAC/ALAC/WAV/AIFF + DSD, bit-perfect qua DAC, AutoEQ 6.000+ tai nghe — không cần giải mã độc quyền.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Thẩm định file: lossless thật hay MP3 đội lốt? Phân tích phổ tần + tần số cắt ngay trên máy.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · MQA</span>
+        <h1>Is MQA dead? Why the audiophile community turned on it</h1>
+        <p class="subtitle">A few years ago MQA and its "blue light" on Tidal were sold as the future of hi-res. Then the community dug in, the company went under, and Tidal dropped it for FLAC. What happened — and is MQA actually dead? Straight talk.</p>
+        <div class="article-meta">
+          <span>8 min read</span><span>·</span><span>Diagram + comparison table</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="mq3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#mq3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Plays real, open lossless (FLAC/ALAC/WAV/AIFF) bit-perfect — no blue light, no proprietary decoder.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Check whether your lossless files are genuine or an MP3 in disguise — analyzed on-device.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>The first time that little dot turned <strong>blue</strong> in the Tidal app, I bought it completely: "MQA authenticated — this is the studio master." It even sounded good. Only later did I learn that light says far less than I assumed — and that there's a whole toll chain sitting behind it.</p>
+        <p>MQA is one of the most divisive topics in hi-fi of the last few years. This is the promise, why the community pushed back so hard, and where it stands now.</p>
+
+        <h2>What MQA is — the "fold up the master" promise</h2>
+        <p><strong>MQA</strong> (Master Quality Authenticated) is a proprietary format created by MQA Ltd (associated with Meridian's Bob Stuart). The pitch: pack "studio master" quality into a file <em>smaller</em> than ordinary hi-res, via a technique they called "audio origami" — folding the high-frequency information down into the low bits — plus a promise of time-domain "deblurring."</p>
+        <p>The catch: to fully "unfold" it, you need an <strong>MQA decoder</strong> — a "core decode" step in software, and a "renderer" in the DAC. Without decoding, you get a roughly 44.1/48kHz stream, <em>not</em> the original.</p>
+
+        <h2>Why it was so controversial</h2>
+        <p>This is where the community got angry. Four main points:</p>
+        <ul>
+          <li><strong>It isn't truly lossless.</strong> The most damaging one. Independent analysis (most famously GoldenSound's 2021 tests) showed that when test signals go through MQA's encode-then-decode process, the output <em>differs</em> from the original and picks up added noise — meaning MQA is <strong>lossy</strong>, not the perfectly-preserved copy FLAC gives you.</li>
+          <li><strong>It needs a proprietary decoder — a toll booth across the whole chain.</strong> To hear it "right," both the app and the DAC must be MQA-licensed. Labels pay to encode, streaming services pay, DAC makers pay for the "MQA" badge. A technology standing between you and the music — the opposite of open lossless.</li>
+          <li><strong>The "blue light" authentication is weaker than advertised.</strong> The blue light was sold as "confirmed by the artist/studio as the master." But independent testing showed you could make it light up blue with <em>manipulated</em> files that weren't the master. So what is it authenticating?</li>
+          <li><strong>It occupies bits and adds noise.</strong> The folding uses the low bits to carry encoded ultrasonic data; without a full unfold you hear a bit of added noise floor — something a clean 16/44.1 FLAC simply doesn't have.</li>
+        </ul>
+        <p>And the "time deblurring"? Engineers argue the "blur" MQA describes is largely outside the range of hearing, and its filter is a trade-off choice, not an objective miracle.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 320" role="img" aria-label="Comparison diagram: the MQA chain has several licensing toll booths (encode, core decode, renderer) between the master and the listener; the FLAC chain goes straight from master to listener">
+            <text x="20" y="46" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold">MQA</text>
+            <rect x="20" y="60" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="80" y="88" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">Master</text>
+            <rect x="172" y="60" width="132" height="46" rx="8" fill="#2a2114" stroke="#f5a524"/>
+            <text x="238" y="82" fill="#f5a524" font-family="sans-serif" font-size="11.5" text-anchor="middle">MQA encode</text>
+            <text x="238" y="98" fill="#f5a524" font-family="sans-serif" font-size="10.5" text-anchor="middle">🔒 license fee</text>
+            <rect x="336" y="60" width="120" height="46" rx="8" fill="#2a2114" stroke="#f5a524"/>
+            <text x="396" y="82" fill="#f5a524" font-family="sans-serif" font-size="11.5" text-anchor="middle">Core decode</text>
+            <text x="396" y="98" fill="#f5a524" font-family="sans-serif" font-size="10.5" text-anchor="middle">🔒 licensed app</text>
+            <rect x="488" y="60" width="128" height="46" rx="8" fill="#2a2114" stroke="#f5a524"/>
+            <text x="552" y="82" fill="#f5a524" font-family="sans-serif" font-size="11.5" text-anchor="middle">Renderer / DAC</text>
+            <text x="552" y="98" fill="#f5a524" font-family="sans-serif" font-size="10.5" text-anchor="middle">🔒 licensed DAC</text>
+            <rect x="648" y="60" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="708" y="88" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">You</text>
+            <g stroke="#f5a524" stroke-width="2" fill="#f5a524">
+              <line x1="140" y1="83" x2="170" y2="83"/><polygon points="170,79 178,83 170,87"/>
+              <line x1="304" y1="83" x2="334" y2="83"/><polygon points="334,79 342,83 334,87"/>
+              <line x1="456" y1="83" x2="486" y2="83"/><polygon points="486,79 494,83 486,87"/>
+              <line x1="616" y1="83" x2="646" y2="83"/><polygon points="646,79 654,83 646,87"/>
+            </g>
+
+            <text x="20" y="212" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold">FLAC (real lossless)</text>
+            <rect x="20" y="226" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="80" y="254" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">Master</text>
+            <rect x="172" y="226" width="132" height="46" rx="8" fill="#0e201d" stroke="#5eead4"/>
+            <text x="238" y="248" fill="#5eead4" font-family="sans-serif" font-size="11.5" text-anchor="middle">FLAC compress</text>
+            <text x="238" y="264" fill="#5eead4" font-family="sans-serif" font-size="10.5" text-anchor="middle">open, free</text>
+            <rect x="648" y="226" width="120" height="46" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="708" y="254" fill="#e6edf2" font-family="sans-serif" font-size="12" text-anchor="middle">You</text>
+            <g stroke="#5eead4" stroke-width="2" fill="#5eead4">
+              <line x1="140" y1="249" x2="170" y2="249"/><polygon points="170,245 178,249 170,253"/>
+              <line x1="304" y1="249" x2="646" y2="249"/><polygon points="646,245 654,249 646,253"/>
+            </g>
+            <text x="475" y="242" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">bit-perfect, no toll booths</text>
+          </svg>
+          <figcaption>MQA inserts licensing toll booths between the master and you. FLAC goes straight through — open and bit-perfect.</figcaption>
+        </figure>
+
+        <h2>MQA vs FLAC — at a glance</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Criteria</th><th>FLAC (real lossless)</th><th>MQA</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Bit-perfect to the master?</td><td class="yes">Yes</td><td class="no">No (lossy, "folded")</td></tr>
+              <tr><td class="fmt">Needs a proprietary decoder?</td><td class="yes">No</td><td class="no">Yes (core decode + renderer)</td></tr>
+              <tr><td class="fmt">Needs a special DAC to hear it all?</td><td class="yes">No</td><td class="no">Licensed renderer required</td></tr>
+              <tr><td class="fmt">License fees across the chain?</td><td class="yes">No</td><td class="no">Yes (label, service, DAC maker)</td></tr>
+              <tr><td class="fmt">Open, independently verifiable?</td><td class="yes">Yes</td><td class="no">No (proprietary)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>So is MQA dead?</h2>
+        <p>Short version: <strong>dead in the mainstream, but the IP lives on under new ownership.</strong> The key milestones:</p>
+        <ul>
+          <li><strong>April 2023:</strong> MQA Ltd entered <em>administration</em> (insolvency in the UK) and went looking for a buyer. A huge blow to confidence.</li>
+          <li><strong>Late 2023:</strong> MQA's assets were acquired by <strong>Lenbrook</strong> (the Canadian group behind NAD &amp; Bluesound). MQA didn't vanish, but it changed hands and pivoted toward newer tech (it's been pushing something called SCL6/AIRIA rather than leaning on classic MQA).</li>
+          <li><strong>2024:</strong> <strong>Tidal</strong> — MQA's biggest stage — moved its "Master/HiFi" catalog fully to <strong>hi-res FLAC</strong> and removed MQA. Once the flagship walked away, MQA had almost nowhere left in mainstream streaming.</li>
+        </ul>
+        <p>So if someone asks "is MQA still around?": the tech still exists in some gear and under Lenbrook, but for the everyday listener today it's <strong>largely irrelevant</strong> — the mainstream went back to open lossless.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>What this means for you:</strong> don't buy gear or pay extra just for an MQA badge or a blue light. What's worth it is <strong>real lossless</strong> (FLAC/ALAC/WAV) from a decent master, played <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>. No toll booth in the middle needed.</div>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Do</span>
+            <h4>Play open lossless, bit-perfect</h4>
+            <p>FLAC/ALAC/WAV/AIFF preserve the master exactly, are independently verifiable, and need no proprietary decoder. It's what MQA promised — and real lossless already delivers.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Don't</span>
+            <h4>Pay for the blue light</h4>
+            <p>Don't chase "MQA" DACs or trust the authentication light. It's lossy, proprietary, and the mainstream dropped it. Worry about the master and a clean playback path instead.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: MQA is a cautionary tale about bolting proprietary badges and marketing onto digital music. The community was right to be skeptical. What you actually need is simple: files that are <a href="/guides/fake-lossless" style="color:var(--accent)">genuinely lossless</a>, a device that plays <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, and a good master. That's why Synq plays only open lossless — no blue light, no proprietary decoding, what you hear is exactly what's in the file.</p>
+
+        <div class="cta-box">
+          <h3>Hear real lossless — no blue light, no proprietary lock-in</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="mq4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#mq4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Lossless player: FLAC/ALAC/WAV/AIFF + DSD, bit-perfect over a DAC, AutoEQ for 6,000+ headphones — no proprietary decoding.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Verify a file: genuine lossless or an MP3 dressed up as FLAC? Spectrum + cutoff analysis on-device.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
