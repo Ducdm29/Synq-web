@@ -17,6 +17,7 @@
     { "source": "/guides/flac-wav-alac-aiff", "destination": "/guides/flac-wav-alac-aiff.html" },
     { "source": "/guides/dsd", "destination": "/guides/dsd.html" },
     { "source": "/guides/mqa", "destination": "/guides/mqa.html" },
+    { "source": "/guides/verify-quality", "destination": "/guides/verify-quality.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],

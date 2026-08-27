@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thẩm định chất lượng nhạc: fake lossless & vì sao không bắt được 100%</title>
+  <meta name="description" content="Người ta fake chất lượng file nhạc bằng cách nào, Music Check dùng phổ tần và điểm cắt để hạn chế bị lừa ra sao, và vì sao thành thật mà nói không công cụ nào bắt được 100% file giả. Kèm sơ đồ phổ tần." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/verify-quality" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 520px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.hi { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block (smaller than homepage) */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Thẩm định</span>
+        <h1>Thẩm định chất lượng nhạc: người ta fake thế nào, và vì sao không bắt được 100%</h1>
+        <p class="subtitle">File ghi "FLAC 24/96" chưa chắc là thật. Bài này nói thẳng: người ta làm giả chất lượng bằng cách nào, Music Check giảm rủi ro bị lừa ra sao, và tại sao không một công cụ nào dám hứa bắt được mọi file giả.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Có sơ đồ phổ tần</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Soi file lossless của bạn là thật hay MP3 đội lốt — phân tích phổ tần + điểm cắt ngay trên máy.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="vf1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#vf1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Phát lossless thật bit-perfect: FLAC/ALAC/WAV/AIFF + DSD, AutoEQ 6.000+ tai nghe.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Có lần mình tải một album ghi rõ ràng "FLAC 24bit/96kHz" từ một nguồn chia sẻ, thấy dung lượng to đùng, yên tâm cất vào thư viện. Vài tuần sau mở phổ tần ra xem thì hụt hẫng: năng lượng bị chặt phẳng lì ở khoảng 16kHz, trên đó trống trơn. Đó là dấu vết kinh điển của một file MP3 bị đổi vỏ thành FLAC. Dung lượng to, nhãn đẹp, nhưng ruột là nhạc nén mất mát.</p>
+        <p>Đây là chuyện xảy ra thường xuyên hơn nhiều người tưởng. Bài này giải thích người ta fake bằng cách nào, một công cụ như Music Check bắt được tới đâu, và quan trọng nhất — vì sao mình không bao giờ hứa bắt được 100%.</p>
+
+        <h2>Vì sao có chuyện fake chất lượng</h2>
+        <p>Lý do rất đời: file lossless <em>trông</em> có giá hơn, bán được giá hơn, và tạo cảm giác uy tín cho một bộ sưu tập hay một trang chia sẻ. Trong khi đó việc "phù phép" một file MP3 thành FLAC 24/96 lại quá dễ — chỉ vài giây với một phần mềm chuyển đổi. Người làm có thể cố ý lừa, cũng có thể vô tình: họ nhận lại một file đã bị nén từ trước mà không biết, rồi chuyển sang FLAC với niềm tin nó là hàng thật.</p>
+
+        <h2>Người ta fake bằng những cách nào</h2>
+        <ul>
+          <li><strong>Chuyển mã (transcode) từ lossy sang lossless.</strong> Phổ biến nhất: lấy một file MP3 hoặc AAC rồi xuất ra FLAC/WAV. Container thành "lossless" nhưng phần âm thanh đã mất mát vĩnh viễn từ trước không quay lại được. Dung lượng phình to vì FLAC không nén được cái đã bị vứt.</li>
+          <li><strong>Nâng tần số lấy mẫu giả (upsample).</strong> Lấy 16/44.1 nội suy lên 24/96 để nhãn trông "hi-res". Không có thông tin thật nào được thêm vào — chỉ là tính toán chèn mẫu ở giữa.</li>
+          <li><strong>Độn độ sâu bit (bit padding).</strong> Từ 16-bit "kéo" lên 24-bit bằng cách nhồi các bit 0. Nhìn metadata thì 24-bit, nhưng dải động thực tế vẫn là 16-bit.</li>
+          <li><strong>Fake tinh vi hơn.</strong> Kẻ cố tình có thể vừa upsample vừa <em>thêm nhiễu siêu âm giả</em> lên vùng tần cao để lấp chỗ trống, khiến phổ tần trông "đầy" tới sát Nyquist và qua mặt kiểm tra điểm cắt đơn giản.</li>
+          <li><strong>Nén chồng (re-encode nhiều đời).</strong> File đã đi qua nhiều lần nén lossy khác nhau rồi mới đóng thành lossless — chất lượng còn tệ hơn một lần nén.</li>
+        </ul>
+
+        <h2>Music Check bắt fake bằng cách nào</h2>
+        <p>Ý tưởng cốt lõi: mỗi lần nén lossy đều để lại <strong>dấu vết trên phổ tần</strong>, và những dấu vết đó thường không xóa được. Music Check phân tích tín hiệu thật trong file, không tin vào cái nhãn:</p>
+        <ul>
+          <li><strong>Đọc phổ tần / spectrogram.</strong> Lossy hầu như luôn có một <em>bức tường cắt tần</em> (brickwall): MP3 320kbps thường cắt quanh 20kHz, 128kbps cắt quanh 16kHz. Nhạc lossless thật thường trải năng lượng lên tới gần Nyquist (một nửa sample rate).</li>
+          <li><strong>Dò điểm cắt tự động.</strong> App tìm mốc tần số nơi năng lượng đột ngột rơi xuống gần như bằng không — dấu hiệu rõ nhất của nguồn lossy đội lốt.</li>
+          <li><strong>Kiểm bit-depth thực dùng.</strong> Xem các bit thấp có mang thông tin thật hay chỉ toàn số 0 (padding), để phát hiện 24-bit giả.</li>
+          <li><strong>Đối chiếu nhãn với nội dung.</strong> So định dạng/sample rate/bit-depth mà file khai báo với những gì thực sự đo được trong tín hiệu.</li>
+          <li><strong>Chạy ngay trên máy.</strong> Toàn bộ phân tích diễn ra trên thiết bị, file của bạn không bị gửi đi đâu.</li>
+        </ul>
+
+        <figure>
+          <svg viewBox="0 0 820 340" role="img" aria-label="So sánh phổ tần: file lossless thật có năng lượng trải lên tới gần Nyquist; file MP3 đội lốt FLAC bị cắt phẳng ở khoảng 16kHz, phía trên trống trơn">
+            <!-- Left: real lossless -->
+            <text x="40" y="34" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">Lossless thật</text>
+            <rect x="40" y="46" width="320" height="230" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <!-- energy fills nearly to top -->
+            <defs>
+              <linearGradient id="engGood" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#5eead4" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#5eead4" stop-opacity="0.08"/>
+              </linearGradient>
+              <linearGradient id="engFake" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#5eead4" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#5eead4" stop-opacity="0.12"/>
+              </linearGradient>
+            </defs>
+            <rect x="40" y="60" width="320" height="216" fill="url(#engGood)"/>
+            <text x="200" y="72" fill="#bfeee6" font-family="sans-serif" font-size="10.5" text-anchor="middle">năng lượng trải tới gần Nyquist</text>
+            <text x="34" y="60" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">22k</text>
+            <text x="34" y="276" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">0</text>
+
+            <!-- Right: fake -->
+            <text x="460" y="34" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold">MP3 đội lốt FLAC</text>
+            <rect x="460" y="46" width="320" height="230" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <!-- energy only up to cutoff (~16k → y around 122) -->
+            <rect x="460" y="122" width="320" height="154" fill="url(#engFake)"/>
+            <!-- empty band above -->
+            <line x1="460" y1="122" x2="780" y2="122" stroke="#f5a524" stroke-width="2.5"/>
+            <text x="620" y="112" fill="#f5a524" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold">bức tường cắt ~16kHz</text>
+            <text x="620" y="92" fill="#7c8b96" font-family="sans-serif" font-size="10.5" text-anchor="middle">vùng trống — không có dữ liệu</text>
+            <text x="454" y="60" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">22k</text>
+            <text x="454" y="276" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">0</text>
+
+            <text x="410" y="308" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Trục dọc = tần số. Cùng nhãn "FLAC" nhưng ruột khác hẳn.</text>
+          </svg>
+          <figcaption>Cùng ghi là FLAC, nhưng file thật trải năng lượng lên cao; file đội lốt bị chặt phẳng ở điểm cắt của MP3.</figcaption>
+        </figure>
+
+        <h2>Vì sao KHÔNG thể bắt được 100%</h2>
+        <p>Đây là phần mình muốn nói thẳng, vì bất kỳ ai hứa "đảm bảo bắt hết file giả" đều đang nói quá. Công cụ đọc <em>tín hiệu âm thanh</em>, chứ không đọc được lịch sử của file — nên nó cho bạn <strong>bằng chứng và xác suất</strong>, không phải một phán quyết tuyệt đối.</p>
+        <ul>
+          <li><strong>Fake tinh vi có thể qua mặt kiểm tra điểm cắt.</strong> Nếu kẻ làm giả cố tình thêm nhiễu tần cao giả sau khi upsample, phổ tần trông đầy tới Nyquist dù bên dưới vẫn là nguồn lossy. Nhìn kỹ thường vẫn thấy điều bất thường, nhưng không còn là một cú cắt hiển nhiên.</li>
+          <li><strong>Nhạc thật đôi khi trông giống bị cắt.</strong> Thu âm mộc, nhạc cổ điển nhẹ, hay bản master thiên về trầm vốn có rất ít năng lượng ở tần cao — dễ bị hiểu nhầm là "bị cắt" dù hoàn toàn là hàng thật. Đây là false positive.</li>
+          <li><strong>Master kém không phải là fake.</strong> Một file có thể là lossless thật 100% nhưng master dở, thu tệ. Công cụ xác nhận nó là lossless thật, nhưng không thể phán bản nhạc đó hay hay dở.</li>
+          <li><strong>Lossy chất lượng cao rất khó phân biệt.</strong> Các codec hiện đại ở bitrate cao (AAC 256+, Opus) giữ tần số cao rất tốt, dấu vết mờ đi nhiều.</li>
+          <li><strong>Kết quả là cơ sở để bạn tự quyết, không phải chân lý.</strong> Music Check giúp bạn <em>giảm tối đa</em> khả năng bị lừa và đưa ra bằng chứng để nhìn tận mắt — nhưng nên dùng nó như một cây đèn cảnh báo, không phải một toà án tối cao.</li>
+        </ul>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Cách dùng cho đúng:</strong> coi Music Check như bước sàng lọc nhanh. File có điểm cắt rõ ràng thì gần như chắc chắn là fake — bỏ. File "sạch" thì khả năng cao là thật, nhưng hãy nhớ không có gì tuyệt đối. Học cách <em>đọc</em> phổ tần sẽ giúp bạn tự tin hơn nhiều so với chỉ nhìn một chữ "đạt/không đạt".</div>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Music Check giúp được</span>
+            <h4>Loại nhanh phần lớn file giả</h4>
+            <p>Bắt gọn các trường hợp phổ biến: transcode từ lossy, upsample, 24-bit độn số 0 — với bằng chứng phổ tần ngay trên máy, riêng tư.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Nhưng đừng kỳ vọng</span>
+            <h4>Không có công cụ nào 100%</h4>
+            <p>Fake tinh vi và nhạc thật ít tần cao đều có thể gây nhầm. Hãy xem kết quả là bằng chứng để tự quyết, không phải lời phán cuối cùng.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: không tồn tại một nút bấm thần kỳ đảm bảo bạn không bao giờ bị lừa. Nhưng bạn hoàn toàn có thể nghiêng cán cân về phía mình — bằng cách kiểm tra trước khi tin vào cái nhãn, và bằng cách hiểu mình đang nhìn cái gì. Đó chính là việc Music Check được sinh ra để làm. Nếu muốn hiểu sâu hơn về dấu vết của nén, đọc thêm bài <a href="/guides/fake-lossless" style="color:var(--accent)">FLAC có thật lossless không</a> và <a href="/guides/hi-res-vs-cd" style="color:var(--accent)">hi-res so với CD</a>.</p>
+
+        <div class="cta-box">
+          <h3>Kiểm tra file của bạn trước khi tin vào cái nhãn</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Thẩm định file: lossless thật hay MP3 đội lốt? Phổ tần + điểm cắt + kiểm bit-depth ngay trên máy, không gửi file đi đâu.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="vf2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#vf2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Rồi nghe file thật cho đã: player lossless bit-perfect, DSD, AutoEQ 6.000+ tai nghe, kết nối NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Verify</span>
+        <h1>Verifying music quality: how people fake it, and why nothing catches 100%</h1>
+        <p class="subtitle">A file labeled "FLAC 24/96" isn't always real. Straight talk: how people fake quality, how Music Check cuts your odds of being fooled, and why no tool can honestly promise to catch every fake.</p>
+        <div class="article-meta">
+          <span>8 min read</span><span>·</span><span>Spectrum diagram</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">See if your lossless files are genuine or an MP3 in disguise — spectrum + cutoff analysis, on-device.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="vf3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#vf3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Play real lossless bit-perfect: FLAC/ALAC/WAV/AIFF + DSD, AutoEQ for 6,000+ headphones.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>I once downloaded an album clearly labeled "FLAC 24bit/96kHz" from a sharing source, saw the huge file size, and filed it away happily. Weeks later I opened the spectrum and my heart sank: the energy was chopped flat at around 16kHz, empty above that. That's the classic fingerprint of an MP3 rewrapped as FLAC. Big file, nice label, lossy audio inside.</p>
+        <p>This happens more than people think. Here's how people fake it, how far a tool like Music Check can catch it, and — most importantly — why I'll never promise it catches 100%.</p>
+
+        <h2>Why quality gets faked</h2>
+        <p>The reasons are mundane: lossless <em>looks</em> more valuable, sells for more, and lends prestige to a collection or a sharing site. Meanwhile turning an MP3 into a "FLAC 24/96" takes seconds in a converter. Some do it to deceive; others do it unknowingly — they were handed an already-compressed file and re-wrapped it as FLAC believing it was genuine.</p>
+
+        <h2>How people fake it</h2>
+        <ul>
+          <li><strong>Transcoding lossy to lossless.</strong> The most common: take an MP3 or AAC and export FLAC/WAV. The container becomes "lossless" but the audio lost earlier is gone for good. Size balloons because FLAC can't recompress what was thrown away.</li>
+          <li><strong>Fake upsampling.</strong> Interpolate 16/44.1 up to 24/96 so the label reads "hi-res." No real information is added — just samples calculated in between.</li>
+          <li><strong>Bit padding.</strong> Stretch 16-bit to 24-bit by stuffing zero bits. Metadata says 24-bit, but the real dynamic range is still 16-bit.</li>
+          <li><strong>More sophisticated fakes.</strong> A deliberate faker can upsample and <em>add fake ultrasonic noise</em> to fill the empty top, making the spectrum look "full" up near Nyquist and beating a naive cutoff check.</li>
+          <li><strong>Multi-generation re-encodes.</strong> A file passed through several lossy encodes before being sealed as lossless — worse than a single pass.</li>
+        </ul>
+
+        <h2>How Music Check catches fakes</h2>
+        <p>The core idea: every lossy encode leaves a <strong>fingerprint in the spectrum</strong>, and those marks usually can't be scrubbed. Music Check analyzes the real signal, not the label:</p>
+        <ul>
+          <li><strong>Reads the spectrum / spectrogram.</strong> Lossy almost always has a <em>brickwall cutoff</em>: MP3 320kbps usually cuts near 20kHz, 128kbps near 16kHz. Genuine lossless typically carries energy up close to Nyquist (half the sample rate).</li>
+          <li><strong>Auto-detects the cutoff.</strong> It finds the frequency where energy suddenly drops to near-zero — the clearest sign of a lossy source in disguise.</li>
+          <li><strong>Checks the real bit depth.</strong> Whether the low bits carry actual information or are all zeros (padding), to expose fake 24-bit.</li>
+          <li><strong>Cross-checks label vs content.</strong> Compares the format/sample rate/bit-depth the file claims against what's actually measured in the signal.</li>
+          <li><strong>Runs on-device.</strong> All analysis happens on your phone; your files aren't sent anywhere.</li>
+        </ul>
+
+        <figure>
+          <svg viewBox="0 0 820 340" role="img" aria-label="Spectrum comparison: a genuine lossless file carries energy up near Nyquist; an MP3 disguised as FLAC is chopped flat around 16kHz with empty space above">
+            <defs>
+              <linearGradient id="engGood2" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#5eead4" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#5eead4" stop-opacity="0.08"/>
+              </linearGradient>
+              <linearGradient id="engFake2" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#5eead4" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#5eead4" stop-opacity="0.12"/>
+              </linearGradient>
+            </defs>
+            <text x="40" y="34" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">Genuine lossless</text>
+            <rect x="40" y="46" width="320" height="230" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <rect x="40" y="60" width="320" height="216" fill="url(#engGood2)"/>
+            <text x="200" y="72" fill="#bfeee6" font-family="sans-serif" font-size="10.5" text-anchor="middle">energy up near Nyquist</text>
+            <text x="34" y="60" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">22k</text>
+            <text x="34" y="276" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">0</text>
+
+            <text x="460" y="34" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold">MP3 disguised as FLAC</text>
+            <rect x="460" y="46" width="320" height="230" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <rect x="460" y="122" width="320" height="154" fill="url(#engFake2)"/>
+            <line x1="460" y1="122" x2="780" y2="122" stroke="#f5a524" stroke-width="2.5"/>
+            <text x="620" y="112" fill="#f5a524" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold">brickwall ~16kHz</text>
+            <text x="620" y="92" fill="#7c8b96" font-family="sans-serif" font-size="10.5" text-anchor="middle">empty — no data</text>
+            <text x="454" y="60" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">22k</text>
+            <text x="454" y="276" fill="#7c8b96" font-family="sans-serif" font-size="10" text-anchor="end">0</text>
+
+            <text x="410" y="308" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Vertical axis = frequency. Same "FLAC" label, very different insides.</text>
+          </svg>
+          <figcaption>Both labeled FLAC, but the real one carries energy high; the fake is chopped flat at the MP3 cutoff.</figcaption>
+        </figure>
+
+        <h2>Why it can't be 100%</h2>
+        <p>This is the part I want to say plainly, because anyone promising to "guarantee catching every fake" is overselling. A tool reads the <em>audio signal</em>, not the file's history — so it gives you <strong>evidence and probability</strong>, not an absolute verdict.</p>
+        <ul>
+          <li><strong>Sophisticated fakes can beat the cutoff check.</strong> If a faker deliberately adds fake high-frequency noise after upsampling, the spectrum looks full to Nyquist even though a lossy source sits underneath. A careful look usually still shows something off, but it's no longer an obvious cliff.</li>
+          <li><strong>Real music can look "cut."</strong> Intimate acoustic recordings, gentle classical, or bass-heavy masters naturally have little high-frequency energy — easy to misread as "cut" when it's completely genuine. That's a false positive.</li>
+          <li><strong>A bad master isn't a fake.</strong> A file can be 100% real lossless yet poorly mastered. The tool confirms it's genuine lossless, but can't judge whether the music sounds good.</li>
+          <li><strong>High-quality lossy is hard to tell apart.</strong> Modern codecs at high bitrates (AAC 256+, Opus) preserve highs very well; the fingerprint fades.</li>
+          <li><strong>The result is a basis for your decision, not gospel.</strong> Music Check helps you <em>minimize</em> the odds of being fooled and shows you the evidence — but use it as a warning light, not a supreme court.</li>
+        </ul>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>How to use it well:</strong> treat Music Check as a fast filter. A clear cutoff means it's almost certainly fake — drop it. A "clean" file is likely genuine, but remember nothing is absolute. Learning to <em>read</em> the spectrum yourself gives you far more confidence than a single pass/fail word.</div>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Music Check helps</span>
+            <h4>Screen out most fakes fast</h4>
+            <p>It nails the common cases: lossy transcodes, upsamples, zero-padded 24-bit — with spectrum evidence on-device and private.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">But don't expect</span>
+            <h4>No tool is 100%</h4>
+            <p>Sophisticated fakes and genuinely dark recordings can both mislead. Read the result as evidence to decide on, not a final verdict.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: there's no magic button that guarantees you'll never be fooled. But you can absolutely tilt the odds in your favor — by checking before you trust the label, and by understanding what you're looking at. That's exactly what Music Check is built to do. To go deeper on compression fingerprints, read <a href="/guides/fake-lossless" style="color:var(--accent)">is FLAC really lossless</a> and <a href="/guides/hi-res-vs-cd" style="color:var(--accent)">hi-res vs CD</a>.</p>
+
+        <div class="cta-box">
+          <h3>Check your files before you trust the label</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Verify a file: genuine lossless or an MP3 dressed up as FLAC? Spectrum + cutoff + bit-depth checks on-device, nothing uploaded.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="vf4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#vf4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Then enjoy the real thing: bit-perfect lossless player, DSD, AutoEQ for 6,000+ headphones, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
