@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loudness War & Dynamic Range: vì sao nhạc đời mới nghe mệt tai</title>
+  <meta name="description" content="Loudness War là gì, dynamic range (DR) là gì, vì sao nhiều bản nhạc hiện đại nghe to nhưng mệt tai, và cách đọc DR/LUFS để chọn bản master hay. Kèm sơ đồ dạng sóng và bảng đọc DR." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/loudness-war" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 520px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.good { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Mastering</span>
+        <h1>Loudness War & Dynamic Range: vì sao nhạc đời mới nghe mệt tai</h1>
+        <p class="subtitle">Có những bài nghe rất to, rất "đầy", mà chỉ dăm phút là tai mỏi. Thủ phạm thường không phải tai nghe hay file, mà là cách bản nhạc được master. Giải thích dynamic range, cuộc chiến âm lượng, và cách đọc thông số.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Có sơ đồ dạng sóng + bảng DR</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="lw1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lw1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Phát bit-perfect, hiện thông số thật của file (định dạng, sample rate, bit-depth) để bạn biết mình đang nghe gì.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Xác nhận file có đúng là lossless thật không, để bạn đánh giá đúng bản master chứ không phải bản nén giả.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Bạn có bao giờ mở một playlist nhạc mới, vặn to lên vì thấy hào hứng, rồi chỉ mười lăm phút sau đã thấy tai lùng bùng, muốn nghỉ? Trong khi một album cũ nghe cả tiếng vẫn thoải mái. Nhiều người đổ cho tai nghe hay file kém, nhưng thủ phạm thật sự thường nằm ở khâu <strong>master</strong> — và có một cái tên cho hiện tượng này: cuộc chiến âm lượng.</p>
+
+        <h2>Loudness War là gì</h2>
+        <p>Từ thập niên 90, các bản master bắt đầu chạy đua làm cho <strong>to hơn</strong>. Lý do thương mại: một bài nghe to hơn sẽ nổi bật hơn trên radio, trong list phát, và tạo cảm giác "hoành tráng" tức thì. Cách làm là nén động (compression) mạnh tay cộng với giới hạn đỉnh (limiting), thậm chí xén đỉnh (clipping), để kéo mọi thứ lên sát trần âm lượng.</p>
+        <p>Cái giá phải trả là <strong>dynamic range</strong> — khoảng cách giữa đoạn to nhất và đoạn nhỏ nhất — bị bóp lại gần như phẳng. Nhạc mất đi những khoảng lặng, những cú nhấn, cái "nhịp thở" tự nhiên. To đều từ đầu đến cuối nghe thì "đầy" trong vài giây đầu, nhưng lâu thì đơ và mệt.</p>
+
+        <h2>Dynamic range là gì, và vì sao mệt tai</h2>
+        <p><strong>Dynamic range (DR)</strong> là mức chênh lệch giữa phần lớn nhất và phần nhỏ nhất của bản nhạc. DR cao nghĩa là có tiếng trống đánh bật lên khỏi nền, có đoạn nhỏ lại rồi vỡ oà — tai được nghỉ và được bất ngờ. DR thấp nghĩa là mọi thứ bị ép vào một bức tường âm lượng, không còn tương phản.</p>
+        <p>Tai người vốn cảm nhận âm nhạc qua <em>sự thay đổi</em>. Khi mọi nốt đều to như nhau, não phải làm việc liên tục ở mức cao mà không có quãng nghỉ, cộng với méo tiếng do xén đỉnh — đó là công thức của mỏi tai. Nghịch lý là bản nén nát nghe "to và đã" lúc đầu, nhưng chính nó làm bạn muốn tắt sớm.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 292" role="img" aria-label="So sánh dạng sóng: bản còn dynamic có các đỉnh cao thấp khác nhau; bản bị nén phẳng thì các cột gần như cao bằng nhau, lấp đầy tới sát trần">
+            <text x="32" y="28" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">Còn dynamic (DR cao)</text>
+            <rect x="32" y="36" width="366" height="218" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <line x1="32" y1="145" x2="398" y2="145" stroke="#22303a" stroke-width="1"/>
+            <g fill="#5eead4">
+              <rect x="40" y="115" width="20" height="60" rx="2"/>
+              <rect x="65" y="85" width="20" height="120" rx="2"/>
+              <rect x="90" y="123" width="20" height="44" rx="2"/>
+              <rect x="115" y="65" width="20" height="160" rx="2"/>
+              <rect x="140" y="100" width="20" height="90" rx="2"/>
+              <rect x="165" y="55" width="20" height="180" rx="2"/>
+              <rect x="190" y="117" width="20" height="56" rx="2"/>
+              <rect x="215" y="75" width="20" height="140" rx="2"/>
+              <rect x="240" y="95" width="20" height="100" rx="2"/>
+              <rect x="265" y="50" width="20" height="190" rx="2"/>
+              <rect x="290" y="110" width="20" height="70" rx="2"/>
+              <rect x="315" y="70" width="20" height="150" rx="2"/>
+              <rect x="340" y="105" width="20" height="80" rx="2"/>
+              <rect x="365" y="60" width="20" height="170" rx="2"/>
+            </g>
+
+            <text x="442" y="28" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold">Bị nén phẳng (DR thấp)</text>
+            <rect x="442" y="36" width="366" height="218" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <line x1="442" y1="145" x2="808" y2="145" stroke="#22303a" stroke-width="1"/>
+            <g fill="#f5a524">
+              <rect x="450" y="49" width="20" height="192" rx="2"/>
+              <rect x="475" y="46" width="20" height="198" rx="2"/>
+              <rect x="500" y="50" width="20" height="190" rx="2"/>
+              <rect x="525" y="47" width="20" height="196" rx="2"/>
+              <rect x="550" y="48" width="20" height="194" rx="2"/>
+              <rect x="575" y="46" width="20" height="198" rx="2"/>
+              <rect x="600" y="49" width="20" height="192" rx="2"/>
+              <rect x="625" y="47" width="20" height="196" rx="2"/>
+              <rect x="650" y="50" width="20" height="190" rx="2"/>
+              <rect x="675" y="46" width="20" height="198" rx="2"/>
+              <rect x="700" y="48" width="20" height="194" rx="2"/>
+              <rect x="725" y="49" width="20" height="192" rx="2"/>
+              <rect x="750" y="47" width="20" height="196" rx="2"/>
+              <rect x="775" y="48" width="20" height="194" rx="2"/>
+            </g>
+            <text x="420" y="278" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Cùng một bài, hai bản master. Bên phải là dạng sóng "khúc dồi" kinh điển của loudness war.</text>
+          </svg>
+          <figcaption>Bản còn dynamic có đỉnh cao thấp rõ; bản nén nát lấp gần đầy tới trần, mất hết tương phản.</figcaption>
+        </figure>
+
+        <h2>Cách đọc DR (và các thông số liên quan)</h2>
+        <p>Bạn không cần là kỹ sư âm thanh, chỉ cần biết vài con số:</p>
+        <ul>
+          <li><strong>Chỉ số DR</strong> (đo bằng DR meter, plugin foobar2000, hoặc tra ở cơ sở dữ liệu Dynamic Range Database): số càng lớn càng thoáng. DR6 là nén nát, DR12 trở lên là dày dặn có nhịp thở.</li>
+          <li><strong>LUFS</strong> (độ to tích hợp): thước đo độ to cảm nhận. Các dịch vụ stream chuẩn hoá quanh <code class="inline">-14 LUFS</code>; một bản master nén để chạy đua âm lượng thường to hơn nhiều mức đó.</li>
+          <li><strong>True peak / clipping</strong>: nếu đỉnh chạm hoặc vượt 0 dBFS liên tục, bản master đã bị xén — dấu hiệu của nén quá tay.</li>
+          <li><strong>Nhìn dạng sóng</strong>: cách nhanh nhất. Dạng "khúc dồi" đặc kín từ đầu đến cuối là DR thấp; dạng có đỉnh nhọn và khoảng trũng là còn dynamic.</li>
+        </ul>
+
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Chỉ số DR</th><th>Cảm nhận</th><th>Thường gặp ở</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">DR5–6</td><td class="warn">Nén nát, mệt tai nhanh</td><td>nhiều pop/rock/EDM thời loudness war</td></tr>
+              <tr><td class="fmt">DR8–9</td><td>Trung bình, chấp nhận được</td><td>nhiều bản phát hành hiện đại</td></tr>
+              <tr><td class="fmt">DR11–12</td><td class="good">Thoáng, có nhịp thở</td><td>master tốt, nhiều bản remaster</td></tr>
+              <tr><td class="fmt">DR13+</td><td class="good">Rất động, tự nhiên</td><td>jazz, cổ điển, thu acoustic tốt</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Tin tốt: cuộc chiến đang hạ nhiệt</h2>
+        <p>Khi streaming trở thành kênh nghe chính, các nền tảng đều <strong>chuẩn hoá âm lượng</strong> (kéo mọi bài về cùng một mức LUFS khi bật normalization). Điều này làm mất đi lợi thế "cứ to là nổi bật" — một bản nén nát khi bị kéo xuống ngang mức bài khác thì chỉ còn lại nhược điểm: đơ và méo. Nhờ vậy nhiều bản master gần đây đã thoáng hơn trước. Nhưng di sản của thời loudness war vẫn còn đầy trong kho nhạc, nên biết cách nhận ra vẫn rất đáng.</p>
+
+        <h2>Làm gì để nghe đỡ mệt hơn</h2>
+        <ul>
+          <li><strong>Bật chuẩn hoá âm lượng</strong> khi nghe playlist trộn nhiều nguồn — tai đỡ bị giật giữa các bài.</li>
+          <li><strong>Tìm bản master tốt</strong>: nhiều album có bản remaster hoặc bản phát hành khác nhau về DR; tra Dynamic Range Database trước khi mua/tải.</li>
+          <li><strong>Nghe nhỏ hơn một chút</strong>: bản nén nát nghe càng to càng mệt; hạ vài nấc là dễ chịu hơn nhiều.</li>
+          <li><strong>Biết mình đang nghe gì</strong>: dùng công cụ xem thông số để không nhầm lẫn hai chuyện khác nhau dưới đây.</li>
+        </ul>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Đừng nhầm hai chuyện:</strong> chất lượng <em>định dạng</em> (lossless hay không) và chất lượng <em>bản master</em> (DR cao hay thấp) là hai trục hoàn toàn khác nhau. Một file FLAC 24-bit xịn vẫn có thể là bản master bị nén nát DR6. Music Check cho bạn biết file có <a href="/guides/verify-quality" style="color:var(--accent)">thật là lossless</a> không; còn DR cho biết nó được master ra sao. Muốn nghe hay, cần cả hai.</div>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Nên</span>
+            <h4>Chọn bản master có DR tốt + bật normalization</h4>
+            <p>Ưu tiên bản dày dặn (DR11+) và để nền tảng cân âm lượng. Đây mới là thứ quyết định nghe có mệt hay không.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Đừng nhầm</span>
+            <h4>Hi-res không cứu được bản nén nát</h4>
+            <p>Mua file 24-bit không tự động hết mệt tai nếu bản master đã bị bóp phẳng. Định dạng và master là hai chuyện khác nhau.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: nếu nhạc đời mới hay làm bạn mỏi tai, rất có thể không phải tại tai nghe mà tại cách nó được master. Hiểu dynamic range và biết đọc vài con số giúp bạn chọn được bản nghe sướng hơn — và không nhầm lẫn giữa "file xịn" với "master hay". Đọc thêm <a href="/guides/verify-quality" style="color:var(--accent)">thẩm định chất lượng file</a> và <a href="/guides/hi-res-vs-cd" style="color:var(--accent)">hi-res so với CD</a> để có bức tranh đầy đủ.</p>
+
+        <div class="cta-box">
+          <h3>Biết chính xác mình đang nghe gì</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="lw2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lw2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Player lossless bit-perfect, hiện thông số thật (định dạng/sample rate/bit-depth), AutoEQ 6.000+ tai nghe, kết nối NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Xác nhận file có đúng là lossless thật không — để bạn đánh giá đúng bản master, không phải bản nén giả.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Mastering</span>
+        <h1>Loudness War & Dynamic Range: why modern music sounds fatiguing</h1>
+        <p class="subtitle">Some tracks sound loud and "full" yet tire your ears within minutes. Usually it isn't your headphones or the file — it's how the track was mastered. Here's dynamic range, the loudness war, and how to read the numbers.</p>
+        <div class="article-meta">
+          <span>8 min read</span><span>·</span><span>Waveform diagram + DR table</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="lw3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lw3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Bit-perfect playback that shows the file's real specs (format, sample rate, bit depth) so you know what you're hearing.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Confirm whether a file is genuine lossless, so you judge the actual master and not a fake compressed copy.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Ever open a new playlist, crank it up because you're excited, and fifteen minutes later your ears feel clogged and you want a break — while an old album plays comfortably for an hour? Many blame their headphones or a bad file, but the real culprit usually lives in the <strong>mastering</strong>, and it has a name: the loudness war.</p>
+
+        <h2>What the loudness war is</h2>
+        <p>Since the 1990s, masters started competing to be <strong>louder</strong>. The commercial logic: a louder track stands out on radio and in playlists, and feels instantly "big." The method is heavy compression plus limiting, sometimes outright clipping, to push everything up against the ceiling.</p>
+        <p>The price is <strong>dynamic range</strong> — the gap between the loudest and quietest parts — squashed nearly flat. The music loses its quiet moments, its accents, its natural "breathing." Loud-all-the-way-through feels full for a few seconds but grows flat and tiring.</p>
+
+        <h2>What dynamic range is, and why it fatigues</h2>
+        <p><strong>Dynamic range (DR)</strong> is the difference between the biggest and smallest parts of a track. High DR means a drum hit that jumps out of the mix, a section that pulls back then bursts — the ear gets rest and surprise. Low DR means everything is pressed into a wall of volume with no contrast.</p>
+        <p>Human ears perceive music through <em>change</em>. When every note is equally loud, the brain works continuously at a high level with no breaks, plus distortion from clipping — that's the recipe for fatigue. The paradox: a crushed master sounds "loud and impressive" at first, yet it's exactly what makes you want to stop early.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 292" role="img" aria-label="Waveform comparison: a dynamic master has bars of varied heights; a crushed master has bars nearly all the same height, filled to the ceiling">
+            <text x="32" y="28" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">Dynamic (high DR)</text>
+            <rect x="32" y="36" width="366" height="218" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <line x1="32" y1="145" x2="398" y2="145" stroke="#22303a" stroke-width="1"/>
+            <g fill="#5eead4">
+              <rect x="40" y="115" width="20" height="60" rx="2"/>
+              <rect x="65" y="85" width="20" height="120" rx="2"/>
+              <rect x="90" y="123" width="20" height="44" rx="2"/>
+              <rect x="115" y="65" width="20" height="160" rx="2"/>
+              <rect x="140" y="100" width="20" height="90" rx="2"/>
+              <rect x="165" y="55" width="20" height="180" rx="2"/>
+              <rect x="190" y="117" width="20" height="56" rx="2"/>
+              <rect x="215" y="75" width="20" height="140" rx="2"/>
+              <rect x="240" y="95" width="20" height="100" rx="2"/>
+              <rect x="265" y="50" width="20" height="190" rx="2"/>
+              <rect x="290" y="110" width="20" height="70" rx="2"/>
+              <rect x="315" y="70" width="20" height="150" rx="2"/>
+              <rect x="340" y="105" width="20" height="80" rx="2"/>
+              <rect x="365" y="60" width="20" height="170" rx="2"/>
+            </g>
+
+            <text x="442" y="28" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold">Crushed (low DR)</text>
+            <rect x="442" y="36" width="366" height="218" rx="6" fill="#0b1013" stroke="#3a4750"/>
+            <line x1="442" y1="145" x2="808" y2="145" stroke="#22303a" stroke-width="1"/>
+            <g fill="#f5a524">
+              <rect x="450" y="49" width="20" height="192" rx="2"/>
+              <rect x="475" y="46" width="20" height="198" rx="2"/>
+              <rect x="500" y="50" width="20" height="190" rx="2"/>
+              <rect x="525" y="47" width="20" height="196" rx="2"/>
+              <rect x="550" y="48" width="20" height="194" rx="2"/>
+              <rect x="575" y="46" width="20" height="198" rx="2"/>
+              <rect x="600" y="49" width="20" height="192" rx="2"/>
+              <rect x="625" y="47" width="20" height="196" rx="2"/>
+              <rect x="650" y="50" width="20" height="190" rx="2"/>
+              <rect x="675" y="46" width="20" height="198" rx="2"/>
+              <rect x="700" y="48" width="20" height="194" rx="2"/>
+              <rect x="725" y="49" width="20" height="192" rx="2"/>
+              <rect x="750" y="47" width="20" height="196" rx="2"/>
+              <rect x="775" y="48" width="20" height="194" rx="2"/>
+            </g>
+            <text x="420" y="278" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Same song, two masters. The right one is the classic "sausage" waveform of the loudness war.</text>
+          </svg>
+          <figcaption>The dynamic master has clear peaks and dips; the crushed one fills almost to the ceiling, losing all contrast.</figcaption>
+        </figure>
+
+        <h2>How to read DR (and related numbers)</h2>
+        <p>You don't need to be an audio engineer — just a few numbers:</p>
+        <ul>
+          <li><strong>The DR value</strong> (from a DR meter, a foobar2000 plugin, or the Dynamic Range Database): higher is more open. DR6 is crushed; DR12+ is rich with breathing room.</li>
+          <li><strong>LUFS</strong> (integrated loudness): a measure of perceived loudness. Streaming services normalize around <code class="inline">-14 LUFS</code>; a loudness-war master is often much louder than that.</li>
+          <li><strong>True peak / clipping</strong>: if peaks constantly hit or exceed 0 dBFS, the master has been clipped — a sign of over-compression.</li>
+          <li><strong>Look at the waveform</strong>: the fastest tell. A dense "sausage" from start to end is low DR; visible peaks and troughs mean it's still dynamic.</li>
+        </ul>
+
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>DR value</th><th>How it feels</th><th>Common in</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">DR5–6</td><td class="warn">Crushed, fatigues fast</td><td>much loudness-war pop/rock/EDM</td></tr>
+              <tr><td class="fmt">DR8–9</td><td>Average, acceptable</td><td>many modern releases</td></tr>
+              <tr><td class="fmt">DR11–12</td><td class="good">Open, breathes</td><td>good masters, many remasters</td></tr>
+              <tr><td class="fmt">DR13+</td><td class="good">Very dynamic, natural</td><td>jazz, classical, good acoustic</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Good news: the war is cooling</h2>
+        <p>Now that streaming is the main way people listen, platforms <strong>normalize loudness</strong> (pulling every track to the same LUFS when normalization is on). That kills the "louder = stands out" advantage — a crushed master pulled down to everyone else's level just sounds flat and distorted. As a result many recent masters are more open than before. But the loudness war's legacy still fills music libraries, so knowing how to spot it is well worth it.</p>
+
+        <h2>What to do for less fatigue</h2>
+        <ul>
+          <li><strong>Turn on loudness normalization</strong> for mixed-source playlists — no more jarring jumps between tracks.</li>
+          <li><strong>Seek a better master</strong>: many albums have remasters or alternate releases with different DR; check the Dynamic Range Database before buying/downloading.</li>
+          <li><strong>Listen a little quieter</strong>: crushed masters get more tiring the louder they go; dropping a few notches helps a lot.</li>
+          <li><strong>Know what you're hearing</strong>: use tools that show the specs so you don't confuse the two things below.</li>
+        </ul>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Don't confuse two things:</strong> <em>format</em> quality (lossless or not) and <em>master</em> quality (high or low DR) are entirely separate axes. A pristine 24-bit FLAC can still be a crushed DR6 master. Music Check tells you whether a file is <a href="/guides/verify-quality" style="color:var(--accent)">genuinely lossless</a>; DR tells you how it was mastered. Great sound needs both.</div>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Do</span>
+            <h4>Pick a good-DR master + normalize</h4>
+            <p>Favor open masters (DR11+) and let the platform level the loudness. This is what actually decides whether listening is fatiguing.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Don't confuse</span>
+            <h4>Hi-res can't fix a crushed master</h4>
+            <p>Buying a 24-bit file won't cure fatigue if the master was squashed flat. Format and mastering are two different things.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: if modern music tires your ears, it's probably not your headphones but how it was mastered. Understanding dynamic range and reading a few numbers helps you pick versions that sound better — and keeps you from confusing "a good file" with "a good master." Read more in <a href="/guides/verify-quality" style="color:var(--accent)">verifying music quality</a> and <a href="/guides/hi-res-vs-cd" style="color:var(--accent)">hi-res vs CD</a>.</p>
+
+        <div class="cta-box">
+          <h3>Know exactly what you're listening to</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="lw4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lw4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Bit-perfect lossless player, shows real specs (format/sample rate/bit-depth), AutoEQ for 6,000+ headphones, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Confirm a file is genuine lossless — so you judge the real master, not a fake compressed copy.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

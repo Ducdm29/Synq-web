@@ -19,6 +19,7 @@
     { "source": "/guides/mqa", "destination": "/guides/mqa.html" },
     { "source": "/guides/verify-quality", "destination": "/guides/verify-quality.html" },
     { "source": "/guides/audio-formats", "destination": "/guides/audio-formats.html" },
+    { "source": "/guides/loudness-war", "destination": "/guides/loudness-war.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],
