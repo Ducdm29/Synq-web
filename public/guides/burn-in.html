@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Burn-in tai nghe: thật hay ảo? Khoa học đằng sau chuyện "chạy rà"</title>
+  <meta name="description" content="Burn-in (chạy rà) tai nghe có thật làm âm thanh hay hơn không, hay chỉ là ảo giác? Phân tích cơ chế vật lý theo từng loại driver, bằng chứng đo đạc, và vai trò của 'brain burn-in'. Nói cân bằng, kèm sơ đồ." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/burn-in" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.good { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Tai nghe</span>
+        <h1>Burn-in tai nghe: thật hay ảo?</h1>
+        <p class="subtitle">Ít chủ đề nào khiến dân chơi tai nghe cãi nhau dai như "chạy rà". Người thề rằng sau trăm giờ tiếng hay hẳn lên; người bảo toàn ảo giác. Bài này soi cả hai phía một cách công bằng, theo cơ chế vật lý và bằng chứng đo đạc.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 7 phút</span><span>·</span><span>Có sơ đồ + bảng theo loại driver</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Muốn đổi chất âm tai nghe thật sự? AutoEQ cho 6.000+ tai nghe + EQ tùy chỉnh, phát bit-perfect.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Trước khi đổ lỗi cho tai nghe, kiểm tra xem file bạn nghe có đúng là lossless thật không.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Mua tai nghe mới về, kiểu gì cũng có người dặn: "nhớ burn-in vài chục tiếng cho nó mở tiếng, đừng vội đánh giá". Có người còn để nhạc chạy nguyên đêm, thậm chí tải hẳn file "burn-in" chuyên dụng. Rồi cũng có người quả quyết tất cả chỉ là ảo giác, tiền mất tật mang. Ai đúng?</p>
+        <p>Sự thật nằm ở giữa, và thú vị hơn cả hai phe cực đoan. Ta tách làm hai câu hỏi: (1) tai nghe có <em>thay đổi vật lý</em> khi dùng không, và (2) cái bạn <em>nghe thấy khác đi</em> có phải do tai nghe không.</p>
+
+        <h2>Burn-in là gì</h2>
+        <p><strong>Burn-in (chạy rà)</strong> là niềm tin rằng một cặp tai nghe mới cần được phát nhạc một số giờ nhất định để "chín" — bass nở ra, treble bớt gắt, âm trường mở hơn. Ý tưởng mượn từ loa: màng loa có phần gân treo (surround) bằng vật liệu đàn hồi, dùng lâu sẽ mềm ra và thay đổi một chút đặc tính rung.</p>
+
+        <h2>Phía "có thật": cơ chế vật lý</h2>
+        <p>Về nguyên tắc, driver kiểu <strong>dynamic</strong> (màng + cuộn dây + gân treo) có bộ phận cơ học đàn hồi, nên hoàn toàn có thể thay đổi <em>một chút</em> theo thời gian, giống loa. Một số phép đo trên vài mẫu tai nghe từng ghi nhận thay đổi có thật ở tần số cộng hưởng.</p>
+        <p>Nhưng điểm mấu chốt: mức thay đổi đó thường <strong>rất nhỏ</strong> — cỡ phần lẻ của một dB — và phần lớn xảy ra trong vài giờ đầu, không phải sau hàng trăm giờ như lời đồn. Nhỏ tới mức thường nằm dưới ngưỡng tai người phân biệt, và dễ bị lẫn với sai số của chính phép đo.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 300" role="img" aria-label="Đồ thị đáp tuyến tần số: đường 'mới mở hộp' và đường 'sau 100 giờ' gần như trùng khít, chênh lệch dưới 1 dB">
+            <!-- axes -->
+            <line x1="66" y1="250" x2="788" y2="250" stroke="#3a4750" stroke-width="1.5"/>
+            <line x1="66" y1="40" x2="66" y2="250" stroke="#3a4750" stroke-width="1.5"/>
+            <text x="40" y="150" fill="#e6edf2" font-family="sans-serif" font-size="12" font-weight="bold" transform="rotate(-90 40 150)" text-anchor="middle">dB</text>
+            <!-- x labels -->
+            <text x="80" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">20Hz</text>
+            <text x="250" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">200</text>
+            <text x="420" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">2k</text>
+            <text x="590" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">10k</text>
+            <text x="755" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">20k</text>
+            <!-- fresh curve (teal) -->
+            <polyline fill="none" stroke="#5eead4" stroke-width="2.5" points="70,120 140,112 210,120 300,140 400,132 500,118 560,100 620,140 690,118 760,150"/>
+            <!-- 100h curve (grey dashed), nearly identical, tiny bass diff -->
+            <polyline fill="none" stroke="#9fb3bf" stroke-width="2" stroke-dasharray="5 4" points="70,126 140,116 210,122 300,141 400,133 500,119 560,101 620,141 690,119 760,151"/>
+            <!-- legend -->
+            <rect x="470" y="52" width="14" height="4" fill="#5eead4"/><text x="490" y="59" fill="#bfeee6" font-family="sans-serif" font-size="11">Mới mở hộp</text>
+            <rect x="600" y="52" width="14" height="4" fill="#9fb3bf"/><text x="620" y="59" fill="#9fb3bf" font-family="sans-serif" font-size="11">Sau 100 giờ</text>
+            <!-- annotation on bass -->
+            <text x="120" y="95" fill="#f5a524" font-family="sans-serif" font-size="11" font-weight="bold">chênh lệch &lt; 1 dB</text>
+            <line x1="118" y1="100" x2="105" y2="121" stroke="#f5a524" stroke-width="1.2"/>
+          </svg>
+          <figcaption>Điển hình những gì phép đo cho thấy: hai đường gần như chồng lên nhau. Có khác, nhưng nhỏ tới mức khó nghe ra.</figcaption>
+        </figure>
+
+        <h2>Không phải driver nào cũng như nhau</h2>
+        <p>Cơ chế "chạy rà" chỉ hợp lý ở loại có bộ phận cơ học đàn hồi. Loại càng ít gân treo thì càng ít lý do để burn-in:</p>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Loại driver</th><th>Cơ chế burn-in vật lý</th><th>Thực tế</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Dynamic (màng + gân treo)</td><td>Hợp lý nhất</td><td class="warn">Thay đổi nhỏ, thường dưới ngưỡng nghe</td></tr>
+              <tr><td class="fmt">Planar magnetic</td><td>Màng căng, gân tối thiểu</td><td>Gần như không</td></tr>
+              <tr><td class="fmt">Balanced armature (IEM)</td><td>Không có gân treo kiểu loa</td><td>Về cơ bản không</td></tr>
+              <tr><td class="fmt">Electrostatic</td><td>Màng siêu nhẹ</td><td>Không đáng kể</td></tr>
+              <tr><td class="fmt">Đệm tai (ear pads)</td><td>Mềm/xẹp theo thời gian</td><td class="good">CÓ đổi thật — nhưng là mòn đệm, không phải driver</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Dòng cuối rất đáng chú ý: <strong>đệm tai xẹp dần theo tháng ngày làm đổi độ kín (seal), từ đó đổi bass và âm trường</strong> — cái này đo được và có thật. Nhiều người tưởng driver "burn-in", thực ra là đệm cũ đi. Đó là hao mòn, không phải "chín tiếng".</p>
+
+        <h2>Phía "phần lớn là ảo": brain burn-in</h2>
+        <p>Hiệu ứng lớn nhất, được ghi nhận rõ nhất, lại nằm ở <strong>não bạn chứ không phải tai nghe</strong>. Khi nghe một chất âm lạ, vài ngày đầu bộ não còn "bỡ ngỡ"; dùng quen thì nó tự thích nghi, học cách bù trừ, và bạn thấy tai nghe "hay dần lên" dù bản thân nó không đổi gì. Hiện tượng này gọi vui là <em>brain burn-in</em>.</p>
+        <p>Cộng thêm vài yếu tố dễ gây nhầm: bạn đổi cách đeo/độ kín theo thời gian, âm lượng nghe khác đi, tâm trạng khác, và cả kỳ vọng "mình vừa burn-in xong nên chắc phải hay hơn". Trong test nghe mù có kiểm soát, người ta thường <strong>không phân biệt được</strong> bản đã burn-in với bản mới.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Gọn lại:</strong> với đa số tai nghe, thay đổi vật lý do burn-in là có nhưng nhỏ tới mức khó nghe ra; thứ bạn cảm thấy "hay hơn" phần lớn đến từ não quen tiếng và đệm/độ-kín thay đổi. Burn-in không hại gì, nhưng đừng kỳ vọng một cuộc lột xác, và cũng đừng đánh giá vội một cặp tai nghe chỉ sau năm phút đầu.</div>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Cứ yên tâm</span>
+            <h4>Không cần nghi thức burn-in cầu kỳ</h4>
+            <p>Cứ nghe bình thường. Nếu có thay đổi vật lý thì nó tự xảy ra trong lúc bạn dùng. Không cần chạy nhạc nguyên đêm hay file "burn-in" thần thánh.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Nhưng nhớ</span>
+            <h4>Đừng đánh giá tai nghe trong 5 phút</h4>
+            <p>Cho tai (và não) vài ngày làm quen, và để ý đệm tai cũ đi theo thời gian. Phần "hay dần" thường là bạn quen tiếng, không phải phép màu.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: burn-in không hẳn là bịa, nhưng cũng không phải phép màu như lời đồn — hiệu ứng thật thì nhỏ, còn cảm giác thay đổi lớn phần nhiều là do não bạn thích nghi. Nếu bạn thật sự muốn <em>đổi chất âm</em> của cặp tai nghe thay vì ngồi chờ trăm giờ, cách chắc chắn và ngay lập tức là dùng EQ. Synq có sẵn AutoEQ cho hơn 6.000 mẫu tai nghe cùng EQ tùy chỉnh — nghe thấy đổi ngay khi kéo. Và nếu tiếng nghe sai, trước khi đổ cho tai nghe, hãy kiểm tra xem <a href="/guides/verify-quality" style="color:var(--accent)">file có thật là lossless</a> và máy có phát <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a> không.</p>
+
+        <div class="cta-box">
+          <h3>Đổi chất âm ngay hôm nay — không cần chờ trăm giờ</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">AutoEQ 6.000+ tai nghe + EQ tùy chỉnh, phát lossless bit-perfect, DSD, kết nối NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Nghe thấy lạ? Kiểm tra file có đúng là lossless thật hay MP3 đội lốt — ngay trên máy, riêng tư.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Headphones</span>
+        <h1>Headphone burn-in: real or myth?</h1>
+        <p class="subtitle">Few topics start longer arguments among headphone fans than "burn-in." Some swear a hundred hours transforms the sound; others call it pure imagination. Here's a fair look at both sides — by physical mechanism and by measurement.</p>
+        <div class="article-meta">
+          <span>7 min read</span><span>·</span><span>Diagram + by-driver table</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Want to actually change your headphone's sound? AutoEQ for 6,000+ headphones + custom EQ, bit-perfect playback.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Before blaming the headphones, check whether the file you're hearing is genuine lossless.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Buy a new pair of headphones and someone will inevitably tell you: "burn them in for a few dozen hours before you judge them." Some run music overnight, or even download dedicated "burn-in" tracks. Others insist it's all in your head, a waste of time. Who's right?</p>
+        <p>The truth sits in the middle, and it's more interesting than either extreme. Split it into two questions: (1) does the headphone <em>physically change</em> with use, and (2) is what you <em>hear differently</em> actually the headphone?</p>
+
+        <h2>What burn-in claims</h2>
+        <p><strong>Burn-in</strong> is the belief that a new pair needs a certain number of playing hours to "mature" — bass loosens, treble smooths, the soundstage opens. The idea is borrowed from speakers: a woofer's surround is an elastic material that softens with use and slightly changes its behavior.</p>
+
+        <h2>The "it's real" side: physical mechanism</h2>
+        <p>In principle, a <strong>dynamic</strong> driver (diaphragm + voice coil + suspension) has elastic mechanical parts, so it can change <em>slightly</em> over time, like a speaker. Measurements on some models have recorded genuine shifts around the resonance frequency.</p>
+        <p>But the key point: those shifts are usually <strong>tiny</strong> — fractions of a dB — and mostly happen in the first few hours, not after hundreds as the folklore claims. Small enough to typically fall below the threshold of audibility, and easily lost within the measurement's own margin of error.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 300" role="img" aria-label="Frequency response graph: the 'fresh out of the box' line and the 'after 100 hours' line are nearly identical, differing by less than 1 dB">
+            <line x1="66" y1="250" x2="788" y2="250" stroke="#3a4750" stroke-width="1.5"/>
+            <line x1="66" y1="40" x2="66" y2="250" stroke="#3a4750" stroke-width="1.5"/>
+            <text x="40" y="150" fill="#e6edf2" font-family="sans-serif" font-size="12" font-weight="bold" transform="rotate(-90 40 150)" text-anchor="middle">dB</text>
+            <text x="80" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">20Hz</text>
+            <text x="250" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">200</text>
+            <text x="420" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">2k</text>
+            <text x="590" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">10k</text>
+            <text x="755" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">20k</text>
+            <polyline fill="none" stroke="#5eead4" stroke-width="2.5" points="70,120 140,112 210,120 300,140 400,132 500,118 560,100 620,140 690,118 760,150"/>
+            <polyline fill="none" stroke="#9fb3bf" stroke-width="2" stroke-dasharray="5 4" points="70,126 140,116 210,122 300,141 400,133 500,119 560,101 620,141 690,119 760,151"/>
+            <rect x="470" y="52" width="14" height="4" fill="#5eead4"/><text x="490" y="59" fill="#bfeee6" font-family="sans-serif" font-size="11">Fresh out of box</text>
+            <rect x="600" y="52" width="14" height="4" fill="#9fb3bf"/><text x="620" y="59" fill="#9fb3bf" font-family="sans-serif" font-size="11">After 100 hours</text>
+            <text x="120" y="95" fill="#f5a524" font-family="sans-serif" font-size="11" font-weight="bold">&lt; 1 dB difference</text>
+            <line x1="118" y1="100" x2="105" y2="121" stroke="#f5a524" stroke-width="1.2"/>
+          </svg>
+          <figcaption>Typical of what measurements show: the two curves nearly overlap. There's a difference, but small enough to be hard to hear.</figcaption>
+        </figure>
+
+        <h2>Not all drivers are equal</h2>
+        <p>The break-in mechanism only makes sense where there are elastic mechanical parts. The fewer the suspension parts, the less reason to burn in:</p>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Driver type</th><th>Physical burn-in mechanism</th><th>Reality</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Dynamic (diaphragm + surround)</td><td>Most plausible</td><td class="warn">Small change, usually below audibility</td></tr>
+              <tr><td class="fmt">Planar magnetic</td><td>Taut film, minimal surround</td><td>Nearly none</td></tr>
+              <tr><td class="fmt">Balanced armature (IEM)</td><td>No speaker-style surround</td><td>Essentially none</td></tr>
+              <tr><td class="fmt">Electrostatic</td><td>Ultra-light film</td><td>Negligible</td></tr>
+              <tr><td class="fmt">Ear pads</td><td>Soften/compress over time</td><td class="good">Real change — but pad wear, not the driver</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>That last row matters: <strong>ear pads compress over months, changing the seal and thus the bass and soundstage</strong> — that's measurable and real. Many people think the driver "burned in" when actually the pads aged. That's wear, not "maturing."</p>
+
+        <h2>The "mostly imagined" side: brain burn-in</h2>
+        <p>The biggest, best-documented effect is in <strong>your brain, not the headphone</strong>. Faced with an unfamiliar sound signature, your brain is thrown off for the first few days; with use it adapts, learns to compensate, and the headphone seems to "get better" even though it hasn't changed. This is jokingly called <em>brain burn-in</em>.</p>
+        <p>Add a few confounders: your fit and seal shift over time, your listening volume changes, your mood differs, and there's the expectation that "I just finished burning it in, so it must sound better." In controlled blind tests, people generally <strong>can't tell</strong> a burned-in unit from a fresh one.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>In short:</strong> for most headphones the physical change from burn-in is real but too small to hear; what you feel as "better" mostly comes from your brain adapting and from pad/seal changes. Burn-in won't hurt, but don't expect a transformation — and don't judge a headphone in its first five minutes.</div>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Relax</span>
+            <h4>No elaborate burn-in ritual needed</h4>
+            <p>Just listen. Any physical change happens on its own as you use them. No overnight noise loops or magic "burn-in" files required.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">But do</span>
+            <h4>Don't judge in five minutes</h4>
+            <p>Give your ears (and brain) a few days to adjust, and note that pads age over time. The "getting better" is usually you adapting, not magic.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: burn-in isn't pure fiction, but it's no miracle either — the real effect is small, while the big sense of change is mostly your brain adapting. If you genuinely want to <em>reshape</em> a headphone's sound rather than wait a hundred hours, the sure, instant way is EQ. Synq ships with AutoEQ for 6,000+ headphone models plus a custom EQ — you hear the change the moment you move a slider. And if something sounds off, before blaming the headphones, check whether <a href="/guides/verify-quality" style="color:var(--accent)">the file is really lossless</a> and whether your device plays <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>.</p>
+
+        <div class="cta-box">
+          <h3>Reshape your sound today — no hundred-hour wait</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">AutoEQ for 6,000+ headphones + custom EQ, bit-perfect lossless, DSD, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Sounds off? Check if the file is genuine lossless or an MP3 in disguise — on-device, private.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
