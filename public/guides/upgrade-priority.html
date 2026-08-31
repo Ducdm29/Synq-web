@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nghe nhạc nên đầu tư theo thứ tự nào? Tai nghe, DAC, phần mềm, bài nhạc</title>
+  <meta name="description" content="Người nghe nhạc nên chuẩn bị và nâng cấp theo thứ tự ưu tiên nào để đáng đồng tiền nhất: tai nghe, độ kín/fit, bản master và file, phần mềm (EQ + bit-perfect), rồi mới tới DAC/amp và cáp. Kèm biểu đồ ROI." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/upgrade-priority" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    /* Priority tiers */
+    .tier { display: flex; gap: var(--space-4); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); margin-bottom: var(--space-3); }
+    .tier .num { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: var(--weight-bold); font-size: 1.15rem; }
+    .tier.hi .num { background: var(--accent-soft-strong); color: var(--accent); }
+    .tier.lo .num { background: rgba(245,165,36,0.16); color: #f5a524; }
+    .tier .body h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 4px; }
+    .tier .body p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); margin: 0; }
+    .tier .body a { color: var(--accent); text-decoration: none; }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Bắt đầu</span>
+        <h1>Nghe nhạc nên đầu tư theo thứ tự nào?</h1>
+        <p class="subtitle">Nhiều người mới dồn tiền sai chỗ — mua DAC đắt trước khi có tai nghe tốt, hoặc gom file hi-res mà bỏ qua EQ miễn phí. Đây là thứ tự ưu tiên theo "tác động trên mỗi đồng bỏ ra", từ thứ đáng chi trước tới thứ để sau cùng.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Có biểu đồ ưu tiên + lộ trình</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="pr1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#pr1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Bậc "phần mềm" chi phí gần như 0: AutoEQ 6.000+ tai nghe + phát bit-perfect — ROI cao nhất trong cả chuỗi.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Bậc "bài nhạc": kiểm tra file bạn đang gom có đúng là lossless thật không, kẻo đầu tư nhầm nguồn.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Một cảnh quen thuộc: người mới nghe nhạc, hào hứng, việc đầu tiên là đi hỏi "nên mua DAC nào" hoặc "dây nào hay". Trong khi cặp tai nghe thì tầm tầm, còn nhạc thì toàn file tải đại trên mạng. Kết quả là bỏ nhiều tiền mà cải thiện chẳng bao nhiêu.</p>
+        <p>Có một cách sắp xếp đơn giản để không phí tiền: <strong>chi theo tác động trên mỗi đồng bỏ ra</strong>, chứ không theo món nào nghe "sang" hơn. Dưới đây là thứ tự ưu tiên theo đúng nguyên tắc đó.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 292" role="img" aria-label="Biểu đồ cột mức tác động lên âm thanh: tai nghe và độ kín lớn nhất, rồi tới bản master và file, phần mềm EQ, DAC/amp, cuối cùng là cáp và phụ kiện nhỏ nhất">
+            <text x="210" y="44" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Tai nghe + độ kín/fit</text>
+            <rect x="220" y="32" width="532" height="24" rx="4" fill="#5eead4"/>
+            <text x="210" y="88" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Bản master + file thật</text>
+            <rect x="220" y="76" width="448" height="24" rx="4" fill="#5eead4"/>
+            <text x="210" y="132" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Phần mềm: EQ + bit-perfect</text>
+            <rect x="220" y="120" width="392" height="24" rx="4" fill="#5eead4"/>
+            <text x="210" y="176" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">DAC / amp / DAP</text>
+            <rect x="220" y="164" width="196" height="24" rx="4" fill="#f5a524"/>
+            <text x="210" y="220" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Cáp & phụ kiện</text>
+            <rect x="220" y="208" width="56" height="24" rx="4" fill="#7c8b96"/>
+            <!-- legend -->
+            <rect x="220" y="256" width="12" height="12" rx="2" fill="#5eead4"/><text x="238" y="266" fill="#7c8b96" font-family="sans-serif" font-size="11">Chi trước (ROI cao)</text>
+            <rect x="400" y="256" width="12" height="12" rx="2" fill="#f5a524"/><text x="418" y="266" fill="#7c8b96" font-family="sans-serif" font-size="11">Chỉ khi cần</text>
+            <rect x="540" y="256" width="12" height="12" rx="2" fill="#7c8b96"/><text x="558" y="266" fill="#7c8b96" font-family="sans-serif" font-size="11">Để sau cùng</text>
+          </svg>
+          <figcaption>Độ dài cột = tác động lên âm thanh so với chi phí (ước lượng). Chi từ trên xuống.</figcaption>
+        </figure>
+
+        <h2>Thứ tự ưu tiên</h2>
+
+        <div class="tier hi">
+          <div class="num">1</div>
+          <div class="body">
+            <h4>Tai nghe (và độ kín / fit)</h4>
+            <p>Đây là mắt xích quyết định chất âm nhiều nhất — chọn đúng chất âm và đúng nhu cầu (nghe gì, đeo ở đâu) quan trọng hơn mọi món khác. Đi kèm là <strong>độ kín</strong>: với tai nghe in-ear, chọn sai eartip là mất sạch bass; với over-ear, đệm tai quyết định seal. Cái này rẻ mà tác động cực lớn, nên đầu tư/chỉnh trước tiên.</p>
+          </div>
+        </div>
+
+        <div class="tier hi">
+          <div class="num">2</div>
+          <div class="body">
+            <h4>Bản nhạc: master tốt + file lossless thật</h4>
+            <p>Không thiết bị nào cứu được một bản master bị <a href="/guides/loudness-war">nén nát</a> hay một file <a href="/guides/verify-quality">lossless giả</a>. Nguồn nhạc đặt trần cho toàn bộ chuỗi. Ưu tiên bản master có dynamic range tốt và file thật — đây là thứ nhiều người bỏ quên trong khi nó ảnh hưởng rất lớn.</p>
+          </div>
+        </div>
+
+        <div class="tier hi">
+          <div class="num">3</div>
+          <div class="body">
+            <h4>Phần mềm: EQ + phát bit-perfect</h4>
+            <p>Bậc có <strong>ROI cao nhất</strong> vì gần như miễn phí. Một cặp tai nghe tuning chưa vừa tai bạn có thể sửa bằng <strong>EQ/AutoEQ</strong> hiệu quả hơn nhiều so với đổi tai nghe. Đồng thời đảm bảo máy phát <a href="/guides/bit-perfect">bit-perfect</a> để không tự hạ chất lượng ở khâu phần mềm. Ít tốn kém nhất, nên làm sớm.</p>
+          </div>
+        </div>
+
+        <div class="tier lo">
+          <div class="num">4</div>
+          <div class="body">
+            <h4>DAC / amp / DAP</h4>
+            <p>Chỉ thật sự cần khi (a) tai nghe <strong>khó kéo</strong> (trở kháng cao / độ nhạy thấp) đói công suất, hoặc (b) cổng ra điện thoại yếu, có tiếng ồn nền. Với đa số tai nghe dễ kéo, nâng cấp DAC cho cải thiện rất nhỏ — <a href="/guides/dongle-vs-dac">lợi ích giảm dần</a>. Đừng dồn tiền ở đây trước khi ba bậc trên đã ổn.</p>
+          </div>
+        </div>
+
+        <div class="tier lo">
+          <div class="num">5</div>
+          <div class="body">
+            <h4>Cáp & phụ kiện</h4>
+            <p>Trong ngưỡng kỹ thuật (đúng chuẩn, đủ tiết diện), cáp gần như không tạo khác biệt nghe ra được. Để sau cùng, và chỉ chi khi bạn thích về mặt bền/đẹp chứ không phải kỳ vọng "hay hơn".</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Đừng quên môi trường nghe:</strong> nghe ở chỗ ồn thì cặp tai nghe tiền triệu cũng bị nền ồn nuốt mất chi tiết. Một không gian yên tĩnh, hoặc tai nghe chống ồn/cách âm tốt, nhiều khi đáng giá hơn nâng cấp thiết bị — mà lại rẻ.</div>
+        </div>
+
+        <h2>Lộ trình gợi ý theo ngân sách</h2>
+        <ul>
+          <li><strong>Mới bắt đầu:</strong> một cặp tai nghe/IEM tốt vừa túi + chọn đúng eartip → cài app phát có EQ (miễn phí) → gom vài album master tốt ở lossless thật. Bấy nhiêu đã hơn hẳn phần đông.</li>
+          <li><strong>Nâng cấp giữa:</strong> lên cặp tai nghe tốt hơn hợp gu, dùng AutoEQ để tinh chỉnh, đảm bảo phát bit-perfect. Chỉ thêm DAC/dongle nếu tai nghe mới đói công suất.</li>
+          <li><strong>Nâng cao:</strong> lúc này DAC/amp rời hoặc DAP mới đáng cân nhắc, cùng việc sưu tầm bản master/pressing tốt. Cáp xịn là thứ cuối cùng, nếu còn dư.</li>
+        </ul>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Chi trước</span>
+            <h4>Tai nghe → bài nhạc → phần mềm</h4>
+            <p>Ba bậc này chiếm phần lớn chất âm và phần lớn ROI. Riêng bậc phần mềm (EQ + bit-perfect) gần như miễn phí — làm ngay.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Để sau</span>
+            <h4>DAC/amp → cáp</h4>
+            <p>DAC chỉ cần khi tai nghe đói công suất; cáp thì gần như không đổi tiếng. Đừng bắt đầu từ đây.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: hãy chi từ thứ tác động lớn và rẻ trước — tai nghe, độ kín, nguồn nhạc, và phần mềm — rồi mới tới thiết bị đắt tiền khi thật sự cần. Cách này giúp bạn nghe hay hơn với ít tiền hơn, và tránh cái bẫy phổ biến là mua DAC/cáp trước khi lo cho tai nghe và bản nhạc. Đọc thêm <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle so với DAC bàn</a> và <a href="/guides/loudness-war" style="color:var(--accent)">loudness war</a> để đào sâu từng bậc.</p>
+
+        <div class="cta-box">
+          <h3>Bắt đầu từ bậc ROI cao nhất — gần như miễn phí</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="pr2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#pr2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">AutoEQ 6.000+ tai nghe + EQ tùy chỉnh, phát lossless bit-perfect, DSD, kết nối NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Kiểm tra file bạn đang gom có đúng là lossless thật hay MP3 đội lốt — ngay trên máy, riêng tư.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Getting started</span>
+        <h1>Where should a music listener invest first?</h1>
+        <p class="subtitle">Beginners often spend in the wrong order — an expensive DAC before a good pair of headphones, or hoarding hi-res files while skipping free EQ. Here's a priority order by "impact per dollar," from what to buy first to what to leave for last.</p>
+        <div class="article-meta">
+          <span>8 min read</span><span>·</span><span>Priority chart + roadmap</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="pr3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#pr3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">The near-free "software" tier: AutoEQ for 6,000+ headphones + bit-perfect playback — the highest ROI in the whole chain.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">The "music" tier: check whether the files you're collecting are genuine lossless, so you don't invest in the wrong source.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>A familiar scene: an excited newcomer's first move is to ask "which DAC should I buy" or "which cable sounds best," while their headphones are mediocre and their music is random files off the internet. The result is a lot of money spent for very little improvement.</p>
+        <p>There's a simple way to not waste money: <strong>spend by impact per dollar</strong>, not by which box looks fanciest. Here's the priority order that follows exactly that principle.</p>
+
+        <figure>
+          <svg viewBox="0 0 820 292" role="img" aria-label="Bar chart of impact on sound: headphones and seal are largest, then the master and file, then software EQ, then DAC/amp, and finally cables and accessories smallest">
+            <text x="210" y="44" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Headphones + seal/fit</text>
+            <rect x="220" y="32" width="532" height="24" rx="4" fill="#5eead4"/>
+            <text x="210" y="88" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Master + genuine file</text>
+            <rect x="220" y="76" width="448" height="24" rx="4" fill="#5eead4"/>
+            <text x="210" y="132" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Software: EQ + bit-perfect</text>
+            <rect x="220" y="120" width="392" height="24" rx="4" fill="#5eead4"/>
+            <text x="210" y="176" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">DAC / amp / DAP</text>
+            <rect x="220" y="164" width="196" height="24" rx="4" fill="#f5a524"/>
+            <text x="210" y="220" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="end">Cables & accessories</text>
+            <rect x="220" y="208" width="56" height="24" rx="4" fill="#7c8b96"/>
+            <rect x="220" y="256" width="12" height="12" rx="2" fill="#5eead4"/><text x="238" y="266" fill="#7c8b96" font-family="sans-serif" font-size="11">Buy first (high ROI)</text>
+            <rect x="400" y="256" width="12" height="12" rx="2" fill="#f5a524"/><text x="418" y="266" fill="#7c8b96" font-family="sans-serif" font-size="11">Only when needed</text>
+            <rect x="560" y="256" width="12" height="12" rx="2" fill="#7c8b96"/><text x="578" y="266" fill="#7c8b96" font-family="sans-serif" font-size="11">Save for last</text>
+          </svg>
+          <figcaption>Bar length = impact on sound relative to cost (rough estimate). Spend top to bottom.</figcaption>
+        </figure>
+
+        <h2>The priority order</h2>
+
+        <div class="tier hi">
+          <div class="num">1</div>
+          <div class="body">
+            <h4>Headphones (and seal / fit)</h4>
+            <p>This is the link that decides the sound the most — picking the right signature for your needs matters more than anything else. Right alongside is <strong>the seal</strong>: with in-ears, the wrong eartip drains all the bass; with over-ears, the pads decide the seal. It's cheap yet hugely impactful, so sort it first.</p>
+          </div>
+        </div>
+
+        <div class="tier hi">
+          <div class="num">2</div>
+          <div class="body">
+            <h4>The music: good master + genuine lossless file</h4>
+            <p>No gear rescues a <a href="/guides/loudness-war">crushed master</a> or a <a href="/guides/verify-quality">fake lossless</a> file. The source sets the ceiling for the whole chain. Favor masters with good dynamic range and genuine files — the piece most people forget, though it matters enormously.</p>
+          </div>
+        </div>
+
+        <div class="tier hi">
+          <div class="num">3</div>
+          <div class="body">
+            <h4>Software: EQ + bit-perfect playback</h4>
+            <p>The <strong>highest-ROI</strong> tier, because it's nearly free. Headphones tuned not-quite-to-your-taste can be fixed with <strong>EQ/AutoEQ</strong> far more effectively than by swapping headphones. Also make sure playback is <a href="/guides/bit-perfect">bit-perfect</a> so the software stage doesn't quietly degrade quality. Cheapest of all — do it early.</p>
+          </div>
+        </div>
+
+        <div class="tier lo">
+          <div class="num">4</div>
+          <div class="body">
+            <h4>DAC / amp / DAP</h4>
+            <p>Only truly needed when (a) your headphones are <strong>hard to drive</strong> (high impedance / low sensitivity) and starved for power, or (b) your phone's output is weak or noisy. For most easy-to-drive headphones, a DAC upgrade brings a very small change — <a href="/guides/dongle-vs-dac">diminishing returns</a>. Don't pour money here before the three tiers above are sorted.</p>
+          </div>
+        </div>
+
+        <div class="tier lo">
+          <div class="num">5</div>
+          <div class="body">
+            <h4>Cables & accessories</h4>
+            <p>Within spec (correct standard, adequate gauge), cables make virtually no audible difference. Leave them for last, and only spend if you value durability or looks — not because you expect "better sound."</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Don't forget the environment:</strong> in a noisy place, even a pricey pair gets its detail swallowed by the noise floor. A quiet space, or good noise isolation, is often worth more than a gear upgrade — and it's cheap.</div>
+        </div>
+
+        <h2>A suggested roadmap by budget</h2>
+        <ul>
+          <li><strong>Starting out:</strong> a good affordable headphone/IEM + the right eartip → install a player with EQ (free) → collect a few well-mastered albums in genuine lossless. That already beats most.</li>
+          <li><strong>Mid upgrade:</strong> move to a better headphone that suits your taste, use AutoEQ to fine-tune, ensure bit-perfect playback. Add a DAC/dongle only if the new headphone is power-hungry.</li>
+          <li><strong>Advanced:</strong> now a dedicated DAC/amp or a DAP is worth considering, along with hunting good masters/pressings. Fancy cables are the very last thing, if there's budget left.</li>
+        </ul>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Buy first</span>
+            <h4>Headphones → music → software</h4>
+            <p>These three tiers hold most of the sound and most of the ROI. The software tier (EQ + bit-perfect) is nearly free — do it now.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Save for later</span>
+            <h4>DAC/amp → cables</h4>
+            <p>A DAC is only needed when headphones are power-starved; cables barely change the sound. Don't start here.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: spend on the high-impact, low-cost things first — headphones, seal, the source music, and software — then move to expensive gear only when you truly need it. This gets you better sound for less money, and avoids the classic trap of buying a DAC or cables before sorting the headphone and the recording. Go deeper in <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle vs desktop DAC</a> and <a href="/guides/loudness-war" style="color:var(--accent)">the loudness war</a>.</p>
+
+        <div class="cta-box">
+          <h3>Start with the highest-ROI tier — nearly free</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="pr4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#pr4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">AutoEQ for 6,000+ headphones + custom EQ, bit-perfect lossless, DSD, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Check whether the files you're collecting are genuine lossless or an MP3 in disguise — on-device, private.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
