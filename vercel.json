@@ -22,6 +22,7 @@
     { "source": "/guides/loudness-war", "destination": "/guides/loudness-war.html" },
     { "source": "/guides/burn-in", "destination": "/guides/burn-in.html" },
     { "source": "/guides/upgrade-priority", "destination": "/guides/upgrade-priority.html" },
+    { "source": "/guides/cables", "destination": "/guides/cables.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],

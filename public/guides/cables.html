@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Có đáng chi tiền cho dây/cáp tai nghe không?</title>
+  <meta name="description" content="Cáp tai nghe đắt tiền có làm âm thanh hay hơn không, hay chỉ là dầu rắn? Phân tích công bằng: khoa học nói gì về cáp analog trong ngưỡng, khi nào cáp thật sự quan trọng (IEM trở kháng thấp, balanced, độ bền), và vì sao nguồn/file đáng chi hơn nhiều." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/cables" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.good { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Phụ kiện</span>
+        <h1>Có đáng chi tiền cho dây/cáp tai nghe không?</h1>
+        <p class="subtitle">Ít món nào chia rẽ giới audiophile như sợi cáp. Người thay cáp xong thấy "mở mang cả không gian"; người bảo đó là dầu rắn đắt tiền. Bài này soi cả hai phía theo khoa học, và nói rõ khi nào cáp thật sự đáng tiền.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 7 phút</span><span>·</span><span>Có sơ đồ + bảng khi nào đáng</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="cb1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#cb1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Đổi chất âm chắc chắn hơn thay cáp: AutoEQ 6.000+ tai nghe + EQ tùy chỉnh, phát bit-perfect.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Tiền để vào nguồn nhạc đáng hơn: kiểm file bạn nghe có đúng là lossless thật không.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Cứ mỗi lần ai đó khoe vừa thay sợi cáp bạc mấy triệu và nghe "mở mang hẳn ra", y như rằng phần bình luận lại thành chiến trường. Một bên thề rằng cáp đổi tiếng rõ; một bên gọi thẳng là dầu rắn. Câu trả lời thành thật thì nằm ở giữa, và một khi hiểu vài điều cơ bản, bạn sẽ tự biết lúc nào nên rút ví.</p>
+
+        <h2>Phe "có đổi tiếng" nói gì</h2>
+        <p>Lý lẽ thường gặp: chất liệu dẫn điện tốt hơn (đồng OCC, bạc, mạ vàng), cách bện và hình học dây, lớp chống nhiễu tốt hơn sẽ cho treble sạch hơn, bass chặt hơn, âm trường rộng hơn. Nghe rất hợp lý về mặt cảm tính, và không ít người thật sự <em>cảm thấy</em> khác biệt.</p>
+
+        <h2>Khoa học nói gì</h2>
+        <p>Với một sợi cáp <strong>analog thụ động trong ngưỡng kỹ thuật</strong>, ba thứ điện học thật sự ảnh hưởng là điện trở, điện dung và điện cảm. Trên một đoạn cáp tai nghe ngắn, cả ba đều rất nhỏ. Miễn là điện trở đủ thấp so với trở kháng tai nghe, tín hiệu tới màng loa gần như không đổi — bất kể sợi dây làm bằng đồng thường hay bạc nguyên chất.</p>
+        <p>Đó là lý do trong các <strong>test nghe mù có kiểm soát</strong>, người ta thường không phân biệt được cáp xịn với cáp kèm máy. Cảm giác "mở mang" phần lớn đến từ kỳ vọng, từ việc chỉnh lại âm lượng, hoặc đơn giản là niềm vui khi vừa nâng cấp — thứ có thật với người nghe, nhưng không nằm ở sợi dây.</p>
+
+        <h2>Nhưng cáp CÓ thể quan trọng ở vài chỗ</h2>
+        <p>Nói công bằng, có những trường hợp cáp thật sự tạo khác biệt — và đều có lý do vật lý rõ ràng, không phải phép màu:</p>
+        <ul>
+          <li><strong>IEM trở kháng thấp + cáp điện trở cao:</strong> tai nghe in-ear nhiều driver (BA) có trở kháng thay đổi theo tần số; nếu ghép với một cáp điện trở cao bất thường, phần điện trở đó hoạt động như một bộ EQ nhẹ, đổi nhẹ đáp tuyến. Đây là hiệu ứng thật, nhưng cần cáp điện trở cao khác thường — đa số cáp tử tế thì không sao.</li>
+          <li><strong>Balanced so với single-ended:</strong> một sợi cáp balanced (2.5/4.4mm) cắm vào nguồn có ngõ balanced có thể cho <em>nhiều công suất hơn và ít nhiễu chéo hơn</em>. Cái này giúp tai nghe khó kéo nghe khỏe hơn — nhưng là nhờ topology dây và nguồn, không phải kim loại quý.</li>
+          <li><strong>Độ bền, đầu nối, chống nhiễu cơ:</strong> cáp tốt bền hơn, đầu cắm chắc hơn, ít tiếng "lộp cộp" khi cọ vào áo (microphonics), ít rối, độ dài phù hợp. Đây là những lý do trả tiền hoàn toàn chính đáng.</li>
+          <li><strong>Cáp số (USB tới DAC):</strong> chỉ cần bit tới nơi nguyên vẹn là xong — không có "chất âm" nào cả. Cáp số chỉ đáng lo khi nó gây rớt/đứt tín hiệu, chứ không làm tiếng hay hơn.</li>
+        </ul>
+
+        <figure>
+          <svg viewBox="0 0 820 250" role="img" aria-label="Sơ đồ so sánh: single-ended dùng 3 dây với đường đất chung; balanced dùng 4 dây với đường đất riêng mỗi kênh, cho ít nhiễu chéo và nhiều công suất hơn từ nguồn balanced">
+            <!-- Left: single-ended -->
+            <text x="40" y="30" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold">Single-ended (TRS 3.5mm)</text>
+            <rect x="40" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="75" y="126" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Nguồn</text>
+            <rect x="320" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="355" y="120" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Tai</text>
+            <text x="355" y="134" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">nghe</text>
+            <line x1="110" y1="86" x2="320" y2="86" stroke="#5eead4" stroke-width="2.5"/><text x="215" y="80" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">L</text>
+            <line x1="110" y1="121" x2="320" y2="121" stroke="#5eead4" stroke-width="2.5"/><text x="215" y="115" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">R</text>
+            <line x1="110" y1="156" x2="320" y2="156" stroke="#7c8b96" stroke-width="2.5"/><text x="215" y="150" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">đất chung (L+R)</text>
+            <text x="215" y="186" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">3 dây</text>
+
+            <!-- Right: balanced -->
+            <text x="440" y="30" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold">Balanced (2.5 / 4.4mm)</text>
+            <rect x="440" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="475" y="126" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Nguồn</text>
+            <rect x="720" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="755" y="120" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Tai</text>
+            <text x="755" y="134" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">nghe</text>
+            <line x1="510" y1="78" x2="720" y2="78" stroke="#5eead4" stroke-width="2.5"/><text x="615" y="72" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">L+</text>
+            <line x1="510" y1="106" x2="720" y2="106" stroke="#43b9a8" stroke-width="2.5"/><text x="615" y="100" fill="#43b9a8" font-family="sans-serif" font-size="11" text-anchor="middle">L−</text>
+            <line x1="510" y1="140" x2="720" y2="140" stroke="#5eead4" stroke-width="2.5"/><text x="615" y="134" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">R+</text>
+            <line x1="510" y1="168" x2="720" y2="168" stroke="#43b9a8" stroke-width="2.5"/><text x="615" y="162" fill="#43b9a8" font-family="sans-serif" font-size="11" text-anchor="middle">R−</text>
+            <text x="615" y="190" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">4 dây — đất riêng mỗi kênh</text>
+
+            <text x="410" y="228" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Balanced cho ít nhiễu chéo + nhận đủ công suất từ nguồn balanced — là nhờ cách đấu dây, không phải kim loại quý.</text>
+          </svg>
+          <figcaption>Khác biệt thật của cáp balanced đến từ topology (đường đất riêng, nguồn đẩy cả hai cực), không phải "dây bạc nghe mở hơn".</figcaption>
+        </figure>
+
+        <h2>Bảng: khi nào trả tiền cho cáp là đáng</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Lý do</th><th>Có đổi tiếng nghe ra?</th><th>Đáng chi?</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Đồng OCC / bạc / mạ vàng "nghe hay hơn"</td><td class="warn">Gần như không</td><td class="warn">Không vì lý do âm thanh</td></tr>
+              <tr><td class="fmt">Độ bền, đầu nối chắc, ít microphonics</td><td>Không (nhưng dùng sướng hơn)</td><td class="good">Đáng</td></tr>
+              <tr><td class="fmt">Balanced để thêm công suất/ít nhiễu chéo</td><td class="good">Có thể, với tai nghe khó kéo</td><td class="good">Đáng nếu bạn cần</td></tr>
+              <tr><td class="fmt">IEM trở kháng thấp + cáp điện trở cao</td><td class="warn">Đổi nhẹ đáp tuyến</td><td>Tùy — thường nên chọn cáp điện trở thấp</td></tr>
+              <tr><td class="fmt">Cáp số USB xịn "cho tiếng hay hơn"</td><td class="warn">Không</td><td class="warn">Chỉ cần đủ ổn định</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Tiền đặt ở đâu đáng hơn:</strong> trước khi chi vài triệu cho một sợi dây, hãy nhớ <a href="/guides/upgrade-priority" style="color:var(--accent)">thứ tự ưu tiên</a> — nguồn nhạc và cách phát ảnh hưởng lớn hơn cáp rất nhiều. Một <a href="/guides/verify-quality" style="color:var(--accent)">file lossless thật</a>, phát <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a> và tinh chỉnh bằng EQ sẽ đổi tiếng rõ hơn bất kỳ sợi cáp nào, mà tốn ít hơn nhiều.</div>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Đáng chi khi</span>
+            <h4>Độ bền, đầu nối đúng, hoặc cần balanced</h4>
+            <p>Trả tiền cho một sợi cáp bền, đúng chuẩn, ít microphonics, hoặc balanced để lấy thêm công suất — đó là những lợi ích có thật.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Đừng kỳ vọng</span>
+            <h4>Kim loại quý "mở mang không gian"</h4>
+            <p>Cáp trong ngưỡng kỹ thuật gần như không đổi chất âm. Đừng mua vì lời hứa treble sạch hơn hay âm trường rộng hơn.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: cáp không hoàn toàn vô nghĩa — nó đáng tiền vì độ bền, đầu nối, sự tiện dụng, và đôi khi vì balanced hay để hợp với một cặp IEM cụ thể. Nhưng nếu bạn mua một sợi dây đắt tiền chỉ để mong âm thanh "hay hơn", khả năng cao là bạn đang trả cho kỳ vọng. Số tiền đó, đặt vào tai nghe, nguồn nhạc hoặc phần mềm, gần như luôn cho lại nhiều hơn. Đọc thêm <a href="/guides/upgrade-priority" style="color:var(--accent)">nên đầu tư theo thứ tự nào</a> và <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle so với DAC bàn</a>.</p>
+
+        <div class="cta-box">
+          <h3>Muốn đổi tiếng thật? Bắt đầu từ chỗ đáng tiền nhất</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="cb2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#cb2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">AutoEQ 6.000+ tai nghe + EQ tùy chỉnh, phát lossless bit-perfect, DSD, kết nối NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Kiểm file bạn đang nghe có đúng là lossless thật hay MP3 đội lốt — ngay trên máy, riêng tư.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Accessories</span>
+        <h1>Are expensive headphone cables worth it?</h1>
+        <p class="subtitle">Few things split the audiophile world like a cable. Some swap one in and hear "the soundstage open up"; others call it pricey snake oil. The honest answer sits in the middle — and once you know a few basics, you'll know when it's worth paying.</p>
+        <div class="article-meta">
+          <span>7 min read</span><span>·</span><span>Diagram + when-it's-worth table</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="cb3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#cb3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">A surer way to change the sound than a cable: AutoEQ for 6,000+ headphones + custom EQ, bit-perfect playback.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Money is better spent on the source: check whether the file you hear is genuine lossless.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Every time someone shows off a new multi-hundred-dollar silver cable and reports it "really opened things up," the comments turn into a battlefield. One side swears cables change the sound; the other calls it snake oil outright. The honest answer sits in the middle, and once you understand a few basics, you'll know when to reach for your wallet.</p>
+
+        <h2>What the "it changes the sound" camp says</h2>
+        <p>The usual reasoning: better conductors (OCC copper, silver, gold plating), braid geometry, and better shielding give cleaner treble, tighter bass, a wider soundstage. It sounds intuitively plausible, and plenty of people genuinely <em>feel</em> a difference.</p>
+
+        <h2>What the science says</h2>
+        <p>For a <strong>passive analog cable within spec</strong>, the electrical properties that actually matter are resistance, capacitance and inductance. Over a short headphone run, all three are tiny. As long as resistance is low enough relative to the headphone's impedance, the signal reaching the driver is essentially unchanged — whether the wire is ordinary copper or pure silver.</p>
+        <p>That's why in <strong>controlled blind tests</strong>, people generally can't tell an expensive cable from the one that came in the box. The "it opened up" feeling mostly comes from expectation, from a slight volume change, or simply the joy of a fresh upgrade — real to the listener, but not in the wire.</p>
+
+        <h2>But cables CAN matter in a few places</h2>
+        <p>To be fair, there are cases where a cable genuinely makes a difference — all with a clear physical reason, not magic:</p>
+        <ul>
+          <li><strong>Low-impedance IEMs + a high-resistance cable:</strong> multi-BA in-ears have impedance that varies with frequency; paired with an unusually high-resistance cable, that resistance acts like a mild EQ and slightly shifts the response. It's a real effect, but it needs an abnormally high-resistance cable — most decent cables are fine.</li>
+          <li><strong>Balanced vs single-ended:</strong> a balanced cable (2.5/4.4mm) into a balanced source can deliver <em>more power and lower crosstalk</em>. That helps hard-to-drive headphones sound stronger — but thanks to the wiring topology and the source, not precious metals.</li>
+          <li><strong>Durability, connectors, microphonics:</strong> a good cable is more durable, plugs in more securely, has less rubbing noise against clothing (microphonics), tangles less, and comes in the right length. These are entirely legitimate reasons to pay.</li>
+          <li><strong>Digital cables (USB to DAC):</strong> as long as the bits arrive intact, there's no "sound" to change. A digital cable only matters if it causes dropouts — it doesn't make the tone better.</li>
+        </ul>
+
+        <figure>
+          <svg viewBox="0 0 820 250" role="img" aria-label="Diagram: single-ended uses 3 wires with a shared ground; balanced uses 4 wires with a separate ground per channel, giving lower crosstalk and more power from a balanced source">
+            <text x="40" y="30" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold">Single-ended (3.5mm TRS)</text>
+            <rect x="40" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="75" y="126" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Source</text>
+            <rect x="320" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="355" y="126" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Phones</text>
+            <line x1="110" y1="86" x2="320" y2="86" stroke="#5eead4" stroke-width="2.5"/><text x="215" y="80" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">L</text>
+            <line x1="110" y1="121" x2="320" y2="121" stroke="#5eead4" stroke-width="2.5"/><text x="215" y="115" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">R</text>
+            <line x1="110" y1="156" x2="320" y2="156" stroke="#7c8b96" stroke-width="2.5"/><text x="215" y="150" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">shared ground (L+R)</text>
+            <text x="215" y="186" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">3 wires</text>
+
+            <text x="440" y="30" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold">Balanced (2.5 / 4.4mm)</text>
+            <rect x="440" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="475" y="126" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Source</text>
+            <rect x="720" y="46" width="70" height="150" rx="8" fill="#0f1519" stroke="#3a4750"/>
+            <text x="755" y="126" fill="#9fb3bf" font-family="sans-serif" font-size="11" text-anchor="middle">Phones</text>
+            <line x1="510" y1="78" x2="720" y2="78" stroke="#5eead4" stroke-width="2.5"/><text x="615" y="72" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">L+</text>
+            <line x1="510" y1="106" x2="720" y2="106" stroke="#43b9a8" stroke-width="2.5"/><text x="615" y="100" fill="#43b9a8" font-family="sans-serif" font-size="11" text-anchor="middle">L−</text>
+            <line x1="510" y1="140" x2="720" y2="140" stroke="#5eead4" stroke-width="2.5"/><text x="615" y="134" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">R+</text>
+            <line x1="510" y1="168" x2="720" y2="168" stroke="#43b9a8" stroke-width="2.5"/><text x="615" y="162" fill="#43b9a8" font-family="sans-serif" font-size="11" text-anchor="middle">R−</text>
+            <text x="615" y="190" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">4 wires — separate ground per channel</text>
+
+            <text x="410" y="228" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Balanced gives lower crosstalk + full power from a balanced source — thanks to wiring, not precious metal.</text>
+          </svg>
+          <figcaption>A balanced cable's real difference comes from topology (separate grounds, source driving both poles), not "silver sounds more open."</figcaption>
+        </figure>
+
+        <h2>Table: when paying for a cable is worth it</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Reason</th><th>Audible tone change?</th><th>Worth it?</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">OCC copper / silver / gold "sounds better"</td><td class="warn">Virtually none</td><td class="warn">Not for sound</td></tr>
+              <tr><td class="fmt">Durability, secure connector, low microphonics</td><td>No (but nicer to use)</td><td class="good">Worth it</td></tr>
+              <tr><td class="fmt">Balanced for more power / lower crosstalk</td><td class="good">Possibly, on hard-to-drive cans</td><td class="good">Worth it if you need it</td></tr>
+              <tr><td class="fmt">Low-impedance IEM + high-resistance cable</td><td class="warn">Slight response shift</td><td>Depends — usually pick low-resistance</td></tr>
+              <tr><td class="fmt">Fancy USB digital cable "sounds better"</td><td class="warn">No</td><td class="warn">Just needs to be reliable</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Where money goes further:</strong> before spending hundreds on a wire, remember the <a href="/guides/upgrade-priority" style="color:var(--accent)">priority order</a> — the source and playback matter far more than the cable. A <a href="/guides/verify-quality" style="color:var(--accent)">genuine lossless file</a>, played <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a> and tuned with EQ, changes the sound more than any cable, for far less.</div>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Worth it when</span>
+            <h4>Durability, the right connector, or balanced</h4>
+            <p>Pay for a durable, in-spec cable with low microphonics, or a balanced one for more power — those are real benefits.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Don't expect</span>
+            <h4>Precious metal "opening the soundstage"</h4>
+            <p>An in-spec cable barely changes the tone. Don't buy on promises of cleaner treble or a wider stage.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: cables aren't entirely pointless — they're worth money for durability, connectors, convenience, and sometimes for a balanced connection or to suit a specific IEM. But if you're buying an expensive wire purely hoping for "better sound," you're most likely paying for expectation. That money, put into the headphone, the source, or software, almost always gives you more. Read more in <a href="/guides/upgrade-priority" style="color:var(--accent)">where to invest first</a> and <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle vs desktop DAC</a>.</p>
+
+        <div class="cta-box">
+          <h3>Want a real change in sound? Start where the money counts</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="cb4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#cb4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">AutoEQ for 6,000+ headphones + custom EQ, bit-perfect lossless, DSD, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Check whether the file you're hearing is genuine lossless or an MP3 in disguise — on-device, private.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
