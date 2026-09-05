@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trở kháng & độ nhạy tai nghe: đọc thông số để biết có cần amp không</title>
+  <meta name="description" content="Trở kháng (ohm) và độ nhạy (dB) của tai nghe nghĩa là gì, đọc thế nào để biết điện thoại có kéo nổi hay cần amp/DAC. Kèm ma trận có-cần-amp, bảng theo loại tai nghe, và quy tắc trở kháng ngõ ra 1/8 cho IEM." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/impedance-sensitivity" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.good { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Thông số</span>
+        <h1>Trở kháng & độ nhạy tai nghe: đọc thông số để biết có cần amp không</h1>
+        <p class="subtitle">"Tai nghe này có cần amp không?" là câu hỏi muôn thuở. Câu trả lời nằm ngay trên tờ thông số — chỉ cần hiểu hai con số: trở kháng (ohm) và độ nhạy (dB). Bài này chỉ cách đọc và tự quyết, nối tiếp bài dongle so với DAC.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Có ma trận + bảng theo loại tai nghe</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="im1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#im1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Có DAC/amp rồi thì cấp cho nó tín hiệu bit-perfect: Synq phát đúng sample rate qua DAC + AutoEQ 6.000+ tai nghe.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Trước khi đổ tiền cho amp, chắc chắn file bạn nghe là lossless thật — kiểm ngay trên máy.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Ai từng phân vân "cặp tai nghe này cắm điện thoại đủ chưa, hay phải mua amp?" đều gặp đúng một chỗ mù: tờ thông số ghi vài con số lạ hoắc. Tin tốt là bạn chỉ cần hiểu <strong>hai con số</strong>, và chúng nói cho bạn gần như tất cả về chuyện có cần khuếch đại hay không.</p>
+
+        <h2>Trở kháng (Impedance) — đo bằng ohm (Ω)</h2>
+        <p>Trở kháng là mức "cản trở" điện mà tai nghe đặt ra cho nguồn phát. Nói nôm na:</p>
+        <ul>
+          <li><strong>Thấp (16–32Ω):</strong> dễ kéo, thường gặp ở IEM và tai nghe di động. Điện thoại đẩy tốt.</li>
+          <li><strong>Trung bình (32–100Ω):</strong> phần lớn tai nghe tiêu dùng.</li>
+          <li><strong>Cao (250–600Ω):</strong> nhiều tai nghe studio. Cần <strong>điện áp cao hơn</strong> để đạt cùng độ to — đây là nhóm hay "đói" khi cắm thẳng điện thoại.</li>
+        </ul>
+        <p>Điểm hay nhầm: trở kháng cao <em>không</em> tự động nghĩa là "hay hơn". Nó chỉ có nghĩa là cần nguồn đẩy khỏe hơn về điện áp.</p>
+
+        <h2>Độ nhạy (Sensitivity) — đo bằng dB/mW hoặc dB/V</h2>
+        <p>Độ nhạy cho biết tai nghe kêu <strong>to bao nhiêu ứng với một mức công suất/điện áp</strong>. Số càng lớn thì càng dễ kêu to với ít năng lượng:</p>
+        <ul>
+          <li><strong>Cao (≥100 dB/mW):</strong> rất dễ kéo, chút công suất đã to.</li>
+          <li><strong>Thấp (≤90 dB/mW):</strong> cần nhiều công suất hơn để đạt cùng độ to — nhiều tai nghe <em>planar</em> rơi vào nhóm này dù trở kháng không cao.</li>
+        </ul>
+        <p>Đây là lý do phải đọc <strong>cả hai</strong>: một cặp trở kháng thấp nhưng độ nhạy cũng thấp (kiểu planar) vẫn có thể "đói" công suất; còn một cặp trở kháng cao nhưng độ nhạy tốt thì chủ yếu thiếu điện áp.</p>
+
+        <h2>Ghép lại: có cần amp không?</h2>
+        <figure>
+          <svg viewBox="0 0 820 372" role="img" aria-label="Ma trận 2x2 theo trở kháng và độ nhạy: trở kháng thấp và độ nhạy cao thì dễ kéo; trở kháng cao thì cần thêm điện áp; độ nhạy thấp thì cần thêm công suất; vừa cao trở kháng vừa nhạy thấp là khó kéo nhất">
+            <!-- column headers -->
+            <text x="330" y="48" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Trở kháng THẤP (≤50Ω)</text>
+            <text x="630" y="48" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Trở kháng CAO (≥150Ω)</text>
+            <!-- row labels -->
+            <text x="150" y="130" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">Độ nhạy</text>
+            <text x="150" y="148" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">CAO</text>
+            <text x="150" y="262" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">Độ nhạy</text>
+            <text x="150" y="280" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">THẤP</text>
+            <!-- cell 1: easy -->
+            <rect x="180" y="66" width="290" height="128" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="200" y="98" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold">Dễ kéo</text>
+            <text x="200" y="122" fill="#cfeee8" font-family="sans-serif" font-size="12">Điện thoại / dongle là đủ.</text>
+            <text x="200" y="140" fill="#cfeee8" font-family="sans-serif" font-size="12">Đa số IEM &amp; tai nghe di động.</text>
+            <!-- cell 2: needs voltage -->
+            <rect x="490" y="66" width="290" height="128" rx="10" fill="#2a2114" stroke="#f5a524"/>
+            <text x="510" y="98" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold">Cần thêm điện áp</text>
+            <text x="510" y="122" fill="#e7d3ad" font-family="sans-serif" font-size="12">Trở kháng cao (250–600Ω).</text>
+            <text x="510" y="140" fill="#e7d3ad" font-family="sans-serif" font-size="12">Amp/DAC giúp to &amp; động hơn.</text>
+            <!-- cell 3: needs power -->
+            <rect x="180" y="202" width="290" height="128" rx="10" fill="#2a2114" stroke="#f5a524"/>
+            <text x="200" y="234" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold">Cần thêm công suất</text>
+            <text x="200" y="258" fill="#e7d3ad" font-family="sans-serif" font-size="12">Độ nhạy thấp (nhiều planar).</text>
+            <text x="200" y="276" fill="#e7d3ad" font-family="sans-serif" font-size="12">Cần nguồn có dòng khỏe.</text>
+            <!-- cell 4: hardest -->
+            <rect x="490" y="202" width="290" height="128" rx="10" fill="#331a12" stroke="#e0723a"/>
+            <text x="510" y="234" fill="#e0723a" font-family="sans-serif" font-size="14" font-weight="bold">Khó kéo nhất</text>
+            <text x="510" y="258" fill="#eec2a6" font-family="sans-serif" font-size="12">Vừa cao trở kháng vừa nhạy thấp.</text>
+            <text x="510" y="276" fill="#eec2a6" font-family="sans-serif" font-size="12">Nên có amp/DAC tốt.</text>
+            <text x="410" y="358" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Chỉ có ô xanh là chắc chắn cắm thẳng điện thoại thoải mái; ba ô còn lại nên cân nhắc amp/DAC.</text>
+          </svg>
+          <figcaption>Đọc hai con số, đặt tai nghe vào ô tương ứng là biết ngay có nên thêm amp/DAC hay không.</figcaption>
+        </figure>
+
+        <p>Dấu hiệu thực tế cho thấy bạn đang thiếu công suất: phải vặn gần hết volume mới đủ to; nghe mỏng, thiếu lực ở bass, thiếu động; hoặc bắt đầu méo khi mở lớn. Nếu cắm điện thoại mà volume mới nửa nấc đã quá to và đầy đặn, thì bạn <em>không</em> cần amp.</p>
+
+        <h2>Bảng nhanh theo loại tai nghe</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Loại</th><th>Trở kháng</th><th>Độ nhạy</th><th>Cần amp?</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">IEM</td><td>16–32Ω</td><td>Cao</td><td class="good">Không — điện thoại/dongle đủ</td></tr>
+              <tr><td class="fmt">Tai nghe di động (on/over-ear)</td><td>32–64Ω</td><td>Cao</td><td class="good">Thường không</td></tr>
+              <tr><td class="fmt">Planar tầm trung</td><td>32–60Ω</td><td>Thấp–TB</td><td class="warn">Nên có (cần dòng khỏe)</td></tr>
+              <tr><td class="fmt">Studio trở kháng cao</td><td>250–600Ω</td><td>TB</td><td class="warn">Có (cần điện áp cao)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Một lưu ý cho dân IEM: trở kháng ngõ ra 1/8</h2>
+        <p>Với IEM nhiều driver (BA), có một quy tắc đáng nhớ: <strong>trở kháng ngõ ra của nguồn nên nhỏ hơn khoảng 1/8 trở kháng tai nghe</strong>. Vì trở kháng của IEM đa driver thay đổi theo tần số, nếu nguồn có trở kháng ngõ ra cao, nó sẽ vô tình "EQ" lại đáp tuyến, làm tiếng đổi màu. Đây cũng là lý do một số dongle/DAC ngõ ra thấp lại "hợp" IEM hơn — không phải vì đắt hơn, mà vì trở kháng ngõ ra thấp.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Có đủ công suất rồi thì lo phần tín hiệu:</strong> amp chỉ khuếch đại thứ nó nhận được. Hãy cấp cho DAC/amp một dòng <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a> đúng sample rate, đừng để hệ điều hành nội suy lại. Và nhớ: thêm công suất khi <em>không</em> cần thì gần như không làm tiếng hay hơn — xem <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle so với DAC bàn</a>.</div>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Không cần amp khi</span>
+            <h4>Trở kháng thấp + độ nhạy cao</h4>
+            <p>IEM và đa số tai nghe di động cắm thẳng điện thoại/dongle là đủ to, đủ động. Đừng mua amp cho có.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Nên có amp khi</span>
+            <h4>Trở kháng cao hoặc độ nhạy thấp</h4>
+            <p>Tai nghe studio 250Ω+ hoặc planar nhạy thấp thường đói khi cắm thẳng — amp/DAC giúp đạt độ to và động lực đúng tầm.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: đừng đoán mò hay chạy theo lời đồn "cứ có amp là hay". Đọc trở kháng và độ nhạy, đặt tai nghe vào đúng ô, và chỉ thêm amp/DAC khi con số nói bạn cần. Khi đã có nguồn đủ khỏe, thứ quyết định tiếp theo là cấp cho nó tín hiệu sạch: đọc thêm <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle so với DAC bàn</a> và <a href="/guides/upgrade-priority" style="color:var(--accent)">nên đầu tư theo thứ tự nào</a>.</p>
+
+        <div class="cta-box">
+          <h3>Có nguồn khỏe rồi — cấp cho nó tín hiệu bit-perfect</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="im2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#im2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Phát bit-perfect đúng sample rate qua DAC, AutoEQ 6.000+ tai nghe, DSD, kết nối NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Kiểm file bạn đang nghe có đúng là lossless thật hay MP3 đội lốt — ngay trên máy, riêng tư.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Specs</span>
+        <h1>Headphone impedance & sensitivity: read the specs to know if you need an amp</h1>
+        <p class="subtitle">"Does this headphone need an amp?" is an eternal question. The answer is right there on the spec sheet — you just need two numbers: impedance (ohms) and sensitivity (dB). Here's how to read them and decide, following on from dongle vs desktop DAC.</p>
+        <div class="article-meta">
+          <span>8 min read</span><span>·</span><span>Matrix + by-type table</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="im3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#im3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Got a DAC/amp? Feed it a bit-perfect signal: Synq plays at the native sample rate over your DAC + AutoEQ for 6,000+ headphones.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Before spending on an amp, make sure the file you hear is genuine lossless — check it on-device.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Anyone who's wondered "is my phone enough for these, or do I need an amp?" hits the same blind spot: the spec sheet lists a couple of odd-looking numbers. The good news is you only need <strong>two numbers</strong>, and they tell you almost everything about whether amplification is needed.</p>
+
+        <h2>Impedance — measured in ohms (Ω)</h2>
+        <p>Impedance is the electrical "resistance" the headphone presents to the source. In plain terms:</p>
+        <ul>
+          <li><strong>Low (16–32Ω):</strong> easy to drive, typical of IEMs and portable headphones. Phones handle them well.</li>
+          <li><strong>Medium (32–100Ω):</strong> most consumer headphones.</li>
+          <li><strong>High (250–600Ω):</strong> many studio headphones. They need <strong>higher voltage</strong> to reach the same loudness — the group that most often runs "hungry" straight out of a phone.</li>
+        </ul>
+        <p>A common myth: high impedance does <em>not</em> automatically mean "better." It just means it needs a stronger source in terms of voltage.</p>
+
+        <h2>Sensitivity — measured in dB/mW or dB/V</h2>
+        <p>Sensitivity tells you <strong>how loud the headphone gets for a given amount of power/voltage</strong>. Higher means it plays loud on less energy:</p>
+        <ul>
+          <li><strong>High (≥100 dB/mW):</strong> very easy to drive, loud on a little power.</li>
+          <li><strong>Low (≤90 dB/mW):</strong> needs more power for the same loudness — many <em>planar</em> headphones land here even though their impedance isn't high.</li>
+        </ul>
+        <p>That's why you read <strong>both</strong>: a low-impedance but low-sensitivity pair (planar-style) can still be power-hungry, while a high-impedance but sensitive pair mainly lacks voltage.</p>
+
+        <h2>Putting it together: do you need an amp?</h2>
+        <figure>
+          <svg viewBox="0 0 820 372" role="img" aria-label="A 2x2 matrix by impedance and sensitivity: low impedance and high sensitivity is easy to drive; high impedance needs more voltage; low sensitivity needs more power; both high impedance and low sensitivity is the hardest to drive">
+            <text x="330" y="48" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">LOW impedance (≤50Ω)</text>
+            <text x="630" y="48" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">HIGH impedance (≥150Ω)</text>
+            <text x="150" y="130" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">HIGH</text>
+            <text x="150" y="148" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">sensitivity</text>
+            <text x="150" y="262" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">LOW</text>
+            <text x="150" y="280" fill="#e6edf2" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">sensitivity</text>
+            <rect x="180" y="66" width="290" height="128" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="200" y="98" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold">Easy to drive</text>
+            <text x="200" y="122" fill="#cfeee8" font-family="sans-serif" font-size="12">Phone / dongle is enough.</text>
+            <text x="200" y="140" fill="#cfeee8" font-family="sans-serif" font-size="12">Most IEMs &amp; portables.</text>
+            <rect x="490" y="66" width="290" height="128" rx="10" fill="#2a2114" stroke="#f5a524"/>
+            <text x="510" y="98" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold">Needs more voltage</text>
+            <text x="510" y="122" fill="#e7d3ad" font-family="sans-serif" font-size="12">High impedance (250–600Ω).</text>
+            <text x="510" y="140" fill="#e7d3ad" font-family="sans-serif" font-size="12">Amp/DAC helps loudness &amp; dynamics.</text>
+            <rect x="180" y="202" width="290" height="128" rx="10" fill="#2a2114" stroke="#f5a524"/>
+            <text x="200" y="234" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold">Needs more power</text>
+            <text x="200" y="258" fill="#e7d3ad" font-family="sans-serif" font-size="12">Low sensitivity (many planars).</text>
+            <text x="200" y="276" fill="#e7d3ad" font-family="sans-serif" font-size="12">Wants a source with strong current.</text>
+            <rect x="490" y="202" width="290" height="128" rx="10" fill="#331a12" stroke="#e0723a"/>
+            <text x="510" y="234" fill="#e0723a" font-family="sans-serif" font-size="14" font-weight="bold">Hardest to drive</text>
+            <text x="510" y="258" fill="#eec2a6" font-family="sans-serif" font-size="12">Both high impedance &amp; low sensitivity.</text>
+            <text x="510" y="276" fill="#eec2a6" font-family="sans-serif" font-size="12">A good amp/DAC recommended.</text>
+            <text x="410" y="358" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Only the teal cell is comfortably phone-direct; the other three should consider an amp/DAC.</text>
+          </svg>
+          <figcaption>Read the two numbers, drop the headphone into the matching cell, and you know whether to add an amp/DAC.</figcaption>
+        </figure>
+
+        <p>Real-world signs you're short on power: you have to crank near max to get loud enough; the sound is thin, lacks bass punch and dynamics; or it starts distorting when turned up. If your phone gets it plenty loud and full at half volume, you <em>don't</em> need an amp.</p>
+
+        <h2>Quick table by headphone type</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Type</th><th>Impedance</th><th>Sensitivity</th><th>Need an amp?</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">IEM</td><td>16–32Ω</td><td>High</td><td class="good">No — phone/dongle is enough</td></tr>
+              <tr><td class="fmt">Portable on/over-ear</td><td>32–64Ω</td><td>High</td><td class="good">Usually not</td></tr>
+              <tr><td class="fmt">Mid-tier planar</td><td>32–60Ω</td><td>Low–mid</td><td class="warn">Recommended (needs current)</td></tr>
+              <tr><td class="fmt">High-impedance studio</td><td>250–600Ω</td><td>Mid</td><td class="warn">Yes (needs high voltage)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>A note for IEM users: the 1/8 output-impedance rule</h2>
+        <p>For multi-driver (BA) IEMs, one rule is worth remembering: <strong>the source's output impedance should be less than about 1/8 of the headphone's impedance</strong>. Because a multi-BA IEM's impedance varies with frequency, a source with high output impedance will accidentally "EQ" the response and change the tone. It's also why some low-output-impedance dongles/DACs "pair" better with IEMs — not because they're pricier, but because of the low output impedance.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Got the power? Now mind the signal:</strong> an amp only amplifies what it receives. Feed the DAC/amp a <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a> stream at the native sample rate; don't let the OS resample it. And remember: adding power you <em>don't</em> need barely changes the sound — see <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle vs desktop DAC</a>.</div>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">No amp when</span>
+            <h4>Low impedance + high sensitivity</h4>
+            <p>IEMs and most portables are plenty loud and dynamic straight from a phone/dongle. Don't buy an amp just to have one.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Amp helps when</span>
+            <h4>High impedance or low sensitivity</h4>
+            <p>250Ω+ studio cans or low-sensitivity planars often run hungry direct — an amp/DAC gets you the right loudness and dynamics.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: don't guess or chase the "an amp always sounds better" myth. Read impedance and sensitivity, drop the headphone in the right cell, and only add an amp/DAC when the numbers say you need it. Once the source is strong enough, the next thing that matters is feeding it a clean signal: read more in <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle vs desktop DAC</a> and <a href="/guides/upgrade-priority" style="color:var(--accent)">where to invest first</a>.</p>
+
+        <div class="cta-box">
+          <h3>Source is strong enough — now feed it a bit-perfect signal</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="im4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#im4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Bit-perfect playback at the native sample rate over your DAC, AutoEQ for 6,000+ headphones, DSD, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Check whether the file you're hearing is genuine lossless or an MP3 in disguise — on-device, private.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

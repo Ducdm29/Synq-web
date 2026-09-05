@@ -23,6 +23,7 @@
     { "source": "/guides/burn-in", "destination": "/guides/burn-in.html" },
     { "source": "/guides/upgrade-priority", "destination": "/guides/upgrade-priority.html" },
     { "source": "/guides/cables", "destination": "/guides/cables.html" },
+    { "source": "/guides/impedance-sensitivity", "destination": "/guides/impedance-sensitivity.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],
