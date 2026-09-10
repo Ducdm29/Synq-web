@@ -25,6 +25,7 @@
     { "source": "/guides/cables", "destination": "/guides/cables.html" },
     { "source": "/guides/impedance-sensitivity", "destination": "/guides/impedance-sensitivity.html" },
     { "source": "/guides/build-lossless-library", "destination": "/guides/build-lossless-library.html" },
+    { "source": "/guides/streaming-vs-local", "destination": "/guides/streaming-vs-local.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],

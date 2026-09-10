@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streaming lossless (Apple Music/Tidal/Qobuz) vs file local: khác gì thật?</title>
+  <meta name="description" content="Nhạc lossless nghe qua Apple Music, Tidal, Qobuz có khác gì file lossless bạn tải về máy? Bit có thể giống hệt — khác biệt thật nằm ở sở hữu (thuê vs của mình), đường phát bit-perfect, và độ tin cậy. Kèm sơ đồ đường tín hiệu." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/streaming-vs-local" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.good { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Thảo luận · Streaming</span>
+        <h1>Streaming lossless vs file local: khác gì thật?</h1>
+        <p class="subtitle">Apple Music, Tidal, Qobuz giờ đều phát lossless. Vậy nghe qua streaming có khác gì file lossless tải về máy? Sự thật: <em>bit có thể giống hệt</em> — khác biệt thật nằm ở chỗ khác. Bài này tách bạch cái nào là ảo, cái nào đáng quan tâm.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Có sơ đồ đường tín hiệu + bảng so sánh</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Phát file local của bạn bit-perfect đúng sample rate qua DAC — nhạc là của bạn, nghe offline mãi mãi.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Tải bản lossless từ store về rồi? Kiểm nhanh xem đúng là lossless thật hay lossy đội lốt.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Apple Music phát ALAC tới 24-bit/192kHz, Tidal đã bỏ MQA để quay về FLAC/hi-res FLAC, Qobuz thì FLAC hi-res từ lâu. Tất cả đều là lossless <em>thật</em>. Vậy nếu cùng một bản master, dòng nhạc streaming lossless và file FLAC bạn tải về máy — có khác nhau không?</p>
+
+        <h2>Về mặt "bit", chúng có thể giống hệt</h2>
+        <p>Đây là điều nhiều người bất ngờ: một bài lossless stream từ Qobuz và cùng bài đó ở dạng FLAC trong máy bạn, nếu cùng bản master, <strong>mang đúng cùng dữ liệu âm thanh</strong>. Streaming lossless không phải "bản nén dở hơn" — nó là chính bit gốc, chỉ được gửi qua mạng thay vì đọc từ ổ đĩa. Nên câu "streaming nghe tệ hơn file" ở dạng thuần tuý là <em>không đúng</em>.</p>
+        <p>Khác biệt thật sự không nằm ở "chất lượng file", mà ở ba chỗ: <strong>đường phát có bit-perfect không</strong>, <strong>bạn có sở hữu không</strong>, và <strong>độ tin cậy</strong>.</p>
+
+        <h2>Chỗ streaming hay hụt: đường bit-perfect</h2>
+        <p>Có bit lossless ở nguồn là một chuyện; nó tới tai bạn <em>nguyên vẹn đúng sample rate</em> lại là chuyện khác. Trên điện thoại, âm thanh của app streaming thường đi qua <strong>bộ trộn (mixer) của hệ điều hành</strong>, nơi hay ép mọi thứ về một tần số cố định (thường 48kHz). Lúc đó dù nguồn là FLAC 44.1kHz, cái bạn nghe đã bị lấy mẫu lại — không còn bit-perfect.</p>
+        <figure>
+          <svg viewBox="0 0 820 250" role="img" aria-label="So sánh hai đường tín hiệu: streaming đi từ đám mây qua app rồi qua bộ trộn OS (thường ép 48kHz) tới DAC; file local bit-perfect đi từ file qua player chế độ độc quyền tới DAC ở đúng sample rate gốc">
+            <text x="20" y="34" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold">Streaming trên điện thoại (mặc định)</text>
+            <rect x="20" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
+            <text x="95" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">Đám mây</text>
+            <text x="182" y="80" fill="#7c8b96" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="200" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
+            <text x="275" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">App nhạc</text>
+            <text x="362" y="80" fill="#7c8b96" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="380" y="46" width="230" height="58" rx="10" fill="#2a2114" stroke="#f5a524"/>
+            <text x="495" y="72" fill="#f5a524" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">Bộ trộn OS</text>
+            <text x="495" y="90" fill="#e7d3ad" font-family="sans-serif" font-size="11.5" text-anchor="middle">thường ép về 48kHz (resample)</text>
+            <text x="622" y="80" fill="#7c8b96" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="640" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
+            <text x="715" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC / tai nghe</text>
+
+            <text x="20" y="150" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">File local + bit-perfect</text>
+            <rect x="20" y="162" width="150" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="95" y="196" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">File trong máy</text>
+            <text x="182" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="200" y="162" width="240" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="320" y="188" fill="#5eead4" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">Player chế độ độc quyền</text>
+            <text x="320" y="206" fill="#cfeee8" font-family="sans-serif" font-size="11.5" text-anchor="middle">bỏ qua bộ trộn OS</text>
+            <text x="452" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="470" y="162" width="230" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="585" y="188" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC — đúng rate gốc</text>
+            <text x="585" y="206" fill="#5eead4" font-family="sans-serif" font-size="11.5" text-anchor="middle" font-weight="bold">bit-perfect</text>
+            <text x="410" y="242" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Cùng bản master, cùng DAC, cùng đường bit-perfect → nghe y hệt. Khác nhau là ở đường đi, không phải ở file.</text>
+          </svg>
+          <figcaption>Nguồn lossless mà đi qua bộ trộn OS thì đã hết bit-perfect; player local chế độ độc quyền gửi thẳng bit gốc tới DAC ở đúng sample rate.</figcaption>
+        </figure>
+        <p>Cụ thể: app desktop của Tidal/Qobuz có "chế độ độc quyền" (exclusive) để bit-perfect; nhưng trên iPhone, Apple Music <strong>không tự khớp sample rate</strong> theo bài — muốn bit-perfect phải cắm DAC rời và can thiệp thủ công. Còn một player nhạc local chuyên dụng (như Synq) gửi đúng bit của file ở đúng tần số gốc qua DAC USB, bỏ qua bộ trộn. Xem thêm <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect là gì</a>.</p>
+
+        <h2>Sở hữu vs đi thuê</h2>
+        <p>Đây mới là khác biệt lớn nhất, và nó chẳng liên quan gì tới âm thanh:</p>
+        <ul>
+          <li><strong>Streaming = thuê.</strong> Ngừng trả phí là mất quyền nghe. Album có thể bị gỡ khỏi catalog, bị thay bằng bản remaster khác, hoặc đổi license. Bản "tải offline" vẫn khoá DRM và hết hạn theo thuê bao.</li>
+          <li><strong>File local = của bạn.</strong> Nghe offline mãi mãi, không phụ thuộc mạng hay app còn sống. Playlist, thẻ tag, ảnh bìa bạn tự quản, không biến mất.</li>
+        </ul>
+
+        <h2>Độ tin cậy &amp; quyền kiểm soát</h2>
+        <p>File local phát tức thì, không cần mạng, không tốn data, không giật khi sóng yếu — hi-res streaming ngốn khá nhiều băng thông. Local cũng cho bạn EQ/AutoEQ, phát DSD, kết nối NAS/cloud riêng, và toàn quyền sắp xếp thư viện.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Nói cho sòng phẳng:</strong> nếu cả hai cùng đưa bit gốc ở đúng sample rate vào cùng một DAC, chúng nghe <em>giống hệt nhau</em> — không có phép màu "streaming vs local". Cái đáng để ý là bạn <em>có sở hữu không</em>, đường phát <em>có bit-perfect không</em>, và có <em>ổn định</em> không.</div>
+        </div>
+
+        <h2>Bảng so sánh nhanh</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th></th><th>Streaming lossless</th><th>File local</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Chất lượng bit</td><td class="good">Lossless thật</td><td class="good">Lossless thật</td></tr>
+              <tr><td class="fmt">Bit-perfect trên điện thoại</td><td class="warn">Thường bị bộ trộn resample</td><td class="good">Có (player độc quyền)</td></tr>
+              <tr><td class="fmt">Sở hữu</td><td class="warn">Thuê — hết phí là mất</td><td class="good">Của bạn, vĩnh viễn</td></tr>
+              <tr><td class="fmt">Offline / ổn định</td><td class="warn">Cần mạng, tốn data, có thể giật</td><td class="good">Tức thì, không cần mạng</td></tr>
+              <tr><td class="fmt">Độ rộng thư viện</td><td class="good">Hàng chục triệu bài</td><td class="warn">Chỉ những gì bạn có</td></tr>
+              <tr><td class="fmt">Khám phá nhạc mới</td><td class="good">Rất mạnh</td><td class="warn">Tự tìm</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Streaming hợp khi</span>
+            <h4>Khám phá &amp; nghe rộng</h4>
+            <p>Kho khổng lồ, tiện thử nhạc mới ở đâu cũng được. Chất lượng bit là lossless thật — chỉ nhớ nó là đồ đi thuê.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Local hợp khi</span>
+            <h4>Sở hữu + bit-perfect + offline</h4>
+            <p>Những album bạn thật sự yêu, muốn giữ mãi và nghe đúng bit qua DAC, không lệ thuộc mạng hay thuê bao.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Cách chơi khôn ngoan là kết hợp: dùng streaming để khám phá cho rộng, rồi <a href="/guides/build-lossless-library" style="color:var(--accent)">mua/giữ những bản yêu thích thành file local</a> để sở hữu và phát bit-perfect. Đọc thêm <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a> và <a href="/guides/hi-res-vs-cd" style="color:var(--accent)">hi-res so với CD</a>.</p>
+
+        <div class="cta-box">
+          <h3>File của bạn, phát bit-perfect, nghe offline</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Phát bit-perfect đúng sample rate qua DAC, AutoEQ 6.000+ tai nghe, DSD, kết nối NAS/cloud — nhạc là của bạn, offline.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Kiểm file bạn tải/mua về có đúng lossless thật hay MP3 đội lốt — ngay trên máy, riêng tư.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Threads · Streaming</span>
+        <h1>Lossless streaming vs local files: the real difference</h1>
+        <p class="subtitle">Apple Music, Tidal and Qobuz all stream lossless now. So is streaming any different from a lossless file on your device? The truth: <em>the bits can be identical</em> — the real difference is elsewhere. Here's what's a myth and what actually matters.</p>
+        <div class="article-meta">
+          <span>8 min read</span><span>·</span><span>Signal-path diagram + comparison</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Plays your local files bit-perfect at the native sample rate over your DAC — the music is yours, offline forever.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Downloaded a lossless file? Quickly verify it's genuine lossless, not lossy in disguise.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Apple Music streams ALAC up to 24-bit/192kHz, Tidal dropped MQA and went back to FLAC/hi-res FLAC, and Qobuz has been FLAC hi-res for years. All of them are <em>genuinely</em> lossless. So for the same master, is a lossless stream any different from a FLAC file on your device?</p>
+
+        <h2>At the bit level, they can be identical</h2>
+        <p>This surprises people: a lossless track streamed from Qobuz and the same track as a FLAC on your device — same master — carry <strong>exactly the same audio data</strong>. Lossless streaming isn't a "worse compression"; it's the original bits, just delivered over the network instead of read from disk. So "streaming sounds worse than a file" as a blanket statement is simply <em>false</em>.</p>
+        <p>The real difference isn't "file quality." It's three things: <strong>whether the playback path is bit-perfect</strong>, <strong>whether you own it</strong>, and <strong>reliability</strong>.</p>
+
+        <h2>Where streaming often falls short: the bit-perfect path</h2>
+        <p>Having lossless bits at the source is one thing; getting them to your ears <em>intact at the native sample rate</em> is another. On phones, a streaming app's audio usually goes through the <strong>OS mixer</strong>, which tends to force everything to a fixed rate (often 48kHz). At that point, even a 44.1kHz FLAC source has been resampled — no longer bit-perfect.</p>
+        <figure>
+          <svg viewBox="0 0 820 250" role="img" aria-label="Two signal paths compared: streaming goes cloud to app to the OS mixer (often forced to 48kHz) to the DAC; a bit-perfect local player goes file to exclusive-mode player to the DAC at the native sample rate">
+            <text x="20" y="34" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold">Streaming on a phone (default)</text>
+            <rect x="20" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
+            <text x="95" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">Cloud</text>
+            <text x="182" y="80" fill="#7c8b96" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="200" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
+            <text x="275" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">Streaming app</text>
+            <text x="362" y="80" fill="#7c8b96" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="380" y="46" width="230" height="58" rx="10" fill="#2a2114" stroke="#f5a524"/>
+            <text x="495" y="72" fill="#f5a524" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">OS mixer</text>
+            <text x="495" y="90" fill="#e7d3ad" font-family="sans-serif" font-size="11.5" text-anchor="middle">often forced to 48kHz (resampled)</text>
+            <text x="622" y="80" fill="#7c8b96" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="640" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
+            <text x="715" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC / headphones</text>
+
+            <text x="20" y="150" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">Local file + bit-perfect</text>
+            <rect x="20" y="162" width="150" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="95" y="196" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">File on device</text>
+            <text x="182" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="200" y="162" width="240" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="320" y="188" fill="#5eead4" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">Exclusive-mode player</text>
+            <text x="320" y="206" fill="#cfeee8" font-family="sans-serif" font-size="11.5" text-anchor="middle">bypasses the OS mixer</text>
+            <text x="452" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="470" y="162" width="230" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="585" y="188" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC — native rate</text>
+            <text x="585" y="206" fill="#5eead4" font-family="sans-serif" font-size="11.5" text-anchor="middle" font-weight="bold">bit-perfect</text>
+            <text x="410" y="242" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Same master, same DAC, same bit-perfect path → they sound identical. The difference is the path, not the file.</text>
+          </svg>
+          <figcaption>A lossless source that passes through the OS mixer is no longer bit-perfect; an exclusive-mode local player sends the original bits straight to the DAC at the native rate.</figcaption>
+        </figure>
+        <p>In practice: Tidal/Qobuz desktop apps have an "exclusive mode" for bit-perfect; but on iPhone, Apple Music <strong>doesn't auto-match the sample rate</strong> per track — bit-perfect there needs an external DAC and manual steps. A dedicated local player (like Synq) sends the file's exact bits at the native rate over a USB DAC, bypassing the mixer. See <a href="/guides/bit-perfect" style="color:var(--accent)">what bit-perfect means</a>.</p>
+
+        <h2>Owning vs renting</h2>
+        <p>This is the biggest difference, and it has nothing to do with sound:</p>
+        <ul>
+          <li><strong>Streaming = renting.</strong> Stop paying and access is gone. Albums get pulled from the catalog, swapped for a different remaster, or lose their license. "Offline downloads" are still DRM-locked and expire with the subscription.</li>
+          <li><strong>Local file = yours.</strong> Offline forever, no dependency on the network or an app staying alive. Playlists, tags and cover art are yours to manage and never vanish.</li>
+        </ul>
+
+        <h2>Reliability &amp; control</h2>
+        <p>A local file plays instantly, needs no connection, uses no data and doesn't stutter on weak signal — hi-res streaming eats a fair bit of bandwidth. Local also gives you EQ/AutoEQ, DSD playback, your own NAS/cloud, and full control of your library.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>To be fair:</strong> if both deliver the original bits at the native sample rate into the same DAC, they sound <em>identical</em> — there's no "streaming vs local" magic. What matters is whether you <em>own</em> it, whether the path is <em>bit-perfect</em>, and whether it's <em>reliable</em>.</div>
+        </div>
+
+        <h2>Quick comparison</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th></th><th>Lossless streaming</th><th>Local file</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Bit quality</td><td class="good">Genuinely lossless</td><td class="good">Genuinely lossless</td></tr>
+              <tr><td class="fmt">Bit-perfect on a phone</td><td class="warn">Usually resampled by the mixer</td><td class="good">Yes (exclusive-mode player)</td></tr>
+              <tr><td class="fmt">Ownership</td><td class="warn">Rental — stops when you stop paying</td><td class="good">Yours, forever</td></tr>
+              <tr><td class="fmt">Offline / reliability</td><td class="warn">Needs data, can stutter</td><td class="good">Instant, no connection</td></tr>
+              <tr><td class="fmt">Library breadth</td><td class="good">Tens of millions of tracks</td><td class="warn">Only what you have</td></tr>
+              <tr><td class="fmt">Discovery</td><td class="good">Excellent</td><td class="warn">On your own</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Streaming shines for</span>
+            <h4>Discovery &amp; breadth</h4>
+            <p>A vast catalogue, easy to try new music anywhere. The bits are genuinely lossless — just remember it's rented.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Local shines for</span>
+            <h4>Ownership + bit-perfect + offline</h4>
+            <p>The albums you truly love, kept forever and played bit-perfect over a DAC, with no dependence on a network or subscription.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>The smart move is to combine them: stream to discover widely, then <a href="/guides/build-lossless-library" style="color:var(--accent)">buy/keep the favourites as local files</a> to own and play bit-perfect. Read more in <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a> and <a href="/guides/hi-res-vs-cd" style="color:var(--accent)">hi-res vs CD</a>.</p>
+
+        <div class="cta-box">
+          <h3>Your files, played bit-perfect, offline</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Bit-perfect at the native sample rate over your DAC, AutoEQ for 6,000+ headphones, DSD, NAS/cloud — the music is yours, offline.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Check whether a file you downloaded/bought is genuine lossless or an MP3 in disguise — on-device, private.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
