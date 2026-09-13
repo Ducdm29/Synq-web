@@ -26,6 +26,7 @@
     { "source": "/guides/impedance-sensitivity", "destination": "/guides/impedance-sensitivity.html" },
     { "source": "/guides/build-lossless-library", "destination": "/guides/build-lossless-library.html" },
     { "source": "/guides/streaming-vs-local", "destination": "/guides/streaming-vs-local.html" },
+    { "source": "/guides/first-dac-dongle", "destination": "/guides/first-dac-dongle.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chọn dongle DAC đầu tiên: nhìn thông số gì (không cần theo brand)</title>
+  <meta name="description" content="Mua dongle DAC đầu tiên nên nhìn thông số nào thay vì chạy theo thương hiệu: công suất/điện áp ra, trở kháng ngõ ra, cổng 3.5 đơn vs 4.4 cân bằng, đầu cắm USB-C/Lightning, định dạng PCM/DSD, nhiễu nền. Kèm hình chú thích + checklist." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/first-dac-dongle" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg, figure img { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.good { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Hướng dẫn · Thiết bị</span>
+        <h1>Chọn dongle DAC đầu tiên: nhìn thông số gì</h1>
+        <p class="subtitle">Dongle DAC là bước nâng cấp rẻ và đáng giá nhất cho người nghe bằng điện thoại. Nhưng đừng chọn theo thương hiệu hay cái tem "Hi-Res". Bài này chỉ đúng vài thông số cần soi để khớp với tai nghe của bạn — nối tiếp bài dongle so với DAC bàn.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 9 phút</span><span>·</span><span>Có hình chú thích + checklist thông số</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="dg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#dg1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Có dongle rồi thì cấp cho nó tín hiệu bit-perfect: Synq phát đúng sample rate qua DAC + AutoEQ 6.000+ tai nghe.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Trước khi đổ tiền cho dongle, chắc chắn file bạn nghe là lossless thật — kiểm ngay trên máy.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Nếu bạn nghe nhạc bằng điện thoại và muốn nâng cấp một bước rẻ mà đáng giá, dongle DAC (cái "đuôi" nhỏ có DAC + amp cắm vào cổng sạc) thường là lựa chọn đầu tiên hợp lý nhất — xem lại <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle so với DAC bàn</a>. Nhưng thị trường đầy tem "Hi-Res", "32-bit/768kHz", "DSD512" khiến người mới hoa mắt. Sự thật là bạn chỉ cần soi vài con số, và phần lớn trong đó là để <strong>khớp với tai nghe của bạn</strong>, không phải để khoe.</p>
+
+        <!-- Muốn thay bằng ảnh DAC thật? Bỏ khối <svg> dưới và dùng:
+             <img src="/guides/img/dongle-dac.jpg" alt="Dongle DAC và các cổng" /> -->
+        <figure>
+          <svg viewBox="0 0 820 320" role="img" aria-label="Sơ đồ một dongle DAC với chú thích: đầu cắm USB-C hoặc Lightning khớp điện thoại; thân chứa chip DAC và amp cần đủ công suất và nhiễu nền thấp; trở kháng ngõ ra nên thấp; ngõ ra 3.5mm đơn và 4.4mm cân bằng">
+            <!-- cable + plug -->
+            <path d="M30 178 C 90 178, 120 165, 176 165" fill="none" stroke="#4a5058" stroke-width="7" stroke-linecap="round"/>
+            <rect x="176" y="149" width="52" height="32" rx="7" fill="#3a4048" stroke="#5a626c" stroke-width="2"/>
+            <!-- body -->
+            <rect x="252" y="120" width="318" height="92" rx="18" fill="#262b32" stroke="#3d444d" stroke-width="2"/>
+            <rect x="266" y="131" width="250" height="9" rx="4.5" fill="#333a43"/>
+            <circle cx="292" cy="176" r="7" fill="#5eead4"/>
+            <rect x="360" y="112" width="22" height="8" rx="3" fill="#3d444d"/>
+            <rect x="392" y="112" width="22" height="8" rx="3" fill="#3d444d"/>
+            <!-- jacks on right -->
+            <circle cx="520" cy="152" r="12" fill="#0e1114" stroke="#6a727c" stroke-width="2"/>
+            <circle cx="520" cy="152" r="4.5" fill="#20242b"/>
+            <circle cx="520" cy="188" r="15" fill="#0e1114" stroke="#6a727c" stroke-width="2"/>
+            <circle cx="520" cy="188" r="6" fill="#20242b"/>
+            <!-- callouts -->
+            <line x1="150" y1="66" x2="202" y2="147" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="24" y="52" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">1 · Đầu cắm</text>
+            <text x="24" y="70" fill="#9fb0bb" font-family="sans-serif" font-size="12">USB-C / Lightning — khớp điện thoại</text>
+            <line x1="640" y1="66" x2="470" y2="120" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="796" y="52" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">2 · Chip DAC + amp</text>
+            <text x="796" y="70" fill="#9fb0bb" font-family="sans-serif" font-size="12" text-anchor="end">đủ công suất + nhiễu nền thấp</text>
+            <line x1="150" y1="262" x2="292" y2="184" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="24" y="284" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">3 · Trở kháng ngõ ra thấp</text>
+            <text x="24" y="302" fill="#9fb0bb" font-family="sans-serif" font-size="12">quan trọng với IEM nhiều driver</text>
+            <line x1="650" y1="262" x2="528" y2="190" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="796" y="284" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">4 · Ngõ ra</text>
+            <text x="796" y="302" fill="#9fb0bb" font-family="sans-serif" font-size="12" text-anchor="end">3.5mm đơn · 4.4mm cân bằng</text>
+          </svg>
+          <figcaption>Bốn thứ đáng nhìn trên một dongle DAC — hầu hết là để khớp tai nghe của bạn, không phải con số to nhất.</figcaption>
+        </figure>
+
+        <h2>1. Đủ sức kéo tai nghe của bạn (công suất / điện áp ra)</h2>
+        <p>Đây là lý do số một để mua dongle: nhiều điện thoại (nhất là dòng bỏ jack, ra qua cổng USB-C) đẩy yếu. Hãy nhìn <strong>công suất ra</strong> (mW ở 32Ω) hoặc <strong>điện áp ra</strong> (Vrms). Rồi khớp với tai nghe:</p>
+        <ul>
+          <li><strong>Chỉ dùng IEM / tai nghe dễ kéo:</strong> cần rất ít — gần như dongle nào cũng đủ.</li>
+          <li><strong>Tai nghe trở kháng cao hoặc độ nhạy thấp (planar):</strong> cần dongle khoẻ hơn, ưu tiên bản có ngõ <em>cân bằng 4.4mm</em> (thường gấp đôi công suất).</li>
+        </ul>
+        <p>Chưa chắc tai nghe của mình "đói" hay không? Đọc <a href="/guides/impedance-sensitivity" style="color:var(--accent)">trở kháng &amp; độ nhạy: có cần amp không</a> để đọc đúng hai con số đó.</p>
+
+        <h2>2. Trở kháng ngõ ra thấp (đặc biệt cho IEM)</h2>
+        <p>Con số ít ai để ý nhưng cực quan trọng nếu bạn chơi <strong>IEM nhiều driver</strong>: trở kháng ngõ ra của dongle nên <strong>thấp, dưới ~1Ω</strong> (lý tưởng gần 0). Vì trở kháng IEM đa driver thay đổi theo tần số, nếu ngõ ra của dongle cao, nó sẽ vô tình "EQ" lại đáp tuyến làm tiếng đổi màu (quy tắc 1/8: ngõ ra nên nhỏ hơn khoảng 1/8 trở kháng tai nghe). Đây là lý do một số dongle rẻ lại "hợp" IEM hơn dongle đắt — không phải vì giá, mà vì ngõ ra thấp.</p>
+
+        <h2>3. Cổng ra: 3.5mm đơn hay 4.4mm cân bằng</h2>
+        <p>Nhiều dongle có cả hai. Chọn theo dây/tai nghe bạn đang dùng:</p>
+        <ul>
+          <li><strong>3.5mm (single-ended):</strong> phổ thông nhất, đủ cho đa số IEM.</li>
+          <li><strong>4.4mm (balanced):</strong> cho công suất cao hơn (hợp tai nghe khó kéo) và đôi khi nhiễu nền thấp hơn — nhưng chỉ hữu ích nếu tai nghe của bạn có <em>dây cân bằng</em>. Đừng mua bản chỉ-4.4 nếu bạn không có dây phù hợp.</li>
+        </ul>
+
+        <h2>4. Đầu cắm: USB-C hay Lightning</h2>
+        <p>Nghe hiển nhiên nhưng dễ mua nhầm. Khớp với điện thoại: <strong>USB-C</strong> nay là chuẩn (Android và iPhone 15 trở lên); iPhone cũ dùng <strong>Lightning</strong>. Vài dongle bán rời hai phiên bản, hoặc kèm adapter — kiểm kỹ trước khi đặt.</p>
+
+        <h2>5. Định dạng: PCM / DSD — đừng trả tiền cho số bạn không dùng</h2>
+        <p>Gần như dongle nào cũng thừa sức phát nhạc lossless thường gặp (PCM 16/24-bit, 44.1–192kHz). Những con số khủng như <strong>PCM 768kHz</strong> hay <strong>DSD512</strong> nghe rất kêu nhưng phần lớn người dùng chẳng có file nào tới mức đó. Nếu bạn có nhạc DSD, hãy kiểm dongle hỗ trợ DSD (native hoặc DoP); còn không thì đừng để mấy con số này đẩy giá lên. Quan trọng hơn là dongle <em>phát đúng sample rate gốc</em> (bit-perfect) — xem <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect là gì</a>.</p>
+
+        <h2>6. Nhiễu nền (hiss) — quan trọng với IEM nhạy</h2>
+        <p>IEM độ nhạy cao rất dễ lộ tiếng "xì" nền nếu dongle ồn. Hãy để ý <strong>nền nhiễu / SNR</strong> và, nếu có thể, tìm <strong>số đo độc lập</strong> (ví dụ Audio Science Review) thay vì tin thông số hãng. Với tai nghe over-ear khó kéo thì nhiễu nền ít thành vấn đề hơn, nhưng công suất lại quan trọng hơn.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Đừng mua theo brand hay cái tem "Hi-Res":</strong> logo Hi-Res chỉ nói thiết bị <em>chơi được</em> file hi-res, không nói nó hay. Hãy so số đo độc lập (công suất, trở kháng ngõ ra, nhiễu, méo) và khớp với tai nghe của bạn. Một dongle 30–50$ đo tốt thường "trong suốt" ngang ngửa bản mắc gấp mấy lần.</div>
+        </div>
+
+        <h2>Checklist nhanh trước khi mua</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Thông số</th><th>Nhìn gì</th><th>Vì sao</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Công suất / điện áp ra</td><td>mW@32Ω hoặc Vrms</td><td>Đủ kéo tai nghe của bạn</td></tr>
+              <tr><td class="fmt">Trở kháng ngõ ra</td><td class="good">Càng thấp càng tốt (&lt;1Ω)</td><td>Không đổi màu tiếng IEM</td></tr>
+              <tr><td class="fmt">Cổng ra</td><td>3.5 đơn / 4.4 cân bằng</td><td>Khớp dây tai nghe bạn có</td></tr>
+              <tr><td class="fmt">Đầu cắm</td><td>USB-C / Lightning</td><td>Khớp điện thoại</td></tr>
+              <tr><td class="fmt">Định dạng</td><td>PCM đủ dùng; DSD nếu cần</td><td class="warn">Đừng trả cho 768kHz/DSD512 thừa</td></tr>
+              <tr><td class="fmt">Nhiễu nền / số đo</td><td class="good">SNR cao, đo độc lập</td><td>IEM nhạy khỏi bị "xì"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Nên ưu tiên</span>
+            <h4>Khớp tai nghe + đo tốt</h4>
+            <p>Đủ công suất cho tai nghe của bạn, trở kháng ngõ ra thấp, đúng cổng/đầu cắm, số đo độc lập sạch. Thế là đủ.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Đừng bị dụ</span>
+            <h4>Số to &amp; tem Hi-Res</h4>
+            <p>768kHz/DSD512 và logo Hi-Res không nói lên chất lượng. Đừng trả thêm cho tính năng bạn không bao giờ dùng.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: chọn dongle đầu tiên theo <strong>tai nghe của bạn</strong>, không theo thương hiệu — đủ công suất, trở kháng ngõ ra thấp, đúng cổng và đầu cắm, số đo độc lập sạch. Có dongle tốt rồi, việc còn lại là cấp cho nó tín hiệu sạch: đọc thêm <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle so với DAC bàn</a> và <a href="/guides/upgrade-priority" style="color:var(--accent)">nên đầu tư theo thứ tự nào</a>.</p>
+
+        <div class="cta-box">
+          <h3>Có dongle rồi — cấp cho nó tín hiệu bit-perfect</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="dg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#dg2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Phát bit-perfect đúng sample rate qua DAC, AutoEQ 6.000+ tai nghe, DSD, kết nối NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Kiểm file bạn đang nghe có đúng là lossless thật hay MP3 đội lốt — ngay trên máy, riêng tư.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Guide · Gear</span>
+        <h1>Choosing your first DAC dongle: what specs to look at</h1>
+        <p class="subtitle">A DAC dongle is the cheapest worthwhile upgrade for phone listeners. But don't buy by brand or the "Hi-Res" sticker. Here are the few specs that actually matter — most of them about matching your headphones — following on from dongle vs desktop DAC.</p>
+        <div class="article-meta">
+          <span>9 min read</span><span>·</span><span>Annotated diagram + spec checklist</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="dg3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#dg3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Got a dongle? Feed it a bit-perfect signal: Synq plays at the native sample rate over your DAC + AutoEQ for 6,000+ headphones.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Before spending on a dongle, make sure the file you hear is genuine lossless — check it on-device.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>If you listen on a phone and want a cheap upgrade that's actually worth it, a DAC dongle (the little "tail" with a DAC + amp that plugs into your charging port) is usually the sensible first step — see <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle vs desktop DAC</a>. But the market is full of "Hi-Res", "32-bit/768kHz", "DSD512" stickers that dazzle beginners. The truth is you only need a handful of numbers, and most of them are about <strong>matching your headphones</strong>, not bragging.</p>
+
+        <!-- Want to use a real DAC photo? Remove the <svg> below and use:
+             <img src="/guides/img/dongle-dac.jpg" alt="A DAC dongle and its ports" /> -->
+        <figure>
+          <svg viewBox="0 0 820 320" role="img" aria-label="Diagram of a DAC dongle, annotated: the connector is USB-C or Lightning to match your phone; the body holds the DAC and amp which need enough power and a low noise floor; output impedance should be low; outputs are 3.5mm single-ended and 4.4mm balanced">
+            <path d="M30 178 C 90 178, 120 165, 176 165" fill="none" stroke="#4a5058" stroke-width="7" stroke-linecap="round"/>
+            <rect x="176" y="149" width="52" height="32" rx="7" fill="#3a4048" stroke="#5a626c" stroke-width="2"/>
+            <rect x="252" y="120" width="318" height="92" rx="18" fill="#262b32" stroke="#3d444d" stroke-width="2"/>
+            <rect x="266" y="131" width="250" height="9" rx="4.5" fill="#333a43"/>
+            <circle cx="292" cy="176" r="7" fill="#5eead4"/>
+            <rect x="360" y="112" width="22" height="8" rx="3" fill="#3d444d"/>
+            <rect x="392" y="112" width="22" height="8" rx="3" fill="#3d444d"/>
+            <circle cx="520" cy="152" r="12" fill="#0e1114" stroke="#6a727c" stroke-width="2"/>
+            <circle cx="520" cy="152" r="4.5" fill="#20242b"/>
+            <circle cx="520" cy="188" r="15" fill="#0e1114" stroke="#6a727c" stroke-width="2"/>
+            <circle cx="520" cy="188" r="6" fill="#20242b"/>
+            <line x1="150" y1="66" x2="202" y2="147" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="24" y="52" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">1 · Connector</text>
+            <text x="24" y="70" fill="#9fb0bb" font-family="sans-serif" font-size="12">USB-C / Lightning — match your phone</text>
+            <line x1="640" y1="66" x2="470" y2="120" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="796" y="52" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">2 · DAC + amp</text>
+            <text x="796" y="70" fill="#9fb0bb" font-family="sans-serif" font-size="12" text-anchor="end">enough power + low noise floor</text>
+            <line x1="150" y1="262" x2="292" y2="184" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="24" y="284" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">3 · Low output impedance</text>
+            <text x="24" y="302" fill="#9fb0bb" font-family="sans-serif" font-size="12">matters for multi-driver IEMs</text>
+            <line x1="650" y1="262" x2="528" y2="190" stroke="#3d444d" stroke-width="1.5"/>
+            <text x="796" y="284" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="end">4 · Outputs</text>
+            <text x="796" y="302" fill="#9fb0bb" font-family="sans-serif" font-size="12" text-anchor="end">3.5mm single-ended · 4.4mm balanced</text>
+          </svg>
+          <figcaption>Four things worth checking on a DAC dongle — mostly about matching your headphones, not the biggest number.</figcaption>
+        </figure>
+
+        <h2>1. Enough power for your headphones (output power / voltage)</h2>
+        <p>This is the number-one reason to buy a dongle: many phones (especially jackless ones going out over USB-C) drive weakly. Look at <strong>output power</strong> (mW into 32Ω) or <strong>output voltage</strong> (Vrms), then match it to your headphones:</p>
+        <ul>
+          <li><strong>IEMs / easy-to-drive headphones only:</strong> you need very little — almost any dongle is enough.</li>
+          <li><strong>High-impedance or low-sensitivity (planar) headphones:</strong> you want a stronger dongle, ideally one with a <em>4.4mm balanced</em> output (usually about double the power).</li>
+        </ul>
+        <p>Not sure whether your headphones are "hungry"? Read <a href="/guides/impedance-sensitivity" style="color:var(--accent)">impedance &amp; sensitivity: do you need an amp</a> to read those two numbers.</p>
+
+        <h2>2. Low output impedance (especially for IEMs)</h2>
+        <p>An overlooked number that's crucial if you use <strong>multi-driver IEMs</strong>: a dongle's output impedance should be <strong>low, under ~1Ω</strong> (ideally near 0). Because a multi-driver IEM's impedance varies with frequency, a high-output-impedance source will accidentally "EQ" the response and change the tone (the 1/8 rule: output should be under about one-eighth of the headphone's impedance). It's why some cheap dongles "pair" better with IEMs than pricier ones — not the price, the low output impedance.</p>
+
+        <h2>3. Outputs: 3.5mm single-ended or 4.4mm balanced</h2>
+        <p>Many dongles have both. Choose by the cable/headphones you actually own:</p>
+        <ul>
+          <li><strong>3.5mm (single-ended):</strong> the most common, plenty for most IEMs.</li>
+          <li><strong>4.4mm (balanced):</strong> more power (for harder-to-drive headphones) and sometimes a lower noise floor — but only useful if your headphones have a <em>balanced cable</em>. Don't buy a 4.4-only dongle if you don't have the right cable.</li>
+        </ul>
+
+        <h2>4. Connector: USB-C or Lightning</h2>
+        <p>Obvious, yet easy to get wrong. Match your phone: <strong>USB-C</strong> is now standard (Android and iPhone 15 onward); older iPhones use <strong>Lightning</strong>. Some dongles sell separate versions or include an adapter — check before you order.</p>
+
+        <h2>5. Formats: PCM / DSD — don't pay for numbers you won't use</h2>
+        <p>Almost any dongle handles the lossless music you'll actually meet (PCM 16/24-bit, 44.1–192kHz). Huge numbers like <strong>PCM 768kHz</strong> or <strong>DSD512</strong> sound impressive but most people own no files anywhere near that. If you have DSD music, check the dongle supports DSD (native or DoP); otherwise don't let these numbers push the price up. What matters more is the dongle <em>playing at the native sample rate</em> (bit-perfect) — see <a href="/guides/bit-perfect" style="color:var(--accent)">what bit-perfect means</a>.</p>
+
+        <h2>6. Noise floor (hiss) — matters for sensitive IEMs</h2>
+        <p>High-sensitivity IEMs readily reveal background "hiss" if a dongle is noisy. Watch the <strong>noise floor / SNR</strong> and, if you can, look for <strong>independent measurements</strong> (e.g. Audio Science Review) rather than trusting the manufacturer's spec. For hard-to-drive over-ears, noise matters less, but power matters more.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Don't buy by brand or the "Hi-Res" sticker:</strong> the Hi-Res logo only says a device <em>can play</em> hi-res files, not that it sounds good. Compare independent measurements (power, output impedance, noise, distortion) and match them to your headphones. A well-measuring $30–50 dongle is often as transparent as one several times the price.</div>
+        </div>
+
+        <h2>Quick checklist before you buy</h2>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Spec</th><th>What to look for</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Output power / voltage</td><td>mW@32Ω or Vrms</td><td>Enough to drive your headphones</td></tr>
+              <tr><td class="fmt">Output impedance</td><td class="good">As low as possible (&lt;1Ω)</td><td>Won't colour IEM tone</td></tr>
+              <tr><td class="fmt">Outputs</td><td>3.5 SE / 4.4 balanced</td><td>Match the cable you own</td></tr>
+              <tr><td class="fmt">Connector</td><td>USB-C / Lightning</td><td>Match your phone</td></tr>
+              <tr><td class="fmt">Formats</td><td>PCM is plenty; DSD if needed</td><td class="warn">Don't pay for 768kHz/DSD512</td></tr>
+              <tr><td class="fmt">Noise floor / measurements</td><td class="good">High SNR, independent tests</td><td>No hiss on sensitive IEMs</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Prioritise</span>
+            <h4>Matches your headphones + measures well</h4>
+            <p>Enough power for your cans, low output impedance, the right output/connector, clean independent measurements. That's enough.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Don't be dazzled by</span>
+            <h4>Big numbers &amp; Hi-Res stickers</h4>
+            <p>768kHz/DSD512 and the Hi-Res logo say nothing about quality. Don't pay extra for features you'll never use.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: choose your first dongle by <strong>your headphones</strong>, not the brand — enough power, low output impedance, the right output and connector, clean independent measurements. Once you have a good dongle, the rest is feeding it a clean signal: read more in <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/dongle-vs-dac" style="color:var(--accent)">dongle vs desktop DAC</a> and <a href="/guides/upgrade-priority" style="color:var(--accent)">where to invest first</a>.</p>
+
+        <div class="cta-box">
+          <h3>Got a dongle — now feed it a bit-perfect signal</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="dg4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#dg4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Bit-perfect playback at the native sample rate over your DAC, AutoEQ for 6,000+ headphones, DSD, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Check whether the file you're hearing is genuine lossless or an MP3 in disguise — on-device, private.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
