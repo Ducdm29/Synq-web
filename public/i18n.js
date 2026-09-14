@@ -233,6 +233,110 @@
     // A separate app with a separate policy. Do not fold these into the Synq
     // keys above: the Synq policy states it does not use data for targeted
     // advertising, which is true of Synq and false of Music Check.
+    // ─── SYNQTAG PRIVACY PAGE ───
+    'stp.eyebrow': { en: 'Legal · SynqTag', vi: 'Pháp lý · SynqTag' },
+    'stp.heading': { en: 'SynqTag — Privacy Policy', vi: 'SynqTag — Chính sách bảo mật' },
+    'stp.subtitle': {
+      en: 'SynqTag edits the tags of music files already on your device — title, artist, album, cover art, lyrics — and writes the changes into the original file. It has no accounts, no cloud storage, and no server of its own.',
+      vi: 'SynqTag sửa thông tin của file nhạc đã có sẵn trong máy bạn — tên bài, nghệ sĩ, album, ảnh bìa, lời bài hát — và ghi thẳng thay đổi vào file gốc. App không có tài khoản, không lưu trữ đám mây, và không có server nào của riêng nó.'
+    },
+    'stp.updated': { en: 'Effective: 14 September 2026', vi: 'Hiệu lực từ: 14 tháng 9, 2026' },
+
+    'stp.s0.h': { en: 'Which app this covers', vi: 'Chính sách này áp dụng cho app nào' },
+    'stp.s0.p': {
+      en: 'This policy applies to <strong>SynqTag</strong> only (package <code>com.synqmusic.tagsmith</code>). <a href="/privacy">Synq</a> and <a href="/music-check-privacy">Music Check</a> are different apps with their own policies.',
+      vi: 'Chính sách này chỉ áp dụng cho <strong>SynqTag</strong> (package <code>com.synqmusic.tagsmith</code>). <a href="/privacy">Synq</a> và <a href="/music-check-privacy">Music Check</a> là hai app khác, có chính sách riêng.'
+    },
+
+    'stp.s1.h': { en: 'What SynqTag itself collects: nothing', vi: 'Bản thân SynqTag thu thập: không gì cả' },
+    'stp.s1.p1': {
+      en: 'Your music files <strong>never leave your device</strong>. We do not operate a server, we cannot see your files, and we have no way to identify you. There is no account to create and no sign-in.',
+      vi: 'File nhạc của bạn <strong>không bao giờ rời khỏi máy</strong>. Chúng tôi không vận hành server, không nhìn thấy file của bạn, và không có cách nào nhận ra bạn là ai. Không có tài khoản để tạo, không có đăng nhập.'
+    },
+    'stp.s1.p2': {
+      en: 'This is worth saying precisely, because SynqTag does something most apps do not: it <strong>modifies your files in place</strong>. That happens entirely on your device. Nothing is uploaded before, during or after a save — not the file, not the tags, not the cover art.',
+      vi: 'Điều này đáng nói rõ, vì SynqTag làm một việc mà đa số app không làm: nó <strong>sửa trực tiếp vào file của bạn</strong>. Toàn bộ việc đó diễn ra trong máy. Không có gì được tải lên trước, trong, hay sau khi lưu — không file, không tag, không ảnh bìa.'
+    },
+
+    'stp.s2.h': { en: 'Advertising — Google AdMob', vi: 'Quảng cáo — Google AdMob' },
+    'stp.s2.p1': { en: 'The free version shows adverts supplied by Google AdMob. Google may collect:', vi: 'Bản miễn phí có quảng cáo do Google AdMob cung cấp. Google có thể thu thập:' },
+    'stp.s2.l1': { en: 'Advertising and device identifiers', vi: 'Định danh quảng cáo và định danh thiết bị' },
+    'stp.s2.l2': { en: 'IP address, and approximate location derived from it (country or region level)', vi: 'Địa chỉ IP, và vị trí gần đúng suy ra từ đó (mức quốc gia hoặc vùng)' },
+    'stp.s2.l3': { en: 'Device and operating-system information', vi: 'Thông tin thiết bị và hệ điều hành' },
+    'stp.s2.l4': { en: 'Your interactions with adverts', vi: 'Tương tác của bạn với quảng cáo' },
+    'stp.s2.p2': {
+      en: 'Google uses this to select and measure adverts and to detect fraud. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google\'s Privacy Policy</a> and <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">how Google uses information from apps that use its services</a>.',
+      vi: 'Google dùng những dữ liệu này để chọn và đo lường quảng cáo, và để phát hiện gian lận. Xem <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Chính sách bảo mật của Google</a> và <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">cách Google sử dụng thông tin từ ứng dụng dùng dịch vụ của Google</a>.'
+    },
+    'stp.s2.p3': {
+      en: '<strong>Your choices.</strong> In the European Economic Area, the United Kingdom and Switzerland, SynqTag shows Google\'s consent dialog before personalised adverts are used. On iOS, SynqTag <strong>does not</strong> ask for App Tracking Transparency permission and therefore does not use the cross-app tracking identifier. On Android you can reset or delete your advertising ID in Settings → Privacy → Ads.',
+      vi: '<strong>Lựa chọn của bạn.</strong> Ở Khu vực Kinh tế Châu Âu, Anh và Thụy Sĩ, SynqTag hiện hộp thoại đồng ý của Google trước khi dùng quảng cáo cá nhân hoá. Trên iOS, SynqTag <strong>không</strong> xin quyền App Tracking Transparency, nên không dùng định danh theo dõi xuyên ứng dụng. Trên Android bạn có thể đặt lại hoặc xoá định danh quảng cáo ở Cài đặt → Quyền riêng tư → Quảng cáo.'
+    },
+    'stp.s2.p4': {
+      en: '<strong>Buying SynqTag Pro removes all adverts permanently</strong>, and with them this entire category of data collection.',
+      vi: '<strong>Mua SynqTag Pro là gỡ sạch quảng cáo vĩnh viễn</strong>, và gỡ luôn toàn bộ nhóm dữ liệu này.'
+    },
+
+    'stp.s3.h': { en: 'Looking up cover art and lyrics — only when you ask', vi: 'Tra ảnh bìa và lời bài hát — chỉ khi bạn bấm' },
+    'stp.s3.p1': { en: 'Two features reach the internet, and only when you tap their button:', vi: 'Hai tính năng có ra internet, và chỉ khi bạn bấm nút của chúng:' },
+    'stp.s3.l1': {
+      en: '<strong>Find cover art online</strong> — the song title and artist currently in the editor are sent to Apple\'s iTunes Search API (<code>itunes.apple.com</code>)',
+      vi: '<strong>Tìm ảnh bìa online</strong> — tên bài và nghệ sĩ đang có trong màn sửa được gửi tới iTunes Search API của Apple (<code>itunes.apple.com</code>)'
+    },
+    'stp.s3.l2': {
+      en: '<strong>Find lyrics online</strong> — the track name, artist and album currently in the editor are sent to LRCLIB (<code>lrclib.net</code>)',
+      vi: '<strong>Tìm lời bài hát online</strong> — tên bài, nghệ sĩ và album đang có trong màn sửa được gửi tới LRCLIB (<code>lrclib.net</code>)'
+    },
+    'stp.s3.p2': {
+      en: 'That is the whole of it. <strong>The audio file is never uploaded</strong>, no identifier of yours is attached, and neither service is contacted unless you press the button. Neither lookup needs an account or an API key.',
+      vi: 'Chỉ có thế. <strong>File nhạc không bao giờ được tải lên</strong>, không kèm định danh nào của bạn, và không dịch vụ nào bị gọi tới nếu bạn không bấm nút. Cả hai đều không cần tài khoản hay khoá API.'
+    },
+    'stp.s3.p3': {
+      en: 'Typing lyrics in yourself and choosing artwork from your own device stay free forever and use no network at all.',
+      vi: 'Tự gõ lời và tự chọn ảnh trong máy thì miễn phí vĩnh viễn và hoàn toàn không đụng tới mạng.'
+    },
+
+    'stp.s4.h': { en: 'Payments — Apple and Google', vi: 'Thanh toán — Apple và Google' },
+    'stp.s4.p': {
+      en: 'SynqTag Pro is sold through the App Store and Google Play. Those stores handle the payment and their own privacy policies apply. SynqTag receives only a confirmation that the unlock was purchased. <strong>No card or bank details ever reach the app or us.</strong>',
+      vi: 'SynqTag Pro được bán qua App Store và Google Play. Hai cửa hàng đó xử lý thanh toán và chính sách bảo mật của họ được áp dụng. SynqTag chỉ nhận được xác nhận là gói đã được mua. <strong>Không thông tin thẻ hay ngân hàng nào tới được app hay tới chúng tôi.</strong>'
+    },
+
+    'stp.s5.h': { en: 'What is stored on your device only', vi: 'Những gì chỉ lưu trong máy bạn' },
+    'stp.s5.l1': { en: 'A handle for each file you opened, plus its display name and size — not the file, and not its tags', vi: 'Một handle cho mỗi file bạn đã mở, kèm tên hiển thị và dung lượng — không lưu file, và không lưu tag của nó' },
+    'stp.s5.l2': { en: 'Whether you bought Pro, and how many of the free online lookups you have used', vi: 'Bạn đã mua Pro hay chưa, và đã dùng bao nhiêu lượt tra online miễn phí' },
+    'stp.s5.l3': { en: 'A counter used to space out adverts', vi: 'Một bộ đếm để giãn cách quảng cáo' },
+    'stp.s5.l4': { en: 'The language you chose, if you set one', vi: 'Ngôn ngữ bạn chọn, nếu có chọn' },
+    'stp.s5.p': {
+      en: 'None of this is transmitted anywhere. <strong>Uninstalling SynqTag deletes all of it.</strong> Your music files stay where they are, with whatever tags you last saved.',
+      vi: 'Không có gì trong số này được gửi đi đâu. <strong>Gỡ SynqTag là xoá sạch tất cả.</strong> File nhạc của bạn vẫn nằm nguyên chỗ cũ, với tag bạn đã lưu lần cuối.'
+    },
+
+    'stp.s6.h': { en: 'Permissions', vi: 'Quyền' },
+    'stp.s6.p1': {
+      en: 'SynqTag declares <strong>no storage permission at all</strong> — not on Android, not on iOS. It reaches your music through the system file picker, which grants access to exactly the files you point at and nothing else. It cannot browse your storage, and it cannot see a file you have not chosen.',
+      vi: 'SynqTag <strong>không khai một quyền lưu trữ nào</strong> — cả Android lẫn iOS. App tiếp cận nhạc của bạn qua trình chọn file của hệ thống, thứ chỉ cấp quyền cho đúng những file bạn chỉ vào chứ không gì khác. App không duyệt được bộ nhớ của bạn, và không thấy được file bạn chưa chọn.'
+    },
+    'stp.s6.l1': { en: '<strong>Internet</strong> — adverts, and the two lookups in section 3', vi: '<strong>Internet</strong> — quảng cáo, và hai tính năng tra cứu ở mục 3' },
+    'stp.s6.l2': { en: '<strong>Foreground service / media playback / prevent sleeping (Android)</strong> — to keep playing while the app is in the background', vi: '<strong>Foreground service / phát media / chống ngủ (Android)</strong> — để tiếp tục phát khi app chạy nền' },
+    'stp.s6.p2': {
+      en: 'On iOS you may see a camera prompt <strong>from an advert</strong>, never from the app. SynqTag does not use the camera; adverts are web pages and a web page can ask. Refusing changes nothing about the app.',
+      vi: 'Trên iOS bạn có thể thấy hộp xin quyền camera <strong>từ một quảng cáo</strong>, không phải từ app. SynqTag không dùng camera; quảng cáo là trang web và trang web thì hỏi được. Từ chối không làm thay đổi gì trong app.'
+    },
+
+    'stp.s7.h': { en: 'Children', vi: 'Trẻ em' },
+    'stp.s7.p': {
+      en: 'SynqTag is not directed at children under 13, and we do not knowingly collect information from them — we do not knowingly collect information from anyone.',
+      vi: 'SynqTag không hướng tới trẻ em dưới 13 tuổi, và chúng tôi không cố ý thu thập thông tin từ các em — chúng tôi không cố ý thu thập thông tin từ bất kỳ ai.'
+    },
+
+    'stp.s8.h': { en: 'Changes and contact', vi: 'Thay đổi và liên hệ' },
+    'stp.s8.p1': { en: 'If this policy changes, we will update the effective date at the top of this page.', vi: 'Nếu chính sách này thay đổi, chúng tôi sẽ cập nhật ngày hiệu lực ở đầu trang.' },
+    'stp.s8.p2': {
+      en: 'Questions about your data? Write to <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>.',
+      vi: 'Có câu hỏi về dữ liệu của bạn? Gửi thư tới <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>.'
+    },
+
     'mcp.eyebrow': { en: 'Legal · Music Check', vi: 'Pháp lý · Music Check' },
     'mcp.heading': { en: 'Music Check — Privacy Policy', vi: 'Music Check — Chính sách bảo mật' },
     'mcp.subtitle': {
