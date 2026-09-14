@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đọc phổ nhạc cho người mới: chỉ để tham khảo, quan trọng là nghe</title>
+  <meta name="description" content="Hướng dẫn người mới đọc phổ (spectrum/spectrogram) bài nhạc: nhìn dải tần cao và 'tường cắt' để nhận file lossless thật hay fake. Nhưng phổ chỉ để tham khảo — 'hay' thì phải nghe và cảm nhận. Kèm những gì nhạc chất lượng cần để phát huy hết." />
+  <link rel="canonical" href="https://synqstudio.cloud/guides/read-spectrum" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .article-back { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-decoration: none; margin-bottom: var(--space-5); }
+    .article-back:hover { color: var(--accent); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--text-caption); color: var(--text-tertiary); margin-top: var(--space-3); }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); line-height: var(--leading-snug); margin: var(--space-9) 0 var(--space-4); scroll-margin-top: 90px; }
+    .prose h3 { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3); }
+    .prose p, .prose li { font-size: var(--text-body); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .prose p { margin-bottom: var(--space-4); }
+    .prose strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .prose em { color: var(--text-primary); font-style: italic; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .prose ul li { position: relative; padding-left: var(--space-5); }
+    .prose ul li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    code.inline { font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 1px 6px; color: var(--accent); }
+
+    .callout { display: flex; gap: var(--space-3); align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; font-size: var(--text-caption); color: var(--text-secondary); line-height: var(--leading-relaxed); }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout strong { color: var(--text-primary); }
+
+    figure { margin: var(--space-6) 0; }
+    figure svg, figure img { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); background: var(--surface-1); border: 1px solid var(--border-subtle); }
+    figcaption { margin-top: var(--space-2); font-size: var(--text-caption); color: var(--text-tertiary); text-align: center; }
+
+    .table-wrap { overflow-x: auto; margin: var(--space-5) 0 var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+    table.cmp { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--text-caption); }
+    table.cmp th, table.cmp td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    table.cmp thead th { background: var(--surface-2); color: var(--text-primary); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+    table.cmp tbody tr:last-child td { border-bottom: none; }
+    table.cmp td.fmt { color: var(--text-primary); font-weight: var(--weight-bold); white-space: nowrap; }
+    table.cmp td.good { color: var(--accent); font-weight: var(--weight-semibold); }
+    table.cmp td.warn { color: #f5a524; font-weight: var(--weight-semibold); }
+
+    .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-6); }
+    .verdict-card { display: flex; flex-direction: column; gap: var(--space-2); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .verdict-card .vc-tag { font-size: var(--text-micro); text-transform: uppercase; letter-spacing: var(--tracking-overline); font-weight: var(--weight-bold); color: var(--accent); }
+    .verdict-card.good { border-left: 3px solid var(--accent); }
+    .verdict-card.alt { border-left: 3px solid #f5a524; }
+    .verdict-card.alt .vc-tag { color: #f5a524; }
+    .verdict-card h4 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); }
+    .verdict-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+
+    /* Compact dual-app block */
+    .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .store-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: var(--radius-md); font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+    .store-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .store-btn:hover { transform: translateY(-2px); }
+    .store-btn.appstore { background: #ffffff; color: #0a0d10; box-shadow: var(--shadow-md); }
+    .store-btn.playstore { background: var(--accent); color: #04120f; box-shadow: var(--glow-md); }
+
+    .dl-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--space-4); }
+    .dl-app { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+    .dl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dl-head .ic { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: grid; place-items: center; }
+    .dl-head img.ic { background: #fff; padding: 3px; box-sizing: border-box; object-fit: contain; }
+    .dl-head .ic.synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
+    .dl-head .ic.synq svg { width: 26px; height: 26px; }
+    .dl-head .nm { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-primary); font-size: 1.05rem; }
+    .dl-app .dl-desc { display: block; font-size: var(--text-caption); color: var(--text-tertiary); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .dl-top { margin: var(--space-6) 0 var(--space-4); }
+
+    .cta-box { margin: var(--space-9) 0 var(--space-6); padding: var(--space-7); background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-accent); border-radius: var(--radius-xl); box-shadow: var(--glow-sm); }
+    .cta-box h3 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); margin-bottom: var(--space-4); text-align: center; }
+
+    hr.rule { border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-8) 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link active" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+
+    <a class="article-back" href="/guides" data-lang-block="vi">← Tất cả bài viết</a>
+    <a class="article-back" href="/guides" data-lang-block="en">← All articles</a>
+
+    <!-- ================= VIETNAMESE ================= -->
+    <div data-lang-block="vi">
+      <div class="page-hero">
+        <span class="eyebrow">Hướng dẫn · Người mới</span>
+        <h1>Đọc phổ nhạc cho người mới: chỉ để tham khảo</h1>
+        <p class="subtitle">Nhiều bạn mới biết tới công cụ xem phổ (spectrum) là bắt đầu phán bài này "xịn", bài kia "dởm" chỉ qua cái biểu đồ. Bài này chỉ cách đọc phổ đúng — nó rất hữu ích để bắt file fake, nhưng "hay hay không" thì vẫn phải nghe và cảm nhận.</p>
+        <div class="article-meta">
+          <span>Đọc khoảng 8 phút</span><span>·</span><span>Có hình minh hoạ phổ + checklist</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="rs1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#rs1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Đọc phổ xong thì để tai quyết: Synq phát bit-perfect đúng sample rate qua DAC + AutoEQ 6.000+ tai nghe.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">Xem phổ + phát hiện "tường cắt" của file lossy đội lốt — ngay trên máy, riêng tư.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Mới vào chơi âm thanh, ai cũng có giai đoạn tải một app xem phổ về rồi soi từng bài, thấy cái biểu đồ đẹp thì khen "xịn", thấy nó cụt thì chê "dởm". Phổ đúng là công cụ hữu ích, nhưng nó chỉ trả lời được <em>một</em> câu hỏi hẹp. "Bài này nghe hay không" thì phổ chịu — cái đó thuộc về đôi tai bạn.</p>
+
+        <h2>Phổ nhạc là gì?</h2>
+        <p>Nói gọn: phổ (spectrogram) là bức ảnh cho thấy năng lượng âm thanh <strong>trải ra theo tần số</strong>. Trục dọc là tần số (dưới thấp = trầm/bass, trên cao = treble/âm cao tới ~20kHz), trục ngang thường là thời gian, còn độ sáng/màu là mức năng lượng ở chỗ đó.</p>
+        <figure>
+          <svg viewBox="0 0 820 340" role="img" aria-label="So sánh hai phổ: bên trái lossless thật có năng lượng kéo lên tận đỉnh khoảng 20kHz; bên phải file lossy hoặc fake bị một tường cắt phẳng ở khoảng 16kHz, phía trên trống đen">
+            <defs>
+              <linearGradient id="rsGoodVi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16211f"/><stop offset="0.45" stop-color="#1f6a5b"/><stop offset="1" stop-color="#6ef0dc"/></linearGradient>
+            </defs>
+            <!-- y axis hint -->
+            <text x="74" y="58" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="end">cao</text>
+            <text x="74" y="262" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="end">thấp</text>
+            <text x="40" y="165" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle" transform="rotate(-90 40 165)">Tần số</text>
+            <!-- left panel: lossless -->
+            <text x="235" y="40" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Lossless thật</text>
+            <rect x="100" y="50" width="270" height="210" rx="6" fill="url(#rsGoodVi)"/>
+            <text x="235" y="284" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="middle">năng lượng kéo lên tới ~20kHz</text>
+            <!-- right panel: lossy/fake -->
+            <text x="585" y="40" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Lossy / fake</text>
+            <rect x="450" y="50" width="270" height="210" rx="6" fill="url(#rsGoodVi)"/>
+            <rect x="450" y="50" width="270" height="92" rx="6" fill="#0b0e12"/>
+            <rect x="450" y="130" width="270" height="12" fill="#0b0e12"/>
+            <line x1="450" y1="142" x2="720" y2="142" stroke="#f5657a" stroke-width="2" stroke-dasharray="7 5"/>
+            <text x="585" y="160" fill="#f5657a" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold">tường cắt ~16kHz</text>
+            <text x="585" y="284" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="middle">phía trên trống trơn = bị cắt</text>
+            <text x="410" y="316" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Phổ trả lời "file có bị cắt/fake không" — KHÔNG trả lời "bài này nghe hay không".</text>
+          </svg>
+          <figcaption>Lossless thật giữ âm lên tới ~20–22kHz; lossy đội lốt (MP3 nhồi vào vỏ FLAC) để lộ một "tường" cắt phẳng ở ~16–19kHz.</figcaption>
+        </figure>
+
+        <h2>Người mới nên nhìn gì trên phổ</h2>
+        <ul>
+          <li><strong>Dải cao lên tới đâu:</strong> lossless thật thường có năng lượng kéo tới gần ~20kHz. File cụt ở ~16kHz là dấu hiệu đáng ngờ.</li>
+          <li><strong>Có "tường" cắt phẳng không:</strong> một đường ngang sắc lẻm, phía trên trống đen, là chỉ dấu kinh điển của <a href="/guides/fake-lossless" style="color:var(--accent)">fake lossless</a> — file lossy được đổi vỏ thành FLAC.</li>
+          <li><strong>Phân bố năng lượng:</strong> chỉ để hình dung bài nhiều trầm hay nhiều treble, không phải để chấm điểm.</li>
+        </ul>
+        <p>Chi tiết cách làm từng bước có ở bài <a href="/guides/verify-quality" style="color:var(--accent)">verify chất lượng bài nhạc</a> và <a href="/guides/fake-lossless" style="color:var(--accent)">nhận diện fake lossless</a>.</p>
+
+        <h2>Vì sao chỉ nên xem là tham khảo</h2>
+        <p>Đây là phần quan trọng nhất, và cũng là chỗ nhiều người mới mắc kẹt — biến cái biểu đồ thành "toà án" phán xử mọi bài. Phổ không nói được nhiều thứ:</p>
+        <ul>
+          <li><strong>Nhiều bản thu/master cũ vốn ít tần cao thật.</strong> Một bản jazz thu thập niên 60 hay nhạc mộc có thể "cụt" tự nhiên ở ~18kHz — nhìn phổ tưởng kém nhưng file hoàn toàn lossless và nghe rất tình.</li>
+          <li><strong>Thể loại &amp; nhạc cụ khác nhau cho phổ khác nhau.</strong> Nhạc điện tử đầy năng lượng trên cao; nhạc acoustic thì thưa — không có nghĩa cái nào "hơn".</li>
+          <li><strong>Tai người phần lớn không nghe quá ~16–18kHz</strong> (và giảm dần theo tuổi). Phần "đẹp" trên cùng của phổ nhiều khi bạn còn chẳng nghe thấy.</li>
+          <li><strong>Phổ không đo được "hay".</strong> Nó không biết bản master có bị nén nát (<a href="/guides/loudness-war" style="color:var(--accent)">loudness war</a>), tiếng có tự nhiên, không gian có rộng, cảm xúc có tới hay không. Những thứ đó chỉ đôi tai cảm được.</li>
+        </ul>
+
+        <h2>Quan trọng nhất: nghe và cảm nhận</h2>
+        <p>Hãy dùng phổ như một cái kính lúp để <em>loại file rõ ràng bị fake</em>, rồi cất nó đi và <strong>nghe</strong>. Thử A/B hai bản, nghe vài lần ở tâm trạng khác nhau, để ý xem bài nào khiến bạn muốn nghe lại. Tin đôi tai của chính mình hơn là tin một đường kẻ trên màn hình — vì cuối cùng bạn nghe nhạc, không nghe biểu đồ.</p>
+
+        <h2>Nhạc chất lượng cần gì để phát huy hết</h2>
+        <p>Một file lossless thật mới chỉ là điểm bắt đầu. Để nó thật sự "cất tiếng", cần cả chuỗi phía sau:</p>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Khâu</th><th>Cần gì</th><th>Vì sao</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">File gốc</td><td class="good">Lossless thật, master tốt</td><td>Không có gì thay được nguồn</td></tr>
+              <tr><td class="fmt">Đường phát</td><td class="good">Bit-perfect, đúng sample rate</td><td>Đừng để OS lấy mẫu lại</td></tr>
+              <tr><td class="fmt">Nguồn / DAC</td><td>Đủ công suất cho tai nghe</td><td>Thiếu lực = mỏng, thiếu động</td></tr>
+              <tr><td class="fmt">Tai nghe</td><td>Hợp gu + EQ nếu cần</td><td>Mắt xích bạn nghe trực tiếp</td></tr>
+              <tr><td class="fmt">Môi trường</td><td>Yên tĩnh, âm lượng vừa</td><td>Ồn nền nuốt hết chi tiết</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Đọc sâu từng khâu: <a href="/guides/build-lossless-library" style="color:var(--accent)">xây thư viện lossless</a>, <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/first-dac-dongle" style="color:var(--accent)">chọn dongle DAC</a>, <a href="/guides/impedance-sensitivity" style="color:var(--accent)">trở kháng &amp; độ nhạy</a> và <a href="/guides/upgrade-priority" style="color:var(--accent)">nên đầu tư theo thứ tự nào</a>.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>Phổ là kính lúp, không phải thước đo "hay":</strong> dùng nó để bắt file fake, rồi để tai quyết định. Muốn xem phổ tiện lợi ngay trên điện thoại thì dùng <em>Music Check</em>; muốn nghe cho đúng bit thì phát bằng <em>Synq</em>.</div>
+        </div>
+
+        <h2>Chốt lại</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Phổ dùng để</span>
+            <h4>Bắt file fake / bị cắt</h4>
+            <p>Nhìn dải cao và "tường" cắt để biết file có phải lossless thật không. Đây là việc phổ làm tốt.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Phổ không dùng để</span>
+            <h4>Chấm điểm "hay/dở"</h4>
+            <p>Master, cảm xúc, không gian, tiếng tự nhiên — phổ không thấy. Cái đó để tai bạn nghe và cảm.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Tóm lại: học đọc phổ để không bị lừa bởi file fake là tốt, nhưng đừng để nó thay đôi tai. Xác minh file bằng mắt một chút, rồi dành phần lớn thời gian để <strong>nghe</strong> — và lo cho cả chuỗi phát để nhạc chất lượng có chỗ mà toả sáng.</p>
+
+        <div class="cta-box">
+          <h3>Soi file bằng mắt, rồi để tai quyết</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">Xem phổ + bắt "tường cắt" của lossy đội lốt, ngay trên máy, riêng tư.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="rs2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#rs2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Phát bit-perfect đúng sample rate qua DAC, AutoEQ 6.000+ tai nghe, DSD, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose vi -->
+    </div><!-- /lang vi -->
+
+    <!-- ================= ENGLISH ================= -->
+    <div data-lang-block="en">
+      <div class="page-hero">
+        <span class="eyebrow">Guide · Beginners</span>
+        <h1>Reading a music spectrum, for beginners: a reference only</h1>
+        <p class="subtitle">Discover a spectrum tool and it's tempting to start judging every track "good" or "fake" from a graph. Here's how to read a spectrum properly — it's genuinely useful for catching fake files, but whether music is <em>good</em> is for your ears, not a chart.</p>
+        <div class="article-meta">
+          <span>8 min read</span><span>·</span><span>Spectrum illustration + checklist</span>
+        </div>
+      </div>
+
+      <!-- Compact dual-app block (TOP) -->
+      <div class="dl-top dl-apps">
+        <div class="dl-app">
+          <div class="dl-head">
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="rs3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#rs3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="nm">Synq</span>
+          </div>
+          <span class="dl-desc">Read the graph, then let your ears decide: Synq plays bit-perfect at the native rate over your DAC + AutoEQ for 6,000+ headphones.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="dl-app">
+          <div class="dl-head">
+            <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+            <span class="nm">Music Check</span>
+          </div>
+          <span class="dl-desc">See the spectrum + spot the brickwall cutoff of lossy-in-disguise — on-device, private.</span>
+          <div class="cta-row">
+            <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+            <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Every beginner has that phase: download a spectrum app and scrutinise every track — a pretty graph means "great," a stumpy one means "junk." A spectrum is a useful tool, but it only answers <em>one</em> narrow question. Whether a track sounds good is beyond it — that belongs to your ears.</p>
+
+        <h2>What is a music spectrum?</h2>
+        <p>In short: a spectrogram is a picture of how sound energy is <strong>spread across frequency</strong>. The vertical axis is frequency (low = bass at the bottom, high = treble up to ~20kHz), the horizontal axis is usually time, and brightness/colour is how much energy is there.</p>
+        <figure>
+          <svg viewBox="0 0 820 340" role="img" aria-label="Two spectra compared: on the left, genuine lossless has energy reaching up to about 20kHz; on the right, a lossy or fake file has a flat brickwall cut around 16kHz with empty black above">
+            <defs>
+              <linearGradient id="rsGoodEn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16211f"/><stop offset="0.45" stop-color="#1f6a5b"/><stop offset="1" stop-color="#6ef0dc"/></linearGradient>
+            </defs>
+            <text x="74" y="58" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="end">high</text>
+            <text x="74" y="262" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="end">low</text>
+            <text x="40" y="165" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle" transform="rotate(-90 40 165)">Frequency</text>
+            <text x="235" y="40" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Genuine lossless</text>
+            <rect x="100" y="50" width="270" height="210" rx="6" fill="url(#rsGoodEn)"/>
+            <text x="235" y="284" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="middle">energy reaches up to ~20kHz</text>
+            <text x="585" y="40" fill="#f5a524" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Lossy / fake</text>
+            <rect x="450" y="50" width="270" height="210" rx="6" fill="url(#rsGoodEn)"/>
+            <rect x="450" y="50" width="270" height="92" rx="6" fill="#0b0e12"/>
+            <rect x="450" y="130" width="270" height="12" fill="#0b0e12"/>
+            <line x1="450" y1="142" x2="720" y2="142" stroke="#f5657a" stroke-width="2" stroke-dasharray="7 5"/>
+            <text x="585" y="160" fill="#f5657a" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold">brickwall ~16kHz</text>
+            <text x="585" y="284" fill="#9fb0bb" font-family="sans-serif" font-size="11" text-anchor="middle">empty above = cut off</text>
+            <text x="410" y="316" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">A spectrum answers "is the file cut/fake?" — NOT "does this track sound good?"</text>
+          </svg>
+          <figcaption>Genuine lossless keeps content up to ~20–22kHz; lossy-in-disguise (an MP3 rewrapped as FLAC) reveals a flat brickwall around ~16–19kHz.</figcaption>
+        </figure>
+
+        <h2>What a beginner should look at</h2>
+        <ul>
+          <li><strong>How high the content reaches:</strong> genuine lossless usually has energy up to near ~20kHz. Cutting off at ~16kHz is a suspicious sign.</li>
+          <li><strong>Is there a flat brickwall:</strong> a sharp horizontal line with black above it is the classic tell of <a href="/guides/fake-lossless" style="color:var(--accent)">fake lossless</a> — a lossy file rewrapped as FLAC.</li>
+          <li><strong>Energy distribution:</strong> only to get a feel for bass-heavy vs treble-heavy, not to grade the track.</li>
+        </ul>
+        <p>Step-by-step how-to is in <a href="/guides/verify-quality" style="color:var(--accent)">verifying track quality</a> and <a href="/guides/fake-lossless" style="color:var(--accent)">spotting fake lossless</a>.</p>
+
+        <h2>Why it's a reference only</h2>
+        <p>This is the most important part, and where many beginners get stuck — turning the graph into a courtroom that judges every track. A spectrum can't tell you a lot:</p>
+        <ul>
+          <li><strong>Many older recordings/masters genuinely have little high-frequency content.</strong> A 1960s jazz recording or a sparse acoustic track may "cut off" naturally around ~18kHz — it looks poor but the file is fully lossless and sounds lovely.</li>
+          <li><strong>Genres &amp; instruments produce different spectra.</strong> Electronic music is full of high-frequency energy; acoustic is sparse — neither is "better."</li>
+          <li><strong>Most human ears can't hear above ~16–18kHz</strong> (and it declines with age). The "pretty" top of the spectrum is often something you can't even hear.</li>
+          <li><strong>A spectrum can't measure "good."</strong> It doesn't know if the master is crushed (<a href="/guides/loudness-war" style="color:var(--accent)">loudness war</a>), whether the tone is natural, the soundstage wide, or the emotion there. Only your ears feel those.</li>
+        </ul>
+
+        <h2>What matters most: listen and feel</h2>
+        <p>Use the spectrum like a magnifying glass to <em>weed out clearly fake files</em>, then put it away and <strong>listen</strong>. A/B two versions, listen a few times in different moods, notice which one makes you want to hit repeat. Trust your own ears over a line on a screen — because in the end you listen to music, not to a graph.</p>
+
+        <h2>What quality music needs to shine</h2>
+        <p>A genuine lossless file is only the starting point. For it to truly "speak," the whole downstream chain matters:</p>
+        <div class="table-wrap">
+          <table class="cmp">
+            <thead><tr><th>Stage</th><th>What's needed</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td class="fmt">Source file</td><td class="good">Genuine lossless, good master</td><td>Nothing replaces the source</td></tr>
+              <tr><td class="fmt">Playback path</td><td class="good">Bit-perfect, native rate</td><td>Don't let the OS resample</td></tr>
+              <tr><td class="fmt">Source / DAC</td><td>Enough power for the cans</td><td>Underpowered = thin, flat</td></tr>
+              <tr><td class="fmt">Headphones</td><td>Suit your taste + EQ if needed</td><td>The link you hear directly</td></tr>
+              <tr><td class="fmt">Environment</td><td>Quiet, sensible volume</td><td>Noise swallows the detail</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Go deeper on each: <a href="/guides/build-lossless-library" style="color:var(--accent)">build a lossless library</a>, <a href="/guides/bit-perfect" style="color:var(--accent)">bit-perfect</a>, <a href="/guides/first-dac-dongle" style="color:var(--accent)">choose a DAC dongle</a>, <a href="/guides/impedance-sensitivity" style="color:var(--accent)">impedance &amp; sensitivity</a> and <a href="/guides/upgrade-priority" style="color:var(--accent)">where to invest first</a>.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div><strong>A spectrum is a magnifying glass, not a quality meter:</strong> use it to catch fake files, then let your ears decide. For a convenient spectrum on your phone use <em>Music Check</em>; to hear the bits intact, play with <em>Synq</em>.</div>
+        </div>
+
+        <h2>Bottom line</h2>
+        <div class="verdict">
+          <div class="verdict-card good">
+            <span class="vc-tag">Use a spectrum to</span>
+            <h4>Catch fake / cut files</h4>
+            <p>Check how high it reaches and whether there's a brickwall to know if a file is genuinely lossless. This it does well.</p>
+          </div>
+          <div class="verdict-card alt">
+            <span class="vc-tag">Don't use it to</span>
+            <h4>Grade "good vs bad"</h4>
+            <p>Master, emotion, soundstage, natural tone — a spectrum can't see them. That's for your ears to hear and feel.</p>
+          </div>
+        </div>
+
+        <hr class="rule" />
+
+        <p>Bottom line: learning to read a spectrum so fake files can't fool you is good, but don't let it replace your ears. Verify the file with your eyes a little, then spend most of your time <strong>listening</strong> — and look after the whole playback chain so quality music has room to shine.</p>
+
+        <div class="cta-box">
+          <h3>Check the file with your eyes, then let your ears decide</h3>
+          <div class="dl-apps">
+            <div class="dl-app">
+              <div class="dl-head">
+                <img class="ic" src="/store/musiccheck_icon.png" alt="Music Check" width="38" height="38" />
+                <span class="nm">Music Check</span>
+              </div>
+              <span class="dl-desc">See the spectrum + catch the brickwall of lossy-in-disguise, on-device, private.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+            <div class="dl-app">
+              <div class="dl-head">
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="rs4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#rs4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="nm">Synq</span>
+              </div>
+              <span class="dl-desc">Bit-perfect playback at the native sample rate over your DAC, AutoEQ for 6,000+ headphones, DSD, NAS/cloud.</span>
+              <div class="cta-row">
+                <a class="store-btn appstore" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
+                <a class="store-btn playstore" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /prose en -->
+    </div><!-- /lang en -->
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
