@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SynqTag — Sửa thông tin bài hát, ghi thẳng vào file</title>
+  <meta name="description" content="SynqTag sửa tên bài, nghệ sĩ, album, ảnh bìa và lời — ghi thẳng vào file nhạc gốc của bạn. Có sửa hàng loạt và tra ảnh bìa, lời bài hát online. Chạy hoàn toàn trên máy. iOS &amp; Android." />
+  <link rel="canonical" href="https://synqstudio.cloud/synqtag" />
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
+  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <style>
+    html[lang="en"] [data-lang-block="vi"] { display: none; }
+    html[lang="vi"] [data-lang-block="en"] { display: none; }
+
+    .st-wrap { max-width: 720px; margin: 0 auto; text-align: center; }
+    .st-feat { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); margin: var(--space-7) 0; text-align: left; }
+    .st-card { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
+    .st-card h3 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 6px; }
+    .st-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+    .st-soon { background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); margin: var(--space-6) 0; }
+    .st-soon p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+    .st-soon strong { color: var(--text-primary); }
+    .st-sec { text-align: left; margin-top: var(--space-7); }
+    .st-sec > h2 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: var(--space-4); }
+    .st-faq { border-top: 1px solid var(--border-subtle); padding: var(--space-4) 0; }
+    .st-faq h3 { font-family: var(--font-body); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 6px; }
+    .st-faq p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
+    .st-faq a { color: var(--accent); }
+    .st-back { display:inline-flex; gap:6px; font-size: var(--text-caption); color: var(--text-tertiary); text-decoration:none; margin-bottom: var(--space-5); }
+    .st-back:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+<div class="site-wrapper">
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Synq — Home">
+        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
+          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
+        </svg>
+        <span class="nav-logo-text">Synq</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
+        <a href="/guides" class="nav-link" data-i18n="nav.guides">Guides</a>
+        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
+        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main" id="main-content">
+    <div class="st-wrap">
+
+      <a class="st-back" href="/" data-lang-block="vi">← Về trang chủ Synq</a>
+      <a class="st-back" href="/" data-lang-block="en">← Back to Synq</a>
+
+      <div class="page-hero">
+        <span class="eyebrow">SynqTag</span>
+        <h1 data-lang-block="vi">Sửa thông tin bài hát, ghi thẳng vào file</h1>
+        <h1 data-lang-block="en">Edit your song details, straight into the file</h1>
+        <p class="subtitle" data-lang-block="vi">Không lưu riêng trong app, mà sửa thật file nhạc của bạn — để mọi trình nghe nhạc khác đều thấy. Có sửa hàng loạt và tra ảnh bìa, lời bài hát online.</p>
+        <p class="subtitle" data-lang-block="en">Not saved separately inside the app, but written into your music files themselves — so every other player sees them too. With batch editing and online cover-art and lyrics lookup.</p>
+      </div>
+
+      <div class="st-feat">
+        <div class="st-card">
+          <h3 data-lang-block="vi">Ghi vào chính file</h3>
+          <h3 data-lang-block="en">Written into the file</h3>
+          <p data-lang-block="vi">Tên bài, nghệ sĩ, album, album artist, thể loại, năm, số track và đĩa, lời, ảnh bìa nhúng — sửa xong là nằm trong file.</p>
+          <p data-lang-block="en">Title, artist, album, album artist, genre, year, track and disc numbers, lyrics and embedded cover art — saved inside the file itself.</p>
+        </div>
+        <div class="st-card">
+          <h3 data-lang-block="vi">Sửa hàng loạt</h3>
+          <h3 data-lang-block="en">Batch editing</h3>
+          <p data-lang-block="vi">Chọn nhiều bài rồi đặt album, nghệ sĩ hay thể loại cho cả nhóm trong một lần.</p>
+          <p data-lang-block="en">Select several songs and set the album, artist or genre for the whole group at once.</p>
+        </div>
+        <div class="st-card">
+          <h3 data-lang-block="vi">Tra ảnh bìa &amp; lời</h3>
+          <h3 data-lang-block="en">Cover art &amp; lyrics</h3>
+          <p data-lang-block="vi">Tìm ảnh bìa và lời bài hát trên mạng rồi gắn thẳng vào file, ngay trong màn hình sửa.</p>
+          <p data-lang-block="en">Look up artwork and lyrics online and attach them to the file, right from the editing screen.</p>
+        </div>
+        <div class="st-card">
+          <h3 data-lang-block="vi">An toàn cho file của bạn</h3>
+          <h3 data-lang-block="en">Safe with your files</h3>
+          <p data-lang-block="vi">Không bao giờ ghi thẳng vào bản gốc: ghi ra bản tạm, đọc lại kiểm chứng, rồi mới thay thế. Hỏng ở bất kỳ bước nào thì file còn nguyên từng byte.</p>
+          <p data-lang-block="en">Never writes into the original directly: it stages a copy, reads it back to verify, and only then replaces the file. If anything fails, your file is untouched, byte for byte.</p>
+        </div>
+      </div>
+
+      <div class="st-soon">
+        <p data-lang-block="vi"><strong>Sắp có trên App Store và Google Play.</strong> Trang này sẽ có link tải ngay khi app được duyệt.</p>
+        <p data-lang-block="en"><strong>Coming soon to the App Store and Google Play.</strong> Download links will appear here as soon as the app is approved.</p>
+      </div>
+
+      <section class="st-sec" aria-label="Support">
+        <h2 data-lang-block="vi">Hỗ trợ</h2>
+        <h2 data-lang-block="en">Support</h2>
+
+        <div class="st-faq">
+          <h3 data-lang-block="vi">SynqTag có làm hỏng file nhạc của tôi không?</h3>
+          <h3 data-lang-block="en">Can SynqTag damage my music files?</h3>
+          <p data-lang-block="vi">App không ghi thẳng vào file gốc. Nó chép ra một bản tạm, ghi tag vào bản đó, <em>đọc lại để kiểm chứng</em> tag có thật sự nằm trong file không, rồi bản tạm mới thay thế bản gốc. Hỏng ở bất kỳ bước nào thì file của bạn còn nguyên. App cũng báo trước khi lưu nếu định dạng file không chứa được một trường nào đó.</p>
+          <p data-lang-block="en">The app never writes into your original. It stages a copy, writes the tags there, <em>reads it back to verify</em> they really landed, and only then does the copy replace the original. If anything fails at any step your file is untouched. It also warns you before saving when a file format cannot hold one of the fields.</p>
+        </div>
+
+        <div class="st-faq">
+          <h3 data-lang-block="vi">Hỗ trợ định dạng nào?</h3>
+          <h3 data-lang-block="en">Which formats are supported?</h3>
+          <p data-lang-block="vi">MP3, FLAC, M4A/AAC, WAV, AIFF, OGG, APE và DSF. Mỗi định dạng chứa được những trường khác nhau — app nói trước cho bạn biết trường nào định dạng đó không giữ được.</p>
+          <p data-lang-block="en">MP3, FLAC, M4A/AAC, WAV, AIFF, OGG, APE and DSF. Each container holds a different set of fields, and the app tells you up front which ones a given format cannot keep.</p>
+        </div>
+
+        <div class="st-faq">
+          <h3 data-lang-block="vi">Tôi không thấy bài hát nào trong app</h3>
+          <h3 data-lang-block="en">I don't see any songs in the app</h3>
+          <p data-lang-block="vi">Đúng như thiết kế: SynqTag không tự quét máy bạn. Bạn bấm <strong>Thêm file</strong> và tự chọn đúng những file muốn sửa. App chỉ có quyền đụng vào đúng những file đó, không có quyền nào với phần còn lại của máy.</p>
+          <p data-lang-block="en">That is by design: SynqTag does not scan your device. You tap <strong>Add files</strong> and pick exactly the files you want to edit. The app is granted access to those files only, and holds no permission over the rest of your storage.</p>
+        </div>
+
+        <div class="st-faq">
+          <h3 data-lang-block="vi">Tôi đã mua Pro nhưng app vẫn hiện quảng cáo</h3>
+          <h3 data-lang-block="en">I bought Pro but still see adverts</h3>
+          <p data-lang-block="vi">Vào <strong>Cài đặt → Khôi phục giao dịch</strong>. Giao dịch gắn với tài khoản App Store hoặc Google của bạn, nên máy mới hay cài lại chỉ cần khôi phục là được, không phải mua lại.</p>
+          <p data-lang-block="en">Go to <strong>Settings → Restore purchases</strong>. The purchase is tied to your App Store or Google account, so a new device or a reinstall only needs a restore — never a second payment.</p>
+        </div>
+
+        <div class="st-faq">
+          <h3 data-lang-block="vi">Còn vướng gì khác?</h3>
+          <h3 data-lang-block="en">Still stuck?</h3>
+          <p data-lang-block="vi">Gửi email cho chúng tôi ở <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>. Nói rõ định dạng file và máy bạn đang dùng thì chúng tôi trả lời nhanh hơn nhiều. Chính sách riêng tư của SynqTag ở <a href="/synqtag-privacy">đây</a>.</p>
+          <p data-lang-block="en">Email us at <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>. Telling us the file format and the device you are on gets you a much faster answer. SynqTag's privacy policy is <a href="/synqtag-privacy">here</a>.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/support" data-i18n="footer.support">Support</a>
+        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="/synqtag-privacy">SynqTag Privacy</a>
+        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /site-wrapper -->
+
+<script src="/i18n.js"></script>
+<script src="/enhance.js" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
