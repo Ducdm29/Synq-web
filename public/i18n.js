@@ -102,7 +102,7 @@
     'apps.heading': { en: 'Listen properly — and know it\'s real.', vi: 'Nghe nhạc tử tế — và biết chắc nó là thật.' },
     'apps.synq.tag': { en: 'Lossless player: FLAC/DSD, AutoEQ for 6,000+ headphones, bit-perfect via USB DAC, fully offline.', vi: 'Player lossless: FLAC/DSD, AutoEQ 6.000+ tai nghe, bit-perfect qua DAC, hoàn toàn offline.' },
     'apps.mc.tag': { en: 'Is that FLAC real lossless or a fake MP3? Analyse the spectrum right on your phone.', vi: 'File FLAC là lossless thật hay MP3 đội lốt? Phân tích phổ tần ngay trên máy.' },
-    'apps.synqtag.tag': { en: 'Edit song tags — title, artist, album, cover art — written straight into the file. Batch edits and online auto-tag.', vi: 'Sửa thẻ nhạc — tên, nghệ sĩ, album, ảnh bìa — ghi thẳng vào file. Sửa hàng loạt và tự gắn tag online.' },
+    'apps.synqtag.tag': { en: 'Edit song tags — title, artist, album, cover art — written straight into the file. Batch editing and online artwork & lyrics lookup.', vi: 'Sửa thẻ nhạc — tên, nghệ sĩ, album, ảnh bìa — ghi thẳng vào file. Sửa hàng loạt và tra ảnh bìa, lời online.' },
 
     // Footer
     'footer.copy': { en: '© 2025 Synq. All rights reserved.', vi: '© 2025 Synq. Mọi quyền được bảo lưu.' },

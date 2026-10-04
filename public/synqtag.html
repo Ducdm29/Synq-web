@@ -37,6 +37,14 @@
     .st-faq a { color: var(--accent); }
     .st-back { display:inline-flex; gap:6px; font-size: var(--text-caption); color: var(--text-tertiary); text-decoration:none; margin-bottom: var(--space-5); }
     .st-back:hover { color: var(--accent); }
+    .st-appicon { width:92px; height:92px; border-radius:22px; display:block; margin:0 auto var(--space-4); box-shadow: var(--shadow-md); }
+    .st-price { display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: var(--space-4); text-align:left; }
+    .st-price .st-card.pro { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .st-price .pro-badge { display:inline-block; font-size: var(--text-micro); font-weight:var(--weight-bold); letter-spacing:var(--tracking-overline); text-transform:uppercase; color:#04120f; background:var(--accent); border-radius:6px; padding:2px 8px; margin-bottom:8px; }
+    .st-price .tier-name { font-family: var(--font-display); font-weight: var(--weight-semibold); color: var(--text-primary); }
+    .st-price ul { list-style:none; margin-top:10px; display:flex; flex-direction:column; gap:7px; }
+    .st-price li { position:relative; padding-left: var(--space-5); font-size: var(--text-caption); color: var(--text-tertiary); line-height:var(--leading-relaxed); }
+    .st-price li::before { content:""; position:absolute; left:2px; top:8px; width:6px; height:6px; border-radius:50%; background:var(--accent); }
   </style>
 </head>
 <body>
@@ -76,11 +84,12 @@
       <a class="st-back" href="/" data-lang-block="en">← Back to Synq</a>
 
       <div class="page-hero">
-        <span class="eyebrow">SynqTag</span>
+        <img class="st-appicon" src="/store/synqtag_icon.png" alt="SynqTag" width="92" height="92" />
+        <span class="eyebrow">SynqTag · by Synq</span>
         <h1 data-lang-block="vi">Sửa thông tin bài hát, ghi thẳng vào file</h1>
         <h1 data-lang-block="en">Edit your song details, straight into the file</h1>
-        <p class="subtitle" data-lang-block="vi">Không lưu riêng trong app, mà sửa thật file nhạc của bạn — để mọi trình nghe nhạc khác đều thấy. Có sửa hàng loạt và tra ảnh bìa, lời bài hát online.</p>
-        <p class="subtitle" data-lang-block="en">Not saved separately inside the app, but written into your music files themselves — so every other player sees them too. With batch editing and online cover-art and lyrics lookup.</p>
+        <p class="subtitle" data-lang-block="vi">Không lưu riêng trong app, mà sửa thật file nhạc của bạn — để mọi trình nghe nhạc khác đều thấy. Có sửa hàng loạt và tra ảnh bìa, lời bài hát online. Chạy trên máy, không quét thư viện của bạn.</p>
+        <p class="subtitle" data-lang-block="en">Not saved separately inside the app, but written into your music files themselves — so every other player sees them too. With batch editing and online cover-art and lyrics lookup. Runs on-device and never scans your library.</p>
       </div>
 
       <div class="st-feat">
@@ -108,6 +117,18 @@
           <p data-lang-block="vi">Không bao giờ ghi thẳng vào bản gốc: ghi ra bản tạm, đọc lại kiểm chứng, rồi mới thay thế. Hỏng ở bất kỳ bước nào thì file còn nguyên từng byte.</p>
           <p data-lang-block="en">Never writes into the original directly: it stages a copy, reads it back to verify, and only then replaces the file. If anything fails, your file is untouched, byte for byte.</p>
         </div>
+        <div class="st-card">
+          <h3 data-lang-block="vi">Nhiều định dạng</h3>
+          <h3 data-lang-block="en">Many formats</h3>
+          <p data-lang-block="vi">MP3, FLAC, M4A/AAC, WAV, AIFF, OGG, APE và DSF. App báo trước trường nào định dạng đó không giữ được.</p>
+          <p data-lang-block="en">MP3, FLAC, M4A/AAC, WAV, AIFF, OGG, APE and DSF. The app warns up front about any field a given format can't keep.</p>
+        </div>
+        <div class="st-card">
+          <h3 data-lang-block="vi">Riêng tư, bạn kiểm soát</h3>
+          <h3 data-lang-block="en">Private, you're in control</h3>
+          <p data-lang-block="vi">App không quét máy bạn. Bạn tự chọn đúng file muốn sửa; app chỉ đụng vào những file đó. Mọi thao tác chạy trên máy.</p>
+          <p data-lang-block="en">The app never scans your device. You pick exactly the files to edit; it touches only those. Everything runs on-device.</p>
+        </div>
       </div>
 
       <div class="st-dl">
@@ -116,6 +137,38 @@
         <a class="st-ios" href="https://apps.apple.com/vn/app/synqtag-edit-songs-metadata/id6816595732" target="_blank" rel="noopener" aria-label="Download SynqTag on the App Store"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
         <a class="st-play" href="https://play.google.com/store/apps/details?id=com.synqmusic.tagsmith" target="_blank" rel="noopener" aria-label="Get SynqTag on Google Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
       </div>
+
+      <section class="st-sec" aria-label="Pricing">
+        <h2 data-lang-block="vi">Miễn phí để thử, Pro khi cần làm nhiều</h2>
+        <h2 data-lang-block="en">Free to try, Pro when you do more</h2>
+        <div class="st-price">
+          <div class="st-card">
+            <span class="tier-name" data-lang-block="vi">Miễn phí</span>
+            <span class="tier-name" data-lang-block="en">Free</span>
+            <ul>
+              <li data-lang-block="vi">Sửa 1 file mỗi lần</li>
+              <li data-lang-block="en">Edit one file at a time</li>
+              <li data-lang-block="vi">5 lượt tra ảnh bìa &amp; lời online</li>
+              <li data-lang-block="en">5 online cover-art &amp; lyrics lookups</li>
+              <li data-lang-block="vi">Gõ lời tay &amp; chọn ảnh từ máy: không giới hạn</li>
+              <li data-lang-block="en">Typing lyrics &amp; picking local art: unlimited</li>
+            </ul>
+          </div>
+          <div class="st-card pro">
+            <span class="pro-badge">Pro</span>
+            <span class="tier-name" data-lang-block="vi">SynqTag Pro — mua 1 lần, dùng mãi</span>
+            <span class="tier-name" data-lang-block="en">SynqTag Pro — one-time, yours forever</span>
+            <ul>
+              <li data-lang-block="vi">Sửa hàng loạt không giới hạn số file</li>
+              <li data-lang-block="en">Batch editing with no file limit</li>
+              <li data-lang-block="vi">Tra ảnh bìa &amp; lời online không giới hạn</li>
+              <li data-lang-block="en">Unlimited online cover-art &amp; lyrics lookups</li>
+              <li data-lang-block="vi">Gỡ toàn bộ quảng cáo</li>
+              <li data-lang-block="en">Removes every advert</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <section class="st-sec" aria-label="Support">
         <h2 data-lang-block="vi">Hỗ trợ</h2>
