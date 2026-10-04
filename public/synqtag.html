@@ -10,6 +10,21 @@
   <link rel="stylesheet" href="/styles.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <script>
+    /* Smart link: on mobile, jump straight to the right store.
+       iPhone/iPad → App Store, Android → Google Play. Desktop shows the page.
+       Add ?stay=1 to the URL to view the page on mobile without redirecting. */
+    (function () {
+      try {
+        if (/[?&](stay|nogo)=1/.test(location.search)) return;
+        var ua = navigator.userAgent || navigator.vendor || '';
+        var isIOS = /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && 'ontouchend' in document);
+        var isAndroid = /Android/.test(ua);
+        if (isIOS) location.replace('https://apps.apple.com/vn/app/synqtag-edit-songs-metadata/id6816595732');
+        else if (isAndroid) location.replace('https://play.google.com/store/apps/details?id=com.synqmusic.tagsmith');
+      } catch (e) { /* no redirect → the page with both store buttons still works */ }
+    })();
+  </script>
   <style>
     html[lang="en"] [data-lang-block="vi"] { display: none; }
     html[lang="vi"] [data-lang-block="en"] { display: none; }
@@ -227,21 +242,6 @@
 
 </div><!-- /site-wrapper -->
 
-<script>
-  /* Auto-detect device: show only the matching store button on mobile.
-     iOS → App Store only, Android → Google Play only, desktop → keep both.
-     No-JS fallback keeps both buttons visible. */
-  (function () {
-    try {
-      var ua = navigator.userAgent || navigator.vendor || '';
-      var isIOS = /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && 'ontouchend' in document);
-      var isAndroid = /Android/.test(ua);
-      if (isIOS === isAndroid) return; // desktop / unknown → show both
-      var hide = document.querySelectorAll('#st-dl ' + (isIOS ? '.st-play' : '.st-ios'));
-      for (var i = 0; i < hide.length; i++) hide[i].style.display = 'none';
-    } catch (e) { /* fallback: both buttons stay */ }
-  })();
-</script>
 <script src="/i18n.js"></script>
 <script src="/enhance.js" defer></script>
 <script defer src="/_vercel/insights/script.js"></script>
