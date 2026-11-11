@@ -30,6 +30,11 @@
     { "source": "/guides/streaming-vs-local", "destination": "/guides/streaming-vs-local.html" },
     { "source": "/guides/first-dac-dongle", "destination": "/guides/first-dac-dongle.html" },
     { "source": "/guides/read-spectrum", "destination": "/guides/read-spectrum.html" },
+    { "source": "/shadowblade", "destination": "/shadowblade.html" },
+    { "source": "/shadowblade-privacy", "destination": "/shadowblade-privacy.html" },
+    { "source": "/shadowblade-terms", "destination": "/shadowblade-terms.html" },
+    { "source": "/shadowblade-support", "destination": "/shadowblade-support.html" },
+    { "source": "/shadowblade-delete-account", "destination": "/shadowblade-delete-account.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],
