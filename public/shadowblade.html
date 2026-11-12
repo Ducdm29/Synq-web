@@ -31,6 +31,14 @@
     .sb-land { max-width: 980px; margin: 0 auto; text-align: center; }
     .sb-appicon { width:96px; height:96px; border-radius:22px; display:block; margin:0 auto var(--space-4); box-shadow: var(--shadow-md); }
     .sb-video { width:100%; border-radius: var(--radius-card); border:1px solid var(--border-subtle); box-shadow: var(--shadow-md); display:block; margin: var(--space-6) 0; background:#000; aspect-ratio: 16 / 9; object-fit: cover; }
+    .sb-vwrap { position:relative; margin: var(--space-6) 0; }
+    .sb-vwrap .sb-video { margin:0; }
+    .sb-vctl { position:absolute; left:14px; bottom:14px; display:flex; gap:10px; }
+    .sb-vctl button { width:46px; height:46px; border-radius:50%; border:1px solid rgba(255,255,255,.28); background:rgba(8,10,12,.62); color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: transform .12s ease, background .2s ease; }
+    .sb-vctl button:hover { background:rgba(8,10,12,.82); }
+    .sb-vctl button:active { transform: scale(.9); }
+    .sb-vctl button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+    .sb-vctl svg { width:20px; height:20px; }
     .sb-dl { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap: var(--space-3); margin: var(--space-5) 0; }
     .sb-dl a, .sb-dl span.soon { display:inline-flex; align-items:center; gap:8px; min-height:46px; padding:8px 20px; border-radius: var(--radius-md); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration:none; text-align:center; max-width:100%; }
     .sb-dl a.ios { background:#fff; color:#0a0d10; }
@@ -92,7 +100,14 @@
       <div class="sb-dl">
         <span class="soon"><span data-lang-block="vi">Sắp ra mắt trên App Store và Google Play</span><span data-lang-block="en">Coming soon to the App Store and Google Play</span></span>
       </div>
-      <video class="sb-video" src="/store/shadowblade/trailer_720.mp4" poster="/store/shadowblade/trailer_poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Shadow Blade gameplay"></video>
+      <div class="sb-vwrap">
+      <video id="sb-trailer" class="sb-video" src="/store/shadowblade/trailer_720.mp4" poster="/store/shadowblade/trailer_poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Shadow Blade gameplay"></video>
+      <div class="sb-vctl">
+        <button type="button" id="sb-play" aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path class="i-pause" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/><path class="i-play" d="M8 5v14l11-7z" style="display:none"/></svg></button>
+        <button type="button" id="sb-sound" aria-label="Sound on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path class="i-on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" style="display:none"/><path class="i-off" d="m16 9 6 6M22 9l-6 6"/></svg></button>
+      </div>
+      </div>
+      <script>(function(){var v=document.getElementById("sb-trailer"),p=document.getElementById("sb-play"),s=document.getElementById("sb-sound");if(!v||!p||!s)return;function sp(){var on=!v.paused;p.querySelector(".i-pause").style.display=on?"":"none";p.querySelector(".i-play").style.display=on?"none":"";p.setAttribute("aria-label",on?"Pause":"Play");}function ss(){s.querySelector(".i-on").style.display=v.muted?"none":"";s.querySelector(".i-off").style.display=v.muted?"":"none";s.setAttribute("aria-label",v.muted?"Sound on":"Mute");}p.addEventListener("click",function(){if(v.paused){v.play();}else{v.pause();}});s.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted&&v.paused){v.play();}ss();});v.addEventListener("play",sp);v.addEventListener("pause",sp);sp();ss();})();</script>
       <div class="sb-feat">
         <div class="sb-card">
           <h3 data-lang-block="vi">Gạt đúng nhịp</h3><h3 data-lang-block="en">Perfect deflects</h3>
