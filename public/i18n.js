@@ -110,6 +110,7 @@
     'footer.copy': { en: '© 2025 Synq. All rights reserved.', vi: '© 2025 Synq. Mọi quyền được bảo lưu.' },
     'footer.support': { en: 'Support', vi: 'Hỗ trợ' },
     'footer.privacy': { en: 'Privacy Policy', vi: 'Chính sách bảo mật' },
+    'footer.terms': { en: 'Terms of Use', vi: 'Điều khoản sử dụng' },
     'footer.contact': { en: 'Contact', vi: 'Liên hệ' },
     'footer.delete': { en: 'Delete Account', vi: 'Xóa tài khoản' },
 
