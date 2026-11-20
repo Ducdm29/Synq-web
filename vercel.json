@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    { "source": "/shadowblade", "destination": "/kagezan", "permanent": true },
+    { "source": "/shadowblade.html", "destination": "/kagezan", "permanent": true },
+    { "source": "/shadowblade-privacy", "destination": "/kagezan-privacy", "permanent": true },
+    { "source": "/shadowblade-privacy.html", "destination": "/kagezan-privacy", "permanent": true },
+    { "source": "/shadowblade-terms", "destination": "/kagezan-terms", "permanent": true },
+    { "source": "/shadowblade-terms.html", "destination": "/kagezan-terms", "permanent": true },
+    { "source": "/shadowblade-support", "destination": "/kagezan-support", "permanent": true },
+    { "source": "/shadowblade-support.html", "destination": "/kagezan-support", "permanent": true },
+    { "source": "/shadowblade-delete-account", "destination": "/kagezan-delete-account", "permanent": true },
+    { "source": "/shadowblade-delete-account.html", "destination": "/kagezan-delete-account", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/support", "destination": "/support.html" },
@@ -31,11 +43,11 @@
     { "source": "/guides/streaming-vs-local", "destination": "/guides/streaming-vs-local.html" },
     { "source": "/guides/first-dac-dongle", "destination": "/guides/first-dac-dongle.html" },
     { "source": "/guides/read-spectrum", "destination": "/guides/read-spectrum.html" },
-    { "source": "/shadowblade", "destination": "/shadowblade.html" },
-    { "source": "/shadowblade-privacy", "destination": "/shadowblade-privacy.html" },
-    { "source": "/shadowblade-terms", "destination": "/shadowblade-terms.html" },
-    { "source": "/shadowblade-support", "destination": "/shadowblade-support.html" },
-    { "source": "/shadowblade-delete-account", "destination": "/shadowblade-delete-account.html" },
+    { "source": "/kagezan", "destination": "/kagezan.html" },
+    { "source": "/kagezan-privacy", "destination": "/kagezan-privacy.html" },
+    { "source": "/kagezan-terms", "destination": "/kagezan-terms.html" },
+    { "source": "/kagezan-support", "destination": "/kagezan-support.html" },
+    { "source": "/kagezan-delete-account", "destination": "/kagezan-delete-account.html" },
     { "source": "/admin/share", "destination": "/admin/share.html" },
     { "source": "/s/:code", "destination": "/s.html" }
   ],
