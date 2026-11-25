@@ -1,70 +1,73 @@
 {
   "redirects": [
-    { "source": "/shadowblade", "destination": "/kagezan", "permanent": true },
-    { "source": "/shadowblade.html", "destination": "/kagezan", "permanent": true },
-    { "source": "/shadowblade-privacy", "destination": "/kagezan-privacy", "permanent": true },
-    { "source": "/shadowblade-privacy.html", "destination": "/kagezan-privacy", "permanent": true },
-    { "source": "/shadowblade-terms", "destination": "/kagezan-terms", "permanent": true },
-    { "source": "/shadowblade-terms.html", "destination": "/kagezan-terms", "permanent": true },
-    { "source": "/shadowblade-support", "destination": "/kagezan-support", "permanent": true },
-    { "source": "/shadowblade-support.html", "destination": "/kagezan-support", "permanent": true },
-    { "source": "/shadowblade-delete-account", "destination": "/kagezan-delete-account", "permanent": true },
-    { "source": "/shadowblade-delete-account.html", "destination": "/kagezan-delete-account", "permanent": true }
+    {"source": "/shadowblade", "destination": "/kagezan", "permanent": true},
+    {"source": "/shadowblade.html", "destination": "/kagezan", "permanent": true},
+    {"source": "/shadowblade-privacy", "destination": "/kagezan-privacy", "permanent": true},
+    {"source": "/shadowblade-privacy.html", "destination": "/kagezan-privacy", "permanent": true},
+    {"source": "/shadowblade-terms", "destination": "/kagezan-terms", "permanent": true},
+    {"source": "/shadowblade-terms.html", "destination": "/kagezan-terms", "permanent": true},
+    {"source": "/shadowblade-support", "destination": "/kagezan-support", "permanent": true},
+    {"source": "/shadowblade-support.html", "destination": "/kagezan-support", "permanent": true},
+    {"source": "/shadowblade-delete-account", "destination": "/kagezan-delete-account", "permanent": true},
+    {"source": "/shadowblade-delete-account.html", "destination": "/kagezan-delete-account", "permanent": true},
+    {"source": "/guides", "destination": "/synq/guides", "permanent": true},
+    {"source": "/guides.html", "destination": "/synq/guides", "permanent": true},
+    {"source": "/guides/img/:file", "destination": "/synq/guides/img/:file", "permanent": true},
+    {"source": "/guides/:slug.html", "destination": "/synq/guides/:slug", "permanent": true},
+    {"source": "/guides/:slug", "destination": "/synq/guides/:slug", "permanent": true}
   ],
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/support", "destination": "/support.html" },
-    { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/terms", "destination": "/terms.html" },
-    { "source": "/music-check-privacy", "destination": "/music-check-privacy.html" },
-    { "source": "/synqtag-privacy", "destination": "/synqtag-privacy.html" },
-    { "source": "/music-check", "destination": "/music-check.html" },
-    { "source": "/synqtag", "destination": "/synqtag.html" },
-    { "source": "/delete-account", "destination": "/delete-account.html" },
-    { "source": "/get", "destination": "/get.html" },
-    { "source": "/changelog", "destination": "/changelog.html" },
-    { "source": "/guides", "destination": "/guides.html" },
-    { "source": "/guides/nas-setup", "destination": "/guides/nas-setup.html" },
-    { "source": "/guides/fake-lossless", "destination": "/guides/fake-lossless.html" },
-    { "source": "/guides/bit-perfect", "destination": "/guides/bit-perfect.html" },
-    { "source": "/guides/dongle-vs-dac", "destination": "/guides/dongle-vs-dac.html" },
-    { "source": "/guides/hi-res-vs-cd", "destination": "/guides/hi-res-vs-cd.html" },
-    { "source": "/guides/flac-wav-alac-aiff", "destination": "/guides/flac-wav-alac-aiff.html" },
-    { "source": "/guides/dsd", "destination": "/guides/dsd.html" },
-    { "source": "/guides/mqa", "destination": "/guides/mqa.html" },
-    { "source": "/guides/verify-quality", "destination": "/guides/verify-quality.html" },
-    { "source": "/guides/audio-formats", "destination": "/guides/audio-formats.html" },
-    { "source": "/guides/loudness-war", "destination": "/guides/loudness-war.html" },
-    { "source": "/guides/burn-in", "destination": "/guides/burn-in.html" },
-    { "source": "/guides/upgrade-priority", "destination": "/guides/upgrade-priority.html" },
-    { "source": "/guides/cables", "destination": "/guides/cables.html" },
-    { "source": "/guides/impedance-sensitivity", "destination": "/guides/impedance-sensitivity.html" },
-    { "source": "/guides/build-lossless-library", "destination": "/guides/build-lossless-library.html" },
-    { "source": "/guides/streaming-vs-local", "destination": "/guides/streaming-vs-local.html" },
-    { "source": "/guides/first-dac-dongle", "destination": "/guides/first-dac-dongle.html" },
-    { "source": "/guides/read-spectrum", "destination": "/guides/read-spectrum.html" },
-    { "source": "/kagezan", "destination": "/kagezan.html" },
-    { "source": "/kagezan-privacy", "destination": "/kagezan-privacy.html" },
-    { "source": "/kagezan-terms", "destination": "/kagezan-terms.html" },
-    { "source": "/kagezan-support", "destination": "/kagezan-support.html" },
-    { "source": "/kagezan-delete-account", "destination": "/kagezan-delete-account.html" },
-    { "source": "/admin/share", "destination": "/admin/share.html" },
-    { "source": "/s/:code", "destination": "/s.html" }
+    {"source": "/", "destination": "/index.html"},
+    {"source": "/support", "destination": "/support.html"},
+    {"source": "/privacy", "destination": "/privacy.html"},
+    {"source": "/terms", "destination": "/terms.html"},
+    {"source": "/music-check-privacy", "destination": "/music-check-privacy.html"},
+    {"source": "/synqtag-privacy", "destination": "/synqtag-privacy.html"},
+    {"source": "/music-check", "destination": "/music-check.html"},
+    {"source": "/synqtag", "destination": "/synqtag.html"},
+    {"source": "/delete-account", "destination": "/delete-account.html"},
+    {"source": "/get", "destination": "/get.html"},
+    {"source": "/changelog", "destination": "/changelog.html"},
+    {"source": "/synq", "destination": "/synq/index.html"},
+    {"source": "/synq/guides", "destination": "/synq/guides.html"},
+    {"source": "/synq/guides/:slug", "destination": "/synq/guides/:slug.html"},
+    {"source": "/kagezan", "destination": "/kagezan.html"},
+    {"source": "/kagezan-privacy", "destination": "/kagezan-privacy.html"},
+    {"source": "/kagezan-terms", "destination": "/kagezan-terms.html"},
+    {"source": "/kagezan-support", "destination": "/kagezan-support.html"},
+    {"source": "/kagezan-delete-account", "destination": "/kagezan-delete-account.html"},
+    {"source": "/admin/share", "destination": "/admin/share.html"},
+    {"source": "/s/:code", "destination": "/s.html"}
   ],
   "headers": [
     {
       "source": "/.well-known/apple-app-site-association",
       "headers": [
-        { "key": "Content-Type", "value": "application/json" }
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     }
   ]

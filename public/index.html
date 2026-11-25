@@ -3,445 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Synq — Hear music the way it was meant to be</title>
-  <meta name="description" content="Synq is a premium music player with true lossless audio, AutoEQ for 6,000+ headphones, synced lyrics, and a smart library. Available on iOS and Android." />
-  <link rel="canonical" href="https://synq-web.vercel.app/" />
-  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/home.css" />
+  <title>SYNQ Studio — Games and apps, made with care</title>
+  <meta name="description" content="SYNQ Studio is a small independent studio. Home of Kagezan, a samurai parry game, and Synq, a lossless music player, plus SynqTag and Music Check." />
+  <link rel="canonical" href="https://synqstudio.cloud/" />
+  <meta property="og:title" content="SYNQ Studio — Games and apps, made with care" />
+  <meta property="og:description" content="SYNQ Studio is a small independent studio. Home of Kagezan, a samurai parry game, and Synq, a lossless music player, plus SynqTag and Music Check." />
+  <meta property="og:image" content="https://synqstudio.cloud/store/shadowblade/feature.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#f5f5f3" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/chrome.css" />
+  <link rel="stylesheet" href="/studio.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3185559875440369"
-     crossorigin="anonymous"></script>
-  <style>
-    /* Two-app showcase at the very top of the homepage */
-    .apps-hero { max-width: 1120px; margin: 0 auto; padding: clamp(20px,4vw,40px) 24px 0; }
-    .apps-hero-head { text-align: center; margin-bottom: clamp(20px,3vw,32px); }
-    .apps-hero-head .eyebrow { color: var(--accent); }
-    .apps-hero-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.55rem, 3.6vw, 2.3rem); color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.15; margin-top: 8px; text-wrap: balance; }
-    .apps-hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
-    @media (max-width: 780px){ .apps-hero-grid { grid-template-columns: 1fr; } }
-    .apphero-card { display: flex; gap: 16px; align-items: center; background: linear-gradient(135deg, var(--surface-2), var(--surface-1)); border: 1px solid var(--border-subtle); border-radius: 22px; padding: 20px; transition: border-color .2s ease, transform .2s ease; }
-    .apphero-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
-    .apphero-phone { width: clamp(112px, 30vw, 140px); height: auto; border-radius: 16px; flex-shrink: 0; box-shadow: 0 12px 30px rgba(0,0,0,.5); background: #05080a; }
-    .apphero-body { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
-    .apphero-title { display: flex; align-items: center; gap: 11px; }
-    .apphero-title .ah-icon { width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0; display: grid; place-items: center; }
-    .apphero-title img.ah-mc { background: #fff; padding: 4px; object-fit: contain; }
-    .apphero-title .ah-synq { background: #0a0d10; border: 1px solid var(--border-subtle); }
-    .apphero-title .ah-synq svg { width: 30px; height: 30px; }
-    .apphero-title span.ah-name { font-family: var(--font-display); font-weight: 700; font-size: 1.28rem; color: var(--text-primary); }
-    .apphero-tag { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
-    .apphero-ctas { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 4px; }
-    .apphero-ctas a { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 15px; border-radius: 10px; font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; text-decoration: none; white-space: nowrap; transition: transform .15s ease, box-shadow .15s ease; }
-    .apphero-ctas a:hover { transform: translateY(-2px); }
-    .apphero-ctas svg { width: 16px; height: 16px; flex-shrink: 0; }
-    .apphero-ctas .ah-ios { background: #fff; color: #0a0d10; }
-    .apphero-ctas .ah-play { background: var(--accent); color: #04120f; }
-  </style>
+  <script src="/chrome.js" defer></script>
+  <script src="/site.js" defer></script>
 </head>
-<body>
-
-<!-- Ambient orbs -->
-<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
-<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
-
-<div class="site-wrapper">
-
-  <!-- ── Header ── -->
-  <header class="site-header" role="banner">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Synq — Home">
-        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <radialGradient id="lg1" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#5eead4" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="60" cy="60" r="58" fill="#0a0d10"/>
-          <circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
-          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/>
-          <path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
-        </svg>
-        <span class="nav-logo-text">Synq</span>
-      </a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="/kagezan" class="nav-link">Kagezan</a>
-        <a href="/support" class="nav-link" data-i18n="nav.support">Support</a>
-        <a href="/guides" class="nav-link" data-i18n="nav.guides">Guides</a>
-        <a href="/changelog" class="nav-link" data-i18n="nav.changelog">What's New</a>
-        <a href="/privacy" class="nav-link" data-i18n="nav.privacyShort">Privacy</a>
-        <a href="#download" class="nav-link nav-cta" id="nav-download-btn" data-i18n="nav.download">Download</a>
-        <!-- Language toggle -->
-        <div class="lang-toggle" aria-label="Language switcher">
-          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
-          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
-        </div>
-      </nav>
+<body class="studio ">
+<!--sq:header-->
+<script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+<a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
+<header class="sq-header" data-theme="light">
+  <div class="sq-bar">
+    <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
+    <nav class="sq-nav" id="sq-nav" aria-label="Main"><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a><a href="/#products"><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></a><a href="/support"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a></nav>
+    <div class="sq-tools">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en" aria-label="EN English" lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="vi" aria-label="VI Tiếng Việt" lang="vi">VI</button>
+      </div>
+      <button type="button" class="sq-menu" aria-expanded="false" aria-controls="sq-nav" aria-label="Menu"><i></i><i></i></button>
     </div>
-  </header>
+  </div>
+</header>
+<!--/sq:header-->
+<main id="main-content">
 
-  <main id="main-content">
-
-    <!-- ══════════════════════════════════════════
-         TWO-APP SHOWCASE (top of page)
-    ══════════════════════════════════════════ -->
-    <section class="apps-hero" aria-labelledby="apps-hero-h">
-      <div class="apps-hero-head">
-        <span class="eyebrow" data-i18n="apps.eyebrow">Three apps for your music</span>
-        <h2 id="apps-hero-h" data-i18n="apps.heading">Listen properly — and know it's real.</h2>
+  <section class="hero wrap">
+    <h1 class="display" data-lang-block="vi"><span class="ln" style="--i:0"><span>Game và ứng dụng,</span></span><span class="ln" style="--i:1"><span>làm cho kỹ.</span></span></h1>
+    <h1 class="display" data-lang-block="en"><span class="ln" style="--i:0"><span>Games and apps,</span></span><span class="ln" style="--i:1"><span>made with care.</span></span></h1>
+    <div class="hero-row">
+      <p class="lede" data-lang-block="vi">SYNQ Studio là studio độc lập nhỏ. Chúng tôi làm một game samurai lấy đòn gạt làm trọng tâm, một ứng dụng nghe nhạc lossless và các công cụ đi kèm.</p><p class="lede" data-lang-block="en">SYNQ Studio is a small independent studio. We make a samurai parry game, a lossless music player and the tools around them.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#kagezan"><span data-lang-block="vi">Xem Kagezan</span><span data-lang-block="en">Meet Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost" href="#products"><span data-lang-block="vi">Tất cả sản phẩm</span><span data-lang-block="en">All products</span></a>
       </div>
-      <div class="apps-hero-grid">
-
-        <!-- Synq -->
-        <div class="apphero-card">
-          <img class="apphero-phone" src="/store/Synq_appstore_67_1_1290x2796.png" alt="Synq — Now Playing with lossless specs" width="140" loading="eager" />
-          <div class="apphero-body">
-            <div class="apphero-title">
-              <span class="ah-icon ah-synq">
-                <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <defs><radialGradient id="ahlg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
-                  <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#ahlg)"/>
-                  <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
-                </svg>
-              </span>
-              <span class="ah-name">Synq</span>
-            </div>
-            <p class="apphero-tag" data-i18n="apps.synq.tag">Lossless player: FLAC/DSD, AutoEQ for 6,000+ headphones, bit-perfect via USB DAC, fully offline.</p>
-            <div class="apphero-ctas">
-              <a class="ah-ios" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener" aria-label="Download Synq on the App Store"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
-              <a class="ah-play" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener" aria-label="Get Synq on Google Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Music Check -->
-        <div class="apphero-card">
-          <img class="apphero-phone" src="/store/musiccheck_phone.png" alt="Music Check — Genuine lossless verdict with spectrum" width="140" loading="eager" />
-          <div class="apphero-body">
-            <div class="apphero-title">
-              <img class="ah-icon ah-mc" src="/store/musiccheck_icon.png" alt="Music Check icon" width="46" height="46" />
-              <span class="ah-name">Music Check</span>
-            </div>
-            <p class="apphero-tag" data-i18n="apps.mc.tag">Is that FLAC real lossless or a fake MP3? Analyse the spectrum right on your phone.</p>
-            <div class="apphero-ctas">
-              <a class="ah-ios" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener" aria-label="Download Music Check on the App Store"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
-              <a class="ah-play" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener" aria-label="Get Music Check on Google Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
-            </div>
-          </div>
-        </div>
-
-        <!-- SynqTag -->
-        <div class="apphero-card">
-          <img class="apphero-phone" src="/store/synqtag_icon.png" alt="SynqTag app icon" width="140" loading="lazy" />
-          <div class="apphero-body">
-            <div class="apphero-title">
-              <span class="ah-name">SynqTag</span>
-            </div>
-            <p class="apphero-tag" data-i18n="apps.synqtag.tag">Edit song tags — title, artist, album, cover art — written straight into the file. Batch editing and online artwork &amp; lyrics lookup.</p>
-            <div class="apphero-ctas">
-              <a class="ah-ios" href="https://apps.apple.com/vn/app/synqtag-edit-songs-metadata/id6816595732" target="_blank" rel="noopener" aria-label="Download SynqTag on the App Store"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span>App Store</span></a>
-              <a class="ah-play" href="https://play.google.com/store/apps/details?id=com.synqmusic.tagsmith" target="_blank" rel="noopener" aria-label="Get SynqTag on Google Play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg><span>Google Play</span></a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kagezan -->
-        <div class="apphero-card">
-          <a href="/kagezan" style="flex-shrink:0;display:block"><img class="apphero-phone" src="/store/shadowblade/icon.png" alt="Kagezan app icon" width="140" loading="lazy" style="border-radius:24px" /></a>
-          <div class="apphero-body">
-            <div class="apphero-title">
-              <span class="ah-name">Kagezan</span>
-            </div>
-            <p class="apphero-tag" data-i18n="apps.shadowblade.tag">A samurai action game built around the parry: deflect at the right instant, break posture, finish with a deathblow. 15 chapters, 15 bosses.</p>
-            <div class="apphero-ctas">
-              <a class="ah-play" href="/kagezan" data-i18n="apps.shadowblade.cta">Learn more</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         HERO
-    ══════════════════════════════════════════ -->
-    <section class="hero-section" aria-labelledby="hero-h1">
-      <div class="hero-content">
-        <div class="hero-text">
-          <span class="eyebrow-pill" aria-label="Now available" data-i18n="hero.eyebrow">✦ Now available on iOS &amp; Android</span>
-          <h1 id="hero-h1" data-i18n="hero.h1" data-i18n-html>
-            Hear music the way<br>
-            it was <em>meant to be</em>
-          </h1>
-          <p class="hero-sub" data-i18n="hero.sub" data-i18n-html>
-            Lossless audio, perfectly tuned to your headphones.<br>
-            No compression. No compromise.
-          </p>
-          <div class="hero-badges">
-            <span class="badge" data-i18n="hero.badge1">True Lossless</span>
-            <span class="badge" data-i18n="hero.badge2">AutoEQ 6,000+</span>
-            <span class="badge" data-i18n="hero.badge3">Offline &amp; Cloud</span>
-          </div>
-          <div class="hero-ctas">
-            <a href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" class="btn-store btn-appstore" id="hero-appstore-btn" aria-label="Download on the App Store" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-              <span>
-                <small data-i18n="hero.appstore.small">Download on the</small>
-                <span data-i18n="hero.appstore.label">App Store</span>
-              </span>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.synqmusic.app" class="btn-store btn-playstore" id="hero-playstore-btn" aria-label="Get it on Google Play" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
-              <span>
-                <small data-i18n="hero.playstore.small">Get it on</small>
-                <span data-i18n="hero.playstore.label">Google Play</span>
-              </span>
-            </a>
-            <!-- APK sideload tạm ẩn: bản APK ký-Play khi sideload bị kẹt luồng
-                 in-app-update của Google Play (bắt update nhưng update không chạy).
-                 Bật lại: bỏ comment khối dưới. -->
-            <!--
-            <a class="btn-store btn-apk" data-apk-link href="#" download aria-label="Download Android APK">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
-              <span>
-                <small data-i18n="dl.apkMeta">Direct install · Android 8+</small>
-                <span class="store-name" data-i18n="dl.apk">Download APK (Android)</span>
-              </span>
-            </a>
-            -->
-          </div>
-        </div>
-        <div class="hero-phone-wrap" aria-hidden="true">
-          <img
-            src="/store/Synq_appstore_67_1_1290x2796.png"
-            alt="Synq Now Playing screen"
-            class="hero-phone"
-            width="280"
-            loading="eager"
-          />
-        </div>
-      </div>
-      <!-- Feature banner -->
-      <div class="feature-banner-wrap">
-        <img
-          src="/store/Synq_play_feature_1024x500.png"
-          alt="Synq — Hear music the way it was meant to be"
-          class="feature-banner"
-          loading="eager"
-        />
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         FEATURE SECTIONS  (alternating layout)
-    ══════════════════════════════════════════ -->
-
-    <!-- Feature 1 — AutoEQ -->
-    <section class="feature-row reveal" aria-labelledby="feat1-heading">
-      <div class="feature-text feat-text-left">
-        <span class="feat-eyebrow" data-i18n="feat1.eyebrow">AutoEQ</span>
-        <h2 id="feat1-heading" data-i18n="feat1.heading" data-i18n-html>Tuned to your <em>headphones</em></h2>
-        <p data-i18n="feat1.desc">AutoEQ analyzes and applies the perfect correction curve for 6,000+ headphone and IEM models — automatically. No manual tweaking needed.</p>
-        <ul class="feat-list">
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat1.li1">6,000+ headphone &amp; IEM profiles</span>
-          </li>
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat1.li2">Parametric EQ with custom presets</span>
-          </li>
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat1.li3">Real-time frequency visualization</span>
-          </li>
-        </ul>
-      </div>
-      <div class="feature-phone-wrap feat-phone-right">
-        <img src="/store/Synq_appstore_67_2_1290x2796.png" alt="AutoEQ screen" class="feature-phone" loading="lazy" width="220" />
-      </div>
-    </section>
-
-    <!-- Feature 2 — Library -->
-    <section class="feature-row feat-row-reverse reveal" aria-labelledby="feat2-heading">
-      <div class="feature-phone-wrap feat-phone-left">
-        <img src="/store/Synq_appstore_67_3_1290x2796.png" alt="Library screen" class="feature-phone" loading="lazy" width="220" />
-      </div>
-      <div class="feature-text feat-text-right">
-        <span class="feat-eyebrow" data-i18n="feat2.eyebrow">Library</span>
-        <h2 id="feat2-heading" data-i18n="feat2.heading" data-i18n-html>Your whole library, <em>in lossless</em></h2>
-        <p data-i18n="feat2.desc">Every track in FLAC. Browse by song, artist, album, or genre. Works entirely offline — no stream, no buffer, no compromise.</p>
-        <ul class="feat-list">
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat2.li1">FLAC, ALAC, WAV, MP3, AAC</span>
-          </li>
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat2.li2">100% offline — no internet required</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Feature 3 — For You / Stats -->
-    <section class="feature-row reveal" aria-labelledby="feat3-heading">
-      <div class="feature-text feat-text-left">
-        <span class="feat-eyebrow" data-i18n="feat3.eyebrow">For You</span>
-        <h2 id="feat3-heading" data-i18n="feat3.heading" data-i18n-html>Made for the way <em>you listen</em></h2>
-        <p data-i18n="feat3.desc">Daily mixes built around your taste, listening stats that show how your habits evolve, and a Home feed that feels personal — not algorithmic noise.</p>
-        <ul class="feat-list">
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat3.li1">Daily mixes from your own library</span>
-          </li>
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat3.li2">Listening time, plays &amp; track stats</span>
-          </li>
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat3.li3">Day · Week · Month · Year views</span>
-          </li>
-        </ul>
-      </div>
-      <div class="feature-phone-wrap feat-phone-right">
-        <img src="/store/Synq_appstore_67_4_1290x2796.png" alt="For You / Home Stats screen" class="feature-phone" loading="lazy" width="220" />
-      </div>
-    </section>
-
-    <!-- Feature 4 — Lyrics -->
-    <section class="feature-row feat-row-reverse reveal" aria-labelledby="feat4-heading">
-      <div class="feature-phone-wrap feat-phone-left">
-        <img src="/store/Synq_appstore_67_5_1290x2796.png" alt="Synced Lyrics screen" class="feature-phone" loading="lazy" width="220" />
-      </div>
-      <div class="feature-text feat-text-right">
-        <span class="feat-eyebrow" data-i18n="feat4.eyebrow">Lyrics</span>
-        <h2 id="feat4-heading" data-i18n="feat4.heading" data-i18n-html>Feel <em>every word</em></h2>
-        <p data-i18n="feat4.desc">Synced lyrics light up line by line as the song plays. Karaoke mode, live lyrics, and offset controls so the words always land on beat.</p>
-        <ul class="feat-list">
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat4.li1">Synced line-by-line lyrics</span>
-          </li>
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat4.li2">Karaoke &amp; live lyrics support</span>
-          </li>
-          <li>
-            <span class="feat-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span data-i18n="feat4.li3">Fine-tune offset for perfect sync</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         STATS STRIP
-    ══════════════════════════════════════════ -->
-    <section class="stats-strip reveal reveal-stagger" aria-label="App stats">
-      <div class="stat-item">
-        <span class="stat-num">6,000<span class="stat-plus">+</span></span>
-        <span class="stat-label" data-i18n="stat.headphones">Headphone profiles</span>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <span class="stat-num">Hi‑Res</span>
-        <span class="stat-label" data-i18n="stat.hires">Up to 32-bit / 384kHz</span>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <span class="stat-num">100%</span>
-        <span class="stat-label" data-i18n="stat.offline">Offline capable</span>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         DOWNLOAD CTA
-    ══════════════════════════════════════════ -->
-    <section class="download-section reveal" id="download" aria-labelledby="download-heading">
-      <div class="download-inner">
-        <span class="eyebrow" data-i18n="dl.eyebrow">Download free</span>
-        <h2 id="download-heading" data-i18n="dl.heading">Start listening better, today.</h2>
-        <p data-i18n="dl.sub">Free to download. No subscription required to play your local library.</p>
-        <div class="dl-store-buttons">
-          <a href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" class="btn-store btn-appstore btn-lg" id="dl-appstore-btn" aria-label="Download on the App Store" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <span>
-              <small data-i18n="dl.appstore.small">Download on the</small>
-              <span data-i18n="dl.appstore.label">App Store</span>
-            </span>
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.synqmusic.app" class="btn-store btn-playstore btn-lg" id="dl-playstore-btn" aria-label="Get it on Google Play" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.64.24.99.2l12.79-7.38-2.84-2.84-10.94 10zM.32 1.4A1.5 1.5 0 0 0 0 2.34v19.32c0 .34.11.65.32.94l.06.06 10.82-10.82v-.26L.38 1.34zM20.08 10.3l-2.67-1.54-3.18 3.18 3.18 3.18 2.69-1.55c.77-.44.77-1.83-.02-2.27zM4.17.24l12.79 7.38-2.84 2.84L3.18.47A1.19 1.19 0 0 1 4.17.24z"/></svg>
-            <span>
-              <small data-i18n="dl.playstore.small">Get it on</small>
-              <span data-i18n="dl.playstore.label">Google Play</span>
-            </span>
-          </a>
-        </div>
-        <div class="dl-apk-row">
-          <!-- APK sideload tạm ẩn (kẹt in-app-update Play). Bật lại: bỏ comment.
-          <a class="btn-store btn-apk" data-apk-link href="#" download aria-label="Download Android APK">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
-            <span>
-              <small data-i18n="dl.apkMeta">Direct install · Android 8+</small>
-              <span class="store-name" data-i18n="dl.apk">Download APK (Android)</span>
-            </span>
-          </a>
-          -->
-          <a class="dl-whatsnew-link" href="/changelog" data-i18n="dl.whatsnew">See what's new →</a>
-        </div>
-        <p class="dl-fine-print" data-i18n="dl.fineprint" data-i18n-html>
-          Questions? <a href="/support">Visit Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
-        </p>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ── Footer ── -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner">
-      <p class="footer-copy" data-i18n="footer.copy">© 2025 Synq. All rights reserved.</p>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/support" data-i18n="footer.support">Support</a>
-        <a href="/privacy" data-i18n="footer.privacy">Privacy Policy</a>
-        <a href="/terms" data-i18n="footer.terms">Terms of Use</a>
-        <a href="/delete-account" data-i18n="footer.delete">Delete Account</a>
-        <a href="mailto:support.synq@gmail.com" data-i18n="footer.contact">Contact</a>
-      </nav>
     </div>
-  </footer>
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" aria-hidden="true"><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span></div></div>
+  </section>
 
-</div><!-- /site-wrapper -->
+  <section class="feat" id="kagezan" aria-labelledby="kz-h">
+    <div class="wrap">
+      <div class="feat-head">
+        <h2 id="kz-h" class="display" data-r><span style="display:block">Kagezan</span><span style="display:block;font-size:.4em;letter-spacing:-0.04em;color:var(--red);margin-top:.18em"><span data-lang-block="vi">Gạt kiếm. Phá thế. Kết liễu.</span><span data-lang-block="en">Deflect. Break. Finish.</span></span></h2>
+        <div data-r style="--d:.1s">
+          <p data-lang-block="vi">Game hành động samurai lấy đòn gạt làm trọng tâm: đọc nhịp kiếm của đối thủ, gạt đúng khoảnh khắc và kết liễu khi thế địch vỡ. Chơi được offline trên iPhone, iPad và Android.</p><p data-lang-block="en">A samurai action game built around the parry. Read your opponent’s rhythm, deflect at the right instant and finish them when their posture breaks. Plays offline on iPhone, iPad and Android.</p>
+          <div class="btns"><a class="btn light" href="/kagezan"><span data-lang-block="vi">Trang Kagezan</span><span data-lang-block="en">Kagezan page</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <p class="feat-soon" data-lang-block="vi">Sắp ra mắt trên App Store và Google Play</p><p class="feat-soon" data-lang-block="en">Coming soon to the App Store and Google Play</p>
+        </div>
+      </div>
+    </div>
+    <div class="stage" data-stage>
+      <div class="stage-pin">
+        <div class="stage-kanji" aria-hidden="true" lang="ja">影斬</div>
+        <div class="stage-media">
+          <video data-loop muted loop playsinline autoplay preload="none" poster="/img/kagezan-loop-poster.webp" width="1024" height="576" aria-label="Kagezan gameplay"><source src="/img/kagezan-loop.mp4" type="video/mp4" /></video>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="pillars">
+        <div class="pillar" data-r><h3><span data-lang-block="vi">Gạt đúng nhịp</span><span data-lang-block="en">Perfect deflects</span></h3><p data-lang-block="vi">Đỡ đúng khoảnh khắc lưỡi kiếm chạm tới để gạt: không mất máu, dồn thế địch. Vỡ thế là kết liễu.</p><p data-lang-block="en">Guard right as the blade lands to deflect: no damage, and the enemy’s posture fills. Break it for a finishing blow.</p></div>
+        <div class="pillar" data-r style="--d:.08s"><h3><span data-lang-block="vi">Đòn hiểm phải đọc</span><span data-lang-block="en">Read the perilous attacks</span></h3><p data-lang-block="vi">Quét thì nhảy, đâm thì phản đòn Nhất Thiểm, túm thì lướt né. Mỗi trùm có nhịp riêng để học.</p><p data-lang-block="en">Jump the sweep, counter the thrust, dash out of the grab. Every boss has its own rhythm to learn.</p></div>
+        <div class="pillar" data-r style="--d:.16s"><h3><span data-lang-block="vi">Ba lối kiếm</span><span data-lang-block="en">Three blade styles</span></h3><p data-lang-block="vi">Katana nhanh, Odachi nặng hai tay, Song đao liên hoàn. Mỗi loại một tuyệt kỹ riêng.</p><p data-lang-block="en">Swift katana, two-handed odachi or twin blades, each with its own signature skill.</p></div>
+      </div>
+      <div class="shots"><figure data-r style="--d:0.0s">
+        <img data-lang-block="vi" src="/store/shadowblade/vi_01_kurohebi.jpg" alt="Đỡ gạt mọi đòn" width="1280" height="720" loading="lazy" decoding="async" />
+        <img data-lang-block="en" src="/store/shadowblade/en_01_kurohebi.jpg" alt="Deflect every blow" width="1280" height="720" loading="lazy" decoding="async" />
+      </figure><figure data-r style="--d:0.08s">
+        <img data-lang-block="vi" src="/store/shadowblade/vi_02_mugen.jpg" alt="Đọc đòn hiểm" width="1280" height="720" loading="lazy" decoding="async" />
+        <img data-lang-block="en" src="/store/shadowblade/en_02_mugen.jpg" alt="Read the danger" width="1280" height="720" loading="lazy" decoding="async" />
+      </figure><figure data-r style="--d:0.16s">
+        <img data-lang-block="vi" src="/store/shadowblade/vi_03_renka.jpg" alt="Phản đòn Nhất Thiểm" width="1280" height="720" loading="lazy" decoding="async" />
+        <img data-lang-block="en" src="/store/shadowblade/en_03_renka.jpg" alt="Issen counter" width="1280" height="720" loading="lazy" decoding="async" />
+      </figure></div>
+      <div class="feat-foot" data-r>
+        <p data-lang-block="vi">Miễn phí, có gói Ngọc mua trong app (không bắt buộc). Quảng cáo có thưởng chỉ hiện khi bạn tự chọn xem.</p><p data-lang-block="en">Free to play, with optional in-app purchases of Jade. Rewarded ads appear only when you choose to watch one.</p>
+        <a class="btn red" href="/kagezan"><span data-lang-block="vi">Khám phá Kagezan</span><span data-lang-block="en">Explore Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
 
-<script src="/i18n.js"></script>
-<script src="/apk.js"></script>
-<script src="/enhance.js" defer></script>
+  <section class="products" id="products" aria-labelledby="pr-h">
+    <div class="wrap">
+      <div class="products-head">
+        <h2 id="pr-h" class="display h2" data-r><span data-lang-block="vi">Mọi thứ chúng tôi làm</span><span data-lang-block="en">Everything we ship</span></h2>
+        <p class="lede" data-lang-block="vi">Một game và ba ứng dụng âm nhạc.</p><p class="lede" data-lang-block="en">One game and three music apps.</p>
+      </div>
+      <div class="stack">
+      <article class="pcard " style="--n:0;--bg:#150f10;--fg:#f4f1ec" data-r>
+        <div class="pcard-body">
+          <div><h3>Kagezan</h3><p class="tag" data-lang-block="vi">Hành động samurai gạt đòn: gạt, phá thế, kết liễu.</p><p class="tag" data-lang-block="en">Samurai parry action: deflect, break posture, finish.</p><p class="meta" data-lang-block="vi">iOS · Android · Sắp ra mắt</p><p class="meta" data-lang-block="en">iOS · Android · Coming soon</p></div>
+          <div class="acts"><a class="btn" href="/kagezan"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+        <div class="pcard-media" style="--mbg:#020202"><img class="emblem" src="/img/kagezan-emblem.png" width="420" height="420" alt="Kagezan logo" loading="lazy" decoding="async" /></div>
+      </article><article class="pcard " style="--n:1;--bg:#0c211f;--fg:#e9fbf7" data-r>
+        <div class="pcard-body">
+          <div><h3>Synq</h3><p class="tag" data-lang-block="vi">Trình nghe nhạc lossless thật sự, chỉnh theo tai nghe của bạn bằng AutoEQ.</p><p class="tag" data-lang-block="en">A music player for true lossless audio, tuned to your headphones with AutoEQ.</p><p class="meta" data-lang-block="vi">iOS · Android</p><p class="meta" data-lang-block="en">iOS · Android</p></div>
+          <div class="acts"><a class="btn" href="/synq"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> Synq</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn q" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">App Store</a><a class="btn q" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">Google Play</a></div>
+        </div>
+        <div class="pcard-media" style="--mbg:#0a1715"><div class="phones"><img src="/img/synq-phone-1.webp" width="520" height="1128" alt="Synq now playing screen" loading="lazy" decoding="async" /><img src="/img/synq-phone-3.webp" width="520" height="1128" alt="Synq library screen" loading="lazy" decoding="async" /></div></div>
+      </article><article class="pcard light" style="--n:2;--bg:#dfe9e3;--fg:#0e1a14" data-r>
+        <div class="pcard-body">
+          <div><h3>SynqTag</h3><p class="tag" data-lang-block="vi">Sửa tên bài, nghệ sĩ, ảnh bìa và lời, ghi thẳng vào file nhạc.</p><p class="tag" data-lang-block="en">Edit titles, artists, covers and lyrics, written straight into the file.</p><p class="meta" data-lang-block="vi">iOS · Android</p><p class="meta" data-lang-block="en">iOS · Android</p></div>
+          <div class="acts"><a class="btn" href="/synqtag"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> SynqTag</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn q" href="https://apps.apple.com/vn/app/synqtag-edit-songs-metadata/id6816595732" target="_blank" rel="noopener">App Store</a><a class="btn q" href="https://play.google.com/store/apps/details?id=com.synqmusic.tagsmith" target="_blank" rel="noopener">Google Play</a></div>
+        </div>
+        <div class="pcard-media" style="--mbg:#cfe0d6"><div class="icon-pair"><img class="icon-big" src="/store/synqtag_icon.png" width="240" height="240" alt="SynqTag app icon" loading="lazy" decoding="async" /><div class="chips"><div data-lang-block="vi"><span>Tên bài</span><span>Nghệ sĩ</span><span>Album</span><span>Ảnh bìa</span><span>Lời</span></div><div data-lang-block="en"><span>Title</span><span>Artist</span><span>Album</span><span>Cover</span><span>Lyrics</span></div></div></div></div>
+      </article><article class="pcard light" style="--n:3;--bg:#e1e6ea;--fg:#101418" data-r>
+        <div class="pcard-body">
+          <div><h3>Music Check</h3><p class="tag" data-lang-block="vi">Xem file nhạc là lossless xịn hay MP3 đội lốt FLAC.</p><p class="tag" data-lang-block="en">Find out if a file is real lossless or an MP3 dressed up as FLAC.</p><p class="meta" data-lang-block="vi">iOS · Android</p><p class="meta" data-lang-block="en">iOS · Android</p></div>
+          <div class="acts"><a class="btn" href="/music-check"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> Music Check</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn q" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener">App Store</a><a class="btn q" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener">Google Play</a></div>
+        </div>
+        <div class="pcard-media" style="--mbg:#cdd6dc"><div class="phones"><img src="/img/musiccheck-phone.webp" width="520" height="1130" alt="Music Check analysis screen" loading="lazy" decoding="async" /></div></div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="about wrap" id="about" aria-labelledby="ab-h">
+    <h2 id="ab-h" class="sr"><span data-lang-block="vi">Về studio</span><span data-lang-block="en">About the studio</span></h2>
+    <p class="about-statement" data-words data-lang-block="vi">SYNQ Studio nhỏ có chủ đích. Chúng tôi làm một game samurai gạt đòn, một ứng dụng nghe nhạc lossless và các công cụ đi kèm, rồi tiếp tục cải thiện từng sản phẩm sau khi ra mắt.</p>
+    <p class="about-statement" data-words data-lang-block="en">SYNQ Studio is small on purpose. We make a samurai parry game, a lossless music player and the tools around it, and we keep improving each one after it ships.</p>
+    <div class="about-cols">
+      <div data-r><h3><span data-lang-block="vi">Liên hệ</span><span data-lang-block="en">Contact</span></h3><p><a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a></p></div>
+      <div data-r style="--d:.08s"><h3><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></h3><p><a href="/support"><span data-lang-block="vi">Hỗ trợ Synq</span><span data-lang-block="en">Synq support</span></a><br /><a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ Kagezan</span><span data-lang-block="en">Kagezan support</span></a></p></div>
+      <div data-r style="--d:.16s"><h3><span data-lang-block="vi">Đọc thêm</span><span data-lang-block="en">Read more</span></h3><p><a href="/synq/guides"><span data-lang-block="vi">Bài viết về âm thanh lossless</span><span data-lang-block="en">Articles on lossless audio</span></a><br /><a href="/changelog"><span data-lang-block="vi">Synq có gì mới</span><span data-lang-block="en">What’s new in Synq</span></a></p></div>
+    </div>
+  </section>
+  <div class="giant" aria-hidden="true">SYNQ</div>
+</main>
+
+<!--sq:footer-->
+<footer class="sq-footer" data-theme="light">
+  <div class="sq-foot">
+    <div class="sq-col sq-about">
+      <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
+      <p><span data-lang-block="vi">Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.</span><span data-lang-block="en">A small independent studio making games and apps for people who care about details.</span></p>
+      <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
+    </div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></h2><ul><li><a href="/synq/guides"><span data-lang-block="vi">Bài viết &amp; hướng dẫn</span><span data-lang-block="en">Articles &amp; guides</span></a></li><li><a href="/changelog"><span data-lang-block="vi">Có gì mới</span><span data-lang-block="en">What’s new</span></a></li><li><a href="/get"><span data-lang-block="vi">Tải Synq</span><span data-lang-block="en">Get Synq</span></a></li></ul></div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></h2><ul><li><a href="/support"><span data-lang-block="vi">Hỗ trợ Synq</span><span data-lang-block="en">Synq support</span></a></li><li><a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ Kagezan</span><span data-lang-block="en">Kagezan support</span></a></li><li><a href="/privacy"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy</span></a></li><li><a href="/terms"><span data-lang-block="vi">Điều khoản</span><span data-lang-block="en">Terms</span></a></li><li><a href="/delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete account</span></a></li></ul></div>
+  </div>
+  <p class="sq-legal">© 2026 SYNQ Studio</p>
+</footer>
+<!--/sq:footer-->
+
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
