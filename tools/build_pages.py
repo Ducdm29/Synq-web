@@ -31,7 +31,7 @@ def head(title, desc, path, body_class, preload=True, og='/store/shadowblade/fea
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="{'#f5f5f3' if body_class == 'studio' else '#0a0a0a'}" />
   <link rel="icon" type="image/svg+xml" href="{icon}" />
-  <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/bvp-600-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/chrome.css" />
   <link rel="stylesheet" href="/studio.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){{document.documentElement.className+=' anim';}}</script>
@@ -97,7 +97,7 @@ def home():
   <section class="hero" aria-label="SYNQ Studio">
     <canvas class="hero-fx" aria-hidden="true"></canvas>
     <div class="wrap hero-in">
-      <h1 class="display" data-lang-block="vi"><span class="ln" style="--i:0"><span>Mỗi ngày</span></span><span class="ln" style="--i:1"><span>thêm vui.</span></span></h1>
+      <h1 class="display" data-lang-block="vi"><span class="ln" style="--i:0"><span>Thêm vui</span></span><span class="ln" style="--i:1"><span>mỗi ngày.</span></span></h1>
       <h1 class="display" data-lang-block="en"><span class="ln" style="--i:0"><span>Make Every Day</span></span><span class="ln" style="--i:1"><span>More Playful</span></span></h1>
       <div class="hero-row">
         {t('Bọn mình là SYNQ Studio, một studio nhỏ làm app và game.',
@@ -155,8 +155,8 @@ def home():
 
   <section class="about wrap" id="about" aria-labelledby="ab-h">
     <h2 id="ab-h" class="sr">{t('Về studio', 'About the studio')}</h2>
-    <p class="about-statement" data-words data-lang-block="vi">Bọn mình là một studio nhỏ. Làm game, làm app nghe nhạc, thấy gì chưa vui thì sửa.</p>
-    <p class="about-statement" data-words data-lang-block="en">We are a small studio. We make games and music apps, and when something is not fun yet, we fix it.</p>
+    <p class="about-statement" data-words data-lang-block="vi">Bọn mình là studio nhỏ, làm game, làm app, chưa ưng thì sửa, chủ yếu là vui.</p>
+    <p class="about-statement" data-words data-lang-block="en">We are a small studio. We make games and apps, fix what we do not like yet, and mostly have fun.</p>
     <div class="about-cols">
       <div data-r><h3>{t('Liên hệ', 'Contact')}</h3><p><a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a></p></div>
       <div data-r style="--d:.08s"><h3>{t('Hỗ trợ', 'Support')}</h3><p><a href="/support">{t('Hỗ trợ Synq', 'Synq support')}</a><br /><a href="/kagezan-support">{t('Hỗ trợ Kagezan', 'Kagezan support')}</a></p></div>

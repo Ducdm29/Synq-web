@@ -61,87 +61,79 @@
     else window.addEventListener('resize', go);
   }
 
-  /* ---------- HERO ---------- */
+  /* ---------- HERO: round dots, mostly black with orange sprinkled in ---------- */
+  var HB = 8, HCOLS = [], HSIZE = [1.9, 2.8], HAL = [.34, .52, .72];
+  for (var hb = 0; hb < HB; hb++) HCOLS.push(hb < 6 ? 'rgba(' + INK + ',' + HAL[hb >> 1] + ')' : 'rgba(255,107,53,.92)');
   function hero(canvas) {
-    var host = canvas.parentElement, ctx, W = 0, H = 0, N = 0, docTop = 0;
-    var hx, hy, X, Y, VX, VY, A0, PH, FB, seg = [], segN = [0, 0, 0, 0], org;
+    var host = canvas.parentElement, ctx, W = 0, H = 0, N = 0, docTop = 0, hbs = new Int32Array(HB + 1);
+    var hx, hy, X, Y, VX, VY, PH, AMP, SPD, NR;
     var px = -1e4, py = -1e4, lastMove = -1e9, sx = -1e4, sy = -1e4, str = 1, ripples = [];
-    var AL = [0, .08, .18, .3];
 
     function build() {
       small = Math.min(window.innerWidth, window.innerHeight * 1.2) < 700;
       var r = canvas.getBoundingClientRect(); W = r.width; H = r.height; docTop = r.top + window.scrollY;
       ctx = setupCanvas(canvas, W, H);
-      var cap = Math.round((small ? 300 : 900) * Q), sp = small ? 40 : 34;
-      while ((W / sp) * (H / sp) > cap) sp += 2;
-      var cols = Math.ceil(W / sp), rows = Math.ceil(H / sp), total = cols * rows;
-      hx = new Float32Array(total); hy = new Float32Array(total); X = new Float32Array(total); Y = new Float32Array(total);
-      VX = new Float32Array(total); VY = new Float32Array(total); A0 = new Float32Array(total); PH = new Float32Array(total); FB = new Uint8Array(total);
-      var cx = W * .5, cy = H * .46, n = 0;
-      for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) {
+      var cap = Math.round((small ? 700 : 2400) * Q), sp = Math.max(small ? 20 : 19, Math.sqrt(W * H / cap));
+      var cols = Math.ceil(W / sp), rows = Math.ceil(H / sp), tmp = [], i, j;
+      for (j = 0; j < rows; j++) for (i = 0; i < cols; i++) {
         var x = (i + .5) * sp + (Math.random() - .5) * sp * .7, y = (j + .5) * sp + (Math.random() - .5) * sp * .7;
-        // soft edges: fade toward top, bottom and sides so there is no hard boundary
-        var f = Math.min(clamp(y / (H * .08), 0, 1), clamp((H - y) / (H * .3), 0, 1), clamp(x / (W * .05), 0, 1), clamp((W - x) / (W * .05), 0, 1));
+        // soft fade at every edge
+        var f = Math.min(clamp(y / (H * .1), 0, 1), clamp((H - y) / (H * .3), 0, 1), clamp(x / (W * .06), 0, 1), clamp((W - x) / (W * .06), 0, 1));
         f = f * f * (3 - 2 * f);
-        var fb = f > .66 ? 3 : f > .38 ? 2 : f > .14 ? 1 : 0;
-        if (!fb) continue;
-        hx[n] = X[n] = x; hy[n] = Y[n] = y; A0[n] = Math.atan2(y - cy, x - cx); PH[n] = Math.random() * TAU; FB[n] = fb; n++;
+        if (Math.random() > Math.min(1, f * 1.6)) continue;
+        var size = Math.random() < .4 ? 1 : 0, bk;
+        if (f > .5 && Math.random() < .16) bk = 6 + size;                      // orange sprinkle (about 1 in 8)
+        else { var rr = Math.random(), lvl = rr < .3 ? 0 : rr < .72 ? 1 : 2; lvl = Math.max(0, lvl - Math.floor((1 - f) * 2.6)); bk = (lvl << 1) | size; }
+        tmp.push([bk, x, y]);
       }
-      N = n;
-      for (var b = 0; b < 4; b++) seg[b] = new Float32Array(N * 4);
-      org = new Float32Array(N * 4);
-      if (reduce) drawStatic();
+      tmp.sort(function (a, b) { return a[0] - b[0]; });
+      N = tmp.length; hbs.fill(0);
+      hx = new Float32Array(N); hy = new Float32Array(N); X = new Float32Array(N); Y = new Float32Array(N); VX = new Float32Array(N); VY = new Float32Array(N);
+      PH = new Float32Array(N); AMP = new Float32Array(N); SPD = new Float32Array(N); NR = new Float32Array(N);
+      for (i = 0; i < N; i++) { hx[i] = X[i] = tmp[i][1]; hy[i] = Y[i] = tmp[i][2]; PH[i] = Math.random() * TAU; AMP[i] = .4 + Math.random() * 1.1; SPD[i] = .4 + Math.random() * .9; hbs[tmp[i][0] + 1]++; }
+      for (i = 0; i < HB; i++) hbs[i + 1] += hbs[i];
+      if (reduce) { paint(0, 1, true); canvas.classList.add('on'); }
     }
-    function strokeSegs(a, n, color, alpha, lw) {
-      if (!n) return;
-      ctx.beginPath(); for (var k = 0; k < n; k += 4) { ctx.moveTo(a[k], a[k + 1]); ctx.lineTo(a[k + 2], a[k + 3]); }
-      ctx.globalAlpha = alpha; ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.stroke();
+    function paint(time, step, still) {
+      ctx.clearRect(0, 0, W, H);
+      for (var b = 0; b < HB; b++) {
+        var s0 = hbs[b], s1 = hbs[b + 1]; if (s0 === s1) continue;
+        var rad = HSIZE[b & 1] / 2;
+        ctx.fillStyle = HCOLS[b]; ctx.beginPath();
+        for (var i = s0; i < s1; i += step) {
+          var a = time * SPD[i] + PH[i], am = still ? 0 : AMP[i];
+          var x = X[i] + am * sinL(a), y = Y[i] + am * sinL(a * .83 + 1.9), r = rad * (1 + NR[i] * 1.2);
+          ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU);
+        }
+        ctx.fill();
+      }
     }
-    function drawStatic() {
-      ctx.clearRect(0, 0, W, H); ctx.lineCap = 'round';
-      var b, i;
-      for (b = 0; b < 4; b++) segN[b] = 0;
-      for (i = 0; i < N; i++) { b = FB[i]; var a = seg[b], k = segN[b], c = Math.cos(A0[i]) * 3, s = Math.sin(A0[i]) * 3; a[k] = hx[i] - c; a[k + 1] = hy[i] - s; a[k + 2] = hx[i] + c; a[k + 3] = hy[i] + s; segN[b] = k + 4; }
-      for (b = 1; b < 4; b++) strokeSegs(seg[b], segN[b], 'rgb(' + INK + ')', AL[b], 1.6);
-      ctx.globalAlpha = 1; canvas.classList.add('on');
-    }
-
     var task = {
       tick: function (t, lvl) {
-        var time = t * .001, R = small ? 110 : 170, R2 = R * R, i, k, b;
+        var time = t * .001, R = small ? 110 : 170, R2 = R * R, i, k;
         var real = px > -1e3 && (t - lastMove) < 3500, tx0, ty0;
         if (real) { tx0 = px; ty0 = py + window.scrollY - docTop; }
-        else { tx0 = W * (.5 + .36 * sinL(time * .23)); ty0 = H * (.46 + .28 * sinL(time * .31 + 1.2)); }
+        else { tx0 = W * (.5 + .36 * sinL(time * .23)); ty0 = H * (.46 + .28 * sinL(time * .31 + 1.2)); }   // idle virtual pointer
         if (sx < -1e3) { sx = tx0; sy = ty0; }
         var kf = real ? .16 : .05; sx += (tx0 - sx) * kf; sy += (ty0 - sy) * kf;
-        str += ((real ? 1 : .55) - str) * .05;
+        str += ((real ? 1 : .6) - str) * .05;
         for (k = ripples.length - 1; k >= 0; k--) { ripples[k].r = (t - ripples[k].t0) * .55; if (ripples[k].r > Math.max(W, H)) ripples.splice(k, 1); }
-        for (b = 0; b < 4; b++) segN[b] = 0;
-        var orgN = 0, step = lvl >= 1 ? 2 : 1, cxw = W * .5, cyh = H * .46;
-        for (i = 0; i < N; i += step) {
-          var ph = PH[i], hxi = hx[i], hyi = hy[i];
-          var wdx = hxi - cxw, wdy = hyi - cyh, wave = sinL(time * .9 - Math.sqrt(wdx * wdx + wdy * wdy) * .012);
-          var tx = hxi + sinL(time * .7 + ph) * 6 + wave * 4, ty = hyi + sinL(time * .6 + ph * 1.3 + 1.57) * 6 + wave * 4;
-          var x = X[i], y = Y[i], vx = VX[i], vy = VY[i];
-          var dx = x - sx, dy = y - sy, d2 = dx * dx + dy * dy, near = 0;
-          if (d2 < R2) { var d = Math.sqrt(d2) || 1; near = 1 - d / R; var f = near * near * 5.2 * str; vx += dx / d * f; vy += dy / d * f; }
-          for (k = 0; k < ripples.length; k++) {
-            var rp = ripples[k], rx = x - rp.x, ry = y - rp.y, rd = Math.sqrt(rx * rx + ry * ry) || 1, band = Math.abs(rd - rp.r);
-            if (band < 46) { var rf = (1 - band / 46) * 2.4 * (1 - rp.r / Math.max(W, H)); vx += rx / rd * rf; vy += ry / rd * rf; if (1 - band / 46 > near) near = 1 - band / 46; }
+        var step = lvl >= 1 ? 2 : 1, nR = ripples.length;
+        for (i = 0; i < N; i++) {
+          if (step === 2 && (i & 1)) continue;
+          var x = X[i], y = Y[i], vx = VX[i], vy = VY[i], dx = x - sx, dy = y - sy, d2 = dx * dx + dy * dy, near = 0;
+          if (d2 < R2) {
+            var d = Math.sqrt(d2) || 1; near = 1 - d / R; var f = near * near * 4.6 * str, g = near * 1.1 * str;
+            vx += dx / d * f - dy / d * g; vy += dy / d * f + dx / d * g;      // push away + swirl around the pointer
           }
-          vx += (tx - x) * .05; vy += (ty - y) * .05; vx *= .84; vy *= .84; x += vx; y += vy;
-          X[i] = x; Y[i] = y; VX[i] = vx; VY[i] = vy;
-          var tang = Math.atan2(y - sy, x - sx) + 1.5708, base = A0[i] + sinL(time * .5 + ph) * .3 + wave * .22;
-          var a = near > 0 ? base + (tang - base) * Math.min(1, near * 1.6) : base;
-          var spd = Math.sqrt(vx * vx + vy * vy), len = 3.4 + wave * 1.1 + near * 5 + Math.min(spd, 6) * .8;
-          var c = Math.cos(a) * len, s = Math.sin(a) * len, arr, n;
-          if (near > .22 && FB[i] > 1) { arr = org; n = orgN; orgN += 4; } else { b = FB[i]; arr = seg[b]; n = segN[b]; segN[b] = n + 4; }
-          arr[n] = x - c; arr[n + 1] = y - s; arr[n + 2] = x + c; arr[n + 3] = y + s;
+          for (k = 0; k < nR; k++) {
+            var rp = ripples[k], rx = x - rp.x, ry = y - rp.y, rd = Math.sqrt(rx * rx + ry * ry) || 1, band = Math.abs(rd - rp.r);
+            if (band < 46) { var rf = (1 - band / 46) * 2.6 * (1 - rp.r / Math.max(W, H)); vx += rx / rd * rf; vy += ry / rd * rf; if (1 - band / 46 > near) near = 1 - band / 46; }
+          }
+          vx += (hx[i] - x) * .05; vy += (hy[i] - y) * .05; vx *= .84; vy *= .84;
+          X[i] = x + vx; Y[i] = y + vy; VX[i] = vx; VY[i] = vy; NR[i] = near;
         }
-        ctx.clearRect(0, 0, W, H); ctx.lineCap = 'round';
-        for (b = 1; b < 4; b++) strokeSegs(seg[b], segN[b], 'rgb(' + INK + ')', AL[b], 1.6);
-        strokeSegs(org, orgN, ORANGE, .95, 2.2);
-        ctx.globalAlpha = 1;
+        paint(time, step, false);
         return true;
       }
     };
@@ -207,7 +199,7 @@
     var section = canvas.parentElement, cellsEl = section.querySelector('.cells'), cells = $('.cell[data-shape]', cellsEl);
     var ctx, W = 0, H = 0, docTop = 0, N = 0, bs = new Int32Array(NB + 1);
     var RX, RY, PHs, AMP, SPD, OWN, TX, TY, DL, CV, E, X, Y, VIS, OWNED = new Int32Array(0);
-    var P = new Float32Array(cells.length), G = new Float32Array(cells.length);
+    var P = new Float32Array(cells.length), G = new Float32Array(cells.length), lastT = 0;
 
     function build() {
       small = Math.min(window.innerWidth, window.innerHeight * 1.2) < 700;
@@ -252,7 +244,12 @@
         var ang = function (x, y) { return Math.atan2(y - cy, x - cx); };
         cand.sort(function (a, b) { return ang(RX[a], RY[a]) - ang(RX[b], RY[b]); });
         tg.sort(function (a, b) { return ang(a[0], a[1]) - ang(b[0], b[1]); });
-        cand.forEach(function (d, n) { OWN[d] = k; TX[d] = tg[n][0]; TY[d] = tg[n][1]; DL[d] = Math.random() * .35; CV[d] = (Math.random() - .5) * 60; owned.push(d); });
+        var maxD = 1; cand.forEach(function (d) { maxD = Math.max(maxD, Math.hypot(RX[d] - cx, RY[d] - cy)); });
+        cand.forEach(function (d, n) {
+          OWN[d] = k; TX[d] = tg[n][0]; TY[d] = tg[n][1];
+          DL[d] = Math.hypot(RX[d] - cx, RY[d] - cy) / maxD * .3 + Math.random() * .1;   // wave: dots near the centre leave first
+          CV[d] = (Math.random() - .5) * 50; owned.push(d);
+        });
       });
       OWNED = Int32Array.from(owned);
       if (reduce) { for (i = 0; i < P.length; i++) P[i] = G[i] = 1; draw(0, 0, true); }
@@ -291,7 +288,11 @@
 
     var task = {
       tick: function (t, lvl) {
-        for (var k = 0; k < P.length; k++) if (P[k] !== G[k]) { P[k] += (G[k] - P[k]) * .075; if (Math.abs(G[k] - P[k]) < .003) P[k] = G[k]; }
+        var dt = lastT ? Math.min(50, t - lastT) / 1000 : .016; lastT = t;
+        for (var k = 0; k < P.length; k++) if (P[k] !== G[k]) {          // linear progress in time; the per-dot easing makes it smooth
+          var step = dt / (G[k] > P[k] ? 1.1 : .7);                      // forms in ~1.1 s, releases in ~0.7 s
+          P[k] = G[k] > P[k] ? Math.min(G[k], P[k] + step) : Math.max(G[k], P[k] - step);
+        }
         return draw(t, lvl, false);
       }
     };
@@ -300,6 +301,7 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!reduce) build(); });
     if (reduce) return;
     track(canvas, task);
+    document.addEventListener('visibilitychange', function () { lastT = 0; });
     window.addEventListener('scroll', kick, { passive: true });
     if (hoverless) {
       if ('IntersectionObserver' in window) {
