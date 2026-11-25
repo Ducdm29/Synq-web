@@ -436,11 +436,16 @@
 
   var STORAGE_KEY = 'synq-lang';
 
+  function detectLang() {
+    var l = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+    return /^vi/i.test(l) ? 'vi' : 'en';
+  }
+
   function getLang() {
     try {
-      return localStorage.getItem(STORAGE_KEY) || 'en';
+      return localStorage.getItem(STORAGE_KEY) || detectLang();
     } catch (e) {
-      return 'en';
+      return detectLang();
     }
   }
 

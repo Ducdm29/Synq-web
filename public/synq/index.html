@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Synq — Lossless music player, tuned to your headphones</title>
-  <meta name="description" content="Synq is a premium music player with true lossless audio, AutoEQ for 6,000+ headphones, synced lyrics and a smart library. iOS and Android. Plus articles and guides on lossless audio." />
+  <title>Synq - Lossless music player, tuned to your headphones</title>
+  <meta name="description" content="Synq is a music player with true lossless audio, AutoEQ for 6,000+ headphones, synced lyrics and a tidy library. iOS and Android. Plus articles and guides on lossless music." />
   <link rel="canonical" href="https://synqstudio.cloud/synq" />
-  <meta property="og:title" content="Synq — Lossless music player, tuned to your headphones" />
-  <meta property="og:description" content="Synq is a premium music player with true lossless audio, AutoEQ for 6,000+ headphones, synced lyrics and a smart library. iOS and Android. Plus articles and guides on lossless audio." />
+  <meta property="og:title" content="Synq - Lossless music player, tuned to your headphones" />
+  <meta property="og:description" content="Synq is a music player with true lossless audio, AutoEQ for 6,000+ headphones, synced lyrics and a tidy library. iOS and Android. Plus articles and guides on lossless music." />
   <meta property="og:image" content="https://synqstudio.cloud/store/Synq_play_feature_1024x500.png" />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0a0d10" />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/chrome.css" />
@@ -18,10 +18,11 @@
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script src="/chrome.js" defer></script>
   <script src="/site.js" defer></script>
+  <script src="/dots.js" defer></script>
 </head>
 <body class="studio world-synq">
 <!--sq:header-->
-<script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
 <header class="sq-header" data-theme="dark">
   <div class="sq-bar">
@@ -38,12 +39,12 @@
 </header>
 <!--/sq:header-->
 <main id="main-content">
-  <section class="sh-hero wrap">
+  <section class="sh-hero wrap" aria-label="Synq">
     <div>
       <span class="crumb"><a href="/">SYNQ Studio</a> / Synq</span>
       <h1 class="display" data-lang-block="vi">Synq: nhạc lossless, chỉnh theo tai bạn.</h1>
       <h1 class="display" data-lang-block="en">Synq: lossless music, tuned to you.</h1>
-      <p class="lede" data-lang-block="vi">Trình nghe nhạc với âm thanh lossless thật sự, AutoEQ cho hơn 6.000 tai nghe, lời đồng bộ và thư viện thông minh. Không nén. Không thỏa hiệp.</p><p class="lede" data-lang-block="en">A music player with true lossless audio, AutoEQ for 6,000+ headphones, synced lyrics and a smart library. No compression. No compromise.</p>
+      <p class="lede" data-lang-block="vi">Synq là app nghe nhạc phát lossless đúng như file gốc. Có AutoEQ cho hơn 6.000 tai nghe, lời đồng bộ theo bài và thư viện gọn gàng.</p><p class="lede" data-lang-block="en">Synq is a music player that plays lossless exactly as the file is. It has AutoEQ for 6,000+ headphones, synced lyrics and a tidy library.</p>
       <div class="hero-cta"><a class="btn" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">App Store</a><a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">Google Play</a></div>
     </div>
     <div class="sh-phones" aria-hidden="true">
@@ -52,20 +53,20 @@
     </div>
   </section>
   <section class="sh-row wrap">
-      <div data-r><h2 class="display" data-lang-block="vi">Chỉnh theo tai nghe của bạn</h2><h2 class="display" data-lang-block="en">Tuned to your headphones</h2><p data-lang-block="vi">AutoEQ phân tích và áp dụng đường cong hiệu chỉnh cho hơn 6.000 mẫu tai nghe và IEM, hoàn toàn tự động.</p><p data-lang-block="en">AutoEQ applies the correction curve for 6,000+ headphone and IEM models, automatically. No manual tweaking.</p><ul><li><span data-lang-block="vi">6.000+ profile tai nghe &amp; IEM</span><span data-lang-block="en">6,000+ headphone &amp; IEM profiles</span></li><li><span data-lang-block="vi">EQ tham số với preset tùy chỉnh</span><span data-lang-block="en">Parametric EQ with custom presets</span></li><li><span data-lang-block="vi">Hiển thị tần số thời gian thực</span><span data-lang-block="en">Real-time frequency visualization</span></li></ul></div>
+      <div data-r><h2 class="display" data-lang-block="vi">Chỉnh theo tai nghe của bạn</h2><h2 class="display" data-lang-block="en">Tuned to your headphones</h2><p data-lang-block="vi">AutoEQ có sẵn đường chỉnh cho hơn 6.000 mẫu tai nghe và IEM. Chọn đúng mẫu của bạn là xong.</p><p data-lang-block="en">AutoEQ ships with correction curves for 6,000+ headphones and IEMs. Pick yours and you are done.</p><ul><li><span data-lang-block="vi">6.000+ profile tai nghe &amp; IEM</span><span data-lang-block="en">6,000+ headphone &amp; IEM profiles</span></li><li><span data-lang-block="vi">EQ tham số, có preset tự lưu</span><span data-lang-block="en">Parametric EQ with your own presets</span></li><li><span data-lang-block="vi">Xem tần số theo thời gian thực</span><span data-lang-block="en">Live frequency view</span></li></ul></div>
       <div class="sh-media" data-r style="--d:.1s"><img src="/img/synq-phone-2.webp" width="520" height="1128" alt="Synq AutoEQ screen" loading="lazy" decoding="async" /></div>
     </section><section class="sh-row wrap flip">
-      <div data-r><h2 class="display" data-lang-block="vi">Toàn bộ thư viện, lossless</h2><h2 class="display" data-lang-block="en">Your whole library, in lossless</h2><p data-lang-block="vi">Duyệt theo bài, nghệ sĩ, album hoặc thể loại. Hoạt động hoàn toàn offline: không stream, không đệm, không thỏa hiệp.</p><p data-lang-block="en">Browse by song, artist, album or genre. Works entirely offline: no stream, no buffer, no compromise.</p><ul><li><span data-lang-block="vi">FLAC, ALAC, WAV, MP3, AAC</span><span data-lang-block="en">FLAC, ALAC, WAV, MP3, AAC</span></li><li><span data-lang-block="vi">100% offline, không cần internet</span><span data-lang-block="en">100% offline, no internet required</span></li></ul></div>
+      <div data-r><h2 class="display" data-lang-block="vi">Cả thư viện, lossless</h2><h2 class="display" data-lang-block="en">Your whole library, lossless</h2><p data-lang-block="vi">Duyệt theo bài, nghệ sĩ, album hay thể loại. Mọi thứ chạy offline.</p><p data-lang-block="en">Browse by song, artist, album or genre. It all works offline.</p><ul><li><span data-lang-block="vi">FLAC, ALAC, WAV, MP3, AAC</span><span data-lang-block="en">FLAC, ALAC, WAV, MP3, AAC</span></li><li><span data-lang-block="vi">Offline 100%, không cần mạng</span><span data-lang-block="en">Fully offline, no internet needed</span></li></ul></div>
       <div class="sh-media" data-r style="--d:.1s"><img src="/img/synq-phone-3.webp" width="520" height="1128" alt="Synq library screen" loading="lazy" decoding="async" /></div>
     </section><section class="sh-row wrap">
-      <div data-r><h2 class="display" data-lang-block="vi">Làm theo cách bạn nghe</h2><h2 class="display" data-lang-block="en">Made for the way you listen</h2><p data-lang-block="vi">Mix hàng ngày từ gu của bạn, thống kê nghe nhạc cho thấy thói quen thay đổi, và trang chủ cá nhân thay vì nhiễu thuật toán.</p><p data-lang-block="en">Daily mixes built around your taste, listening stats that show how your habits evolve, and a Home feed that feels personal.</p><ul><li><span data-lang-block="vi">Mix hàng ngày từ thư viện của bạn</span><span data-lang-block="en">Daily mixes from your own library</span></li><li><span data-lang-block="vi">Thời gian nghe, lượt phát &amp; thống kê</span><span data-lang-block="en">Listening time, plays &amp; track stats</span></li><li><span data-lang-block="vi">Ngày · Tuần · Tháng · Năm</span><span data-lang-block="en">Day · Week · Month · Year views</span></li></ul></div>
+      <div data-r><h2 class="display" data-lang-block="vi">Hợp với cách bạn nghe</h2><h2 class="display" data-lang-block="en">Fits how you listen</h2><p data-lang-block="vi">Mix mỗi ngày từ chính nhạc của bạn, kèm thống kê xem bạn hay nghe gì.</p><p data-lang-block="en">Daily mixes from your own music, plus stats on what you play most.</p><ul><li><span data-lang-block="vi">Mix hằng ngày từ thư viện của bạn</span><span data-lang-block="en">Daily mixes from your own library</span></li><li><span data-lang-block="vi">Thời gian nghe, lượt phát, thống kê bài</span><span data-lang-block="en">Listening time, plays and track stats</span></li><li><span data-lang-block="vi">Xem theo ngày, tuần, tháng, năm</span><span data-lang-block="en">Day, week, month and year views</span></li></ul></div>
       <div class="sh-media" data-r style="--d:.1s"><img src="/img/synq-phone-4.webp" width="520" height="1128" alt="Synq stats screen" loading="lazy" decoding="async" /></div>
     </section>
   <section class="sh-section" id="guides" aria-labelledby="g-h">
     <div class="wrap">
       <div class="sec-head">
         <div><h2 id="g-h" class="display" data-r><span data-lang-block="vi">Bài viết &amp; hướng dẫn</span><span data-lang-block="en">Articles &amp; guides</span></h2>
-        <p class="sec-sub" data-lang-block="vi">Nghe nhạc lossless cho đúng: định dạng, DAC, NAS, cách kiểm tra file. Cập nhật dần.</p><p class="sec-sub" data-lang-block="en">Listening to lossless properly: formats, DACs, NAS, how to check a file. Added over time.</p></div>
+        <p class="sec-sub" data-lang-block="vi">Chuyện nghe nhạc lossless: định dạng, DAC, NAS, cách kiểm tra file. Có bài mới thì thêm vào.</p><p class="sec-sub" data-lang-block="en">Notes on listening to lossless: formats, DACs, NAS, how to check a file. New ones get added.</p></div>
         <a class="btn ghost" href="/synq/guides"><span data-lang-block="vi">Tất cả bài viết</span><span data-lang-block="en">All articles</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="gcards"><a class="gcard" href="/synq/guides/read-spectrum" data-r>
@@ -105,17 +106,17 @@
     <div class="wrap">
       <div class="sec-head"><h2 id="m-h" class="display" data-r><span data-lang-block="vi">Thêm từ Synq</span><span data-lang-block="en">More from Synq</span></h2></div>
       <div class="mini">
-        <a href="/changelog" data-r><img src="/logo-mark.svg" width="64" height="64" alt="" loading="lazy" /><div><b><span data-lang-block="vi">Có gì mới</span><span data-lang-block="en">What’s new</span></b><span data-lang-block="vi">Nhật ký cập nhật Synq.</span><span data-lang-block="en">Release notes for Synq.</span></div></a>
-        <a href="/synqtag" data-r style="--d:.08s"><img src="/store/synqtag_icon.png" width="64" height="64" alt="" loading="lazy" /><div><b>SynqTag</b><span data-lang-block="vi">Sửa thẻ nhạc, ghi thẳng vào file.</span><span data-lang-block="en">Edit song tags, written into the file.</span></div></a>
-        <a href="/music-check" data-r style="--d:.16s"><img src="/img/musiccheck-icon.png" width="64" height="64" alt="" loading="lazy" /><div><b>Music Check</b><span data-lang-block="vi">Kiểm tra file lossless thật hay giả.</span><span data-lang-block="en">Check whether a file is real lossless.</span></div></a>
+        <a href="/changelog" data-r><img src="/logo-mark.svg" width="64" height="64" alt="" loading="lazy" /><div><b><span data-lang-block="vi">Có gì mới</span><span data-lang-block="en">What is new</span></b><span data-lang-block="vi">Nhật ký cập nhật của Synq.</span><span data-lang-block="en">Release notes for Synq.</span></div></a>
+        <a href="/synqtag" data-r style="--d:.08s"><img src="/store/synqtag_icon.png" width="64" height="64" alt="" loading="lazy" /><div><b>SynqTag</b><span data-lang-block="vi">Sửa thẻ nhạc ngay trong file.</span><span data-lang-block="en">Edit song tags inside the file.</span></div></a>
+        <a href="/music-check" data-r style="--d:.16s"><img src="/img/icon-musiccheck.webp" width="64" height="64" alt="" loading="lazy" /><div><b>Music Check</b><span data-lang-block="vi">Xem file có phải lossless thật.</span><span data-lang-block="en">Check if a file is real lossless.</span></div></a>
       </div>
     </div>
   </section>
-  <section class="sh-cta">
+  <section class="sh-cta" aria-labelledby="c-h">
     <div class="wrap">
-      <h2 class="display" data-lang-block="vi">Bắt đầu nghe tốt hơn.</h2>
-      <h2 class="display" data-lang-block="en">Start listening better.</h2>
-      <div><div class="stores"><a class="btn" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">App Store</a><a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">Google Play</a></div><p class="sec-sub" data-lang-block="vi">Tải miễn phí. Không cần đăng ký để phát thư viện nhạc của bạn.</p><p class="sec-sub" data-lang-block="en">Free to download. No subscription required to play your local library.</p>
+      <h2 class="display" data-lang-block="vi">Thử nghe xem.</h2>
+      <h2 class="display" data-lang-block="en">Give it a listen.</h2>
+      <div><div class="stores"><a class="btn" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">App Store</a><a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">Google Play</a></div><p class="sec-sub" data-lang-block="vi">Tải miễn phí. Nghe nhạc có sẵn trong máy thì không cần tài khoản.</p><p class="sec-sub" data-lang-block="en">Free to download. Playing your own files needs no account.</p>
       <p class="sec-sub"><a href="/support" style="color:inherit"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a> · <a href="/privacy" style="color:inherit"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy</span></a></p></div>
     </div>
   </section>
@@ -126,7 +127,7 @@
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
-      <p><span data-lang-block="vi">Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.</span><span data-lang-block="en">A small independent studio making games and apps for people who care about details.</span></p>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
     <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>

@@ -143,7 +143,7 @@
 <div class="site-wrapper">
 
   <!--sq:header-->
-<script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
 <header class="sq-header" data-theme="dark">
   <div class="sq-bar">
@@ -196,20 +196,20 @@
           <rect x="24" y="70" width="300" height="180" rx="16" fill="#12181d" stroke="#243038"/>
           <text x="44" y="100" fill="#9fb0bd" font-family="sans-serif" font-size="13" letter-spacing="1.5">Ở NHÀ</text>
           <rect x="48" y="118" width="118" height="104" rx="10" fill="#0e1418" stroke="#2b3a44"/>
-          <rect x="70" y="140" width="74" height="60" rx="6" fill="#0a0d10" stroke="#5eead4"/>
-          <circle cx="107" cy="158" r="4" fill="#5eead4"/><circle cx="107" cy="175" r="4" fill="#5eead4"/><circle cx="107" cy="192" r="4" fill="#2b3a44"/>
+          <rect x="70" y="140" width="74" height="60" rx="6" fill="#0a0d10" stroke="#FF6B35"/>
+          <circle cx="107" cy="158" r="4" fill="#FF6B35"/><circle cx="107" cy="175" r="4" fill="#FF6B35"/><circle cx="107" cy="192" r="4" fill="#2b3a44"/>
           <text x="107" y="216" fill="#9fb0bd" font-family="sans-serif" font-size="12" text-anchor="middle">NAS / Máy tính</text>
-          <rect x="184" y="150" width="120" height="42" rx="8" fill="#0a0d10" stroke="#5eead4"/>
-          <text x="244" y="176" fill="#5eead4" font-family="sans-serif" font-size="14" text-anchor="middle" font-weight="bold">WebDAV</text>
+          <rect x="184" y="150" width="120" height="42" rx="8" fill="#0a0d10" stroke="#FF6B35"/>
+          <text x="244" y="176" fill="#FF6B35" font-family="sans-serif" font-size="14" text-anchor="middle" font-weight="bold">WebDAV</text>
           <!-- phone -->
-          <rect x="640" y="90" width="120" height="200" rx="20" fill="#12181d" stroke="#5eead4"/>
+          <rect x="640" y="90" width="120" height="200" rx="20" fill="#12181d" stroke="#FF6B35"/>
           <rect x="656" y="112" width="88" height="150" rx="8" fill="#0a0d10"/>
-          <path d="M690 165l24 13-24 13v-26Z" fill="#5eead4"/>
+          <path d="M690 165l24 13-24 13v-26Z" fill="#FF6B35"/>
           <text x="700" y="284" fill="#e6edf3" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">Synq</text>
           <!-- path 1: same wifi -->
-          <line x1="324" y1="128" x2="640" y2="128" stroke="#5eead4" stroke-width="2"/>
-          <polygon points="640,128 630,123 630,133" fill="#5eead4"/>
-          <text x="482" y="118" fill="#5eead4" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">Cùng WiFi (nội bộ)</text>
+          <line x1="324" y1="128" x2="640" y2="128" stroke="#FF6B35" stroke-width="2"/>
+          <polygon points="640,128 630,123 630,133" fill="#FF6B35"/>
+          <text x="482" y="118" fill="#FF6B35" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">Cùng WiFi (nội bộ)</text>
           <!-- path 2: cellular via internet -->
           <line x1="324" y1="210" x2="470" y2="210" stroke="#7c8b96" stroke-width="2" stroke-dasharray="6 5"/>
           <rect x="470" y="188" width="120" height="44" rx="10" fill="#0e1418" stroke="#2b3a44"/>
@@ -425,7 +425,7 @@ cloudflared tunnel route dns nas nhac.tenban.com</code></pre>
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
-      <p><span data-lang-block="vi">Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.</span><span data-lang-block="en">A small independent studio making games and apps for people who care about details.</span></p>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
     <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>

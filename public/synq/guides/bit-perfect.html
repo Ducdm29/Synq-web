@@ -133,7 +133,7 @@
 <div class="site-wrapper">
 
   <!--sq:header-->
-<script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
 <header class="sq-header" data-theme="dark">
   <div class="sq-bar">
@@ -188,7 +188,7 @@
           <svg viewBox="0 0 820 380" role="img" aria-label="Sơ đồ so sánh đường tín hiệu: đường thường đi qua bộ trộn hệ thống resample về 48kHz; đường bit-perfect gửi thẳng file tới DAC đúng tần số gốc">
             <defs>
               <marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7c8b96"/></marker>
-              <marker id="ahA" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#5eead4"/></marker>
+              <marker id="ahA" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#FF6B35"/></marker>
             </defs>
 
             <!-- Row 1: normal path -->
@@ -208,16 +208,16 @@
             <line x1="60" y1="150" x2="760" y2="150" stroke="#243038" stroke-width="1" stroke-dasharray="4 5"/>
 
             <!-- Row 2: bit-perfect path -->
-            <text x="30" y="210" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">BIT-PERFECT</text>
+            <text x="30" y="210" fill="#FF6B35" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">BIT-PERFECT</text>
             <rect x="30" y="224" width="150" height="58" rx="10" fill="#05080a" stroke="#243038"/>
             <text x="105" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">File nhạc</text>
             <text x="105" y="269" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">FLAC 44.1kHz</text>
-            <line x1="180" y1="253" x2="526" y2="253" stroke="#5eead4" stroke-width="2.5" marker-end="url(#ahA)"/>
-            <text x="353" y="244" fill="#5eead4" font-family="sans-serif" font-size="12" text-anchor="middle" font-weight="bold">đi thẳng · độc quyền (exclusive)</text>
+            <line x1="180" y1="253" x2="526" y2="253" stroke="#FF6B35" stroke-width="2.5" marker-end="url(#ahA)"/>
+            <text x="353" y="244" fill="#FF6B35" font-family="sans-serif" font-size="12" text-anchor="middle" font-weight="bold">đi thẳng · độc quyền (exclusive)</text>
             <text x="353" y="274" fill="#3a4750" font-family="sans-serif" font-size="11" text-anchor="middle">không trộn · không resample · không đụng bit</text>
             <rect x="530" y="224" width="180" height="58" rx="10" fill="#04140f" stroke="#2f6a5c"/>
             <text x="620" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">DAC</text>
-            <text x="620" y="269" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">khớp đúng 44.1kHz gốc</text>
+            <text x="620" y="269" fill="#FF6B35" font-family="sans-serif" font-size="11" text-anchor="middle">khớp đúng 44.1kHz gốc</text>
 
             <text x="30" y="330" fill="#7c8b96" font-family="sans-serif" font-size="12">Bit-perfect = bỏ qua bàn trộn của hệ điều hành, để DAC nhận đúng bản gốc và tự chỉnh</text>
             <text x="30" y="352" fill="#7c8b96" font-family="sans-serif" font-size="12">tần số lấy mẫu theo từng bài.</text>
@@ -323,7 +323,7 @@
           <svg viewBox="0 0 820 380" role="img" aria-label="Signal-path diagram: the normal path runs through the system mixer and resamples to 48kHz; the bit-perfect path sends the file straight to the DAC at its native rate">
             <defs>
               <marker id="ah2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#7c8b96"/></marker>
-              <marker id="ahA2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#5eead4"/></marker>
+              <marker id="ahA2" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0l6 3-6 3z" fill="#FF6B35"/></marker>
             </defs>
             <text x="30" y="40" fill="#f5a524" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">NORMAL PATH</text>
             <rect x="30" y="54" width="150" height="58" rx="10" fill="#05080a" stroke="#243038"/>
@@ -340,16 +340,16 @@
 
             <line x1="60" y1="150" x2="760" y2="150" stroke="#243038" stroke-width="1" stroke-dasharray="4 5"/>
 
-            <text x="30" y="210" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">BIT-PERFECT</text>
+            <text x="30" y="210" fill="#FF6B35" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">BIT-PERFECT</text>
             <rect x="30" y="224" width="150" height="58" rx="10" fill="#05080a" stroke="#243038"/>
             <text x="105" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">Music file</text>
             <text x="105" y="269" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">FLAC 44.1kHz</text>
-            <line x1="180" y1="253" x2="526" y2="253" stroke="#5eead4" stroke-width="2.5" marker-end="url(#ahA2)"/>
-            <text x="353" y="244" fill="#5eead4" font-family="sans-serif" font-size="12" text-anchor="middle" font-weight="bold">straight through · exclusive</text>
+            <line x1="180" y1="253" x2="526" y2="253" stroke="#FF6B35" stroke-width="2.5" marker-end="url(#ahA2)"/>
+            <text x="353" y="244" fill="#FF6B35" font-family="sans-serif" font-size="12" text-anchor="middle" font-weight="bold">straight through · exclusive</text>
             <text x="353" y="274" fill="#3a4750" font-family="sans-serif" font-size="11" text-anchor="middle">no mixing · no resample · bits untouched</text>
             <rect x="530" y="224" width="180" height="58" rx="10" fill="#04140f" stroke="#2f6a5c"/>
             <text x="620" y="250" fill="#e6edf2" font-family="sans-serif" font-size="13" text-anchor="middle" font-weight="bold">DAC</text>
-            <text x="620" y="269" fill="#5eead4" font-family="sans-serif" font-size="11" text-anchor="middle">locks to native 44.1kHz</text>
+            <text x="620" y="269" fill="#FF6B35" font-family="sans-serif" font-size="11" text-anchor="middle">locks to native 44.1kHz</text>
 
             <text x="30" y="330" fill="#7c8b96" font-family="sans-serif" font-size="12">Bit-perfect bypasses the OS mixer so the DAC gets the original and sets its own</text>
             <text x="30" y="352" fill="#7c8b96" font-family="sans-serif" font-size="12">sample rate per track.</text>
@@ -429,7 +429,7 @@
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
-      <p><span data-lang-block="vi">Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.</span><span data-lang-block="en">A small independent studio making games and apps for people who care about details.</span></p>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
     <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>

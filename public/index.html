@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SYNQ Studio — Games and apps, made with care</title>
-  <meta name="description" content="SYNQ Studio is a small independent studio. Home of Kagezan, a samurai parry game, and Synq, a lossless music player, plus SynqTag and Music Check." />
+  <title>SYNQ Studio - Make Every Day More Playful</title>
+  <meta name="description" content="SYNQ Studio is a small team. Home of Kagezan, a samurai parry game, and Synq, a lossless music player, plus SynqTag and Music Check." />
   <link rel="canonical" href="https://synqstudio.cloud/" />
-  <meta property="og:title" content="SYNQ Studio — Games and apps, made with care" />
-  <meta property="og:description" content="SYNQ Studio is a small independent studio. Home of Kagezan, a samurai parry game, and Synq, a lossless music player, plus SynqTag and Music Check." />
+  <meta property="og:title" content="SYNQ Studio - Make Every Day More Playful" />
+  <meta property="og:description" content="SYNQ Studio is a small team. Home of Kagezan, a samurai parry game, and Synq, a lossless music player, plus SynqTag and Music Check." />
   <meta property="og:image" content="https://synqstudio.cloud/store/shadowblade/feature.jpg" />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#f5f5f3" />
@@ -18,10 +18,11 @@
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script src="/chrome.js" defer></script>
   <script src="/site.js" defer></script>
+  <script src="/dots.js" defer></script>
 </head>
 <body class="studio ">
 <!--sq:header-->
-<script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
 <header class="sq-header" data-theme="light">
   <div class="sq-bar">
@@ -39,33 +40,36 @@
 <!--/sq:header-->
 <main id="main-content">
 
-  <section class="hero wrap">
-    <h1 class="display" data-lang-block="vi"><span class="ln" style="--i:0"><span>Game và ứng dụng,</span></span><span class="ln" style="--i:1"><span>làm cho kỹ.</span></span></h1>
-    <h1 class="display" data-lang-block="en"><span class="ln" style="--i:0"><span>Games and apps,</span></span><span class="ln" style="--i:1"><span>made with care.</span></span></h1>
-    <div class="hero-row">
-      <p class="lede" data-lang-block="vi">SYNQ Studio là studio độc lập nhỏ. Chúng tôi làm một game samurai lấy đòn gạt làm trọng tâm, một ứng dụng nghe nhạc lossless và các công cụ đi kèm.</p><p class="lede" data-lang-block="en">SYNQ Studio is a small independent studio. We make a samurai parry game, a lossless music player and the tools around them.</p>
-      <div class="hero-cta">
-        <a class="btn" href="#kagezan"><span data-lang-block="vi">Xem Kagezan</span><span data-lang-block="en">Meet Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn ghost" href="#products"><span data-lang-block="vi">Tất cả sản phẩm</span><span data-lang-block="en">All products</span></a>
+  <section class="hero" aria-label="SYNQ Studio">
+    <canvas class="hero-fx" aria-hidden="true"></canvas>
+    <div class="wrap hero-in">
+      <h1 class="display" data-lang-block="vi"><span class="ln" style="--i:0"><span>Mỗi ngày</span></span><span class="ln" style="--i:1"><span>thêm vui.</span></span></h1>
+      <h1 class="display" data-lang-block="en"><span class="ln" style="--i:0"><span>Make Every Day</span></span><span class="ln" style="--i:1"><span>More Playful</span></span></h1>
+      <div class="hero-row">
+        <p class="lede" data-lang-block="vi">Bọn mình là SYNQ Studio, một studio nhỏ làm game samurai và vài app nghe nhạc.</p><p class="lede" data-lang-block="en">We are SYNQ Studio, a small team making a samurai game and a few music apps.</p>
+        <div class="hero-cta">
+          <a class="btn accent" href="#kagezan"><span data-lang-block="vi">Xem Kagezan</span><span data-lang-block="en">See Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn ghost" href="#products"><span data-lang-block="vi">Tất cả sản phẩm</span><span data-lang-block="en">All products</span></a>
+        </div>
       </div>
     </div>
-    <div class="marquee" aria-hidden="true"><div class="marquee-track" aria-hidden="true"><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span><span>Kagezan<i>/</i></span><span><b class="jp" lang="ja">影斬</b><i>/</i></span><span>Synq<i>/</i></span><span>SynqTag<i>/</i></span><span>Music Check<i>/</i></span></div></div>
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" aria-hidden="true"><img src="/img/icon-kagezan.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/logo-mark.svg" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-synqtag.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-musiccheck.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-kagezan.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/logo-mark.svg" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-synqtag.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-musiccheck.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-kagezan.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/logo-mark.svg" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-synqtag.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-musiccheck.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-kagezan.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/logo-mark.svg" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-synqtag.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-musiccheck.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-kagezan.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/logo-mark.svg" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-synqtag.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-musiccheck.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-kagezan.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/logo-mark.svg" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-synqtag.webp" width="96" height="96" alt="" decoding="async" /><i></i><img src="/img/icon-musiccheck.webp" width="96" height="96" alt="" decoding="async" /><i></i></div></div>
   </section>
 
   <section class="feat" id="kagezan" aria-labelledby="kz-h">
     <div class="wrap">
       <div class="feat-head">
-        <h2 id="kz-h" class="display" data-r><span style="display:block">Kagezan</span><span style="display:block;font-size:.4em;letter-spacing:-0.04em;color:var(--red);margin-top:.18em"><span data-lang-block="vi">Gạt kiếm. Phá thế. Kết liễu.</span><span data-lang-block="en">Deflect. Break. Finish.</span></span></h2>
+        <h2 id="kz-h" class="display" data-r>Kagezan<small><span data-lang-block="vi">Gạt kiếm. Phá thế. Kết liễu.</span><span data-lang-block="en">Deflect. Break. Finish.</span></small></h2>
         <div data-r style="--d:.1s">
-          <p data-lang-block="vi">Game hành động samurai lấy đòn gạt làm trọng tâm: đọc nhịp kiếm của đối thủ, gạt đúng khoảnh khắc và kết liễu khi thế địch vỡ. Chơi được offline trên iPhone, iPad và Android.</p><p data-lang-block="en">A samurai action game built around the parry. Read your opponent’s rhythm, deflect at the right instant and finish them when their posture breaks. Plays offline on iPhone, iPad and Android.</p>
-          <div class="btns"><a class="btn light" href="/kagezan"><span data-lang-block="vi">Trang Kagezan</span><span data-lang-block="en">Kagezan page</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <p data-lang-block="vi">Game samurai xoay quanh đòn gạt. Đọc nhịp kiếm của đối thủ, gạt đúng lúc, rồi kết liễu khi thế địch vỡ. Chơi offline trên iPhone, iPad và Android. 15+ chương, mỗi chương một trùm.</p><p data-lang-block="en">A samurai game built around the parry. Read the other swordsman’s rhythm, deflect on time, finish them when their posture breaks. Plays offline on iPhone, iPad and Android. 15+ chapters, each with its own boss.</p>
+          <div class="btns"><a class="btn accent" href="/kagezan"><span data-lang-block="vi">Trang Kagezan</span><span data-lang-block="en">Kagezan page</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <p class="feat-soon" data-lang-block="vi">Sắp ra mắt trên App Store và Google Play</p><p class="feat-soon" data-lang-block="en">Coming soon to the App Store and Google Play</p>
         </div>
       </div>
     </div>
     <div class="stage" data-stage>
       <div class="stage-pin">
-        <div class="stage-kanji" aria-hidden="true" lang="ja">影斬</div>
+        <div class="stage-ring" aria-hidden="true"></div>
         <div class="stage-media">
           <video data-loop muted loop playsinline autoplay preload="none" poster="/img/kagezan-loop-poster.webp" width="1024" height="576" aria-label="Kagezan gameplay"><source src="/img/kagezan-loop.mp4" type="video/mp4" /></video>
         </div>
@@ -73,23 +77,23 @@
     </div>
     <div class="wrap">
       <div class="pillars">
-        <div class="pillar" data-r><h3><span data-lang-block="vi">Gạt đúng nhịp</span><span data-lang-block="en">Perfect deflects</span></h3><p data-lang-block="vi">Đỡ đúng khoảnh khắc lưỡi kiếm chạm tới để gạt: không mất máu, dồn thế địch. Vỡ thế là kết liễu.</p><p data-lang-block="en">Guard right as the blade lands to deflect: no damage, and the enemy’s posture fills. Break it for a finishing blow.</p></div>
-        <div class="pillar" data-r style="--d:.08s"><h3><span data-lang-block="vi">Đòn hiểm phải đọc</span><span data-lang-block="en">Read the perilous attacks</span></h3><p data-lang-block="vi">Quét thì nhảy, đâm thì phản đòn Nhất Thiểm, túm thì lướt né. Mỗi trùm có nhịp riêng để học.</p><p data-lang-block="en">Jump the sweep, counter the thrust, dash out of the grab. Every boss has its own rhythm to learn.</p></div>
-        <div class="pillar" data-r style="--d:.16s"><h3><span data-lang-block="vi">Ba lối kiếm</span><span data-lang-block="en">Three blade styles</span></h3><p data-lang-block="vi">Katana nhanh, Odachi nặng hai tay, Song đao liên hoàn. Mỗi loại một tuyệt kỹ riêng.</p><p data-lang-block="en">Swift katana, two-handed odachi or twin blades, each with its own signature skill.</p></div>
+        <div class="pillar" data-r><h3><span data-lang-block="vi">Gạt đúng nhịp</span><span data-lang-block="en">Perfect deflects</span></h3><p data-lang-block="vi">Đỡ đúng lúc lưỡi kiếm chạm tới thì bạn không bị trúng đòn, thế của địch đầy dần. Vỡ thế là kết liễu.</p><p data-lang-block="en">Guard right as the blade lands and you take no hit while their posture fills. Break it and you finish them.</p></div>
+        <div class="pillar" data-r style="--d:.08s"><h3><span data-lang-block="vi">Đòn hiểm phải đọc</span><span data-lang-block="en">Read the big attacks</span></h3><p data-lang-block="vi">Quét thì nhảy, đâm thì phản đòn, túm thì lướt ra. Trùm nào cũng có nhịp riêng.</p><p data-lang-block="en">Jump the sweep, counter the thrust, dash out of the grab. Every boss has its own rhythm.</p></div>
+        <div class="pillar" data-r style="--d:.16s"><h3><span data-lang-block="vi">Ba lối kiếm</span><span data-lang-block="en">Three ways to fight</span></h3><p data-lang-block="vi">Katana nhanh, odachi nặng hai tay, song đao liên hoàn. Mỗi loại có một tuyệt kỹ riêng.</p><p data-lang-block="en">Fast katana, heavy two-handed odachi, or twin blades. Each has its own special move.</p></div>
       </div>
       <div class="shots"><figure data-r style="--d:0.0s">
         <img data-lang-block="vi" src="/store/shadowblade/vi_01_kurohebi.jpg" alt="Đỡ gạt mọi đòn" width="1280" height="720" loading="lazy" decoding="async" />
         <img data-lang-block="en" src="/store/shadowblade/en_01_kurohebi.jpg" alt="Deflect every blow" width="1280" height="720" loading="lazy" decoding="async" />
       </figure><figure data-r style="--d:0.08s">
-        <img data-lang-block="vi" src="/store/shadowblade/vi_02_mugen.jpg" alt="Đọc đòn hiểm" width="1280" height="720" loading="lazy" decoding="async" />
-        <img data-lang-block="en" src="/store/shadowblade/en_02_mugen.jpg" alt="Read the danger" width="1280" height="720" loading="lazy" decoding="async" />
-      </figure><figure data-r style="--d:0.16s">
         <img data-lang-block="vi" src="/store/shadowblade/vi_03_renka.jpg" alt="Phản đòn Nhất Thiểm" width="1280" height="720" loading="lazy" decoding="async" />
         <img data-lang-block="en" src="/store/shadowblade/en_03_renka.jpg" alt="Issen counter" width="1280" height="720" loading="lazy" decoding="async" />
+      </figure><figure data-r style="--d:0.16s">
+        <img data-lang-block="vi" src="/store/shadowblade/vi_07_gear.jpg" alt="Rèn trang bị" width="1280" height="720" loading="lazy" decoding="async" />
+        <img data-lang-block="en" src="/store/shadowblade/en_07_gear.jpg" alt="Forge your gear" width="1280" height="720" loading="lazy" decoding="async" />
       </figure></div>
       <div class="feat-foot" data-r>
-        <p data-lang-block="vi">Miễn phí, có gói Ngọc mua trong app (không bắt buộc). Quảng cáo có thưởng chỉ hiện khi bạn tự chọn xem.</p><p data-lang-block="en">Free to play, with optional in-app purchases of Jade. Rewarded ads appear only when you choose to watch one.</p>
-        <a class="btn red" href="/kagezan"><span data-lang-block="vi">Khám phá Kagezan</span><span data-lang-block="en">Explore Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p data-lang-block="vi">Chơi miễn phí. Có gói Ngọc mua trong app nhưng không bắt buộc. Quảng cáo có thưởng chỉ hiện khi bạn tự chọn xem.</p><p data-lang-block="en">Free to play. Jade packs are optional. Rewarded ads only show when you choose to watch one.</p>
+        <a class="btn accent" href="/kagezan"><span data-lang-block="vi">Khám phá Kagezan</span><span data-lang-block="en">Explore Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </section>
@@ -97,47 +101,53 @@
   <section class="products" id="products" aria-labelledby="pr-h">
     <div class="wrap">
       <div class="products-head">
-        <h2 id="pr-h" class="display h2" data-r><span data-lang-block="vi">Mọi thứ chúng tôi làm</span><span data-lang-block="en">Everything we ship</span></h2>
-        <p class="lede" data-lang-block="vi">Một game và ba ứng dụng âm nhạc.</p><p class="lede" data-lang-block="en">One game and three music apps.</p>
+        <h2 id="pr-h" class="display h2" data-r><span data-lang-block="vi">Đồ bọn mình làm</span><span data-lang-block="en">What we make</span></h2>
+        <p class="lede" data-lang-block="vi">Một game và ba app nghe nhạc.</p><p class="lede" data-lang-block="en">One game and three music apps.</p>
       </div>
-      <div class="stack">
-      <article class="pcard " style="--n:0;--bg:#150f10;--fg:#f4f1ec" data-r>
-        <div class="pcard-body">
-          <div><h3>Kagezan</h3><p class="tag" data-lang-block="vi">Hành động samurai gạt đòn: gạt, phá thế, kết liễu.</p><p class="tag" data-lang-block="en">Samurai parry action: deflect, break posture, finish.</p><p class="meta" data-lang-block="vi">iOS · Android · Sắp ra mắt</p><p class="meta" data-lang-block="en">iOS · Android · Coming soon</p></div>
-          <div class="acts"><a class="btn" href="/kagezan"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> Kagezan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <div class="cells"><article class="cell" data-shape="pad" data-r>
+        <canvas class="cell-fx" aria-hidden="true"></canvas>
+        <div class="cell-in">
+          <span class="cell-tag" data-lang-block="vi">Game</span><span class="cell-tag" data-lang-block="en">Game</span>
+          <h3>Kagezan</h3>
+          <p data-lang-block="vi">Game samurai gạt đòn. Sắp ra mắt.</p><p data-lang-block="en">A samurai parry game. Coming soon.</p>
+          <a class="btn" href="/kagezan"><span data-lang-block="vi">Xem game</span><span data-lang-block="en">See the game</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr"> Kagezan</span></a>
         </div>
-        <div class="pcard-media" style="--mbg:#020202"><img class="emblem" src="/img/kagezan-emblem.png" width="420" height="420" alt="Kagezan logo" loading="lazy" decoding="async" /></div>
-      </article><article class="pcard " style="--n:1;--bg:#0c211f;--fg:#e9fbf7" data-r>
-        <div class="pcard-body">
-          <div><h3>Synq</h3><p class="tag" data-lang-block="vi">Trình nghe nhạc lossless thật sự, chỉnh theo tai nghe của bạn bằng AutoEQ.</p><p class="tag" data-lang-block="en">A music player for true lossless audio, tuned to your headphones with AutoEQ.</p><p class="meta" data-lang-block="vi">iOS · Android</p><p class="meta" data-lang-block="en">iOS · Android</p></div>
-          <div class="acts"><a class="btn" href="/synq"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> Synq</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn q" href="https://apps.apple.com/vn/app/synq-hires-offline-music/id6782488036" target="_blank" rel="noopener">App Store</a><a class="btn q" href="https://play.google.com/store/apps/details?id=com.synqmusic.app" target="_blank" rel="noopener">Google Play</a></div>
+      </article><article class="cell" data-shape="note" data-r>
+        <canvas class="cell-fx" aria-hidden="true"></canvas>
+        <div class="cell-in">
+          <span class="cell-tag" data-lang-block="vi">Nghe nhạc</span><span class="cell-tag" data-lang-block="en">Music player</span>
+          <h3>Synq</h3>
+          <p data-lang-block="vi">Nghe nhạc lossless, tự chỉnh theo tai nghe của bạn.</p><p data-lang-block="en">Lossless music, tuned to your headphones.</p>
+          <a class="btn" href="/synq"><span data-lang-block="vi">Xem Synq</span><span data-lang-block="en">See Synq</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr"> Synq</span></a>
         </div>
-        <div class="pcard-media" style="--mbg:#0a1715"><div class="phones"><img src="/img/synq-phone-1.webp" width="520" height="1128" alt="Synq now playing screen" loading="lazy" decoding="async" /><img src="/img/synq-phone-3.webp" width="520" height="1128" alt="Synq library screen" loading="lazy" decoding="async" /></div></div>
-      </article><article class="pcard light" style="--n:2;--bg:#dfe9e3;--fg:#0e1a14" data-r>
-        <div class="pcard-body">
-          <div><h3>SynqTag</h3><p class="tag" data-lang-block="vi">Sửa tên bài, nghệ sĩ, ảnh bìa và lời, ghi thẳng vào file nhạc.</p><p class="tag" data-lang-block="en">Edit titles, artists, covers and lyrics, written straight into the file.</p><p class="meta" data-lang-block="vi">iOS · Android</p><p class="meta" data-lang-block="en">iOS · Android</p></div>
-          <div class="acts"><a class="btn" href="/synqtag"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> SynqTag</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn q" href="https://apps.apple.com/vn/app/synqtag-edit-songs-metadata/id6816595732" target="_blank" rel="noopener">App Store</a><a class="btn q" href="https://play.google.com/store/apps/details?id=com.synqmusic.tagsmith" target="_blank" rel="noopener">Google Play</a></div>
+      </article><article class="cell" data-shape="tag" data-r>
+        <canvas class="cell-fx" aria-hidden="true"></canvas>
+        <div class="cell-in">
+          <span class="cell-tag" data-lang-block="vi">Công cụ</span><span class="cell-tag" data-lang-block="en">Tool</span>
+          <h3>SynqTag</h3>
+          <p data-lang-block="vi">Sửa tên bài, ảnh bìa và lời ngay trong file nhạc.</p><p data-lang-block="en">Fix song titles, covers and lyrics right inside the file.</p>
+          <a class="btn" href="/synqtag"><span data-lang-block="vi">Xem SynqTag</span><span data-lang-block="en">See SynqTag</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr"> SynqTag</span></a>
         </div>
-        <div class="pcard-media" style="--mbg:#cfe0d6"><div class="icon-pair"><img class="icon-big" src="/store/synqtag_icon.png" width="240" height="240" alt="SynqTag app icon" loading="lazy" decoding="async" /><div class="chips" data-lang-block="vi"><span>Tên bài</span><span>Nghệ sĩ</span><span>Album</span><span>Ảnh bìa</span><span>Lời</span></div><div class="chips" data-lang-block="en"><span>Title</span><span>Artist</span><span>Album</span><span>Cover</span><span>Lyrics</span></div></div></div>
-      </article><article class="pcard light" style="--n:3;--bg:#e1e6ea;--fg:#101418" data-r>
-        <div class="pcard-body">
-          <div><h3>Music Check</h3><p class="tag" data-lang-block="vi">Xem file nhạc là lossless xịn hay MP3 đội lốt FLAC.</p><p class="tag" data-lang-block="en">Find out if a file is real lossless or an MP3 dressed up as FLAC.</p><p class="meta" data-lang-block="vi">iOS · Android</p><p class="meta" data-lang-block="en">iOS · Android</p></div>
-          <div class="acts"><a class="btn" href="/music-check"><span data-lang-block="vi">Tìm hiểu thêm</span><span data-lang-block="en">Learn more</span><span class="sr"> Music Check</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn q" href="https://apps.apple.com/vn/app/music-check/id6800414074" target="_blank" rel="noopener">App Store</a><a class="btn q" href="https://play.google.com/store/apps/details?id=com.verifymusic.app" target="_blank" rel="noopener">Google Play</a></div>
+      </article><article class="cell" data-shape="lens" data-r>
+        <canvas class="cell-fx" aria-hidden="true"></canvas>
+        <div class="cell-in">
+          <span class="cell-tag" data-lang-block="vi">Công cụ</span><span class="cell-tag" data-lang-block="en">Tool</span>
+          <h3>Music Check</h3>
+          <p data-lang-block="vi">Xem file nhạc là lossless thật hay MP3 đội lốt.</p><p data-lang-block="en">Check if a file is real lossless or a disguised MP3.</p>
+          <a class="btn" href="/music-check"><span data-lang-block="vi">Xem Music Check</span><span data-lang-block="en">See Music Check</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr"> Music Check</span></a>
         </div>
-        <div class="pcard-media" style="--mbg:#cdd6dc"><div class="phones"><img src="/img/musiccheck-phone.webp" width="520" height="1130" alt="Music Check analysis screen" loading="lazy" decoding="async" /></div></div>
-      </article>
-      </div>
+      </article></div>
     </div>
   </section>
 
   <section class="about wrap" id="about" aria-labelledby="ab-h">
     <h2 id="ab-h" class="sr"><span data-lang-block="vi">Về studio</span><span data-lang-block="en">About the studio</span></h2>
-    <p class="about-statement" data-words data-lang-block="vi">SYNQ Studio nhỏ có chủ đích. Chúng tôi làm một game samurai gạt đòn, một ứng dụng nghe nhạc lossless và các công cụ đi kèm, rồi tiếp tục cải thiện từng sản phẩm sau khi ra mắt.</p>
-    <p class="about-statement" data-words data-lang-block="en">SYNQ Studio is small on purpose. We make a samurai parry game, a lossless music player and the tools around it, and we keep improving each one after it ships.</p>
+    <p class="about-statement" data-words data-lang-block="vi">Bọn mình là một studio nhỏ. Làm game, làm app nghe nhạc, thấy gì chưa vui thì sửa.</p>
+    <p class="about-statement" data-words data-lang-block="en">We are a small studio. We make games and music apps, and when something is not fun yet, we fix it.</p>
     <div class="about-cols">
       <div data-r><h3><span data-lang-block="vi">Liên hệ</span><span data-lang-block="en">Contact</span></h3><p><a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a></p></div>
       <div data-r style="--d:.08s"><h3><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></h3><p><a href="/support"><span data-lang-block="vi">Hỗ trợ Synq</span><span data-lang-block="en">Synq support</span></a><br /><a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ Kagezan</span><span data-lang-block="en">Kagezan support</span></a></p></div>
-      <div data-r style="--d:.16s"><h3><span data-lang-block="vi">Đọc thêm</span><span data-lang-block="en">Read more</span></h3><p><a href="/synq/guides"><span data-lang-block="vi">Bài viết về âm thanh lossless</span><span data-lang-block="en">Articles on lossless audio</span></a><br /><a href="/changelog"><span data-lang-block="vi">Synq có gì mới</span><span data-lang-block="en">What’s new in Synq</span></a></p></div>
+      <div data-r style="--d:.16s"><h3><span data-lang-block="vi">Đọc thêm</span><span data-lang-block="en">Read more</span></h3><p><a href="/synq/guides"><span data-lang-block="vi">Bài viết về nhạc lossless</span><span data-lang-block="en">Articles on lossless music</span></a><br /><a href="/changelog"><span data-lang-block="vi">Synq có gì mới</span><span data-lang-block="en">What is new in Synq</span></a></p></div>
     </div>
   </section>
   <div class="giant" aria-hidden="true">SYNQ</div>
@@ -148,7 +158,7 @@
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
-      <p><span data-lang-block="vi">Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.</span><span data-lang-block="en">A small independent studio making games and apps for people who care about details.</span></p>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
     <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>

@@ -93,7 +93,7 @@
 <div class="site-wrapper">
 
   <!--sq:header-->
-<script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
 <header class="sq-header" data-theme="dark">
   <div class="sq-bar">
@@ -130,7 +130,7 @@
       <div class="dl-top dl-apps">
         <div class="dl-app">
           <div class="dl-head">
-            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
             <span class="nm">Synq</span>
           </div>
           <span class="dl-desc">Muốn đổi chất âm tai nghe thật sự? AutoEQ cho 6.000+ tai nghe + EQ tùy chỉnh, phát bit-perfect.</span>
@@ -176,11 +176,11 @@
             <text x="590" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">10k</text>
             <text x="755" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">20k</text>
             <!-- fresh curve (teal) -->
-            <polyline fill="none" stroke="#5eead4" stroke-width="2.5" points="70,120 140,112 210,120 300,140 400,132 500,118 560,100 620,140 690,118 760,150"/>
+            <polyline fill="none" stroke="#FF6B35" stroke-width="2.5" points="70,120 140,112 210,120 300,140 400,132 500,118 560,100 620,140 690,118 760,150"/>
             <!-- 100h curve (grey dashed), nearly identical, tiny bass diff -->
             <polyline fill="none" stroke="#9fb3bf" stroke-width="2" stroke-dasharray="5 4" points="70,126 140,116 210,122 300,141 400,133 500,119 560,101 620,141 690,119 760,151"/>
             <!-- legend -->
-            <rect x="470" y="52" width="14" height="4" fill="#5eead4"/><text x="490" y="59" fill="#bfeee6" font-family="sans-serif" font-size="11">Mới mở hộp</text>
+            <rect x="470" y="52" width="14" height="4" fill="#FF6B35"/><text x="490" y="59" fill="#bfeee6" font-family="sans-serif" font-size="11">Mới mở hộp</text>
             <rect x="600" y="52" width="14" height="4" fill="#9fb3bf"/><text x="620" y="59" fill="#9fb3bf" font-family="sans-serif" font-size="11">Sau 100 giờ</text>
             <!-- annotation on bass -->
             <text x="120" y="95" fill="#f5a524" font-family="sans-serif" font-size="11" font-weight="bold">chênh lệch &lt; 1 dB</text>
@@ -237,7 +237,7 @@
           <div class="dl-apps">
             <div class="dl-app">
               <div class="dl-head">
-                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
                 <span class="nm">Synq</span>
               </div>
               <span class="dl-desc">AutoEQ 6.000+ tai nghe + EQ tùy chỉnh, phát lossless bit-perfect, DSD, kết nối NAS/cloud.</span>
@@ -277,7 +277,7 @@
       <div class="dl-top dl-apps">
         <div class="dl-app">
           <div class="dl-head">
-            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
             <span class="nm">Synq</span>
           </div>
           <span class="dl-desc">Want to actually change your headphone's sound? AutoEQ for 6,000+ headphones + custom EQ, bit-perfect playback.</span>
@@ -320,9 +320,9 @@
             <text x="420" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">2k</text>
             <text x="590" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">10k</text>
             <text x="755" y="268" fill="#7c8b96" font-family="sans-serif" font-size="10">20k</text>
-            <polyline fill="none" stroke="#5eead4" stroke-width="2.5" points="70,120 140,112 210,120 300,140 400,132 500,118 560,100 620,140 690,118 760,150"/>
+            <polyline fill="none" stroke="#FF6B35" stroke-width="2.5" points="70,120 140,112 210,120 300,140 400,132 500,118 560,100 620,140 690,118 760,150"/>
             <polyline fill="none" stroke="#9fb3bf" stroke-width="2" stroke-dasharray="5 4" points="70,126 140,116 210,122 300,141 400,133 500,119 560,101 620,141 690,119 760,151"/>
-            <rect x="470" y="52" width="14" height="4" fill="#5eead4"/><text x="490" y="59" fill="#bfeee6" font-family="sans-serif" font-size="11">Fresh out of box</text>
+            <rect x="470" y="52" width="14" height="4" fill="#FF6B35"/><text x="490" y="59" fill="#bfeee6" font-family="sans-serif" font-size="11">Fresh out of box</text>
             <rect x="600" y="52" width="14" height="4" fill="#9fb3bf"/><text x="620" y="59" fill="#9fb3bf" font-family="sans-serif" font-size="11">After 100 hours</text>
             <text x="120" y="95" fill="#f5a524" font-family="sans-serif" font-size="11" font-weight="bold">&lt; 1 dB difference</text>
             <line x1="118" y1="100" x2="105" y2="121" stroke="#f5a524" stroke-width="1.2"/>
@@ -378,7 +378,7 @@
           <div class="dl-apps">
             <div class="dl-app">
               <div class="dl-head">
-                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="bi4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#bi4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
                 <span class="nm">Synq</span>
               </div>
               <span class="dl-desc">AutoEQ for 6,000+ headphones + custom EQ, bit-perfect lossless, DSD, NAS/cloud.</span>
@@ -410,7 +410,7 @@
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
-      <p><span data-lang-block="vi">Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.</span><span data-lang-block="en">A small independent studio making games and apps for people who care about details.</span></p>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
     <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>

@@ -79,3 +79,12 @@ Shared chrome: `public/chrome.css`, `public/chrome.js` (loaded by every touched 
 - Chapter/boss counts: the generated Kagezan page says 8 chapters, the old home said 15; the new home states neither.
 - Real product shots for SynqTag (it has none, the card uses its icon).
 - OG images per page.
+
+## 6. Round 2 (owner review)
+
+- Palette is now black and white with one accent, orange `#FF6B35` (fills, marks, dots; never body text on white). Tokens live in `public/studio.css` (`--orange`) and `public/styles.css` (legacy `--accent` and ink scale, so every legacy page follows). Guide diagrams and `/get` were recoloured.
+- Tagline: "Make Every Day More Playful" / "Mỗi ngày thêm vui". Kagezan says "15+ chapters" / "15+ chương".
+- Language: first entry of `navigator.languages` starting `vi` gives VI, else EN; a saved toggle (`synq-lang`) wins. Done in `tools/chrome.py` (inline script) and `public/i18n.js`. The generated `/kagezan*` pages still default to EN.
+- No CJK on the new pages. Marquee = app icons with orange dots.
+- `public/dots.js`: hero dash field that reacts to the cursor (tap ripple on touch), and the four product cells whose dots gather into a controller, note, tag, magnifier on hover (on scroll into view on touch). One shared rAF loop, only while visible, static under reduced motion.
+- Copy rewritten short and plain in `tools/build_pages.py` (VI first).

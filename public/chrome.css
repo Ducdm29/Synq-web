@@ -11,12 +11,12 @@ html[lang="en"] [data-lang-block="vi"] { display: none !important; }
 html[lang="vi"] [data-lang-block="en"] { display: none !important; }
 
 .sq-header, .sq-footer, .sq-skip {
-  --c-bg: #0a0d10; --c-ink: #f3f6f8; --c-mute: #a6b0ba; --c-soft: #161b20; --c-btn: #f3f6f8; --c-btn-ink: #0a0d10;
+  --c-bg: #0a0a0a; --c-ink: #f5f5f3; --c-mute: #a3a3a3; --c-soft: #1a1a1a; --c-btn: #FF6B35; --c-btn-ink: #1a0a03;
   font-family: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 .sq-header[data-theme="light"], .sq-footer[data-theme="light"] {
-  --c-bg: #f5f5f3; --c-ink: #0e0e10; --c-mute: #55555b; --c-soft: #e9e9e5; --c-btn: #0e0e10; --c-btn-ink: #f5f5f3;
+  --c-bg: #f5f5f3; --c-ink: #0e0e10; --c-mute: #55555b; --c-soft: #e9e9e5; --c-btn: #FF6B35; --c-btn-ink: #1a0a03;
 }
 .sq-skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: #fff; color: #000; padding: 10px 14px; border-radius: 8px; text-decoration: none; }
 .sq-skip:focus { top: 12px; }

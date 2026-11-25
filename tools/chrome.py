@@ -17,7 +17,7 @@ def header(theme="dark", active=""):
         f'<a href="{h}"{cur if k == active else ""}>{t(vi, en)}</a>'
         for h, vi, en, k in NAV)
     return f'''<!--sq:header-->
-<script>try{{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}}catch(e){{}}</script>
+<script>var l=null;try{{l=localStorage.getItem('synq-lang')}}catch(e){{}}if(!l){{var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content">{t("Bỏ qua điều hướng", "Skip to content")}</a>
 <header class="sq-header" data-theme="{theme}">
   <div class="sq-bar">
@@ -43,7 +43,7 @@ def footer(theme="dark"):
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
-      <p>{t("Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.", "A small independent studio making games and apps for people who care about details.")}</p>
+      <p>{t("Studio nhỏ làm game và app nghe nhạc.", "A small studio making games and music apps.")}</p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
     {col(("Sản phẩm","Products"), [("/kagezan","Kagezan","Kagezan"),("/synq","Synq","Synq"),("/synqtag","SynqTag","SynqTag"),("/music-check","Music Check","Music Check")])}

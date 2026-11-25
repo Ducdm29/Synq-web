@@ -93,7 +93,7 @@
 <div class="site-wrapper">
 
   <!--sq:header-->
-<script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
 <header class="sq-header" data-theme="dark">
   <div class="sq-bar">
@@ -130,7 +130,7 @@
       <div class="dl-top dl-apps">
         <div class="dl-app">
           <div class="dl-head">
-            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv1)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
             <span class="nm">Synq</span>
           </div>
           <span class="dl-desc">Phát file local của bạn bit-perfect đúng sample rate qua DAC — nhạc là của bạn, nghe offline mãi mãi.</span>
@@ -177,17 +177,17 @@
             <rect x="640" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
             <text x="715" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC / tai nghe</text>
 
-            <text x="20" y="150" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">File local + bit-perfect</text>
-            <rect x="20" y="162" width="150" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="20" y="150" fill="#FF6B35" font-family="sans-serif" font-size="13" font-weight="bold">File local + bit-perfect</text>
+            <rect x="20" y="162" width="150" height="58" rx="10" fill="#123a34" stroke="#FF6B35"/>
             <text x="95" y="196" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">File trong máy</text>
-            <text x="182" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
-            <rect x="200" y="162" width="240" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
-            <text x="320" y="188" fill="#5eead4" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">Player chế độ độc quyền</text>
+            <text x="182" y="196" fill="#FF6B35" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="200" y="162" width="240" height="58" rx="10" fill="#123a34" stroke="#FF6B35"/>
+            <text x="320" y="188" fill="#FF6B35" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">Player chế độ độc quyền</text>
             <text x="320" y="206" fill="#cfeee8" font-family="sans-serif" font-size="11.5" text-anchor="middle">bỏ qua bộ trộn OS</text>
-            <text x="452" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
-            <rect x="470" y="162" width="230" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="452" y="196" fill="#FF6B35" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="470" y="162" width="230" height="58" rx="10" fill="#123a34" stroke="#FF6B35"/>
             <text x="585" y="188" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC — đúng rate gốc</text>
-            <text x="585" y="206" fill="#5eead4" font-family="sans-serif" font-size="11.5" text-anchor="middle" font-weight="bold">bit-perfect</text>
+            <text x="585" y="206" fill="#FF6B35" font-family="sans-serif" font-size="11.5" text-anchor="middle" font-weight="bold">bit-perfect</text>
             <text x="410" y="242" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Cùng bản master, cùng DAC, cùng đường bit-perfect → nghe y hệt. Khác nhau là ở đường đi, không phải ở file.</text>
           </svg>
           <figcaption>Nguồn lossless mà đi qua bộ trộn OS thì đã hết bit-perfect; player local chế độ độc quyền gửi thẳng bit gốc tới DAC ở đúng sample rate.</figcaption>
@@ -247,7 +247,7 @@
           <div class="dl-apps">
             <div class="dl-app">
               <div class="dl-head">
-                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv2)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
                 <span class="nm">Synq</span>
               </div>
               <span class="dl-desc">Phát bit-perfect đúng sample rate qua DAC, AutoEQ 6.000+ tai nghe, DSD, kết nối NAS/cloud — nhạc là của bạn, offline.</span>
@@ -287,7 +287,7 @@
       <div class="dl-top dl-apps">
         <div class="dl-app">
           <div class="dl-head">
-            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+            <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv3)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
             <span class="nm">Synq</span>
           </div>
           <span class="dl-desc">Plays your local files bit-perfect at the native sample rate over your DAC — the music is yours, offline forever.</span>
@@ -334,17 +334,17 @@
             <rect x="640" y="46" width="150" height="58" rx="10" fill="#20242b" stroke="#3a4048"/>
             <text x="715" y="80" fill="#e6edf2" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC / headphones</text>
 
-            <text x="20" y="150" fill="#5eead4" font-family="sans-serif" font-size="13" font-weight="bold">Local file + bit-perfect</text>
-            <rect x="20" y="162" width="150" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="20" y="150" fill="#FF6B35" font-family="sans-serif" font-size="13" font-weight="bold">Local file + bit-perfect</text>
+            <rect x="20" y="162" width="150" height="58" rx="10" fill="#123a34" stroke="#FF6B35"/>
             <text x="95" y="196" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">File on device</text>
-            <text x="182" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
-            <rect x="200" y="162" width="240" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
-            <text x="320" y="188" fill="#5eead4" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">Exclusive-mode player</text>
+            <text x="182" y="196" fill="#FF6B35" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="200" y="162" width="240" height="58" rx="10" fill="#123a34" stroke="#FF6B35"/>
+            <text x="320" y="188" fill="#FF6B35" font-family="sans-serif" font-size="12.5" font-weight="bold" text-anchor="middle">Exclusive-mode player</text>
             <text x="320" y="206" fill="#cfeee8" font-family="sans-serif" font-size="11.5" text-anchor="middle">bypasses the OS mixer</text>
-            <text x="452" y="196" fill="#5eead4" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
-            <rect x="470" y="162" width="230" height="58" rx="10" fill="#123a34" stroke="#5eead4"/>
+            <text x="452" y="196" fill="#FF6B35" font-family="sans-serif" font-size="20" text-anchor="middle">→</text>
+            <rect x="470" y="162" width="230" height="58" rx="10" fill="#123a34" stroke="#FF6B35"/>
             <text x="585" y="188" fill="#cfeee8" font-family="sans-serif" font-size="12.5" text-anchor="middle">DAC — native rate</text>
-            <text x="585" y="206" fill="#5eead4" font-family="sans-serif" font-size="11.5" text-anchor="middle" font-weight="bold">bit-perfect</text>
+            <text x="585" y="206" fill="#FF6B35" font-family="sans-serif" font-size="11.5" text-anchor="middle" font-weight="bold">bit-perfect</text>
             <text x="410" y="242" fill="#7c8b96" font-family="sans-serif" font-size="11" text-anchor="middle">Same master, same DAC, same bit-perfect path → they sound identical. The difference is the path, not the file.</text>
           </svg>
           <figcaption>A lossless source that passes through the OS mixer is no longer bit-perfect; an exclusive-mode local player sends the original bits straight to the DAC at the native rate.</figcaption>
@@ -404,7 +404,7 @@
           <div class="dl-apps">
             <div class="dl-app">
               <div class="dl-head">
-                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
+                <span class="ic synq"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="sv4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B35" stop-opacity="0.35"/><stop offset="100%" stop-color="#FF6B35" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#sv4)"/><path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#FF6B35"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/></svg></span>
                 <span class="nm">Synq</span>
               </div>
               <span class="dl-desc">Bit-perfect at the native sample rate over your DAC, AutoEQ for 6,000+ headphones, DSD, NAS/cloud — the music is yours, offline.</span>
@@ -436,7 +436,7 @@
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
-      <p><span data-lang-block="vi">Studio độc lập nhỏ làm game và ứng dụng cho người chơi kỹ tính.</span><span data-lang-block="en">A small independent studio making games and apps for people who care about details.</span></p>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
     <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>
