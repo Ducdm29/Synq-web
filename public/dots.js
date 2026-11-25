@@ -43,7 +43,7 @@
 
   /* ---------- HERO: field of dashes ---------- */
   function hero(canvas) {
-    var host = canvas.parentElement, ctx, W, H, P = [], mx = -1e4, my = -1e4, sx = -1e4, sy = -1e4, ripples = [];
+    var host = canvas.parentElement, ctx, W, H, P = [], mx = -1e4, my = -1e4, sx = -1e4, sy = -1e4, ripples = [], lastMove = -1e9, cursorStr = 1;
     var small = window.innerWidth < 700;
 
     function build() {
@@ -75,18 +75,24 @@
       tick: function (t) {
         if (reduce) return false;
         var R = small ? 110 : 170, R2 = R * R;
-        sx += (mx - sx) * .16; sy += (my - sy) * .16;           // smoothed cursor
+        var time = t * 0.001, real = mx > -1e3 && (t - lastMove) < 3500, tx0, ty0;
+        if (real) { tx0 = mx; ty0 = my; } else {                  // nobody around: a slow ghost cursor keeps the field breathing
+          tx0 = W * (.5 + .36 * Math.sin(time * .23)); ty0 = H * (.46 + .28 * Math.sin(time * .31 + 1.2));
+        }
+        if (sx < -1e3) { sx = tx0; sy = ty0; }
+        sx += (tx0 - sx) * (real ? .16 : .05); sy += (ty0 - sy) * (real ? .16 : .05);
+        cursorStr += ((real ? 1 : .55) - cursorStr) * .05;
         ctx.clearRect(0, 0, W, H);
-        var gray = [], org = [], time = t * 0.001;
+        var gray = [], org = [];
         for (var r = ripples.length - 1; r >= 0; r--) { ripples[r].r = (t - ripples[r].t0) * 0.55; if (ripples[r].r > Math.max(W, H)) ripples.splice(r, 1); }
         for (var i = 0; i < P.length; i++) {
           var p = P[i];
           // idle drift (keeps the field alive, also on touch)
-          var tx = p.hx + Math.sin(time * .7 + p.ph) * 3.5, ty = p.hy + Math.cos(time * .6 + p.ph * 1.3) * 3.5;
+          var wave = Math.sin(time * .9 - Math.hypot(p.hx - W * .5, p.hy - H * .46) * .012), tx = p.hx + Math.sin(time * .7 + p.ph) * 6 + wave * 4, ty = p.hy + Math.cos(time * .6 + p.ph * 1.3) * 6 + wave * 4;
           var dx = p.x - sx, dy = p.y - sy, d2 = dx * dx + dy * dy, near = 0;
           if (d2 < R2) {
             var d = Math.sqrt(d2) || 1; near = 1 - d / R;
-            var f = near * near * 5.2;
+            var f = near * near * 5.2 * cursorStr;
             p.vx += dx / d * f; p.vy += dy / d * f;
           }
           for (var k = 0; k < ripples.length; k++) {   // tap ripple: a ring that shoves dots outward
@@ -97,10 +103,10 @@
           p.vx *= .84; p.vy *= .84; p.x += p.vx; p.y += p.vy;
           // dash: points radially at rest, bends tangential near the cursor
           var tang = Math.atan2(p.y - sy, p.x - sx) + 1.5708;
-          var base = p.a0 + Math.sin(time * .5 + p.ph) * .25;
+          var base = p.a0 + Math.sin(time * .5 + p.ph) * .3 + wave * .22;
           var a = near > 0 ? base + (tang - base) * Math.min(1, near * 1.6) : base;
           var sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-          var len = 3.2 + near * 5 + Math.min(sp, 6) * .8, c = Math.cos(a) * len, s = Math.sin(a) * len;
+          var len = 3.4 + wave * 1.1 + near * 5 + Math.min(sp, 6) * .8, c = Math.cos(a) * len, s = Math.sin(a) * len;
           var arr = near > .22 ? org : gray;
           arr.push(p.x - c, p.y - s, p.x + c, p.y + s);
         }
@@ -117,8 +123,7 @@
       var rectOf = function (e) { var r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
       window.addEventListener('pointermove', function (e) {
         if (e.pointerType === 'touch') return;
-        var q = rectOf(e); mx = q.x; my = q.y;
-        if (sx < -1e3) { sx = mx; sy = my; }
+        var q = rectOf(e); mx = q.x; my = q.y; lastMove = performance.now();
       }, { passive: true });
       document.addEventListener('pointerleave', function () { mx = my = sx = sy = -1e4; });
       host.addEventListener('pointerdown', function (e) {
@@ -170,8 +175,8 @@
 
     function build() {
       var f = fit(canvas); ctx = f.ctx; W = f.w; H = f.h; D = [];
-      var sp = W < 500 ? 15 : 16, ox = (W % sp) / 2, oy = (H % sp) / 2;
-      for (var y = oy + sp / 2; y < H; y += sp) for (var x = ox + sp / 2; x < W; x += sp)
+      var sp = W < 500 ? 15 : 16, rc = el.getBoundingClientRect(), ox = (sp - ((rc.left + window.scrollX) % sp)) % sp, oy = (sp - ((rc.top + window.scrollY) % sp)) % sp;
+      for (var y = oy; y < H; y += sp) for (var x = ox; x < W; x += sp)
         D.push({ rx: x + (Math.random() - .5) * 3, ry: y + (Math.random() - .5) * 3, tx: 0, ty: 0, s: 0, dl: 0, cv: 0 });
       // shape box: upper part of the cell, text sits below
       var S = Math.min(W * .66, H * .46, 380), cx = W / 2, cy = Math.min(H * .32, H - 270);

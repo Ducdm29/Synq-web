@@ -72,23 +72,16 @@ def gcard(x):
 
 # ------------------------------------------------------------ HOME
 def home():
-    icons = ['<img src="/img/icon-kagezan.webp" width="96" height="96" alt="" decoding="async" />',
-             '<img src="/logo-mark.svg" width="96" height="96" alt="" decoding="async" />',
-             '<img src="/img/icon-synqtag.webp" width="96" height="96" alt="" decoding="async" />',
-             '<img src="/img/icon-musiccheck.webp" width="96" height="96" alt="" decoding="async" />']
-    one = '<i></i>'.join(icons) + '<i></i>'
-    track = f'<div class="marquee-track" aria-hidden="true">{one * 3}{one * 3}</div>'
-
     def cell(shape, tag, name, line, href, btn, extra=''):
-        return f"""<article class="cell" data-shape="{shape}" data-r>
+        return f"""<a class="cell" href="{href}" data-shape="{shape}" data-r aria-label="{name}">
         <canvas class="cell-fx" aria-hidden="true"></canvas>
         <div class="cell-in">
           {t(*tag, 'span', 'cell-tag')}
           <h3>{name}</h3>
           {t(*line, 'p')}
-          <a class="btn" href="{href}">{t(*btn)}{ARROW}<span class="sr"> {name}</span></a>
+          <span class="go" aria-hidden="true">{ARROW}</span>
         </div>
-      </article>"""
+      </a>"""
     cells = ''.join([
         cell('pad', ('Game', 'Game'), 'Kagezan', ('Game samurai gạt đòn. Sắp ra mắt.', 'A samurai parry game. Coming soon.'), '/kagezan', ('Xem game', 'See the game')),
         cell('note', ('Nghe nhạc', 'Music player'), 'Synq', ('Nghe nhạc lossless, tự chỉnh theo tai nghe của bạn.', 'Lossless music, tuned to your headphones.'), '/synq', ('Xem Synq', 'See Synq')),
@@ -108,15 +101,14 @@ def home():
       <h1 class="display" data-lang-block="vi"><span class="ln" style="--i:0"><span>Mỗi ngày</span></span><span class="ln" style="--i:1"><span>thêm vui.</span></span></h1>
       <h1 class="display" data-lang-block="en"><span class="ln" style="--i:0"><span>Make Every Day</span></span><span class="ln" style="--i:1"><span>More Playful</span></span></h1>
       <div class="hero-row">
-        {t('Bọn mình là SYNQ Studio, một studio nhỏ làm game samurai và vài app nghe nhạc.',
-           'We are SYNQ Studio, a small team making a samurai game and a few music apps.', 'p', 'lede')}
+        {t('Bọn mình là SYNQ Studio, một studio nhỏ làm app và game.',
+           'We are SYNQ Studio, a small studio making apps and games.', 'p', 'lede')}
         <div class="hero-cta">
           <a class="btn accent" href="#kagezan">{t('Xem Kagezan', 'See Kagezan')}{ARROW}</a>
           <a class="btn ghost" href="#products">{t('Tất cả sản phẩm', 'All products')}</a>
         </div>
       </div>
     </div>
-    <div class="marquee" aria-hidden="true">{track}</div>
   </section>
 
   <section class="feat" id="kagezan" aria-labelledby="kz-h">
@@ -133,7 +125,6 @@ def home():
     </div>
     <div class="stage" data-stage>
       <div class="stage-pin">
-        <div class="stage-ring" aria-hidden="true"></div>
         <div class="stage-media">
           <video data-loop muted loop playsinline autoplay preload="none" poster="/img/kagezan-loop-poster.webp" width="1024" height="576" aria-label="Kagezan gameplay"><source src="/img/kagezan-loop.mp4" type="video/mp4" /></video>
         </div>
@@ -143,11 +134,11 @@ def home():
       <div class="pillars">
         <div class="pillar" data-r><h3>{t('Gạt đúng nhịp', 'Perfect deflects')}</h3>{t('Đỡ đúng lúc lưỡi kiếm chạm tới thì bạn không bị trúng đòn, thế của địch đầy dần. Vỡ thế là kết liễu.', 'Guard right as the blade lands and you take no hit while their posture fills. Break it and you finish them.', 'p')}</div>
         <div class="pillar" data-r style="--d:.08s"><h3>{t('Đòn hiểm phải đọc', 'Read the big attacks')}</h3>{t('Quét thì nhảy, đâm thì phản đòn, túm thì lướt ra. Trùm nào cũng có nhịp riêng.', 'Jump the sweep, counter the thrust, dash out of the grab. Every boss has its own rhythm.', 'p')}</div>
-        <div class="pillar" data-r style="--d:.16s"><h3>{t('Ba lối kiếm', 'Three ways to fight')}</h3>{t('Katana nhanh, odachi nặng hai tay, song đao liên hoàn. Mỗi loại có một tuyệt kỹ riêng.', 'Fast katana, heavy two-handed odachi, or twin blades. Each has its own special move.', 'p')}</div>
+        <div class="pillar" data-r style="--d:.16s"><h3>{t('Đa dạng vũ khí', 'Many weapons')}</h3>{t('Katana, odachi, song đao và còn nhiều nữa. Mỗi loại đánh một kiểu.', 'Katana, odachi, twin blades and more. Each one plays differently.', 'p')}</div>
       </div>
       <div class="shots">{shots}</div>
       <div class="feat-foot" data-r>
-        {t('Chơi miễn phí. Có gói Ngọc mua trong app nhưng không bắt buộc. Quảng cáo có thưởng chỉ hiện khi bạn tự chọn xem.', 'Free to play. Jade packs are optional. Rewarded ads only show when you choose to watch one.', 'p')}
+        {t('Chơi miễn phí, không cần xem quảng cáo.', 'Free to play, no ads required.', 'p')}
         <a class="btn accent" href="/kagezan">{t('Khám phá Kagezan', 'Explore Kagezan')}{ARROW}</a>
       </div>
     </div>
@@ -157,7 +148,6 @@ def home():
     <div class="wrap">
       <div class="products-head">
         <h2 id="pr-h" class="display h2" data-r>{t('Đồ bọn mình làm', 'What we make')}</h2>
-        {t('Một game và ba app nghe nhạc.', 'One game and three music apps.', 'p', 'lede')}
       </div>
       <div class="cells">{cells}</div>
     </div>
