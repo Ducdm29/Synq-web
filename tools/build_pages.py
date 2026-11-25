@@ -74,7 +74,6 @@ def gcard(x):
 def home():
     def cell(shape, tag, name, line, href, btn, extra=''):
         return f"""<a class="cell" href="{href}" data-shape="{shape}" data-r aria-label="{name}">
-        <canvas class="cell-fx" aria-hidden="true"></canvas>
         <div class="cell-in">
           {t(*tag, 'span', 'cell-tag')}
           <h3>{name}</h3>
@@ -145,6 +144,7 @@ def home():
   </section>
 
   <section class="products" id="products" aria-labelledby="pr-h">
+    <canvas class="field-fx" aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="products-head">
         <h2 id="pr-h" class="display h2" data-r>{t('Đồ bọn mình làm', 'What we make')}</h2>

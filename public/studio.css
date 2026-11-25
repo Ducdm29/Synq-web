@@ -20,7 +20,8 @@ body.studio h1, body.studio h2, body.studio h3, body.studio p { margin: 0; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--g); padding-right: var(--g); }
 .display { font-weight: 600; letter-spacing: -0.05em; line-height: .94; text-wrap: balance; }
 .h2 { font-size: clamp(40px, 7vw, 112px); }
-.lede { font-size: clamp(18px, 1.6vw, 24px); line-height: 1.45; max-width: 40ch; }
+.lede { font-size: clamp(18px, 1.6vw, 24px); line-height: 1.45; max-width: 40ch; text-wrap: pretty; }
+.hero .lede { text-wrap: balance; max-width: 36ch; }
 .sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* buttons: flat pills. black by default, orange for the one main action */
@@ -80,13 +81,14 @@ html.anim .hero-row { animation: fade 1s var(--e) .45s both; }
 .feat-foot p { color: var(--ink); max-width: 52ch; font-size: 20px; font-weight: 500; }
 
 /* ---------- products: dot cells ---------- */
-.products { padding: clamp(96px, 14vw, 200px) 0 clamp(56px, 8vw, 120px); }
+.products { position: relative; padding: clamp(96px, 14vw, 200px) 0 clamp(56px, 8vw, 120px); }
 .products-head { display: flex; flex-wrap: wrap; gap: 24px 64px; justify-content: space-between; align-items: end; margin-bottom: clamp(40px, 6vw, 88px); }
 .products-head h2 { max-width: 10ch; }
-.cells { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0 calc(var(--g) * -1); }
+.field-fx { position: absolute; left: 0; width: 100%; pointer-events: none; z-index: 0; }
+.products .wrap { position: relative; z-index: 1; }
+.cells { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .cell { position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; min-height: min(78vh, 640px); padding: 32px 24px clamp(36px, 4vw, 60px); color: var(--ink); text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .cell:focus-visible { outline: 3px solid var(--ink); outline-offset: -12px; border-radius: 32px; }
-.cell-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .cell-in { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 34ch; }
 .cell-tag { font-size: 15px; font-weight: 500; color: var(--mute); }
 .cell h3 { white-space: nowrap; font-size: clamp(40px, 4.8vw, 80px); font-weight: 600; letter-spacing: -0.05em; line-height: .95; }
