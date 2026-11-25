@@ -97,7 +97,7 @@ def home():
            t('Sửa tên bài, nghệ sĩ, ảnh bìa và lời, ghi thẳng vào file nhạc.', 'Edit titles, artists, covers and lyrics, written straight into the file.', 'p', 'tag'),
            t('iOS · Android', 'iOS · Android', 'p', 'meta'),
            f'<a class="btn" href="/synqtag">{t("Tìm hiểu thêm","Learn more")}<span class="sr"> SynqTag</span>{ARROW}</a><a class="btn q" href="https://apps.apple.com/vn/app/synqtag-edit-songs-metadata/id6816595732" target="_blank" rel="noopener">App Store</a><a class="btn q" href="https://play.google.com/store/apps/details?id=com.synqmusic.tagsmith" target="_blank" rel="noopener">Google Play</a>',
-           f'<div class="icon-pair"><img class="icon-big" src="/store/synqtag_icon.png" width="240" height="240" alt="SynqTag app icon" loading="lazy" decoding="async" /><div class="chips">{t("<span>Tên bài</span><span>Nghệ sĩ</span><span>Album</span><span>Ảnh bìa</span><span>Lời</span>", "<span>Title</span><span>Artist</span><span>Album</span><span>Cover</span><span>Lyrics</span>", "div")}</div></div>', '#cfe0d6'),
+           f'<div class="icon-pair"><img class="icon-big" src="/store/synqtag_icon.png" width="240" height="240" alt="SynqTag app icon" loading="lazy" decoding="async" />{t("<span>Tên bài</span><span>Nghệ sĩ</span><span>Album</span><span>Ảnh bìa</span><span>Lời</span>", "<span>Title</span><span>Artist</span><span>Album</span><span>Cover</span><span>Lyrics</span>", "div", "chips")}</div>', '#cfe0d6'),
       card(3, 'Music Check', 'light', '#e1e6ea', '#101418',
            t('Xem file nhạc là lossless xịn hay MP3 đội lốt FLAC.', 'Find out if a file is real lossless or an MP3 dressed up as FLAC.', 'p', 'tag'),
            t('iOS · Android', 'iOS · Android', 'p', 'meta'),

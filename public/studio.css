@@ -106,7 +106,7 @@ html.anim .hero-row { animation: fade 1s var(--e) .45s both; }
 .icon-big { width: min(46%, 240px); height: auto; border-radius: 22%; }
 .icon-pair { display: grid; gap: 20px; justify-items: center; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 420px; }
-.chips span { background: #0000001a; padding: 8px 16px; border-radius: 999px; font-weight: 500; font-size: 15px; }
+.chips span { white-space: nowrap; background: #0000001a; padding: 8px 16px; border-radius: 999px; font-weight: 500; font-size: 15px; }
 
 /* ---------- about ---------- */
 .about { padding-top: clamp(80px, 12vw, 180px); padding-bottom: clamp(60px, 8vw, 120px); }
@@ -176,7 +176,10 @@ body.world-synq .btn.ghost { background: #ffffff16; color: #f3f6f8; }
   .shots { grid-template-columns: 1fr 1fr; } .shots figure:nth-child(3) { display: none; }
   .about-cols, .gcards, .mini { grid-template-columns: 1fr; }
   .pcard { grid-template-columns: 1fr; position: relative; top: auto; min-height: 0; }
-  .pcard-media { min-height: 360px; }
+  .pcard-media { min-height: 0; padding: 24px 0 0; }
+  .pcard-media:has(.emblem), .pcard-media:has(.icon-pair) { padding: 24px 0; }
+  .emblem { width: 56%; } .icon-big { width: 96px; } .icon-pair { gap: 14px; }
+  .phones { padding: 0; align-items: flex-end; } .phones img:nth-child(2) { margin-top: 0; margin-bottom: -24px; } .phones img { border-radius: 20px 20px 0 0; }
   .phones img { width: clamp(120px, 34vw, 220px); }
   .sh-phones { margin-top: 24px; }
 }
@@ -186,6 +189,7 @@ body.world-synq .btn.ghost { background: #ffffff16; color: #f3f6f8; }
   .hero h1 { font-size: 10.2vw; }
   .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
   .stage-media { height: auto; max-height: 100%; aspect-ratio: 4 / 5; }
+  .stage-kanji { font-size: 40vw; }
   .stage { height: 190vh; } .stage-pin { padding: 0 12px; } .stage-media { border-radius: 20px; }
   .pcard { border-radius: 24px; }
 }
