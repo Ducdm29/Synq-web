@@ -238,7 +238,7 @@
     var section = canvas.parentElement, cellsEl = section.querySelector('.cells'), cells = $('.cell[data-shape]', cellsEl);
     var ctx, W = 0, H = 0, docTop = 0, N = 0, bs = new Int32Array(NB + 1);
     var RX, RY, PHs, AMP, SPD, OWN, TX, TY, DL, CV, E, X, Y, VIS, OWNED = new Int32Array(0);
-    var P = new Float32Array(cells.length), G = new Float32Array(cells.length), lastT = 0;
+    var P = new Float32Array(cells.length), G = new Float32Array(cells.length), scat = new Uint8Array(cells.length), lastT = 0;
 
     function build() {
       small = Math.min(window.innerWidth, window.innerHeight * 1.2) < 700;
@@ -328,7 +328,8 @@
     var task = {
       tick: function (t, lvl) {
         var dt = lastT ? Math.min(50, t - lastT) / 1000 : .016; lastT = t;
-        for (var k = 0; k < P.length; k++) if (P[k] !== G[k]) {          // linear progress in time; the per-dot easing makes it smooth
+        for (var k = 0; k < P.length; k++) if (scat[k] && P[k] <= G[k] + 0.002) { scat[k] = 0; G[k] = 1; }   // scattered: now gather again
+        for (k = 0; k < P.length; k++) if (P[k] !== G[k]) {          // linear progress in time; the per-dot easing makes it smooth
           var step = dt / (G[k] > P[k] ? 1.1 : .7);                      // forms in ~1.1 s, releases in ~0.7 s
           P[k] = G[k] > P[k] ? Math.min(G[k], P[k] + step) : Math.max(G[k], P[k] - step);
         }
@@ -348,12 +349,16 @@
         cells.forEach(function (c) { io.observe(c); });
       }
     } else {
+      // desktop: every product forms its shape as it scrolls into view and stays formed;
+      // hovering scatters the dots a little and they gather again (same forming animation, once more)
+      if ('IntersectionObserver' in window) {
+        var io2 = new IntersectionObserver(function (es) { es.forEach(function (e) { var k = cells.indexOf(e.target); if (k >= 0 && e.intersectionRatio > .3 && !G[k]) { G[k] = 1; kick(); } }); }, { threshold: [0, .3, .6] });
+        cells.forEach(function (c) { io2.observe(c); });
+      } else { for (var q = 0; q < G.length; q++) G[q] = 1; }
       cells.forEach(function (el, k) {
-        var set = function (v) { G[k] = v; kick(); };
-        el.addEventListener('pointerenter', function () { set(1); });
-        el.addEventListener('pointerleave', function () { set(0); });
-        el.addEventListener('focusin', function () { set(1); });
-        el.addEventListener('focusout', function () { set(0); });
+        var again = function () { if (P[k] > .9 && !scat[k]) { scat[k] = 1; G[k] = .4; kick(); } };
+        el.addEventListener('pointerenter', again);
+        el.addEventListener('focusin', again);
       });
     }
   }

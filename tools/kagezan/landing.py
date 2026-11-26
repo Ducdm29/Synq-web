@@ -5,6 +5,8 @@ from common import APP_STORE, PLAY, EMAIL
 from chrome import header, footer
 from build_pages import head, t, ARROW, TAIL
 import news as newsmod
+import json
+from story_data import NARRATION, BIOS
 
 # Public posts for the "latest news" section. Step 3 (/kagezan/news) fills this; the section hides while it is empty.
 # each: dict(href, date_vi, date_en, title_vi, title_en, text_vi, text_en)
@@ -28,6 +30,8 @@ BOSSES = [
     (14, "Ikazuchi", "Lôi Tướng", "Thunder General", "Vòng sáng hiện dưới chân là sét sắp đánh. Bước ra kịp là thoát.", "A glowing ring under your feet means lightning is coming. Step out in time."),
     (15, "Hư Ảnh", "Trùm cuối phần 2", "Final boss of part 2", "Kéo bạn vào hố đen, rồi lặn vào khe nứt và hiện ra chỗ khác.", "Drags you toward black holes, then slips into the rift and comes out somewhere else."),
 ]
+BOSS_ID = ['oniwa', 'kagero', 'kurohebi', 'tekki', 'mugen', 'renka', 'shuten', 'shogun', 'shirayuki', 'suigetsu', 'kogane', 'kanayago', 'hagane', 'ikazuchi', None]
+BOSS_POST = {9: 'boss-09-shirayuki', 10: 'boss-10-suigetsu', 11: 'boss-11-kogane', 12: 'boss-12-kanayago', 13: 'boss-13-hagane', 14: 'boss-14-ikazuchi'}
 # The English name of boss 15 as shown in the game's own text.
 BOSS15_EN = "The Hollow Shade"
 
@@ -50,15 +54,15 @@ def story():
         out = ""
         for ch, vi, en in PLACES:
             if ch in chs:
-                out += ('<li class="story-card"><img src="/img/story/ch%d.webp" width="1000" height="667" alt="" loading="lazy" decoding="async" />'
-                        '<span class="story-ch">%s</span><h3>%s</h3></li>') % (ch, t("Chương %d" % ch, "Chapter %d" % ch), t(vi, en))
+                out += ('<li class="story-card"><button type="button" class="story-open" data-ch="%d"><img src="/img/story/ch%d.webp" width="1000" height="667" alt="" loading="lazy" decoding="async" />'
+                        '<span class="story-ch">%s</span><h3>%s</h3></button></li>') % (ch, ch, t("Chương %d" % ch, "Chapter %d" % ch), t(vi, en))
         return out
 
     def part(title_vi, title_en, line_vi, line_en):
         return '<div class="wrap story-part" data-r>%s%s</div>' % (t(title_vi, title_en, "b"), t(line_vi, line_en, "span"))
 
-    def rail(items):
-        return '<div class="story-rail" data-rail><div class="story-pin"><ol class="story-track">%s</ol></div></div>' % items
+    def rail(head, items):
+        return '<div class="story-rail" data-rail><div class="story-pin">%s<ol class="story-track">%s</ol></div></div>' % (head, items)
 
     p1 = part("Phần 1", "Part 1", "Từ ngôi đền hoang trên núi đến kinh thành rực lửa.", "From a ruined mountain shrine to the burning capital.")
     p2 = part("Phần 2", "Part 2", "Khe nứt không khép lại. Kagezan bước qua, vào một thế giới của những thứ chưa tìm được chỗ yên nghỉ.",
@@ -69,11 +73,41 @@ def story():
       <h2 id="story-h" class="display h2" data-r>%s</h2>
       %s
     </div>
-    %s%s%s%s
+    %s%s
   </section>""" % (t("Câu chuyện", "The story"),
                    t("Nhật Bản thời phong kiến. Một đêm không trăng, bầu trời nứt ra, ánh sáng tím rỉ xuống, người chết trỗi dậy và những vị tướng mang hận đổi tên mình lấy sức mạnh. Một lãng khách không nhớ nổi tên mình đi theo ánh sáng ấy. Trên chuôi kiếm là một dải lụa đỏ đã phai, không bao giờ được tháo.",
                      "Feudal Japan. One moonless night the sky cracks open and violet light leaks down. The dead rise, and generals who carry a grudge trade their names for power. A masterless samurai who can't remember his own name follows the light, a faded red silk ribbon on his sword hilt that he never unties.", "p", "lede"),
-                   p1, rail(cards(range(1, 9))), p2, rail(cards(range(9, 16)) + end))
+                   rail(p1, cards(range(1, 9))), rail(p2, cards(range(9, 16)) + end))
+
+
+def page_data(live_slugs):
+    story = {}
+    for ch, vi, en in PLACES:
+        story[ch] = dict(vi=vi, en=en, slides=[dict(src="/img/story/v/ch%d_%d.webp" % (ch, k), vi=v[0], en=v[1]) for k, v in sorted(NARRATION[ch].items())])
+    bosses = {}
+    for (ch, name, tv, te, lv, le), bid in zip(BOSSES, BOSS_ID):
+        if not bid: continue
+        bio = BIOS[bid]
+        post = BOSS_POST.get(ch)
+        bosses[bid] = dict(ch=ch, name=name, tvi=tv, ten=te, bvi=bio[0], ben=bio[1], tipvi=lv, tipen=le,
+                           img="/img/boss/%s.webp" % bid, post=("/kagezan/news/" + post) if post in live_slugs else None)
+    return json.dumps(dict(story=story, bosses=bosses), ensure_ascii=False).replace("</", "<\\/")
+
+
+def boss_gallery():
+    cards = ""
+    for i, ((ch, name, tv, te, lv, le), bid) in enumerate(zip(BOSSES, BOSS_ID)):
+        d = ' style="--d:%.2fs"' % ((i % 5) * .06)
+        label = t("Chương %d" % ch, "Chapter %d" % ch, "span", "boss-ch")
+        if bid:
+            cards += ('<li data-r%s><button type="button" class="boss-card" data-boss="%s"><span class="boss-art"><img src="/img/boss/%s-card.webp" alt="" loading="lazy" decoding="async" /></span>%s<span class="boss-name">%s</span></button></li>\n        '
+                      % (d, bid, bid, label, name))
+        else:
+            sil = ('<svg viewBox="0 0 120 200" aria-hidden="true"><path d="M60 14c-12 0-20 9-20 21 0 8 3 14 8 18-16 8-28 24-30 46L12 190h96l-6-91c-2-22-14-38-30-46 5-4 8-10 8-18 0-12-8-21-20-21z" fill="#16161a"/></svg>')
+            lock = '<svg class="boss-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
+            cards += ('<li data-r%s><div class="boss-card locked"><span class="boss-art">%s%s</span>%s<span class="boss-name">%s</span><span class="boss-soon">%s</span></div></li>\n        '
+                      % (d, sil, lock, label, t(name, BOSS15_EN), t("Trùm cuối phần 2", "Final boss of part 2")))
+    return cards
 
 
 def stores():
@@ -100,13 +134,6 @@ def play_row(flip, name, h_vi, h_en, p_vi, p_en, alt):
 
 def build():
     POSTS[:] = newsmod.landing_posts(newsmod.live()[:3])
-    bosses = ""
-    for i, (ch, name, tv, te, lv, le) in enumerate(BOSSES):
-        name_en = BOSS15_EN if ch == 15 else name
-        name_html = name if ch != 15 else t(name, name_en)
-        bosses += """<li data-r style="--d:%.2fs"><span class="kz-ch">%s</span><h3>%s</h3><span class="kz-ti">%s</span>%s</li>
-        """ % ((i % 3) * .06, t("Chương %d" % ch, "Chapter %d" % ch), name_html, t(tv, te), t(lv, le, "p"))
-
     news = ""
     if POSTS:
         cards = "".join("""<a class="kz-post" href="%s" data-r><span class="kz-date">%s</span><h3>%s</h3>%s</a>""" % (
@@ -156,8 +183,8 @@ def build():
   <section class="kz-bosses wrap" id="bosses" aria-labelledby="boss-h">
     <h2 id="boss-h" class="display h2" data-r>%(boss_h)s</h2>
     %(boss_lede)s
-    <ol class="kz-boss-list">
-        %(bosses)s</ol>
+    <ul class="boss-grid">
+        %(bosses)s</ul>
   </section>
 
   %(news)s
@@ -175,9 +202,10 @@ def build():
   </section>
 </main>
 
+<script type="application/json" id="kz-data">%(data)s</script>
 %(footer)s
 """ % dict(
-        story=story(), header=header('light'), footer=footer('light'), arrow=ARROW, email=EMAIL, stores=stores(), news=news, bosses=bosses,
+        story=story(), data=page_data(set(p['slug'] for p in newsmod.live())), header=header('light'), footer=footer('light'), arrow=ARROW, email=EMAIL, stores=stores(), news=news, bosses=boss_gallery(),
         lede=t("Game samurai xoay quanh đòn gạt. Đọc nhịp kiếm của đối thủ, gạt đúng lúc, kết liễu khi thế địch vỡ. Chơi offline trên iPhone, iPad và Android.",
                "A samurai game built around the parry. Read the other swordsman's rhythm, deflect on time, finish them when their posture breaks. Plays offline on iPhone, iPad and Android.", "p", "lede"),
         trailer_btn=t("Xem trailer", "Watch the trailer"),
@@ -195,6 +223,8 @@ def build():
         boss_lede=t("Mỗi chương một trùm, mỗi trùm một nhịp riêng.", "One boss per chapter, each with its own rhythm.", "p", "lede"),
         free=t("Chơi miễn phí, không cần xem quảng cáo.", "Free to play, no ads required."),
         l_support=t("Hỗ trợ", "Support"), l_privacy=t("Quyền riêng tư", "Privacy"), l_terms=t("Điều khoản", "Terms"), l_delete=t("Xoá tài khoản", "Delete account"))
-    return head("Kagezan - Deflect. Break. Finish.",
+    page = head("Kagezan - Deflect. Break. Finish.",
                 "Kagezan is a samurai action game built around the parry: deflect at the right instant, break posture, finish. 15+ chapters, each with its own boss. Free to play.",
-                "/kagezan", "studio kz", og="/store/shadowblade/feature.jpg", icon="/store/shadowblade/icon.png") + body + TAIL
+                "/kagezan", "studio kz", og="/store/shadowblade/feature.jpg", icon="/store/shadowblade/icon.png")
+    page = page.replace('<script src="/dots.js" defer></script>', '<script src="/dots.js" defer></script>\n  <script src="/kz.js" defer></script>')
+    return page + body + TAIL

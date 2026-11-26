@@ -60,7 +60,7 @@
 
     var update = function () {
       ticking = false;
-      var vh = window.innerHeight;
+      var vh = window.innerHeight, more = false;
       visible.forEach(function (el) {
         var r = el.getBoundingClientRect();
         if (el.hasAttribute('data-rail')) {
@@ -68,8 +68,12 @@
           if (mx) el.style.setProperty('--sp', Math.min(1, Math.max(0, (64 - r.top) / (mx * .6))).toFixed(4));
         } else if (el.hasAttribute('data-stage')) {
           var pin = el.firstElementChild, travel = Math.max(0, r.height - pin.offsetHeight);
-          var p = (vh * 0.6 - r.top) / (vh * 0.6 + travel * 0.5);
-          el.style.setProperty('--p', Math.min(1, Math.max(0, p)).toFixed(4));
+          var raw = Math.min(1, Math.max(0, (vh * 0.7 - r.top) / (vh * 0.7 + travel * 0.3)));
+          var target = raw * raw * (3 - 2 * raw);                       // eased
+          var cur = el._p == null ? target : el._p;
+          cur += (target - cur) * 0.22;                                   // glide: wheel steps never show as steps
+          if (Math.abs(target - cur) < 0.0015) cur = target; else more = true;
+          el._p = cur; el.style.setProperty('--p', cur.toFixed(4));
         } else {
           var words = $('.w', el.querySelector('[data-lang-block]:not([style*="none"])') || el);
           var vis = $('[data-lang-block]', el).filter(function (b) { return b.offsetParent !== null; })[0] || el;
@@ -79,6 +83,7 @@
           words.forEach(function (w, i) { w.classList.toggle('on', i < n); });
         }
       });
+      if (more && !ticking) { ticking = true; requestAnimationFrame(update); }
     };
     var schedule = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     window.addEventListener('scroll', schedule, { passive: true });
