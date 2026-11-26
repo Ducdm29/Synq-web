@@ -11,24 +11,24 @@ POSTS = []
 
 # (chapter, name, title_vi, title_en, line_vi, line_en)
 BOSSES = [
-    (1, "Oniwa", "Tướng Quân Bất Tử", "Undying General", "Bài học đầu tiên: nhịp đều, gạt theo từng nhát.", "The first lesson: steady beats, deflect each swing."),
-    (2, "Kagerō", "Hắc Điệp", "Black Butterfly", "Phóng phi tiêu, ra đòn dồn dập.", "Throws stars and strikes in quick strings."),
-    (3, "Kurohebi", "Độc Xà Tăng", "Venom Serpent Monk", "Gậy tẩm độc. Chỉ gạt chuẩn mới không dính độc.", "A poisoned staff. Only a clean deflect keeps you clear."),
-    (4, "Tekki", "Thiết Quỷ", "Iron Demon", "Nặng và chậm, nhưng đòn nào cũng đáng ngại.", "Slow and heavy, and every hit matters."),
-    (5, "Mugen", "Kiếm Thánh", "Sword Saint", "Tan vào khói rồi chém từ sau lưng.", "Vanishes into smoke and strikes from behind."),
-    (6, "Renka", "Hắc Liên", "Black Lotus", "Bão cánh hoa và những nhát đâm.", "A storm of petals and sharp thrusts."),
-    (7, "Shuten", "Đại Quỷ", "Great Oni", "To lớn, đòn nặng và những cú nhảy bổ.", "Huge, heavy hits and big leaps."),
-    (8, "Kuroryū", "Hắc Long Shōgun", "Black Dragon Shōgun", "Mỗi pha mượn đòn của các trùm trước.", "Each phase borrows moves from earlier bosses."),
-    (9, "Shirayuki", "Tuyết Nữ", "Snow Maiden", "Gạt đúng nhịp thì băng bay ngược lại.", "Deflect on beat and the ice flies back."),
-    (10, "Suigetsu", "Thủy Nguyệt", "Water Moon", "Xích bay xa rồi kéo về. Lướt ngang đừng lao vào.", "The chain flies out, then pulls back. Dash sideways."),
-    (11, "Kogane", "Hồ Thương", "Fox Merchant", "Ô giấy giấu kiếm. Đèn tắt thì phải nghe.", "An umbrella hides a sword. When the lamps go out, listen."),
-    (12, "Kanayago", "Thợ Rèn Quỷ", "Demon Smith", "Búa lửa và kìm. Đừng để bị dồn vào góc.", "Fire hammer and tongs. Don't get cornered."),
-    (13, "Hagane", "Kiếm Hồn", "Sword Spirit", "Mưa kiếm theo nhịp. Gạt từng thanh.", "A rain of swords on a beat. Deflect each one."),
-    (14, "Ikazuchi", "Lôi Tướng", "Thunder General", "Sét đánh trễ một nhịp. Rời khỏi vòng sáng.", "Lightning lands a beat late. Leave the glowing ring."),
-    (15, "Hư Ảnh", "Trùm cuối phần 2", "Final boss of part 2", "Hố đen hút theo nhịp, rồi lặn vào khe nứt.", "Black holes that pull on a beat, then a dive into the rift."),
+    (1, "Oniwa", "Tướng Quân Bất Tử", "Undying General", "Trùm mở màn. Đánh đều tay, hợp để bạn làm quen với nhịp gạt.", "The opener. He swings at an even pace, so it's a good place to learn the parry."),
+    (2, "Kagerō", "Hắc Điệp", "Black Butterfly", "Phi tiêu tới trước, kiếm theo ngay sau. Chậm tay là dính cả chuỗi.", "Throwing stars first, the blade right behind. Fall behind and you eat the whole string."),
+    (3, "Kurohebi", "Độc Xà Tăng", "Venom Serpent Monk", "Cây gậy của lão tẩm độc, gạt lệch một chút là trúng độc.", "His staff is poisoned. Deflect a hair late and it gets you."),
+    (4, "Tekki", "Thiết Quỷ", "Iron Demon", "Ra đòn chậm, nhưng trúng một phát là thấy đau.", "He's slow to swing, but you feel every hit that lands."),
+    (5, "Mugen", "Kiếm Thánh", "Sword Saint", "Tan vào làn khói, chớp mắt đã đứng sau lưng bạn.", "He melts into smoke and in a blink he's behind you."),
+    (6, "Renka", "Hắc Liên", "Black Lotus", "Múa giữa bão cánh hoa, mũi kiếm luôn tới nhanh hơn bạn nghĩ.", "She dances in a storm of petals, and her thrusts come quicker than you think."),
+    (7, "Shuten", "Đại Quỷ", "Great Oni", "To gấp mấy lần bạn, mỗi cú nhảy bổ là rung cả mặt đất.", "Several times your size, and every leap shakes the ground."),
+    (8, "Kuroryū", "Hắc Long Shōgun", "Black Dragon Shōgun", "Mỗi pha một kiểu, toàn đòn lấy từ những trùm bạn đã hạ.", "Every phase is different, built from moves of bosses you've already beaten."),
+    (9, "Shirayuki", "Tuyết Nữ", "Snow Maiden", "Bắn băng từng mảnh. Gạt đúng nhịp là băng bay ngược về phía cô.", "She fires ice shard by shard. Deflect on the beat and it flies back at her."),
+    (10, "Suigetsu", "Thủy Nguyệt", "Water Moon", "Sợi xích bay xa rồi giật về. Né sang ngang, đừng lao thẳng vào.", "The chain flies out and snaps back. Step aside, don't charge in."),
+    (11, "Kogane", "Hồ Thương", "Fox Merchant", "Cây ô giấy giấu một thanh kiếm. Đèn tắt thì bạn chỉ còn nghe tiếng mà đoán.", "His paper umbrella hides a sword. When the lamps go out, all you have is your ears."),
+    (12, "Kanayago", "Thợ Rèn Quỷ", "Demon Smith", "Búa lửa, kìm sắt, xỉ nóng rơi khắp sàn. Đừng để bị dồn vào góc.", "Fire hammer, iron tongs, hot slag all over the floor. Don't get cornered."),
+    (13, "Hagane", "Kiếm Hồn", "Sword Spirit", "Cả cánh đồng toàn kiếm, và hắn gọi chúng rơi xuống theo nhịp.", "A whole field of swords, and he calls them down on a beat."),
+    (14, "Ikazuchi", "Lôi Tướng", "Thunder General", "Vòng sáng hiện dưới chân là sét sắp đánh. Bước ra kịp là thoát.", "A glowing ring under your feet means lightning is coming. Step out in time."),
+    (15, "Hư Ảnh", "Trùm cuối phần 2", "Final boss of part 2", "Kéo bạn vào hố đen, rồi lặn vào khe nứt và hiện ra chỗ khác.", "Drags you toward black holes, then slips into the rift and comes out somewhere else."),
 ]
 # The English name of boss 15 as shown in the game's own text.
-BOSS15_EN = "Hollow Shade"
+BOSS15_EN = "The Hollow"
 
 
 def stores():
