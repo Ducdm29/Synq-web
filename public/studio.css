@@ -435,7 +435,7 @@ body.world-synq .btn.ghost { background: #ffffff1a; color: #f5f5f3; }
 .lg-sec { margin-bottom: clamp(40px, 5vw, 72px); scroll-margin-top: 92px; }
 .lg-sec h2 { display: flex; align-items: baseline; gap: 14px; margin: 0 0 18px; font-size: clamp(24px, 2.5vw, 34px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.28; }
 :lang(vi) .lg-sec h2 { letter-spacing: 0; line-height: 1.35; }
-.lg-sec h2 .num { flex: none; display: inline-grid; place-items: center; min-width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: var(--on-orange); font-size: 15px; font-weight: 700; transform: translateY(-3px); }
+.lg-sec h2 .num { flex: none; display: inline-grid; place-items: center; min-width: 30px; height: 30px; border-radius: 50%; background: var(--soft); color: var(--mute); font-size: 14px; font-weight: 600; transform: translateY(-3px); }   /* quiet: the section number */
 .lg-anchor { margin-left: 4px; color: var(--mute); text-decoration: none; font-weight: 500; opacity: 0; transition: opacity .2s; }
 .lg-sec h2:hover .lg-anchor, .lg-anchor:focus-visible { opacity: 1; }
 .lg-anchor:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
@@ -443,7 +443,7 @@ body.world-synq .btn.ghost { background: #ffffff1a; color: #f5f5f3; }
 .lg-body p { margin: 0 0 1.1em; }
 .lg-body ul, .lg-body ol { list-style: none; padding: 0; margin: 0 0 1.3em; }
 .lg-body li { display: flex; gap: 14px; margin-bottom: .65em; }
-.lg-body ul li::before { content: ""; flex: none; width: 7px; height: 7px; margin-top: .72em; border-radius: 50%; background: var(--orange); }
+.lg-body ul li::before { content: ""; flex: none; width: 7px; height: 7px; margin-top: .68em; border-radius: 50%; background: var(--orange); }
 .lg-body a { color: var(--ink); text-decoration-color: var(--orange); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .lg-body a.btn { text-decoration: none; color: var(--ground); }
 .lg-body a.btn.accent { color: var(--on-orange); }
@@ -452,13 +452,13 @@ body.world-synq .btn.ghost { background: #ffffff1a; color: #f5f5f3; }
 .lg-body strong { font-weight: 600; }
 .lg-steps { counter-reset: st; }
 .lg-steps li { counter-increment: st; gap: 18px; align-items: flex-start; margin-bottom: 1em; }
-.lg-steps li::before { content: counter(st); flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--orange); color: var(--on-orange); font-weight: 700; font-size: 18px; margin-top: 0; }
-.lg-steps li > span { padding-top: 6px; }
+.lg-steps li::before { content: counter(st); flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--orange); color: var(--on-orange); font-weight: 700; font-size: 15px; margin-top: 2px; }   /* the only orange badges: the steps to take */
+.lg-steps li > span { padding-top: 0; }
 .lg-cta { margin-top: 26px; }
 .lg-contact { margin-top: clamp(32px, 5vw, 56px); padding-top: 28px; }
 .lg-contact .contact-label { font-size: 15px; color: var(--mute); margin: 0 0 6px; }
 .lg-contact h2 { margin: 0 0 18px; font-size: clamp(22px, 2.2vw, 30px); font-weight: 600; }
-.lg-top { margin-top: 24px; font-size: 15px; }
+.lg-top { margin-top: 52px; font-size: 15px; }
 .lg-top a { color: var(--mute); }
 @media (max-width: 1023px) {
   .lg-grid { grid-template-columns: minmax(0, 1fr); }
@@ -472,7 +472,7 @@ body.world-synq .btn.ghost { background: #ffffff1a; color: #f5f5f3; }
   body.studio { background: #fff; color: #000; font-size: 11pt; }
   .lg-grid { display: block; } .lg-body { max-width: none; }
   .lg-sec { break-inside: avoid-page; margin-bottom: 18pt; }
-  .lg-sec h2 .num { background: none; color: #000; border: 1px solid #000; }
+  .lg-sec h2 .num, .lg-steps li::before { background: none; color: #000; border: 1px solid #000; }
   .lg-body a { color: #000; text-decoration: underline; }
   .lg-body a[href^="http"]::after, .lg-body a[href^="mailto"]::after { content: " (" attr(href) ")"; font-size: .85em; }
 }
