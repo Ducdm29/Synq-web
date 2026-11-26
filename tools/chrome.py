@@ -5,10 +5,8 @@ def t(vi, en):
     return f'<span data-lang-block="vi">{vi}</span><span data-lang-block="en">{en}</span>'
 
 NAV = [  # href, vi, en, key
-    ("/kagezan", "Kagezan", "Kagezan", "kagezan"),
-    ("/synq", "Synq", "Synq", "synq"),
     ("/#products", "Sản phẩm", "Products", "products"),
-    ("/support", "Hỗ trợ", "Support", "support"),
+    ("/help", "Hỗ trợ", "Support", "support"),
 ]
 
 def header(theme="dark", active=""):
@@ -48,7 +46,7 @@ def footer(theme="dark"):
     </div>
     {col(("Sản phẩm","Products"), [("/kagezan","Kagezan","Kagezan"),("/synq","Synq","Synq"),("/synqtag","SynqTag","SynqTag"),("/music-check","Music Check","Music Check")])}
     {col(("Synq","Synq"), [("/synq/guides","Bài viết &amp; hướng dẫn","Articles &amp; guides"),("/changelog","Có gì mới","What’s new"),("/get","Tải Synq","Get Synq")])}
-    {col(("Hỗ trợ","Support"), [("/support","Hỗ trợ Synq","Synq support"),("/kagezan-support","Hỗ trợ Kagezan","Kagezan support"),("/privacy","Quyền riêng tư","Privacy"),("/terms","Điều khoản","Terms"),("/delete-account","Xoá tài khoản","Delete account")])}
+    {col(("Hỗ trợ","Support"), [("/help","Trung tâm hỗ trợ","Help center"),("/support","Hỗ trợ Synq","Synq support"),("/kagezan-support","Hỗ trợ Kagezan","Kagezan support"),("/privacy","Quyền riêng tư","Privacy"),("/terms","Điều khoản","Terms"),("/delete-account","Xoá tài khoản","Delete account")])}
   </div>
   <p class="sq-legal">© 2026 SYNQ Studio</p>
 </footer>

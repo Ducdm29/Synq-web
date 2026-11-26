@@ -66,13 +66,33 @@
     schedule();
   }
 
-  /* 4. looping video: play only while on screen */
-  var vids = $('video[data-loop]');
+  /* 4. looping video: play only while on screen; a user pause is respected */
+  var vids = $('video[data-loop]'), userPaused = false;
+  var LAB = { pause: { vi: 'Tạm dừng trailer', en: 'Pause trailer' }, play: { vi: 'Phát trailer', en: 'Play trailer' } };
+  var btn = document.querySelector('.vid-toggle'), vid = vids[0];
+  function label() {
+    if (!btn || !vid) return;
+    var lang = document.documentElement.lang === 'vi' ? 'vi' : 'en', paused = vid.paused && (userPaused || reduce);
+    btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    btn.setAttribute('aria-label', LAB[paused ? 'play' : 'pause'][lang]);
+    btn.classList.toggle('is-paused', paused);
+  }
+  if (btn && vid) {
+    if (reduce) userPaused = true;                       // reduced motion: starts paused, button says play
+    btn.addEventListener('click', function () {
+      if (vid.paused) { userPaused = false; if (vid.preload === 'none') vid.preload = 'auto'; var q = vid.play(); if (q && q.catch) q.catch(function () {}); }
+      else { userPaused = true; vid.pause(); }
+      label();
+    });
+    ['play', 'pause'].forEach(function (ev) { vid.addEventListener(ev, label); });
+    new MutationObserver(label).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    label();
+  }
   if (vids.length && 'IntersectionObserver' in window && !reduce) {
     var vo = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         var v = e.target;
-        if (e.isIntersecting) { if (v.preload === 'none') { v.preload = 'auto'; } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        if (e.isIntersecting) { if (userPaused) return; if (v.preload === 'none') { v.preload = 'auto'; } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
         else v.pause();
       });
     }, { threshold: 0.05 });

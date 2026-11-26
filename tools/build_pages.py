@@ -125,6 +125,7 @@ def home():
     <div class="stage" data-stage>
       <div class="stage-pin">
         <div class="stage-media">
+          <button class="vid-toggle" type="button" aria-pressed="false" aria-label="Pause trailer"><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
           <video data-loop muted loop playsinline autoplay preload="none" poster="/img/kagezan-loop-poster.webp" width="1024" height="576" aria-label="Kagezan gameplay"><source src="/img/kagezan-loop.mp4" type="video/mp4" /></video>
         </div>
       </div>
@@ -171,6 +172,47 @@ def home():
     return head('SYNQ Studio - Make Every Day More Playful',
                 'SYNQ Studio is a small team. Home of Kagezan, a samurai parry game, and Synq, a lossless music player, plus SynqTag and Music Check.',
                 '/', 'studio') + body + TAIL
+
+
+# ------------------------------------------------------------ HELP
+def help_page():
+    def block(shape, name, line, links):
+        li = ''.join(f'<li><a href="{h}">{t(vi, en)}{ARROW}</a></li>' for h, vi, en in links)
+        return f"""<section class="help-block wrap" data-r>
+      <canvas class="help-shape" data-shape="{shape}" aria-hidden="true"></canvas>
+      <div><h2>{name}</h2>{t(*line, 'p')}</div>
+      <ul class="help-links">{li}</ul>
+    </section>"""
+    blocks = ''.join([
+        block('pad', 'Kagezan', ('Game samurai gạt đòn.', 'The samurai parry game.'), [
+            ('/kagezan-support', 'Hỗ trợ và câu hỏi', 'Support and FAQ'), ('/kagezan-privacy', 'Quyền riêng tư', 'Privacy'),
+            ('/kagezan-terms', 'Điều khoản', 'Terms'), ('/kagezan-delete-account', 'Xoá tài khoản', 'Delete account')]),
+        block('note', 'Synq', ('App nghe nhạc lossless.', 'The lossless music player.'), [
+            ('/support', 'Hỗ trợ và câu hỏi', 'Support and FAQ'), ('/synq/guides', 'Bài viết và hướng dẫn', 'Articles and guides'),
+            ('/changelog', 'Có gì mới', 'What is new'), ('/privacy', 'Quyền riêng tư', 'Privacy'),
+            ('/terms', 'Điều khoản', 'Terms'), ('/delete-account', 'Xoá tài khoản', 'Delete account')]),
+        block('tag', 'SynqTag', ('Sửa thẻ nhạc ngay trong file.', 'Edit song tags inside the file.'), [
+            ('/synqtag', 'Hỗ trợ và câu hỏi', 'Support and FAQ'), ('/synqtag-privacy', 'Quyền riêng tư', 'Privacy')]),
+        block('lens', 'Music Check', ('Xem file nhạc có phải lossless thật.', 'Check if a file is real lossless.'), [
+            ('/music-check', 'Hỗ trợ và thông tin', 'Support and info'), ('/music-check-privacy', 'Quyền riêng tư', 'Privacy')]),
+    ])
+    body = f"""{header('light', 'support')}
+<main id="main-content">
+  <section class="help-head wrap">
+    <h1 class="display" data-lang-block="vi">Cần giúp gì không?</h1>
+    <h1 class="display" data-lang-block="en">Need a hand?</h1>
+    {t('Mỗi app có một góc riêng ở dưới. Không thấy câu trả lời thì gửi mail, bọn mình sẽ trả lời.', 'Each app has its own corner below. If you cannot find an answer, send us an email and we will reply.', 'p', 'lede')}
+  </section>
+  {blocks}
+  <section class="help-contact wrap" data-r>
+    {t('Vẫn chưa ổn? Viết cho bọn mình:', 'Still stuck? Write to us:', 'p')}
+    <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
+  </section>
+</main>
+
+{footer('light')}
+"""
+    return head('Help - SYNQ Studio', 'Support, privacy, terms and account deletion for Kagezan, Synq, SynqTag and Music Check, plus how to reach SYNQ Studio.', '/help', 'studio') + body + TAIL
 
 # ------------------------------------------------------------ SYNQ HUB
 def hub(gs):
@@ -266,6 +308,7 @@ if __name__ == '__main__':
     gs = read_guides()
     assert len(gs) >= 19, len(gs)
     open(os.path.join(PUB, 'index.html'), 'w', encoding='utf-8').write(home())
+    open(os.path.join(PUB, 'help.html'), 'w', encoding='utf-8').write(help_page())
     os.makedirs(os.path.join(PUB, 'synq'), exist_ok=True)
     open(os.path.join(PUB, 'synq/index.html'), 'w', encoding='utf-8').write(hub(gs))
     open(os.path.join(PUB, 'synq/guides.html'), 'w', encoding='utf-8').write(guides_index(gs))

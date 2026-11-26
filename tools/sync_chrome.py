@@ -7,7 +7,7 @@ from chrome import header, footer
 PUB = os.path.join(os.path.dirname(__file__), '..', 'public')
 SKIP = {'s.html', 'kagezan.html', 'kagezan-privacy.html', 'kagezan-terms.html',
         'kagezan-support.html', 'kagezan-delete-account.html'}  # generated / hand-built separately
-ACTIVE = {'support.html': 'support', 'privacy.html': 'support', 'terms.html': 'support', 'delete-account.html': 'support',
+ACTIVE = {'help.html': 'support', 'support.html': 'support', 'privacy.html': 'support', 'terms.html': 'support', 'delete-account.html': 'support',
           'synqtag-privacy.html': 'products', 'music-check-privacy.html': 'products', 'synqtag.html': 'products',
           'music-check.html': 'products'}
 HEAD_LINKS = '<link rel="stylesheet" href="/chrome.css" />\n  <script src="/chrome.js" defer></script>\n'

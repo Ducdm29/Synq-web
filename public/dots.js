@@ -319,7 +319,17 @@
     }
   }
 
+  // small static dot shapes (help page): drawn once, no loop
+  function helpShapes() {
+    $('.help-shape').forEach(function (cv) {
+      var w = cv.clientWidth || 140, ctx = setupCanvas(cv, w, w), pts = sampleShape(cv.getAttribute('data-shape')), n = pts.length / 2, step = Math.max(1, Math.floor(n / 190));
+      ctx.fillStyle = ORANGE; ctx.beginPath();
+      for (var i = 0; i < n; i += step) { var x = w / 2 + pts[i * 2] * w * .84 + (Math.random() - .5) * 1.6, y = w / 2 + pts[i * 2 + 1] * w * .84 + (Math.random() - .5) * 1.6; ctx.moveTo(x + 1.7, y); ctx.arc(x, y, 1.7, 0, TAU); }
+      ctx.fill();
+    });
+  }
   function boot() {
+    helpShapes();
     var h = document.querySelector('.hero-fx'); if (h) hero(h);
     var f = document.querySelector('.field-fx'); if (f) field(f);
   }
