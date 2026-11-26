@@ -9,35 +9,21 @@
   <meta property="og:title" content="Kagezan — Privacy Policy" />
   <meta property="og:description" content="Privacy policy for Kagezan: what the game sends to our server, Google AdMob rewarded ads, how long data is kept and how to delete your account." />
   <meta property="og:image" content="https://synqstudio.cloud/store/shadowblade/feature.jpg" />
-  <link rel="icon" type="image/png" href="/store/shadowblade/icon.png" />
-  <link rel="stylesheet" href="/styles.css" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#f5f5f3" />
+  <link rel="icon" type="image/svg+xml" href="/store/shadowblade/icon.png" />
+  <link rel="preload" href="/fonts/bvp-600-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/chrome.css" />
+  <link rel="stylesheet" href="/studio.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script src="/chrome.js" defer></script>
-  <style>
-    html[lang="en"] [data-lang-block="vi"] { display: none; }
-    html[lang="vi"] [data-lang-block="en"] { display: none; }
-    .sb-wrap { max-width: 760px; margin: 0 auto; }
-    .sb-back { display:inline-flex; gap:6px; font-size: var(--text-caption); color: var(--text-tertiary); text-decoration:none; margin-bottom: var(--space-5); }
-    .sb-back:hover { color: var(--accent); }
-    .sb-sec { text-align: left; margin-top: var(--space-7); }
-    .sb-sec > h2 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: var(--space-4); }
-    .sb-faq { border-top: 1px solid var(--border-subtle); padding: var(--space-4) 0; }
-    .sb-faq h3 { font-family: var(--font-body); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 6px; }
-    .sb-faq p, .sb-faq li { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
-    .sb-faq ul { margin: 6px 0 0 18px; }
-    .sb-faq a, .policy-section a { color: var(--accent); }
-    .sb-shot { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--border-subtle); display:block; margin: var(--space-4) 0; }
-  </style>
+  <script src="/legal.js" defer></script>
 </head>
-<body>
-
-<div class="site-wrapper">
-
+<body class="studio legal">
 <!--sq:header-->
 <script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
-<header class="sq-header" data-theme="dark">
+<header class="sq-header" data-theme="light">
   <div class="sq-bar">
     <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
     <nav class="sq-nav" id="sq-nav" aria-label="Main"><a href="/#products"><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></a><a href="/help"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a></nav>
@@ -50,101 +36,77 @@
     </div>
   </div>
 </header>
-<!--/sq:header-->
-
-  <main class="page-main" id="main-content">
-    <div class="sb-wrap">
-    <section class="page-hero">
-      <span class="eyebrow">Legal · Kagezan</span>
-      <h1 data-lang-block="vi">Kagezan — Chính sách quyền riêng tư</h1>
-      <h1 data-lang-block="en">Kagezan — Privacy Policy</h1>
-      <p class="subtitle" data-lang-block="vi">Kagezan chơi được hoàn toàn offline. Khi có mạng, game lưu tiến trình lên máy chủ của chúng tôi, đưa điểm lên bảng xếp hạng và gửi thống kê lối chơi để cân bằng game. Quảng cáo có thưởng do Google AdMob cung cấp.</p>
-      <p class="subtitle" data-lang-block="en">Kagezan plays fully offline. When online, it stores your progress on our server, puts your scores on the leaderboards and sends gameplay statistics we use to balance the game. Rewarded ads are served by Google AdMob.</p>
-    </section>
-    <div class="last-updated" role="note">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-      <span data-lang-block="vi">Cập nhật: 13/11/2026</span><span data-lang-block="en">Last updated: 13 November 2026</span>
-    </div>
-    <article>
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">0</span><span data-lang-block="vi">Phạm vi</span><span data-lang-block="en">Which app this covers</span></h2>
-        <p data-lang-block="vi">Chính sách này áp dụng cho game <strong>Kagezan</strong> (Android <code>com.dots111.shadowblade</code>, iOS <code>com.dots111.shadowblade</code>) do Synq (tài khoản nhà phát triển 111dots) phát hành. Các ứng dụng khác của Synq có chính sách riêng.</p>
+<!--/sq:header--><main id="main-content">
+  <div class="lg wrap">
+    <header class="lg-head">
+      <p class="lg-eyebrow">Legal · <a href="/kagezan">Kagezan</a></p>
+      <h1 class="display" data-lang-block="vi">Kagezan — Chính sách quyền riêng tư</h1>
+      <h1 class="display" data-lang-block="en">Kagezan — Privacy Policy</h1>
+      <p class="lg-sub" data-lang-block="vi">Kagezan chơi được hoàn toàn offline. Khi có mạng, game lưu tiến trình lên máy chủ của chúng tôi, đưa điểm lên bảng xếp hạng và gửi thống kê lối chơi để cân bằng game. Quảng cáo có thưởng do Google AdMob cung cấp.</p>
+      <p class="lg-sub" data-lang-block="en">Kagezan plays fully offline. When online, it stores your progress on our server, puts your scores on the leaderboards and sends gameplay statistics we use to balance the game. Rewarded ads are served by Google AdMob.</p>
+      <p class="lg-updated"><span data-lang-block="vi">Cập nhật: 13/11/2026</span><span data-lang-block="en">Last updated: 13 November 2026</span></p>
+    </header>
+    <div class="lg-grid">
+      <aside class="lg-toc">
+        <details class="lg-toc-d" open>
+          <summary><span data-lang-block="vi">Mục lục</span><span data-lang-block="en">Contents</span></summary>
+          <nav aria-label="Mục lục / Contents"><ol><li><a href="#which-app-this-covers" data-toc="which-app-this-covers"><span class="lg-n">0</span><span data-lang-block="vi">Phạm vi</span><span data-lang-block="en">Which app this covers</span></a></li><li><a href="#what-the-game-sends-to-our-server" data-toc="what-the-game-sends-to-our-server"><span class="lg-n">1</span><span data-lang-block="vi">Dữ liệu game gửi về máy chủ của chúng tôi</span><span data-lang-block="en">What the game sends to our server</span></a></li><li><a href="#advertising-google-admob" data-toc="advertising-google-admob"><span class="lg-n">2</span><span data-lang-block="vi">Quảng cáo (Google AdMob)</span><span data-lang-block="en">Advertising (Google AdMob)</span></a></li><li><a href="#how-we-use-it" data-toc="how-we-use-it"><span class="lg-n">3</span><span data-lang-block="vi">Chúng tôi dùng dữ liệu để làm gì</span><span data-lang-block="en">How we use it</span></a></li><li><a href="#service-providers" data-toc="service-providers"><span class="lg-n">4</span><span data-lang-block="vi">Đối tác xử lý dữ liệu</span><span data-lang-block="en">Service providers</span></a></li><li><a href="#how-long-we-keep-it" data-toc="how-long-we-keep-it"><span class="lg-n">5</span><span data-lang-block="vi">Lưu bao lâu</span><span data-lang-block="en">How long we keep it</span></a></li><li><a href="#your-rights-and-deleting-your-account" data-toc="your-rights-and-deleting-your-account"><span class="lg-n">6</span><span data-lang-block="vi">Quyền của bạn và xoá tài khoản</span><span data-lang-block="en">Your rights and deleting your account</span></a></li><li><a href="#children" data-toc="children"><span class="lg-n">7</span><span data-lang-block="vi">Trẻ em</span><span data-lang-block="en">Children</span></a></li><li><a href="#changes-and-contact" data-toc="changes-and-contact"><span class="lg-n">8</span><span data-lang-block="vi">Thay đổi và liên hệ</span><span data-lang-block="en">Changes and contact</span></a></li></ol></nav>
+        </details>
+      </aside>
+      <script>if(window.matchMedia&&matchMedia('(max-width:1023px)').matches)document.querySelector('.lg-toc-d').open=false;</script>
+      <article class="lg-body">
+<section class="lg-sec" id="which-app-this-covers" aria-labelledby="which-app-this-covers-h"><h2 id="which-app-this-covers-h"><span class="num" aria-hidden="true">0</span><span data-lang-block="vi">Phạm vi</span><span data-lang-block="en">Which app this covers</span><a class="lg-anchor" href="#which-app-this-covers" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<p data-lang-block="vi">Chính sách này áp dụng cho game <strong>Kagezan</strong> (Android <code>com.dots111.shadowblade</code>, iOS <code>com.dots111.shadowblade</code>) do Synq (tài khoản nhà phát triển 111dots) phát hành. Các ứng dụng khác của Synq có chính sách riêng.</p>
         <p data-lang-block="en">This policy applies to the game <strong>Kagezan</strong> (Android <code>com.dots111.shadowblade</code>, iOS <code>com.dots111.shadowblade</code>) published by Synq (developer account 111dots). Synq's other apps have their own policies.</p>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">1</span><span data-lang-block="vi">Dữ liệu game gửi về máy chủ của chúng tôi</span><span data-lang-block="en">What the game sends to our server</span></h2>
-        <ul data-lang-block="vi"><li><span><strong>Mã định danh ẩn danh:</strong> một mã ngẫu nhiên do máy tạo ra (không phải số máy, không phải mã quảng cáo) và mã tài khoản khách do máy chủ cấp.</span></li><li><span><strong>Bản lưu game:</strong> tiến trình, trang bị, tiền trong game, cài đặt trong game.</span></li><li><span><strong>Thống kê lối chơi</strong> (gắn với mã tài khoản, gửi khi có mạng): lúc mở và đóng game; kết quả từng trận (chế độ, chương, độ khó, thời gian, số lần gạt hay trúng đòn); tiền trong game nhận và tiêu theo nguồn; số lần xem quảng cáo có thưởng; mẫu máy, hệ điều hành, phiên bản game, tốc độ khung hình; báo lỗi kỹ thuật và báo game bị đóng đột ngột (crash) kèm phiên bản game và hệ điều hành, không kèm nội dung cá nhân.</span></li><li><span><strong>Bảng xếp hạng:</strong> điểm của bạn (sát thương Boss tuần, thời gian Sinh tồn, lực chiến, tiến độ) và bản ghi thao tác của những trận lọt nhóm có thưởng, để máy chủ chạy lại kiểm tra gian lận. Trên bảng bạn hiện dưới tên “Lãng khách #mã”, hoặc tên tự đặt.</span></li><li><span><strong>Nếu bạn liên kết Google hoặc Apple:</strong> mã tài khoản mà Google/Apple cấp cho game, và email nếu nhà cung cấp gửi kèm. Email không bao giờ hiện công khai; với Apple bạn có thể chọn ẩn email.</span></li><li><span><strong>Nếu bạn mua gói trong app:</strong> gói đã mua, mã đơn hàng của Google Play hoặc App Store và dấu vân tay (băm SHA-256) của mã giao dịch, gắn với mã tài khoản, để kiểm tra đơn là thật và chỉ cộng một lần. Thanh toán do Google Play hoặc Apple xử lý; chúng tôi không bao giờ nhận số thẻ hay thông tin thanh toán của bạn.</span></li></ul>
+</section>
+<section class="lg-sec" id="what-the-game-sends-to-our-server" aria-labelledby="what-the-game-sends-to-our-server-h"><h2 id="what-the-game-sends-to-our-server-h"><span class="num" aria-hidden="true">1</span><span data-lang-block="vi">Dữ liệu game gửi về máy chủ của chúng tôi</span><span data-lang-block="en">What the game sends to our server</span><a class="lg-anchor" href="#what-the-game-sends-to-our-server" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<ul data-lang-block="vi"><li><span><strong>Mã định danh ẩn danh:</strong> một mã ngẫu nhiên do máy tạo ra (không phải số máy, không phải mã quảng cáo) và mã tài khoản khách do máy chủ cấp.</span></li><li><span><strong>Bản lưu game:</strong> tiến trình, trang bị, tiền trong game, cài đặt trong game.</span></li><li><span><strong>Thống kê lối chơi</strong> (gắn với mã tài khoản, gửi khi có mạng): lúc mở và đóng game; kết quả từng trận (chế độ, chương, độ khó, thời gian, số lần gạt hay trúng đòn); tiền trong game nhận và tiêu theo nguồn; số lần xem quảng cáo có thưởng; mẫu máy, hệ điều hành, phiên bản game, tốc độ khung hình; báo lỗi kỹ thuật và báo game bị đóng đột ngột (crash) kèm phiên bản game và hệ điều hành, không kèm nội dung cá nhân.</span></li><li><span><strong>Bảng xếp hạng:</strong> điểm của bạn (sát thương Boss tuần, thời gian Sinh tồn, lực chiến, tiến độ) và bản ghi thao tác của những trận lọt nhóm có thưởng, để máy chủ chạy lại kiểm tra gian lận. Trên bảng bạn hiện dưới tên “Lãng khách #mã”, hoặc tên tự đặt.</span></li><li><span><strong>Nếu bạn liên kết Google hoặc Apple:</strong> mã tài khoản mà Google/Apple cấp cho game, và email nếu nhà cung cấp gửi kèm. Email không bao giờ hiện công khai; với Apple bạn có thể chọn ẩn email.</span></li><li><span><strong>Nếu bạn mua gói trong app:</strong> gói đã mua, mã đơn hàng của Google Play hoặc App Store và dấu vân tay (băm SHA-256) của mã giao dịch, gắn với mã tài khoản, để kiểm tra đơn là thật và chỉ cộng một lần. Thanh toán do Google Play hoặc Apple xử lý; chúng tôi không bao giờ nhận số thẻ hay thông tin thanh toán của bạn.</span></li></ul>
         <ul data-lang-block="en"><li><span><strong>Anonymous identifiers:</strong> a random id made on your device (not a device serial number, not an advertising id) and a guest account id issued by our server.</span></li><li><span><strong>Your game save:</strong> progress, gear, in-game currency, in-game settings.</span></li><li><span><strong>Gameplay statistics</strong> (tied to your account id, sent when online): when the game opens and closes; each fight's result (mode, chapter, difficulty, duration, deflects and hits taken); in-game currency earned and spent by source; rewarded ads watched; device model, OS, game version, frame rate; technical error reports and crash reports (with the game and OS version, no personal content).</span></li><li><span><strong>Leaderboards:</strong> your scores (weekly boss damage, survival time, power, progress) and, for runs in a rewarded bracket, the input record our server replays to check for cheating. On a board you appear as “Wanderer #code”, or under a name you choose.</span></li><li><span><strong>If you link Google or Apple:</strong> the account id Google/Apple gives the game, and your email if the provider sends it. Your email is never shown publicly; with Apple you can hide it.</span></li><li><span><strong>If you buy a pack in the app:</strong> the pack bought, the Google Play or App Store order id and a fingerprint (SHA-256 hash) of the purchase token, tied to your account id, to check the purchase is real and pay it once. Payment is handled by Google Play or Apple; we never receive your card number or payment details.</span></li></ul>
         <p style="margin-top: var(--space-4);" data-lang-block="vi">Game không đọc danh bạ, vị trí, ảnh hay micro của bạn.</p>
         <p style="margin-top: var(--space-4);" data-lang-block="en">The game does not access your contacts, location, photos or microphone.</p>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">2</span><span data-lang-block="vi">Quảng cáo (Google AdMob)</span><span data-lang-block="en">Advertising (Google AdMob)</span></h2>
-        <p data-lang-block="vi">Kagezan có quảng cáo video có thưởng: chỉ hiện khi bạn tự bấm xem để nhận thêm phần thưởng. Quảng cáo do <strong>Google AdMob</strong> cung cấp. AdMob có thể thu thập mã quảng cáo của thiết bị (AAID trên Android, IDFA trên iOS nếu bạn cho phép), địa chỉ IP và thông tin về thiết bị, cách bạn tương tác với quảng cáo, để hiển thị quảng cáo, đo hiệu quả và chống gian lận.</p>
+</section>
+<section class="lg-sec" id="advertising-google-admob" aria-labelledby="advertising-google-admob-h"><h2 id="advertising-google-admob-h"><span class="num" aria-hidden="true">2</span><span data-lang-block="vi">Quảng cáo (Google AdMob)</span><span data-lang-block="en">Advertising (Google AdMob)</span><a class="lg-anchor" href="#advertising-google-admob" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<p data-lang-block="vi">Kagezan có quảng cáo video có thưởng: chỉ hiện khi bạn tự bấm xem để nhận thêm phần thưởng. Quảng cáo do <strong>Google AdMob</strong> cung cấp. AdMob có thể thu thập mã quảng cáo của thiết bị (AAID trên Android, IDFA trên iOS nếu bạn cho phép), địa chỉ IP và thông tin về thiết bị, cách bạn tương tác với quảng cáo, để hiển thị quảng cáo, đo hiệu quả và chống gian lận.</p>
         <p data-lang-block="en">Kagezan shows rewarded video ads: they only play when you choose to watch one for a bonus. Ads are served by <strong>Google AdMob</strong>. AdMob may collect your device's advertising id (AAID on Android, IDFA on iOS if you allow it), IP address, device information and how you interact with ads, to show ads, measure them and prevent fraud.</p>
         <ul data-lang-block="vi"><li><span>Ở Khu vực Kinh tế châu Âu, Vương quốc Anh và Thuỵ Sĩ, game hỏi sự đồng ý của bạn trước (biểu mẫu đồng ý của Google). Bạn có thể từ chối quảng cáo cá nhân hoá.</span></li><li><span>Trên iOS, game hỏi quyền theo dõi (App Tracking Transparency). Nếu bạn không cho phép, IDFA không được dùng và quảng cáo không cá nhân hoá.</span></li><li><span>Bạn có thể đặt lại hoặc tắt mã quảng cáo trong cài đặt của điện thoại.</span></li><li><span>Chúng tôi không bán dữ liệu của bạn. Chính sách của Google: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com/technologies/partner-sites</a>.</span></li></ul>
         <ul data-lang-block="en"><li><span>In the European Economic Area, the UK and Switzerland, the game asks for your consent first (Google's consent form). You can refuse personalised ads.</span></li><li><span>On iOS, the game asks for tracking permission (App Tracking Transparency). If you decline, the IDFA is not used and ads are not personalised.</span></li><li><span>You can reset or limit your advertising id in your phone's settings.</span></li><li><span>We do not sell your data. Google's policy: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com/technologies/partner-sites</a>.</span></li></ul>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">3</span><span data-lang-block="vi">Chúng tôi dùng dữ liệu để làm gì</span><span data-lang-block="en">How we use it</span></h2>
-        <ul data-lang-block="vi"><li><span>Lưu và khôi phục tiến trình của bạn trên máy khác.</span></li><li><span>Xếp hạng và trả thưởng bảng xếp hạng.</span></li><li><span>Phát hiện gian lận trên bảng xếp hạng (máy chủ chạy lại trận để kiểm điểm).</span></li><li><span>Cân bằng game (độ khó, phần thưởng, giá trong game) dựa trên số liệu tổng hợp.</span></li></ul>
+</section>
+<section class="lg-sec" id="how-we-use-it" aria-labelledby="how-we-use-it-h"><h2 id="how-we-use-it-h"><span class="num" aria-hidden="true">3</span><span data-lang-block="vi">Chúng tôi dùng dữ liệu để làm gì</span><span data-lang-block="en">How we use it</span><a class="lg-anchor" href="#how-we-use-it" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<ul data-lang-block="vi"><li><span>Lưu và khôi phục tiến trình của bạn trên máy khác.</span></li><li><span>Xếp hạng và trả thưởng bảng xếp hạng.</span></li><li><span>Phát hiện gian lận trên bảng xếp hạng (máy chủ chạy lại trận để kiểm điểm).</span></li><li><span>Cân bằng game (độ khó, phần thưởng, giá trong game) dựa trên số liệu tổng hợp.</span></li></ul>
         <ul data-lang-block="en"><li><span>To save your progress and restore it on another device.</span></li><li><span>To rank players and pay leaderboard rewards.</span></li><li><span>To detect cheating on the leaderboards (the server replays a fight to check its score).</span></li><li><span>To balance the game (difficulty, rewards, in-game prices) from aggregated numbers.</span></li></ul>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">4</span><span data-lang-block="vi">Đối tác xử lý dữ liệu</span><span data-lang-block="en">Service providers</span></h2>
-        <ul data-lang-block="vi"><li><span><strong>Cloudflare</strong> (Workers, D1): máy chủ và cơ sở dữ liệu của game.</span></li><li><span><strong>Google AdMob</strong>: quảng cáo có thưởng.</span></li><li><span><strong>Google Sign-In</strong> và <strong>Sign in with Apple</strong>: chỉ khi bạn chọn liên kết tài khoản.</span></li><li><span><strong>Google Play Billing</strong> và <strong>Apple App Store</strong>: xử lý thanh toán khi bạn mua gói trong app.</span></li></ul>
+</section>
+<section class="lg-sec" id="service-providers" aria-labelledby="service-providers-h"><h2 id="service-providers-h"><span class="num" aria-hidden="true">4</span><span data-lang-block="vi">Đối tác xử lý dữ liệu</span><span data-lang-block="en">Service providers</span><a class="lg-anchor" href="#service-providers" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<ul data-lang-block="vi"><li><span><strong>Cloudflare</strong> (Workers, D1): máy chủ và cơ sở dữ liệu của game.</span></li><li><span><strong>Google AdMob</strong>: quảng cáo có thưởng.</span></li><li><span><strong>Google Sign-In</strong> và <strong>Sign in with Apple</strong>: chỉ khi bạn chọn liên kết tài khoản.</span></li><li><span><strong>Google Play Billing</strong> và <strong>Apple App Store</strong>: xử lý thanh toán khi bạn mua gói trong app.</span></li></ul>
         <ul data-lang-block="en"><li><span><strong>Cloudflare</strong> (Workers, D1): the game's server and database.</span></li><li><span><strong>Google AdMob</strong>: rewarded ads.</span></li><li><span><strong>Google Sign-In</strong> and <strong>Sign in with Apple</strong>: only if you choose to link an account.</span></li><li><span><strong>Google Play Billing</strong> and <strong>the Apple App Store</strong>: payment for in-app purchases.</span></li></ul>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">5</span><span data-lang-block="vi">Lưu bao lâu</span><span data-lang-block="en">How long we keep it</span></h2>
-        <p data-lang-block="vi">Thống kê lối chơi thô được xoá sau 30 ngày; chỉ còn số tổng hợp theo ngày, không gắn với người chơi nào. Điểm Boss tuần và Sinh tồn được xoá sau 8 tuần; bản ghi trận được xoá sau 14 ngày. Bản lưu và điểm tổng được giữ tới khi bạn xoá tài khoản. Bản ghi đơn mua được giữ để một đơn không thể cộng hai lần; khi bạn xoá tài khoản, đơn mua không còn gắn với bạn.</p>
+</section>
+<section class="lg-sec" id="how-long-we-keep-it" aria-labelledby="how-long-we-keep-it-h"><h2 id="how-long-we-keep-it-h"><span class="num" aria-hidden="true">5</span><span data-lang-block="vi">Lưu bao lâu</span><span data-lang-block="en">How long we keep it</span><a class="lg-anchor" href="#how-long-we-keep-it" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<p data-lang-block="vi">Thống kê lối chơi thô được xoá sau 30 ngày; chỉ còn số tổng hợp theo ngày, không gắn với người chơi nào. Điểm Boss tuần và Sinh tồn được xoá sau 8 tuần; bản ghi trận được xoá sau 14 ngày. Bản lưu và điểm tổng được giữ tới khi bạn xoá tài khoản. Bản ghi đơn mua được giữ để một đơn không thể cộng hai lần; khi bạn xoá tài khoản, đơn mua không còn gắn với bạn.</p>
         <p data-lang-block="en">Raw gameplay statistics are deleted after 30 days; only daily totals remain, not tied to any player. Weekly boss and survival scores are deleted after 8 weeks; fight records after 14 days. Your save and overall scores are kept until you delete your account. Purchase records are kept so a purchase can never pay twice; when you delete your account they are no longer tied to you.</p>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">6</span><span data-lang-block="vi">Quyền của bạn và xoá tài khoản</span><span data-lang-block="en">Your rights and deleting your account</span></h2>
-        <p data-lang-block="vi">Trong game: <strong>Cài đặt → Tài khoản → Xoá tài khoản</strong> xoá vĩnh viễn trên máy chủ bản lưu, điểm, bản ghi trận và thống kê gắn với tài khoản. Tiến trình trên máy bạn vẫn còn. Bạn cũng có thể yêu cầu xem, sửa hoặc xoá dữ liệu qua email. Xem hướng dẫn tại <a href="/kagezan-delete-account">trang xoá tài khoản</a>.</p>
+</section>
+<section class="lg-sec" id="your-rights-and-deleting-your-account" aria-labelledby="your-rights-and-deleting-your-account-h"><h2 id="your-rights-and-deleting-your-account-h"><span class="num" aria-hidden="true">6</span><span data-lang-block="vi">Quyền của bạn và xoá tài khoản</span><span data-lang-block="en">Your rights and deleting your account</span><a class="lg-anchor" href="#your-rights-and-deleting-your-account" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<p data-lang-block="vi">Trong game: <strong>Cài đặt → Tài khoản → Xoá tài khoản</strong> xoá vĩnh viễn trên máy chủ bản lưu, điểm, bản ghi trận và thống kê gắn với tài khoản. Tiến trình trên máy bạn vẫn còn. Bạn cũng có thể yêu cầu xem, sửa hoặc xoá dữ liệu qua email. Xem hướng dẫn tại <a href="/kagezan-delete-account">trang xoá tài khoản</a>.</p>
         <p data-lang-block="en">In the game: <strong>Settings → Account → Delete account</strong> permanently deletes, on our server, your save, scores, fight records and the statistics tied to your account. Your progress on your device stays. You can also ask us by email to access, correct or delete your data. See the <a href="/kagezan-delete-account">account deletion page</a>.</p>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">7</span><span data-lang-block="vi">Trẻ em</span><span data-lang-block="en">Children</span></h2>
-        <p data-lang-block="vi">Game không nhắm tới trẻ dưới 13 tuổi và không cố ý thu thập dữ liệu của trẻ dưới 13 tuổi. Nếu bạn cho rằng chúng tôi có dữ liệu của một trẻ dưới 13 tuổi, hãy gửi email để chúng tôi xoá.</p>
+</section>
+<section class="lg-sec" id="children" aria-labelledby="children-h"><h2 id="children-h"><span class="num" aria-hidden="true">7</span><span data-lang-block="vi">Trẻ em</span><span data-lang-block="en">Children</span><a class="lg-anchor" href="#children" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<p data-lang-block="vi">Game không nhắm tới trẻ dưới 13 tuổi và không cố ý thu thập dữ liệu của trẻ dưới 13 tuổi. Nếu bạn cho rằng chúng tôi có dữ liệu của một trẻ dưới 13 tuổi, hãy gửi email để chúng tôi xoá.</p>
         <p data-lang-block="en">The game is not directed at children under 13 and we do not knowingly collect data from children under 13. If you believe we hold data from a child under 13, email us and we will delete it.</p>
-
-      </section>
-      <hr class="divider" />
-      <section class="policy-section reveal">
-        <h2><span class="num" aria-hidden="true">8</span><span data-lang-block="vi">Thay đổi và liên hệ</span><span data-lang-block="en">Changes and contact</span></h2>
-        <p data-lang-block="vi">Khi chính sách thay đổi, chúng tôi cập nhật trang này và ngày ở đầu trang. Liên hệ: <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>.</p>
+</section>
+<section class="lg-sec" id="changes-and-contact" aria-labelledby="changes-and-contact-h"><h2 id="changes-and-contact-h"><span class="num" aria-hidden="true">8</span><span data-lang-block="vi">Thay đổi và liên hệ</span><span data-lang-block="en">Changes and contact</span><a class="lg-anchor" href="#changes-and-contact" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>
+<p data-lang-block="vi">Khi chính sách thay đổi, chúng tôi cập nhật trang này và ngày ở đầu trang. Liên hệ: <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>.</p>
         <p data-lang-block="en">When this policy changes we update this page and the date at its top. Contact: <a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>.</p>
-
-      </section>
-      <hr class="divider" />
-    </article>
-    <div class="contact-card reveal">
+</section>
+<div class="lg-contact">
       <p class="contact-label"><span data-lang-block="vi">Cần giúp?</span><span data-lang-block="en">Need help?</span></p>
       <h2><span data-lang-block="vi">Câu hỏi về dữ liệu của bạn</span><span data-lang-block="en">Questions about your data</span></h2>
-      <a href="mailto:support.synq@gmail.com?subject=Shadow%20Blade%20privacy" class="btn-primary">support.synq@gmail.com</a>
+      <a href="mailto:support.synq@gmail.com?subject=Shadow%20Blade%20privacy" class="btn">support.synq@gmail.com</a>
     </div>
+        <p class="lg-top"><a href="#main-content"><span data-lang-block="vi">Lên đầu trang</span><span data-lang-block="en">Back to top</span></a></p>
+      </article>
     </div>
-
-  </main>
-
+  </div>
+</main>
 <!--sq:footer-->
-<footer class="sq-footer" data-theme="dark">
+<footer class="sq-footer" data-theme="light">
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
@@ -158,11 +120,6 @@
   <p class="sq-legal">© 2026 SYNQ Studio</p>
 </footer>
 <!--/sq:footer-->
-
-</div>
-
-<script src="/i18n.js"></script>
-<script src="/enhance.js" defer></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

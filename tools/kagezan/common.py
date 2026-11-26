@@ -114,3 +114,70 @@ def contact(vi_h, en_h, subject):
       <a href="mailto:{EMAIL}?subject={subject}" class="btn-primary">{EMAIL}</a>
     </div>
 '''
+
+
+# ---------------------------------------------------------------------------------------------
+# Long-text template for the legal pages (privacy, terms, delete-account). Markup and layout only:
+# the generated body (legal.py) is re-wrapped, every word of it is kept.
+import re as _re, html as _html, urllib.parse as _up
+
+def _slug(s):
+    s = _re.sub(r'[^a-z0-9]+', '-', _html.unescape(_re.sub(r'<[^>]+>', '', s)).lower()).strip('-')
+    return s or 'section'
+
+
+def legal_page(slug, title_en, desc_en, body, steps=False, cta=None):
+    from build_pages import head, t, TAIL
+    hero_m = _re.search(r'<section class="page-hero">\s*<span class="eyebrow">(.*?)</span>\s*(<h1.*?</h1>)\s*(<h1.*?</h1>)\s*(<p class="subtitle".*?</p>)\s*(<p class="subtitle".*?</p>)\s*</section>', body, _re.S)
+    upd_m = _re.search(r'<div class="last-updated" role="note">.*?(<span data-lang-block="vi">.*?</span><span data-lang-block="en">.*?</span>)\s*</div>', body, _re.S)
+    sections = _re.findall(r'<section class="policy-section reveal">\s*<h2>(.*?)</h2>(.*?)</section>', body, _re.S)
+    contact = _re.search(r'<div class="contact-card reveal">(.*?)</div>\s*(?=</div>\s*$)', body, _re.S)
+    assert hero_m and upd_m and sections, slug
+    eyebrow, h1v, h1e, sv, se = hero_m.groups()
+    toc, secs = "", ""
+    for i, (h2, inner) in enumerate(sections):
+        vi = _re.search(r'data-lang-block="vi">(.*?)</span>', h2).group(1); en = _re.search(r'data-lang-block="en">(.*?)</span>', h2).group(1)
+        num = _re.search(r'<span class="num" aria-hidden="true">(.*?)</span>', h2).group(1)
+        sid = _slug(en)
+        toc += '<li><a href="#%s" data-toc="%s"><span class="lg-n">%s</span><span data-lang-block="vi">%s</span><span data-lang-block="en">%s</span></a></li>' % (sid, sid, num, vi, en)
+        inner = inner.strip()
+        extra = ""
+        if steps and i == 0:
+            inner = inner.replace('<ul data-lang-block', '<ol class="lg-steps" data-lang-block').replace('</ul>', '</ol>')
+        if cta and i == len(sections) - 1:
+            extra = '<p class="lg-cta"><a class="btn accent" href="%s">%s</a></p>' % (cta[0], t(cta[1], cta[2]))
+        secs += ('<section class="lg-sec" id="%s" aria-labelledby="%s-h"><h2 id="%s-h">%s<a class="lg-anchor" href="#%s" aria-label="Liên kết tới mục này / Link to this section">#</a></h2>\n%s\n%s</section>\n'
+                 % (sid, sid, sid, h2, sid, inner, extra))
+    contact_html = ''
+    if contact:
+        contact_html = '<div class="lg-contact">%s</div>' % contact.group(1).replace('class="btn-primary"', 'class="btn"')
+    main = """<main id="main-content">
+  <div class="lg wrap">
+    <header class="lg-head">
+      <p class="lg-eyebrow">%(eyebrow)s</p>
+      %(h1v)s
+      %(h1e)s
+      %(sv)s
+      %(se)s
+      <p class="lg-updated">%(upd)s</p>
+    </header>
+    <div class="lg-grid">
+      <aside class="lg-toc">
+        <details class="lg-toc-d" open>
+          <summary>%(toclabel)s</summary>
+          <nav aria-label="%(toclabel_plain)s"><ol>%(toc)s</ol></nav>
+        </details>
+      </aside>
+      <script>if(window.matchMedia&&matchMedia('(max-width:1023px)').matches)document.querySelector('.lg-toc-d').open=false;</script>
+      <article class="lg-body">
+%(secs)s%(contact)s
+        <p class="lg-top"><a href="#main-content">%(top)s</a></p>
+      </article>
+    </div>
+  </div>
+</main>""" % dict(eyebrow=eyebrow.replace('Kagezan', '<a href="/kagezan">Kagezan</a>'), h1v=h1v.replace('<h1', '<h1 class="display"'), h1e=h1e.replace('<h1', '<h1 class="display"'),
+                  sv=sv.replace('class="subtitle"', 'class="lg-sub"'), se=se.replace('class="subtitle"', 'class="lg-sub"'), upd=upd_m.group(1),
+                  toclabel=t("Mục lục", "Contents"), toclabel_plain="Mục lục / Contents", toc=toc, secs=secs, contact=contact_html, top=t("Lên đầu trang", "Back to top"))
+    page = head(title_en, desc_en, '/' + slug, 'studio legal', og='/store/shadowblade/feature.jpg', icon='/store/shadowblade/icon.png')
+    page = page.replace('<script src="/dots.js" defer></script>', '<script src="/legal.js" defer></script>').replace('<script src="/site.js" defer></script>\n  ', '')
+    return page + header('light') + main + '\n' + footer('light') + TAIL

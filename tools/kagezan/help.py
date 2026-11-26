@@ -1,4 +1,5 @@
 from common import *
+import urllib.parse as _up
 
 FAQ = [
     ("Làm sao giữ tiến trình khi đổi máy?", "How do I keep my progress on a new phone?",
@@ -89,4 +90,7 @@ def delete():
     b += '    </article>\n'
     b += contact("Chúng tôi sẽ xử lý yêu cầu của bạn", "We'll handle your request", "Delete%20my%20Kagezan%20account")
     b += '    </div>\n'
-    return page("kagezan-delete-account", "Delete Your Account — Kagezan", "How to delete your Kagezan account and the data associated with it, and what is removed.", b)
+    _q = lambda s: _up.quote(s, safe="")
+    cta = ("mailto:%s?subject=%s&body=%s" % (EMAIL, _q("Delete my Kagezan account / Xoá tài khoản Kagezan"),
+           _q("Tên hiển thị trên bảng xếp hạng (Lãng khách #mã) hoặc email Google/Apple đã liên kết:\n\nBoard name (Wanderer #code) or the linked Google/Apple email:\n")), "Gửi yêu cầu xoá", "Send deletion request")
+    return legal_page("kagezan-delete-account", "Delete Your Account — Kagezan", "How to delete your Kagezan account and the data associated with it, and what is removed.", b, steps=True, cta=cta)

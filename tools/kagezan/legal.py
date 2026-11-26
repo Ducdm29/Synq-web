@@ -65,7 +65,7 @@ def privacy():
     b += '    </article>\n'
     b += contact("Câu hỏi về dữ liệu của bạn", "Questions about your data", "Shadow%20Blade%20privacy")
     b += '    </div>\n'
-    return page("kagezan-privacy", "Kagezan — Privacy Policy",
+    return legal_page("kagezan-privacy", "Kagezan — Privacy Policy",
                 "Privacy policy for Kagezan: what the game sends to our server, Google AdMob rewarded ads, how long data is kept and how to delete your account.", b)
 
 
@@ -101,4 +101,4 @@ def terms():
              both("p", f"Chúng tôi có thể cập nhật điều khoản này; ngày cập nhật ở đầu trang. Tiếp tục chơi sau khi cập nhật nghĩa là bạn đồng ý. Liên hệ: <a href=\"mailto:{EMAIL}\">{EMAIL}</a>.",
                   f"We may update these terms; the date is at the top of this page. Playing after an update means you accept it. Contact: <a href=\"mailto:{EMAIL}\">{EMAIL}</a>."))
     b += '    </article>\n    </div>\n'
-    return page("kagezan-terms", "Kagezan — Terms of Use", "Terms of use for Kagezan: licence, in-game items, fair play on the leaderboards, accounts and liability.", b)
+    return legal_page("kagezan-terms", "Kagezan — Terms of Use", "Terms of use for Kagezan: licence, in-game items, fair play on the leaderboards, accounts and liability.", b)
