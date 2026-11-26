@@ -5,8 +5,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from chrome import header, footer
 
 PUB = os.path.join(os.path.dirname(__file__), '..', 'public')
-SKIP = {'s.html', 'kagezan.html', 'kagezan-privacy.html', 'kagezan-terms.html',
-        'kagezan-support.html', 'kagezan-delete-account.html'}  # generated / hand-built separately
+SKIP = {'s.html'}  # redirect stub
 ACTIVE = {'help.html': 'support', 'support.html': 'support', 'privacy.html': 'support', 'terms.html': 'support', 'delete-account.html': 'support',
           'synqtag-privacy.html': 'products', 'music-check-privacy.html': 'products', 'synqtag.html': 'products',
           'music-check.html': 'products'}

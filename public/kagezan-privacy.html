@@ -11,8 +11,9 @@
   <meta property="og:image" content="https://synqstudio.cloud/store/shadowblade/feature.jpg" />
   <link rel="icon" type="image/png" href="/store/shadowblade/icon.png" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/chrome.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
-  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
+  <script src="/chrome.js" defer></script>
   <style>
     html[lang="en"] [data-lang-block="vi"] { display: none; }
     html[lang="vi"] [data-lang-block="en"] { display: none; }
@@ -31,32 +32,25 @@
 </head>
 <body>
 
-<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
-<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
-
 <div class="site-wrapper">
 
-  <header class="site-header" role="banner">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Synq — Home">
-        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
-          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
-          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
-        </svg>
-        <span class="nav-logo-text">Synq</span>
-      </a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="/kagezan" class="nav-link">Kagezan</a>
-        <a href="/kagezan-support" class="nav-link"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a>
-        <a href="/kagezan-privacy" class="nav-link"><span data-lang-block="vi">Riêng tư</span><span data-lang-block="en">Privacy</span></a>
-        <div class="lang-toggle" aria-label="Language switcher">
-          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
-          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
-        </div>
-      </nav>
+<!--sq:header-->
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
+<a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
+<header class="sq-header" data-theme="dark">
+  <div class="sq-bar">
+    <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
+    <nav class="sq-nav" id="sq-nav" aria-label="Main"><a href="/#products"><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></a><a href="/help"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a></nav>
+    <div class="sq-tools">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en" aria-label="EN English" lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="vi" aria-label="VI Tiếng Việt" lang="vi">VI</button>
+      </div>
+      <button type="button" class="sq-menu" aria-expanded="false" aria-controls="sq-nav" aria-label="Menu"><i></i><i></i></button>
     </div>
-  </header>
+  </div>
+</header>
+<!--/sq:header-->
 
   <main class="page-main" id="main-content">
     <div class="sb-wrap">
@@ -149,18 +143,21 @@
 
   </main>
 
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner">
-      <p class="footer-copy">© 2026 Synq. Kagezan.</p>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a>
-        <a href="/kagezan-privacy"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy Policy</span></a>
-        <a href="/kagezan-terms"><span data-lang-block="vi">Điều khoản</span><span data-lang-block="en">Terms of Use</span></a>
-        <a href="/kagezan-delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete Account</span></a>
-        <a href="mailto:support.synq@gmail.com"><span data-lang-block="vi">Liên hệ</span><span data-lang-block="en">Contact</span></a>
-      </nav>
+<!--sq:footer-->
+<footer class="sq-footer" data-theme="dark">
+  <div class="sq-foot">
+    <div class="sq-col sq-about">
+      <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
+      <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
-  </footer>
+    <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></h2><ul><li><a href="/synq/guides"><span data-lang-block="vi">Bài viết &amp; hướng dẫn</span><span data-lang-block="en">Articles &amp; guides</span></a></li><li><a href="/changelog"><span data-lang-block="vi">Có gì mới</span><span data-lang-block="en">What’s new</span></a></li><li><a href="/get"><span data-lang-block="vi">Tải Synq</span><span data-lang-block="en">Get Synq</span></a></li></ul></div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></h2><ul><li><a href="/help"><span data-lang-block="vi">Trung tâm hỗ trợ</span><span data-lang-block="en">Help center</span></a></li><li><a href="/support"><span data-lang-block="vi">Hỗ trợ Synq</span><span data-lang-block="en">Synq support</span></a></li><li><a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ Kagezan</span><span data-lang-block="en">Kagezan support</span></a></li><li><a href="/privacy"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy</span></a></li><li><a href="/terms"><span data-lang-block="vi">Điều khoản</span><span data-lang-block="en">Terms</span></a></li><li><a href="/delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete account</span></a></li></ul></div>
+  </div>
+  <p class="sq-legal">© 2026 SYNQ Studio</p>
+</footer>
+<!--/sq:footer-->
 
 </div>
 

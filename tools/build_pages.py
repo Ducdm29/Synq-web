@@ -29,7 +29,7 @@ def head(title, desc, path, body_class, preload=True, og='/store/shadowblade/fea
   <meta property="og:description" content="{desc}" />
   <meta property="og:image" content="{SITE}{og}" />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="{'#f5f5f3' if body_class == 'studio' else '#0a0a0a'}" />
+  <meta name="theme-color" content="{'#f5f5f3' if body_class.startswith('studio') else '#0a0a0a'}" />
   <link rel="icon" type="image/svg+xml" href="{icon}" />
   <link rel="preload" href="/fonts/bvp-600-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/chrome.css" />
@@ -39,7 +39,7 @@ def head(title, desc, path, body_class, preload=True, og='/store/shadowblade/fea
   <script src="/site.js" defer></script>
   <script src="/dots.js" defer></script>
 </head>
-<body class="studio {body_class if body_class != 'studio' else ''}">
+<body class="{body_class if body_class.startswith('studio') else 'studio ' + body_class}">
 '''
 
 TAIL = '''

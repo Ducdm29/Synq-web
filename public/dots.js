@@ -66,7 +66,7 @@
   for (var hb = 0; hb < HB; hb++) HCOLS.push(hb < 6 ? 'rgba(' + INK + ',' + HAL[hb >> 1] + ')' : 'rgba(255,107,53,.92)');
   function hero(canvas) {
     var host = canvas.parentElement, ctx, W = 0, H = 0, N = 0, docTop = 0, hbs = new Int32Array(HB + 1);
-    var hx, hy, X, Y, VX, VY, PH, AMP, SPD, NR;
+    var hx, hy, X, Y, VX, VY, PH, AMP, SPD, NR, RX0, RY0, TXs, TYs, DLs, OWNF, OWNED = new Int32Array(0), shapeName = canvas.getAttribute('data-shape'), shapeP = 0, shapeT0 = 0;
     var px = -1e4, py = -1e4, lastMove = -1e9, sx = -1e4, sy = -1e4, str = 1, ripples = [];
 
     function build() {
@@ -92,6 +92,26 @@
       PH = new Float32Array(N); AMP = new Float32Array(N); SPD = new Float32Array(N); NR = new Float32Array(N);
       for (i = 0; i < N; i++) { hx[i] = X[i] = tmp[i][1]; hy[i] = Y[i] = tmp[i][2]; PH[i] = Math.random() * TAU; AMP[i] = .4 + Math.random() * 1.1; SPD[i] = .4 + Math.random() * .9; hbs[tmp[i][0] + 1]++; }
       for (i = 0; i < HB; i++) hbs[i + 1] += hbs[i];
+      OWNF = new Uint8Array(N); OWNED = new Int32Array(0);
+      if (shapeName) {                                                   // a shape forms out of the field (Kagezan page)
+        RX0 = Float32Array.from(hx); RY0 = Float32Array.from(hy); TXs = new Float32Array(N); TYs = new Float32Array(N); DLs = new Float32Array(N);
+        var wide = W >= 700, cx = wide ? W * .74 : W * .5, cy = wide ? H * .4 : H * .8, S = wide ? Math.min(W * .3, H * .55) : Math.min(W * .6, H * .26);
+        var pts = sampleShape(shapeName), K = Math.min(pts.length / 2, Math.round(S * (wide ? 1.6 : 2.4)), Math.floor(N * .3)), order = [];
+        for (i = 0; i < pts.length / 2; i++) order.push(i);
+        order.sort(function () { return Math.random() - .5; }); order = order.slice(0, K);
+        var tg = order.map(function (q) { return [cx + pts[q * 2] * S, cy + pts[q * 2 + 1] * S]; }), cand = [];
+        for (i = 0; i < N; i++) cand.push(i);
+        cand.sort(function (a, b) { return Math.hypot(hx[a] - cx, hy[a] - cy) - Math.hypot(hx[b] - cx, hy[b] - cy); });
+        cand = cand.slice(0, K);
+        var ang = function (x, y) { return Math.atan2(y - cy, x - cx); };
+        cand.sort(function (a, b) { return ang(hx[a], hy[a]) - ang(hx[b], hy[b]); });
+        tg.sort(function (a, b) { return ang(a[0], a[1]) - ang(b[0], b[1]); });
+        var maxD = 1; cand.forEach(function (d) { maxD = Math.max(maxD, Math.hypot(hx[d] - cx, hy[d] - cy)); });
+        cand.forEach(function (d, n) { OWNF[d] = 1; TXs[d] = tg[n][0]; TYs[d] = tg[n][1]; DLs[d] = Math.hypot(hx[d] - cx, hy[d] - cy) / maxD * .3 + Math.random() * .1; });
+        OWNED = Int32Array.from(cand);
+        shapeP = reduce ? 1 : 0; shapeT0 = 0;
+        if (reduce) cand.forEach(function (j) { X[j] = TXs[j]; Y[j] = TYs[j]; });
+      }
       if (reduce) { paint(0, 1, true); canvas.classList.add('on'); }
     }
     function paint(time, step, still) {
@@ -101,16 +121,35 @@
         var rad = HSIZE[b & 1] / 2;
         ctx.fillStyle = HCOLS[b]; ctx.beginPath();
         for (var i = s0; i < s1; i += step) {
+          if (OWNF[i]) continue;
           var a = time * SPD[i] + PH[i], am = still ? 0 : AMP[i];
           var x = X[i] + am * sinL(a), y = Y[i] + am * sinL(a * .83 + 1.9), r = rad * (1 + NR[i] * 1.2);
           ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU);
         }
         ctx.fill();
       }
+      if (OWNED.length) {                                                // the shape's dots: black while loose, orange once they have arrived
+        for (var pass = 0; pass < 2; pass++) {
+          ctx.fillStyle = pass ? 'rgba(255,107,53,.95)' : 'rgba(' + INK + ',.55)'; ctx.beginPath();
+          for (var n = 0; n < OWNED.length; n++) {
+            var j = OWNED[n], e = shapeE(j), a2 = time * SPD[j] + PH[j], am2 = still ? 0 : AMP[j];
+            if ((e > .35) !== !!pass) continue;
+            var x2 = X[j] + am2 * sinL(a2), y2 = Y[j] + am2 * sinL(a2 * .83 + 1.9), r2 = (pass ? 1.5 : 1.1) * (1 + NR[j] * 1.2);
+            ctx.moveTo(x2 + r2, y2); ctx.arc(x2, y2, r2, 0, TAU);
+          }
+          ctx.fill();
+        }
+      }
     }
+    function shapeE(j) { var pk = (shapeP - DLs[j]) / (1 - DLs[j]); return pk <= 0 ? 0 : pk >= 1 ? 1 : pk * pk * (3 - 2 * pk); }
     var task = {
       tick: function (t, lvl) {
         var time = t * .001, R = small ? 110 : 170, R2 = R * R, i, k;
+        if (OWNED.length) {
+          if (!shapeT0) shapeT0 = t + 500;
+          shapeP = clamp((t - shapeT0) / 1700, 0, 1);
+          for (k = 0; k < OWNED.length; k++) { i = OWNED[k]; var e = shapeE(i); hx[i] = RX0[i] + (TXs[i] - RX0[i]) * e; hy[i] = RY0[i] + (TYs[i] - RY0[i]) * e; }
+        }
         var real = px > -1e3 && (t - lastMove) < 3500, tx0, ty0;
         if (real) { tx0 = px; ty0 = py + window.scrollY - docTop; }
         else { tx0 = W * (.5 + .36 * sinL(time * .23)); ty0 = H * (.46 + .28 * sinL(time * .31 + 1.2)); }   // idle virtual pointer
@@ -120,7 +159,7 @@
         for (k = ripples.length - 1; k >= 0; k--) { ripples[k].r = (t - ripples[k].t0) * .55; if (ripples[k].r > Math.max(W, H)) ripples.splice(k, 1); }
         var step = lvl >= 1 ? 2 : 1, nR = ripples.length;
         for (i = 0; i < N; i++) {
-          if (step === 2 && (i & 1)) continue;
+          if (step === 2 && (i & 1) && !OWNF[i]) continue;
           var x = X[i], y = Y[i], vx = VX[i], vy = VY[i], dx = x - sx, dy = y - sy, d2 = dx * dx + dy * dy, near = 0;
           if (d2 < R2) {
             var d = Math.sqrt(d2) || 1; near = 1 - d / R; var f = near * near * 4.6 * str, g = near * 1.1 * str;

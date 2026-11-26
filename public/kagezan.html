@@ -3,183 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kagezan — Deflect. Break. Finish.</title>
-  <meta name="description" content="Kagezan is a samurai action game built around the parry: deflect at the right instant, break posture, finish with a deathblow. 8 chapters, 8 bosses, Survival and a Weekly Boss." />
+  <title>Kagezan - Deflect. Break. Finish.</title>
+  <meta name="description" content="Kagezan is a samurai action game built around the parry: deflect at the right instant, break posture, finish. 15+ chapters, each with its own boss. Free to play." />
   <link rel="canonical" href="https://synqstudio.cloud/kagezan" />
-  <meta property="og:title" content="Kagezan — Deflect. Break. Finish." />
-  <meta property="og:description" content="Kagezan is a samurai action game built around the parry: deflect at the right instant, break posture, finish with a deathblow. 8 chapters, 8 bosses, Survival and a Weekly Boss." />
+  <meta property="og:title" content="Kagezan - Deflect. Break. Finish." />
+  <meta property="og:description" content="Kagezan is a samurai action game built around the parry: deflect at the right instant, break posture, finish. 15+ chapters, each with its own boss. Free to play." />
   <meta property="og:image" content="https://synqstudio.cloud/store/shadowblade/feature.jpg" />
-  <link rel="icon" type="image/png" href="/store/shadowblade/icon.png" />
-  <link rel="stylesheet" href="/styles.css" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#f5f5f3" />
+  <link rel="icon" type="image/svg+xml" href="/store/shadowblade/icon.png" />
+  <link rel="preload" href="/fonts/bvp-600-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/chrome.css" />
+  <link rel="stylesheet" href="/studio.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
-  <script>try{document.documentElement.lang=localStorage.getItem('synq-lang')||'en';}catch(e){}</script>
-  <style>
-    html[lang="en"] [data-lang-block="vi"] { display: none; }
-    html[lang="vi"] [data-lang-block="en"] { display: none; }
-    .sb-wrap { max-width: 760px; margin: 0 auto; }
-    .sb-back { display:inline-flex; gap:6px; font-size: var(--text-caption); color: var(--text-tertiary); text-decoration:none; margin-bottom: var(--space-5); }
-    .sb-back:hover { color: var(--accent); }
-    .sb-sec { text-align: left; margin-top: var(--space-7); }
-    .sb-sec > h2 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: var(--space-4); }
-    .sb-faq { border-top: 1px solid var(--border-subtle); padding: var(--space-4) 0; }
-    .sb-faq h3 { font-family: var(--font-body); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 6px; }
-    .sb-faq p, .sb-faq li { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
-    .sb-faq ul { margin: 6px 0 0 18px; }
-    .sb-faq a, .policy-section a { color: var(--accent); }
-    .sb-shot { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--border-subtle); display:block; margin: var(--space-4) 0; }
-
-    .sb-land { max-width: 980px; margin: 0 auto; text-align: center; }
-    .sb-appicon { width:128px; height:128px; border-radius:22px; display:block; margin:0 auto var(--space-4); box-shadow: var(--shadow-md); }
-    .sb-video { width:100%; border-radius: var(--radius-card); border:1px solid var(--border-subtle); box-shadow: var(--shadow-md); display:block; margin: var(--space-6) 0; background:#000; aspect-ratio: 16 / 9; object-fit: cover; }
-    .sb-vwrap { position:relative; margin: var(--space-6) 0; }
-    .sb-vwrap .sb-video { margin:0; }
-    .sb-vctl { position:absolute; left:14px; bottom:14px; display:flex; gap:10px; }
-    .sb-vctl button { width:46px; height:46px; border-radius:50%; border:1px solid rgba(255,255,255,.28); background:rgba(8,10,12,.62); color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: transform .12s ease, background .2s ease; }
-    .sb-vctl button:hover { background:rgba(8,10,12,.82); }
-    .sb-vctl button:active { transform: scale(.9); }
-    .sb-vctl button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
-    .sb-vctl svg { width:20px; height:20px; }
-    .sb-dl { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap: var(--space-3); margin: var(--space-5) 0; }
-    .sb-dl a, .sb-dl span.soon { display:inline-flex; align-items:center; gap:8px; min-height:46px; padding:8px 20px; border-radius: var(--radius-md); font-weight: var(--weight-semibold); font-size: var(--text-caption); text-decoration:none; text-align:center; max-width:100%; }
-    .sb-dl a.ios { background:#fff; color:#0a0d10; }
-    .sb-dl a.play { background: var(--accent); color:#04120f; }
-    .sb-dl span.soon { border:1px dashed var(--border-accent); color: var(--text-secondary); }
-    .sb-dl svg { width:18px; height:18px; }
-    .sb-feat { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); margin: var(--space-7) 0; text-align:left; }
-    .sb-card { background: var(--surface-1); border:1px solid var(--border-subtle); border-radius: var(--radius-card); padding: var(--space-5); }
-    .sb-card h3 { font-family: var(--font-display); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 6px; }
-    .sb-card p { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
-    .sb-gallery { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0 var(--space-7); }
-    .sb-gallery figure { margin:0; }
-    .sb-gallery img { width:100%; height:auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); border:1px solid var(--border-subtle); display:block; }
-    .sb-gallery figcaption { font-size: var(--text-caption); color: var(--text-tertiary); margin-top: 6px; text-align:left; }
-    .sb-h2 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); font-weight: var(--weight-semibold); margin-top: var(--space-7); text-align:left; }
-    .sb-links { display:flex; flex-wrap:wrap; gap: var(--space-3); justify-content:center; margin: var(--space-6) 0; }
-    .sb-links a { color: var(--accent); font-size: var(--text-caption); }
-  </style>
+  <script src="/chrome.js" defer></script>
+  <script src="/site.js" defer></script>
+  <script src="/dots.js" defer></script>
 </head>
-<body>
-
-<div class="glow-orb glow-orb-1" aria-hidden="true"></div>
-<div class="glow-orb glow-orb-2" aria-hidden="true"></div>
-
-<div class="site-wrapper">
-
-  <header class="site-header" role="banner">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Synq — Home">
-        <svg width="36" height="36" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs><radialGradient id="lg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5eead4" stop-opacity="0.35"/><stop offset="100%" stop-color="#5eead4" stop-opacity="0"/></radialGradient></defs>
-          <circle cx="60" cy="60" r="58" fill="#0a0d10"/><circle cx="60" cy="60" r="46" fill="url(#lg1)"/>
-          <path d="M60 18a42 42 0 1 0 30 71.5A34 34 0 0 1 60 18Z" fill="#5eead4"/><path d="M52 48l22 12-22 12V48Z" fill="#0a0d10"/>
-        </svg>
-        <span class="nav-logo-text">Synq</span>
-      </a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="/kagezan" class="nav-link">Kagezan</a>
-        <a href="/kagezan-support" class="nav-link"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a>
-        <a href="/kagezan-privacy" class="nav-link"><span data-lang-block="vi">Riêng tư</span><span data-lang-block="en">Privacy</span></a>
-        <div class="lang-toggle" aria-label="Language switcher">
-          <button class="lang-btn active" data-lang="en" aria-label="English">EN</button>
-          <button class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">VI</button>
-        </div>
-      </nav>
+<body class="studio kz">
+<!--sq:header-->
+<script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
+<a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
+<header class="sq-header" data-theme="light">
+  <div class="sq-bar">
+    <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
+    <nav class="sq-nav" id="sq-nav" aria-label="Main"><a href="/#products"><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></a><a href="/help"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a></nav>
+    <div class="sq-tools">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en" aria-label="EN English" lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="vi" aria-label="VI Tiếng Việt" lang="vi">VI</button>
+      </div>
+      <button type="button" class="sq-menu" aria-expanded="false" aria-controls="sq-nav" aria-label="Menu"><i></i><i></i></button>
     </div>
-  </header>
+  </div>
+</header>
+<!--/sq:header-->
+<main id="main-content">
 
-  <main class="page-main" id="main-content">
-    <div class="sb-land">
-      <img class="sb-appicon" src="/store/shadowblade/logo.png" alt="Kagezan logo" width="128" height="128" />
-    <section class="page-hero">
-      <span class="eyebrow">Kagezan · by Synq</span>
-      <h1 data-lang-block="vi">Gạt kiếm. Phá thế. Kết liễu.</h1>
-      <h1 data-lang-block="en">Deflect. Break. Finish.</h1>
-      <p class="subtitle" data-lang-block="vi">Game hành động samurai lấy đòn gạt làm trọng tâm: đọc nhịp kiếm của đối thủ, gạt đúng khoảnh khắc và kết liễu khi thế địch vỡ. Chơi được offline trên iPhone, iPad và Android.</p>
-      <p class="subtitle" data-lang-block="en">A samurai action game built around the parry: read your opponent's rhythm, deflect at the right instant and finish them when their posture breaks. Plays offline on iPhone, iPad and Android.</p>
+  <section class="hero kz-hero" aria-label="Kagezan">
+    <canvas class="hero-fx" data-shape="pad" aria-hidden="true"></canvas>
+    <div class="wrap hero-in">
+      <h1 class="display" data-lang-block="vi"><span class="ln" style="--i:0"><span>Kagezan</span></span><span class="ln sub" style="--i:1"><span>Gạt kiếm. Phá thế. Kết liễu.</span></span></h1>
+      <h1 class="display" data-lang-block="en"><span class="ln" style="--i:0"><span>Kagezan</span></span><span class="ln sub" style="--i:1"><span>Deflect. Break. Finish.</span></span></h1>
+      <div class="hero-row">
+        <p class="lede" data-lang-block="vi">Game samurai xoay quanh đòn gạt. Đọc nhịp kiếm của đối thủ, gạt đúng lúc, kết liễu khi thế địch vỡ. Chơi offline trên iPhone, iPad và Android.</p><p class="lede" data-lang-block="en">A samurai game built around the parry. Read the other swordsman's rhythm, deflect on time, finish them when their posture breaks. Plays offline on iPhone, iPad and Android.</p>
+        <div class="hero-cta">
+          <span class="pill"><span data-lang-block="vi">Sắp ra mắt trên iOS &amp; Android</span><span data-lang-block="en">Coming soon on iOS &amp; Android</span></span>
+          <a class="btn accent" href="#trailer"><span data-lang-block="vi">Xem trailer</span><span data-lang-block="en">Watch the trailer</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trailer" class="kz-trailer" aria-label="Trailer">
+    <div class="stage" data-stage>
+      <div class="stage-pin">
+        <div class="stage-media">
+          <button class="vid-toggle" type="button" aria-pressed="false" aria-label="Pause trailer"><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+          <video data-loop muted loop playsinline autoplay preload="none" poster="/img/kagezan-loop-poster.webp" width="1024" height="576" aria-label="Kagezan gameplay"><source src="/img/kagezan-loop.mp4" type="video/mp4" /></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="play" class="kz-play">
+    <div class="wrap kz-intro"><h2 class="display h2" data-r><span data-lang-block="vi">Cách chơi</span><span data-lang-block="en">How it plays</span></h2></div>
+    <section class="kz-row wrap">
+      <div data-r><h2><span data-lang-block="vi">Gạt đúng nhịp</span><span data-lang-block="en">Perfect deflects</span></h2><p data-lang-block="vi">Đỡ đúng lúc lưỡi kiếm chạm tới thì bạn không bị trúng đòn, thế của địch đầy dần. Vỡ thế là kết liễu.</p><p data-lang-block="en">Guard right as the blade lands and you take no hit while their posture fills. Break it and you finish them.</p></div>
+      <div class="kz-clip" data-r style="--d:.1s"><video data-loop muted loop playsinline preload="none" poster="/img/kz-parry.webp" width="800" height="450" aria-label="Gạt đòn / Parrying"><source src="/img/kz-parry.mp4" type="video/mp4" /></video></div>
+    </section><section class="kz-row wrap flip">
+      <div data-r><h2><span data-lang-block="vi">Đòn hiểm phải đọc</span><span data-lang-block="en">Read the big attacks</span></h2><p data-lang-block="vi">Quét thì nhảy, đâm thì phản đòn, túm thì lướt ra. Trùm nào cũng có nhịp riêng.</p><p data-lang-block="en">Jump the sweep, counter the thrust, dash out of the grab. Every boss has its own rhythm.</p></div>
+      <div class="kz-clip" data-r style="--d:.1s"><video data-loop muted loop playsinline preload="none" poster="/img/kz-read.webp" width="800" height="450" aria-label="Đòn hiểm / Perilous attacks"><source src="/img/kz-read.mp4" type="video/mp4" /></video></div>
+    </section><section class="kz-row wrap">
+      <div data-r><h2><span data-lang-block="vi">Đa dạng vũ khí</span><span data-lang-block="en">Many weapons</span></h2><p data-lang-block="vi">Katana, odachi, song đao và còn nhiều nữa. Mỗi loại đánh một kiểu.</p><p data-lang-block="en">Katana, odachi, twin blades and more. Each one plays differently.</p></div>
+      <div class="kz-clip" data-r style="--d:.1s"><video data-loop muted loop playsinline preload="none" poster="/img/kz-weapons.webp" width="800" height="450" aria-label="Vũ khí / Weapons"><source src="/img/kz-weapons.mp4" type="video/mp4" /></video></div>
     </section>
-      <div class="sb-dl">
-        <span class="soon"><span data-lang-block="vi">Sắp ra mắt trên App Store và Google Play</span><span data-lang-block="en">Coming soon to the App Store and Google Play</span></span>
-      </div>
-      <div class="sb-vwrap">
-      <video id="sb-trailer" class="sb-video" src="/store/shadowblade/trailer_720.mp4" poster="/store/shadowblade/trailer_poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Kagezan gameplay"></video>
-      <div class="sb-vctl">
-        <button type="button" id="sb-play" aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path class="i-pause" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/><path class="i-play" d="M8 5v14l11-7z" style="display:none"/></svg></button>
-        <button type="button" id="sb-sound" aria-label="Sound on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path class="i-on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" style="display:none"/><path class="i-off" d="m16 9 6 6M22 9l-6 6"/></svg></button>
-      </div>
-      </div>
-      <script>(function(){var v=document.getElementById("sb-trailer"),p=document.getElementById("sb-play"),s=document.getElementById("sb-sound");if(!v||!p||!s)return;function sp(){var on=!v.paused;p.querySelector(".i-pause").style.display=on?"":"none";p.querySelector(".i-play").style.display=on?"none":"";p.setAttribute("aria-label",on?"Pause":"Play");}function ss(){s.querySelector(".i-on").style.display=v.muted?"none":"";s.querySelector(".i-off").style.display=v.muted?"":"none";s.setAttribute("aria-label",v.muted?"Sound on":"Mute");}p.addEventListener("click",function(){if(v.paused){v.play();}else{v.pause();}});s.addEventListener("click",function(){v.muted=!v.muted;if(!v.muted&&v.paused){v.play();}ss();});v.addEventListener("play",sp);v.addEventListener("pause",sp);sp();ss();})();</script>
-      <div class="sb-feat">
-        <div class="sb-card">
-          <h3 data-lang-block="vi">Gạt đúng nhịp</h3><h3 data-lang-block="en">Perfect deflects</h3>
-          <p data-lang-block="vi">Đỡ đúng khoảnh khắc lưỡi kiếm chạm tới để gạt: không mất máu, dồn thế địch. Vỡ thế là kết liễu.</p><p data-lang-block="en">Guard right as the blade lands to deflect: no damage, and the enemy's posture fills. Break it for a deathblow.</p>
-        </div>
-        <div class="sb-card">
-          <h3 data-lang-block="vi">Đòn hiểm phải đọc</h3><h3 data-lang-block="en">Read the perilous attacks</h3>
-          <p data-lang-block="vi">Quét thì nhảy, đâm thì phản đòn Nhất Thiểm, túm thì lướt né. Mỗi trùm có nhịp riêng để học.</p><p data-lang-block="en">Jump the sweep, counter the thrust, dash out of the grab. Every boss has its own rhythm to learn.</p>
-        </div>
-        <div class="sb-card">
-          <h3 data-lang-block="vi">8 chương, 8 trùm</h3><h3 data-lang-block="en">8 chapters, 8 bosses</h3>
-          <p data-lang-block="vi">Mỗi chương là một bản đồ mở có lối rẽ, tinh anh canh đường và điện thờ checkpoint. Trùm nào cũng có hình thái thứ hai.</p><p data-lang-block="en">Each chapter is an open map with side paths, elites holding the road and checkpoint shrines. Every boss has a second form.</p>
-        </div>
-        <div class="sb-card">
-          <h3 data-lang-block="vi">Ba lối kiếm</h3><h3 data-lang-block="en">Three blade styles</h3>
-          <p data-lang-block="vi">Katana nhanh, Odachi nặng hai tay, Song đao liên hoàn. Mỗi loại một tuyệt kỹ riêng.</p><p data-lang-block="en">Swift katana, two-handed odachi or twin blades, each with its own signature skill.</p>
-        </div>
-        <div class="sb-card">
-          <h3 data-lang-block="vi">Sinh tồn và Boss tuần</h3><h3 data-lang-block="en">Survival and Weekly Boss</h3>
-          <p data-lang-block="vi">Trụ giữa vòng vây hay gây sát thương cao nhất lên trùm khổng lồ, leo bảng xếp hạng tuần và nhận thưởng mỗi thứ Hai.</p><p data-lang-block="en">Hold out against the horde or deal the most damage to a giant boss, climb the weekly board and collect rewards every Monday.</p>
-        </div>
-        <div class="sb-card">
-          <h3 data-lang-block="vi">Rèn đồ, 4 độ khó</h3><h3 data-lang-block="en">Gear and 4 difficulties</h3>
-          <p data-lang-block="vi">6 bậc hiếm, dòng đặc biệt, cường hoá và tẩy luyện. Thắng Normal để mở Hard, Hell rồi Ác Mộng.</p><p data-lang-block="en">6 rarities, special lines, upgrades and reforging. Beat Normal to open Hard, Hell and finally Nightmare.</p>
-        </div>
-      </div>
-      <h2 class="sb-h2"><span data-lang-block="vi">Ảnh trong game</span><span data-lang-block="en">Screenshots</span></h2>
-      <div class="sb-gallery" data-lang-block="vi">
-        <figure><img src="/store/shadowblade/vi_01_kurohebi.jpg" alt="Đỡ gạt mọi đòn" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/vi_02_mugen.jpg" alt="Đọc đòn hiểm" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/vi_03_renka.jpg" alt="Phản đòn Nhất Thiểm" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/vi_04_bosses.jpg" alt="15 trùm, mỗi trùm một nhịp riêng" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/vi_05_survival.jpg" alt="Sống sót giữa vòng vây" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/vi_07_gear.jpg" alt="Rèn trang bị" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/vi_08_chests.jpg" alt="Mở rương, sưu tầm kiếm" loading="lazy" width="1280" height="720" /></figure>
-      </div>
-      <div class="sb-gallery" data-lang-block="en">
-        <figure><img src="/store/shadowblade/en_01_kurohebi.jpg" alt="Deflect every blow" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/en_02_mugen.jpg" alt="Read the danger" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/en_03_renka.jpg" alt="Issen counter" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/en_04_bosses.jpg" alt="15 bosses, each with its own rhythm" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/en_05_survival.jpg" alt="Survive the horde" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/en_07_gear.jpg" alt="Forge your gear" loading="lazy" width="1280" height="720" /></figure>
-        <figure><img src="/store/shadowblade/en_08_chests.jpg" alt="Open chests, collect blades" loading="lazy" width="1280" height="720" /></figure>
-      </div>
-      <p class="subtitle" data-lang-block="vi" style="margin:0 auto;">Miễn phí, có gói Ngọc mua trong app (không bắt buộc). Quảng cáo có thưởng chỉ hiện khi bạn tự chọn xem để nhận thêm phần thưởng. Tiếng Việt, English, Español, Bahasa Indonesia, 日本語, 한국어, Português, Русский, ไทย, 中文.</p>
-      <p class="subtitle" data-lang-block="en" style="margin:0 auto;">Free to play, with optional in-app purchases of Jade. Rewarded ads appear only when you choose to watch one for a bonus. English, Tiếng Việt, Español, Bahasa Indonesia, 日本語, 한국어, Português, Русский, ไทย, 中文.</p>
-      <div class="sb-dl">
-        <span class="soon"><span data-lang-block="vi">Sắp ra mắt trên App Store và Google Play</span><span data-lang-block="en">Coming soon to the App Store and Google Play</span></span>
-      </div>
-      <div class="sb-links"><a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ &amp; câu hỏi thường gặp</span><span data-lang-block="en">Support &amp; FAQ</span></a><a href="/kagezan-privacy"><span data-lang-block="vi">Chính sách quyền riêng tư</span><span data-lang-block="en">Privacy Policy</span></a><a href="/kagezan-terms"><span data-lang-block="vi">Điều khoản sử dụng</span><span data-lang-block="en">Terms of Use</span></a><a href="/kagezan-delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete your account</span></a></div>
+  </div>
+
+  <section class="kz-bosses wrap" id="bosses" aria-labelledby="boss-h">
+    <h2 id="boss-h" class="display h2" data-r><span data-lang-block="vi">15+ chương</span><span data-lang-block="en">15+ chapters</span></h2>
+    <p class="lede" data-lang-block="vi">Mỗi chương một trùm, mỗi trùm một nhịp riêng.</p><p class="lede" data-lang-block="en">One boss per chapter, each with its own rhythm.</p>
+    <ol class="kz-boss-list">
+        <li data-r style="--d:0.00s"><span class="kz-ch"><span data-lang-block="vi">Chương 1</span><span data-lang-block="en">Chapter 1</span></span><h3>Oniwa</h3><span class="kz-ti"><span data-lang-block="vi">Tướng Quân Bất Tử</span><span data-lang-block="en">Undying General</span></span><p data-lang-block="vi">Bài học đầu tiên: nhịp đều, gạt theo từng nhát.</p><p data-lang-block="en">The first lesson: steady beats, deflect each swing.</p></li>
+        <li data-r style="--d:0.06s"><span class="kz-ch"><span data-lang-block="vi">Chương 2</span><span data-lang-block="en">Chapter 2</span></span><h3>Kagerō</h3><span class="kz-ti"><span data-lang-block="vi">Hắc Điệp</span><span data-lang-block="en">Black Butterfly</span></span><p data-lang-block="vi">Phóng phi tiêu, ra đòn dồn dập.</p><p data-lang-block="en">Throws stars and strikes in quick strings.</p></li>
+        <li data-r style="--d:0.12s"><span class="kz-ch"><span data-lang-block="vi">Chương 3</span><span data-lang-block="en">Chapter 3</span></span><h3>Kurohebi</h3><span class="kz-ti"><span data-lang-block="vi">Độc Xà Tăng</span><span data-lang-block="en">Venom Serpent Monk</span></span><p data-lang-block="vi">Gậy tẩm độc. Chỉ gạt chuẩn mới không dính độc.</p><p data-lang-block="en">A poisoned staff. Only a clean deflect keeps you clear.</p></li>
+        <li data-r style="--d:0.00s"><span class="kz-ch"><span data-lang-block="vi">Chương 4</span><span data-lang-block="en">Chapter 4</span></span><h3>Tekki</h3><span class="kz-ti"><span data-lang-block="vi">Thiết Quỷ</span><span data-lang-block="en">Iron Demon</span></span><p data-lang-block="vi">Nặng và chậm, nhưng đòn nào cũng đáng ngại.</p><p data-lang-block="en">Slow and heavy, and every hit matters.</p></li>
+        <li data-r style="--d:0.06s"><span class="kz-ch"><span data-lang-block="vi">Chương 5</span><span data-lang-block="en">Chapter 5</span></span><h3>Mugen</h3><span class="kz-ti"><span data-lang-block="vi">Kiếm Thánh</span><span data-lang-block="en">Sword Saint</span></span><p data-lang-block="vi">Biến mất rồi chém từ sau lưng. Nghe tiếng khói.</p><p data-lang-block="en">Vanishes and cuts from behind. Listen for the smoke.</p></li>
+        <li data-r style="--d:0.12s"><span class="kz-ch"><span data-lang-block="vi">Chương 6</span><span data-lang-block="en">Chapter 6</span></span><h3>Renka</h3><span class="kz-ti"><span data-lang-block="vi">Hắc Liên</span><span data-lang-block="en">Black Lotus</span></span><p data-lang-block="vi">Bão cánh hoa và những nhát đâm.</p><p data-lang-block="en">A storm of petals and sharp thrusts.</p></li>
+        <li data-r style="--d:0.00s"><span class="kz-ch"><span data-lang-block="vi">Chương 7</span><span data-lang-block="en">Chapter 7</span></span><h3>Shuten</h3><span class="kz-ti"><span data-lang-block="vi">Đại Quỷ</span><span data-lang-block="en">Great Oni</span></span><p data-lang-block="vi">To lớn, đòn nặng và những cú nhảy bổ.</p><p data-lang-block="en">Huge, heavy hits and big leaps.</p></li>
+        <li data-r style="--d:0.06s"><span class="kz-ch"><span data-lang-block="vi">Chương 8</span><span data-lang-block="en">Chapter 8</span></span><h3>Kuroryū</h3><span class="kz-ti"><span data-lang-block="vi">Hắc Long Shōgun</span><span data-lang-block="en">Black Dragon Shōgun</span></span><p data-lang-block="vi">Mỗi pha mượn đòn của các trùm trước.</p><p data-lang-block="en">Each phase borrows moves from earlier bosses.</p></li>
+        <li data-r style="--d:0.12s"><span class="kz-ch"><span data-lang-block="vi">Chương 9</span><span data-lang-block="en">Chapter 9</span></span><h3>Shirayuki</h3><span class="kz-ti"><span data-lang-block="vi">Tuyết Nữ</span><span data-lang-block="en">Snow Maiden</span></span><p data-lang-block="vi">Gạt đúng nhịp thì băng bay ngược lại.</p><p data-lang-block="en">Deflect on beat and the ice flies back.</p></li>
+        <li data-r style="--d:0.00s"><span class="kz-ch"><span data-lang-block="vi">Chương 10</span><span data-lang-block="en">Chapter 10</span></span><h3>Suigetsu</h3><span class="kz-ti"><span data-lang-block="vi">Thủy Nguyệt</span><span data-lang-block="en">Water Moon</span></span><p data-lang-block="vi">Xích bay xa rồi kéo về. Lướt ngang đừng lao vào.</p><p data-lang-block="en">The chain flies out, then pulls back. Dash sideways.</p></li>
+        <li data-r style="--d:0.06s"><span class="kz-ch"><span data-lang-block="vi">Chương 11</span><span data-lang-block="en">Chapter 11</span></span><h3>Kogane</h3><span class="kz-ti"><span data-lang-block="vi">Hồ Thương</span><span data-lang-block="en">Fox Merchant</span></span><p data-lang-block="vi">Ô giấy giấu kiếm. Đèn tắt thì phải nghe.</p><p data-lang-block="en">An umbrella hides a sword. When the lamps go out, listen.</p></li>
+        <li data-r style="--d:0.12s"><span class="kz-ch"><span data-lang-block="vi">Chương 12</span><span data-lang-block="en">Chapter 12</span></span><h3>Kanayago</h3><span class="kz-ti"><span data-lang-block="vi">Thợ Rèn Quỷ</span><span data-lang-block="en">Demon Smith</span></span><p data-lang-block="vi">Búa lửa và kìm. Đừng để bị dồn vào góc.</p><p data-lang-block="en">Fire hammer and tongs. Don't get cornered.</p></li>
+        <li data-r style="--d:0.00s"><span class="kz-ch"><span data-lang-block="vi">Chương 13</span><span data-lang-block="en">Chapter 13</span></span><h3>Hagane</h3><span class="kz-ti"><span data-lang-block="vi">Kiếm Hồn</span><span data-lang-block="en">Sword Spirit</span></span><p data-lang-block="vi">Mưa kiếm theo nhịp. Gạt từng thanh.</p><p data-lang-block="en">A rain of swords on a beat. Deflect each one.</p></li>
+        <li data-r style="--d:0.06s"><span class="kz-ch"><span data-lang-block="vi">Chương 14</span><span data-lang-block="en">Chapter 14</span></span><h3>Ikazuchi</h3><span class="kz-ti"><span data-lang-block="vi">Lôi Tướng</span><span data-lang-block="en">Thunder General</span></span><p data-lang-block="vi">Sét đánh trễ một nhịp. Rời khỏi vòng sáng.</p><p data-lang-block="en">Lightning lands a beat late. Leave the glowing ring.</p></li>
+        <li data-r style="--d:0.12s"><span class="kz-ch"><span data-lang-block="vi">Chương 15</span><span data-lang-block="en">Chapter 15</span></span><h3><span data-lang-block="vi">Hư Ảnh</span><span data-lang-block="en">Hollow Shade</span></h3><span class="kz-ti"><span data-lang-block="vi">Trùm cuối phần 2</span><span data-lang-block="en">Final boss of part 2</span></span><p data-lang-block="vi">Hố đen hút theo nhịp, rồi lặn vào khe nứt.</p><p data-lang-block="en">Black holes that pull on a beat, then a dive into the rift.</p></li>
+        </ol>
+  </section>
+
+  
+
+  <section class="kz-free wrap" aria-labelledby="free-h">
+    <h2 id="free-h" class="about-statement" data-r><span data-lang-block="vi">Chơi miễn phí, không cần xem quảng cáo.</span><span data-lang-block="en">Free to play, no ads required.</span></h2>
+    <div class="kz-cta" data-r><span class="pill"><span data-lang-block="vi">Sắp ra mắt trên iOS &amp; Android</span><span data-lang-block="en">Coming soon on iOS &amp; Android</span></span></div>
+    <ul class="kz-links" data-r>
+      <li><a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a></li>
+      <li><a href="/kagezan-privacy"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy</span></a></li>
+      <li><a href="/kagezan-terms"><span data-lang-block="vi">Điều khoản</span><span data-lang-block="en">Terms</span></a></li>
+      <li><a href="/kagezan-delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete account</span></a></li>
+      <li><a href="mailto:support.synq@gmail.com">support.synq@gmail.com</a></li>
+    </ul>
+  </section>
+</main>
+
+<!--sq:footer-->
+<footer class="sq-footer" data-theme="light">
+  <div class="sq-foot">
+    <div class="sq-col sq-about">
+      <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
+      <p><span data-lang-block="vi">Studio nhỏ làm game và app nghe nhạc.</span><span data-lang-block="en">A small studio making games and music apps.</span></p>
+      <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></h2><ul><li><a href="/kagezan"><span data-lang-block="vi">Kagezan</span><span data-lang-block="en">Kagezan</span></a></li><li><a href="/synq"><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></a></li><li><a href="/synqtag"><span data-lang-block="vi">SynqTag</span><span data-lang-block="en">SynqTag</span></a></li><li><a href="/music-check"><span data-lang-block="vi">Music Check</span><span data-lang-block="en">Music Check</span></a></li></ul></div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Synq</span><span data-lang-block="en">Synq</span></h2><ul><li><a href="/synq/guides"><span data-lang-block="vi">Bài viết &amp; hướng dẫn</span><span data-lang-block="en">Articles &amp; guides</span></a></li><li><a href="/changelog"><span data-lang-block="vi">Có gì mới</span><span data-lang-block="en">What’s new</span></a></li><li><a href="/get"><span data-lang-block="vi">Tải Synq</span><span data-lang-block="en">Get Synq</span></a></li></ul></div>
+    <div class="sq-col"><h2><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></h2><ul><li><a href="/help"><span data-lang-block="vi">Trung tâm hỗ trợ</span><span data-lang-block="en">Help center</span></a></li><li><a href="/support"><span data-lang-block="vi">Hỗ trợ Synq</span><span data-lang-block="en">Synq support</span></a></li><li><a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ Kagezan</span><span data-lang-block="en">Kagezan support</span></a></li><li><a href="/privacy"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy</span></a></li><li><a href="/terms"><span data-lang-block="vi">Điều khoản</span><span data-lang-block="en">Terms</span></a></li><li><a href="/delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete account</span></a></li></ul></div>
+  </div>
+  <p class="sq-legal">© 2026 SYNQ Studio</p>
+</footer>
+<!--/sq:footer-->
 
-  </main>
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-inner">
-      <p class="footer-copy">© 2026 Synq. Kagezan.</p>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/kagezan-support"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a>
-        <a href="/kagezan-privacy"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy Policy</span></a>
-        <a href="/kagezan-terms"><span data-lang-block="vi">Điều khoản</span><span data-lang-block="en">Terms of Use</span></a>
-        <a href="/kagezan-delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete Account</span></a>
-        <a href="mailto:support.synq@gmail.com"><span data-lang-block="vi">Liên hệ</span><span data-lang-block="en">Contact</span></a>
-      </nav>
-    </div>
-  </footer>
-
-</div>
-
-<script src="/i18n.js"></script>
-<script src="/enhance.js" defer></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

@@ -92,7 +92,7 @@
     var vo = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         var v = e.target;
-        if (e.isIntersecting) { if (userPaused) return; if (v.preload === 'none') { v.preload = 'auto'; } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        if (e.isIntersecting) { if (userPaused && v === vid) return; if (v.preload === 'none') { v.preload = 'auto'; } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
         else v.pause();
       });
     }, { threshold: 0.05 });
