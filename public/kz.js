@@ -24,6 +24,8 @@
     document.body.appendChild(root);
     var blocked = [];
     Array.prototype.forEach.call(document.body.children, function (c) { if (c !== root && c.tagName !== 'SCRIPT') { blocked.push(c); c.setAttribute('inert', ''); } });
+    var sbw = window.innerWidth - document.documentElement.clientWidth;          // keep the page from shifting when the scrollbar goes away
+    document.documentElement.style.setProperty('--sbw', sbw + 'px');
     document.documentElement.classList.add('kz-lock');
     var api = { root: root, x: x, trigger: trigger, closing: false };
     function keydown(e) {
@@ -43,7 +45,7 @@
     api.finish = function () {
       document.removeEventListener('keydown', keydown);
       root.remove(); blocked.forEach(function (c) { c.removeAttribute('inert'); });
-      document.documentElement.classList.remove('kz-lock'); current = null;
+      document.documentElement.classList.remove('kz-lock'); document.documentElement.style.removeProperty('--sbw'); current = null;
       if (trigger && document.body.contains(trigger)) trigger.focus({ preventScroll: true });
     };
     return api;
