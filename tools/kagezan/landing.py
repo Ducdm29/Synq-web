@@ -46,26 +46,34 @@ PLACES = [
 
 
 def story():
-    items = ""
-    for ch, vi, en in PLACES:
-        if ch == 1:
-            items += '<li class="story-mark">%s%s</li>' % (t("Phần 1", "Part 1", "b"), t("Từ ngôi đền hoang trên núi đến kinh thành rực lửa.", "From a ruined mountain shrine to the burning capital.", "span"))
-        if ch == 9:
-            items += '<li class="story-mark">%s%s</li>' % (t("Phần 2", "Part 2", "b"), t("Khe nứt không khép lại. Kagezan bước qua, vào một thế giới của những thứ chưa tìm được chỗ yên nghỉ.", "The rift doesn't close. Kagezan steps through, into a world of things that never found rest.", "span"))
-        items += ('<li class="story-card"><img src="/img/story/ch%d.webp" width="1000" height="667" alt="" loading="lazy" decoding="async" />'
-                  '<span class="story-ch">%s</span><h3>%s</h3></li>') % (ch, t("Chương %d" % ch, "Chapter %d" % ch), t(vi, en))
-    items += '<li class="story-end">%s</li>' % t("Còn tiếp.", "To be continued.", "b")
+    def cards(chs):
+        out = ""
+        for ch, vi, en in PLACES:
+            if ch in chs:
+                out += ('<li class="story-card"><img src="/img/story/ch%d.webp" width="1000" height="667" alt="" loading="lazy" decoding="async" />'
+                        '<span class="story-ch">%s</span><h3>%s</h3></li>') % (ch, t("Chương %d" % ch, "Chapter %d" % ch), t(vi, en))
+        return out
+
+    def part(title_vi, title_en, line_vi, line_en):
+        return '<div class="wrap story-part" data-r>%s%s</div>' % (t(title_vi, title_en, "b"), t(line_vi, line_en, "span"))
+
+    def rail(items):
+        return '<div class="story-rail" data-rail><div class="story-pin"><ol class="story-track">%s</ol></div></div>' % items
+
+    p1 = part("Phần 1", "Part 1", "Từ ngôi đền hoang trên núi đến kinh thành rực lửa.", "From a ruined mountain shrine to the burning capital.")
+    p2 = part("Phần 2", "Part 2", "Khe nứt không khép lại. Kagezan bước qua, vào một thế giới của những thứ chưa tìm được chỗ yên nghỉ.",
+              "The rift doesn't close. Kagezan steps through, into a world of things that never found rest.")
+    end = '<li class="story-end">%s</li>' % t("Còn tiếp.", "To be continued.", "b")
     return """<section class="kz-story" id="story" aria-labelledby="story-h">
     <div class="wrap">
       <h2 id="story-h" class="display h2" data-r>%s</h2>
       %s
     </div>
-    <div class="story-rail" data-rail>
-      <div class="story-pin"><ol class="story-track">%s</ol></div>
-    </div>
+    %s%s%s%s
   </section>""" % (t("Câu chuyện", "The story"),
                    t("Nhật Bản thời phong kiến. Một đêm không trăng, bầu trời nứt ra, ánh sáng tím rỉ xuống, người chết trỗi dậy và những vị tướng mang hận đổi tên mình lấy sức mạnh. Một lãng khách không nhớ nổi tên mình đi theo ánh sáng ấy. Trên chuôi kiếm là một dải lụa đỏ đã phai, không bao giờ được tháo.",
-                     "Feudal Japan. One moonless night the sky cracks open and violet light leaks down. The dead rise, and generals who carry a grudge trade their names for power. A masterless samurai who can't remember his own name follows the light, a faded red silk ribbon on his sword hilt that he never unties.", "p", "lede"), items)
+                     "Feudal Japan. One moonless night the sky cracks open and violet light leaks down. The dead rise, and generals who carry a grudge trade their names for power. A masterless samurai who can't remember his own name follows the light, a faded red silk ribbon on his sword hilt that he never unties.", "p", "lede"),
+                   p1, rail(cards(range(1, 9))), p2, rail(cards(range(9, 16)) + end))
 
 
 def stores():

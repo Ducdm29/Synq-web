@@ -34,7 +34,7 @@
       var track = el.querySelector('.story-track'), on = !reduce && window.innerWidth > 900;
       el.classList.toggle('rail-pin', on);
       if (on) {
-        var pinH = window.innerHeight - 64, max = Math.max(0, track.scrollWidth - window.innerWidth + 40);
+        var pinH = window.innerHeight - 64, max = Math.max(0, track.scrollWidth - window.innerWidth);
         el.style.setProperty('--max', max); el.dataset.max = max; el.style.height = (max * .6 + pinH) + 'px';
       } else { el.style.height = ''; el.dataset.max = 0; }
     });
