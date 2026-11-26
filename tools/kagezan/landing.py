@@ -15,7 +15,7 @@ BOSSES = [
     (2, "Kagerō", "Hắc Điệp", "Black Butterfly", "Phóng phi tiêu, ra đòn dồn dập.", "Throws stars and strikes in quick strings."),
     (3, "Kurohebi", "Độc Xà Tăng", "Venom Serpent Monk", "Gậy tẩm độc. Chỉ gạt chuẩn mới không dính độc.", "A poisoned staff. Only a clean deflect keeps you clear."),
     (4, "Tekki", "Thiết Quỷ", "Iron Demon", "Nặng và chậm, nhưng đòn nào cũng đáng ngại.", "Slow and heavy, and every hit matters."),
-    (5, "Mugen", "Kiếm Thánh", "Sword Saint", "Biến mất rồi chém từ sau lưng. Nghe tiếng khói.", "Vanishes and cuts from behind. Listen for the smoke."),
+    (5, "Mugen", "Kiếm Thánh", "Sword Saint", "Tan vào khói rồi chém từ sau lưng.", "Vanishes into smoke and strikes from behind."),
     (6, "Renka", "Hắc Liên", "Black Lotus", "Bão cánh hoa và những nhát đâm.", "A storm of petals and sharp thrusts."),
     (7, "Shuten", "Đại Quỷ", "Great Oni", "To lớn, đòn nặng và những cú nhảy bổ.", "Huge, heavy hits and big leaps."),
     (8, "Kuroryū", "Hắc Long Shōgun", "Black Dragon Shōgun", "Mỗi pha mượn đòn của các trùm trước.", "Each phase borrows moves from earlier bosses."),
