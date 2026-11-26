@@ -5,8 +5,10 @@
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..'))
-import landing, legal, help as hp
+import landing, legal, help as hp, news
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', '..', 'public')
+live = news.build()
+print('news live:', ', '.join(p['slug'] for p in live) or '-')
 for name, html in [("kagezan.html", landing.build()), ("kagezan-privacy.html", legal.privacy()), ("kagezan-terms.html", legal.terms()),
                    ("kagezan-support.html", hp.support()), ("kagezan-delete-account.html", hp.delete())]:
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(html)

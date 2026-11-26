@@ -44,7 +44,7 @@ def footer(theme="dark"):
       <p>{t("Studio nhỏ làm game và app nghe nhạc.", "A small studio making games and music apps.")}</p>
       <a class="sq-mail" href="mailto:support.synq@gmail.com">support.synq@gmail.com</a>
     </div>
-    {col(("Sản phẩm","Products"), [("/kagezan","Kagezan","Kagezan"),("/synq","Synq","Synq"),("/synqtag","SynqTag","SynqTag"),("/music-check","Music Check","Music Check")])}
+    {col(("Sản phẩm","Products"), [("/kagezan","Kagezan","Kagezan"),("/kagezan/news","Tin Kagezan","Kagezan news"),("/synq","Synq","Synq"),("/synqtag","SynqTag","SynqTag"),("/music-check","Music Check","Music Check")])}
     {col(("Synq","Synq"), [("/synq/guides","Bài viết &amp; hướng dẫn","Articles &amp; guides"),("/changelog","Có gì mới","What’s new"),("/get","Tải Synq","Get Synq")])}
     {col(("Hỗ trợ","Support"), [("/help","Trung tâm hỗ trợ","Help center"),("/support","Hỗ trợ Synq","Synq support"),("/kagezan-support","Hỗ trợ Kagezan","Kagezan support"),("/privacy","Quyền riêng tư","Privacy"),("/terms","Điều khoản","Terms"),("/delete-account","Xoá tài khoản","Delete account")])}
   </div>

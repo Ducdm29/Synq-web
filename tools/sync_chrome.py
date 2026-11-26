@@ -29,7 +29,7 @@ def process(path, rel):
     if s != o:
         open(path, 'w', encoding='utf-8').write(s); print('updated', rel)
 
-for p in sorted(glob.glob(PUB + '/*.html') + glob.glob(PUB + '/synq/**/*.html', recursive=True)):
+for p in sorted(glob.glob(PUB + '/*.html') + glob.glob(PUB + '/synq/**/*.html', recursive=True) + glob.glob(PUB + '/kagezan/**/*.html', recursive=True)):
     rel = os.path.relpath(p, PUB)
     if rel in SKIP: continue
     process(p, rel)

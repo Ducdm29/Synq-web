@@ -15,7 +15,7 @@
   }
 
   /* 2. scroll-scrubbed video stage + 3. word-by-word statement: one rAF loop, only while visible */
-  var stages = $('[data-stage]'), statements = $('[data-words]');
+  var stages = $('[data-stage]'), statements = $('[data-words]'), rails = $('[data-rail]');
   statements.forEach(function (el) {
     // split each language block's text into words (kept readable if JS never runs)
     $('[data-lang-block]', el).concat(el.hasAttribute('data-lang-block') ? [el] : []).forEach(function (blk) {
@@ -28,13 +28,30 @@
     });
   });
 
+  /* story strip: pinned horizontal scroll on wide screens (scroll-driven translate), native swipe otherwise */
+  function layoutRails() {
+    rails.forEach(function (el) {
+      var track = el.querySelector('.story-track'), on = !reduce && window.innerWidth > 900;
+      el.classList.toggle('rail-pin', on);
+      if (on) {
+        var pinH = window.innerHeight - 64, max = Math.max(0, track.scrollWidth - window.innerWidth + 40);
+        el.style.setProperty('--max', max); el.dataset.max = max; el.style.height = (max * .6 + pinH) + 'px';
+      } else { el.style.height = ''; el.dataset.max = 0; }
+    });
+  }
+  if (rails.length) {
+    layoutRails();
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layoutRails, 150); });
+    window.addEventListener('load', layoutRails);
+  }
+
   if (reduce) {
     document.documentElement.classList.add('no-scrub');
     statements.forEach(function (el) { $('.w', el).forEach(function (w) { w.classList.add('on'); }); });
     $('video[data-loop]').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
   } else if (stages.length || statements.length) {
     var visible = new Set(), ticking = false;
-    var watch = stages.concat(statements);
+    var watch = stages.concat(statements, rails);
     var vio = new IntersectionObserver(function (es) {
       es.forEach(function (e) { e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); });
       schedule();
@@ -46,7 +63,10 @@
       var vh = window.innerHeight;
       visible.forEach(function (el) {
         var r = el.getBoundingClientRect();
-        if (el.hasAttribute('data-stage')) {
+        if (el.hasAttribute('data-rail')) {
+          var mx = +el.dataset.max || 0;
+          if (mx) el.style.setProperty('--sp', Math.min(1, Math.max(0, (64 - r.top) / (mx * .6))).toFixed(4));
+        } else if (el.hasAttribute('data-stage')) {
           var pin = el.firstElementChild, travel = Math.max(0, r.height - pin.offsetHeight);
           var p = (vh * 0.6 - r.top) / (vh * 0.6 + travel * 0.5);
           el.style.setProperty('--p', Math.min(1, Math.max(0, p)).toFixed(4));

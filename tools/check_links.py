@@ -7,7 +7,7 @@ from preview import resolve, PUB
 HARD = ['/privacy','/terms','/support','/delete-account','/kagezan','/kagezan-privacy','/kagezan-terms','/kagezan-support',
  '/kagezan-delete-account','/shadowblade','/shadowblade-privacy','/shadowblade-terms','/shadowblade-support','/shadowblade-delete-account',
  '/synqtag-privacy','/music-check-privacy','/get','/changelog','/s/abc123','/admin/share','/.well-known/apple-app-site-association',
- '/ads.txt','/app-ads.txt','/','/synq','/synq/guides','/help','/synqtag','/music-check']
+ '/ads.txt','/app-ads.txt','/','/synq','/synq/guides','/help','/kagezan/news','/synqtag','/music-check']
 bad = 0
 for u in HARD:
     r = resolve(u); ok = r[0] != '404'

@@ -4,10 +4,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'
 from common import APP_STORE, PLAY, EMAIL
 from chrome import header, footer
 from build_pages import head, t, ARROW, TAIL
+import news as newsmod
 
 # Public posts for the "latest news" section. Step 3 (/kagezan/news) fills this; the section hides while it is empty.
-# each: dict(href, date, title_vi, title_en, text_vi, text_en)
-POSTS = []
+# each: dict(href, date_vi, date_en, title_vi, title_en, text_vi, text_en)
+POSTS = []   # filled from content/kagezan/news at build time (see build())
 
 # (chapter, name, title_vi, title_en, line_vi, line_en)
 BOSSES = [
@@ -15,7 +16,7 @@ BOSSES = [
     (2, "Kagerō", "Hắc Điệp", "Black Butterfly", "Phi tiêu tới trước, kiếm theo ngay sau. Chậm tay là dính cả chuỗi.", "Throwing stars first, the blade right behind. Fall behind and you eat the whole string."),
     (3, "Kurohebi", "Độc Xà Tăng", "Venom Serpent Monk", "Cây gậy của lão tẩm độc, gạt lệch một chút là trúng độc.", "His staff is poisoned. Deflect a hair late and it gets you."),
     (4, "Tekki", "Thiết Quỷ", "Iron Demon", "Ra đòn chậm, nhưng trúng một phát là thấy đau.", "He's slow to swing, but you feel every hit that lands."),
-    (5, "Mugen", "Kiếm Thánh", "Sword Saint", "Tan vào làn khói, chớp mắt đã đứng sau lưng bạn.", "He melts into smoke and in a blink he's behind you."),
+    (5, "Mugen", "Kiếm Tiên", "Sword Immortal", "Tan vào làn khói, chớp mắt đã đứng sau lưng bạn.", "He melts into smoke and in a blink he's behind you."),
     (6, "Renka", "Hắc Liên", "Black Lotus", "Múa giữa bão cánh hoa, mũi kiếm luôn tới nhanh hơn bạn nghĩ.", "She dances in a storm of petals, and her thrusts come quicker than you think."),
     (7, "Shuten", "Đại Quỷ", "Great Oni", "To gấp mấy lần bạn, mỗi cú nhảy bổ là rung cả mặt đất.", "Several times your size, and every leap shakes the ground."),
     (8, "Kuroryū", "Hắc Long Shōgun", "Black Dragon Shōgun", "Mỗi pha một kiểu, toàn đòn lấy từ những trùm bạn đã hạ.", "Every phase is different, built from moves of bosses you've already beaten."),
@@ -28,7 +29,43 @@ BOSSES = [
     (15, "Hư Ảnh", "Trùm cuối phần 2", "Final boss of part 2", "Kéo bạn vào hố đen, rồi lặn vào khe nứt và hiện ra chỗ khác.", "Drags you toward black holes, then slips into the rift and comes out somewhere else."),
 ]
 # The English name of boss 15 as shown in the game's own text.
-BOSS15_EN = "The Hollow"
+BOSS15_EN = "The Hollow Shade"
+
+
+# Places, exact game text (marketing/STORY_PUBLIC.md section 4): (chapter, VI, EN)
+PLACES = [
+    (1, "Đường Lên Đền Hoang", "Road to the Ruined Shrine"), (2, "Thành Hắc Vân", "Black Cloud Castle"),
+    (3, "Độc Xà Cốc", "Venom Snake Valley"), (4, "Làng Tro Tàn", "Ashen Village"),
+    (5, "Rừng Trúc Vô Danh", "Nameless Bamboo Forest"), (6, "Hắc Liên Các", "Black Lotus Pavilion"),
+    (7, "Quỷ Môn Quan", "Demon Gate Pass"), (8, "Hoàng Thành Lửa", "Burning Imperial Castle"),
+    (9, "Linh Sơn Tuyết Lĩnh", "Snow Ridge of the Sacred Peak"), (10, "Thác Ngược", "The Upward Falls"),
+    (11, "Chợ Ma", "Ghost Market"), (12, "Lò Rèn Địa Phủ", "Underworld Forge"),
+    (13, "Vạn Kiếm Trủng", "Mound of Ten Thousand Swords"), (14, "Thiên Cung Đổ", "Fallen Heavenly Palace"),
+    (15, "Lõi Khe Nứt", "Rift Core"),
+]
+
+
+def story():
+    items = ""
+    for ch, vi, en in PLACES:
+        if ch == 1:
+            items += '<li class="story-mark">%s%s</li>' % (t("Phần 1", "Part 1", "b"), t("Từ ngôi đền hoang trên núi đến kinh thành rực lửa.", "From a ruined mountain shrine to the burning capital.", "span"))
+        if ch == 9:
+            items += '<li class="story-mark">%s%s</li>' % (t("Phần 2", "Part 2", "b"), t("Khe nứt không khép lại. Kagezan bước qua, vào một thế giới của những thứ chưa tìm được chỗ yên nghỉ.", "The rift doesn't close. Kagezan steps through, into a world of things that never found rest.", "span"))
+        items += ('<li class="story-card"><img src="/img/story/ch%d.webp" width="1000" height="667" alt="" loading="lazy" decoding="async" />'
+                  '<span class="story-ch">%s</span><h3>%s</h3></li>') % (ch, t("Chương %d" % ch, "Chapter %d" % ch), t(vi, en))
+    items += '<li class="story-end">%s</li>' % t("Còn tiếp.", "To be continued.", "b")
+    return """<section class="kz-story" id="story" aria-labelledby="story-h">
+    <div class="wrap">
+      <h2 id="story-h" class="display h2" data-r>%s</h2>
+      %s
+    </div>
+    <div class="story-rail" data-rail>
+      <div class="story-pin"><ol class="story-track">%s</ol></div>
+    </div>
+  </section>""" % (t("Câu chuyện", "The story"),
+                   t("Nhật Bản thời phong kiến. Một đêm không trăng, bầu trời nứt ra, ánh sáng tím rỉ xuống, người chết trỗi dậy và những vị tướng mang hận đổi tên mình lấy sức mạnh. Một lãng khách không nhớ nổi tên mình đi theo ánh sáng ấy. Trên chuôi kiếm là một dải lụa đỏ đã phai, không bao giờ được tháo.",
+                     "Feudal Japan. One moonless night the sky cracks open and violet light leaks down. The dead rise, and generals who carry a grudge trade their names for power. A masterless samurai who can't remember his own name follows the light, a faded red silk ribbon on his sword hilt that he never unties.", "p", "lede"), items)
 
 
 def stores():
@@ -54,6 +91,7 @@ def play_row(flip, name, h_vi, h_en, p_vi, p_en, alt):
 
 
 def build():
+    POSTS[:] = newsmod.landing_posts(newsmod.live()[:3])
     bosses = ""
     for i, (ch, name, tv, te, lv, le) in enumerate(BOSSES):
         name_en = BOSS15_EN if ch == 15 else name
@@ -64,11 +102,12 @@ def build():
     news = ""
     if POSTS:
         cards = "".join("""<a class="kz-post" href="%s" data-r><span class="kz-date">%s</span><h3>%s</h3>%s</a>""" % (
-            p["href"], p["date"], t(p["title_vi"], p["title_en"]), t(p["text_vi"], p["text_en"], "p")) for p in POSTS[:3])
+            p["href"], t(p["date_vi"], p["date_en"]), t(p["title_vi"], p["title_en"]), t(p["text_vi"], p["text_en"], "p")) for p in POSTS[:3])
         news = """<section class="kz-news wrap" aria-labelledby="news-h">
       <h2 id="news-h" class="display h2" data-r>%s</h2>
       <div class="kz-posts">%s</div>
-    </section>""" % (t("Tin mới", "Latest news"), cards)
+      <p class="kz-allnews" data-r><a class="btn ghost" href="/kagezan/news">%s%s</a></p>
+    </section>""" % (t("Tin mới", "Latest news"), cards, t("Tất cả tin", "All news"), ARROW)
 
     body = """%(header)s
 <main id="main-content">
@@ -99,6 +138,8 @@ def build():
     </div>
   </section>
 
+  %(story)s
+
   <div id="play" class="kz-play">
     <div class="wrap kz-intro"><h2 class="display h2" data-r>%(play_h)s</h2></div>
     %(rows)s
@@ -128,7 +169,7 @@ def build():
 
 %(footer)s
 """ % dict(
-        header=header('light'), footer=footer('light'), arrow=ARROW, email=EMAIL, stores=stores(), news=news, bosses=bosses,
+        story=story(), header=header('light'), footer=footer('light'), arrow=ARROW, email=EMAIL, stores=stores(), news=news, bosses=bosses,
         lede=t("Game samurai xoay quanh đòn gạt. Đọc nhịp kiếm của đối thủ, gạt đúng lúc, kết liễu khi thế địch vỡ. Chơi offline trên iPhone, iPad và Android.",
                "A samurai game built around the parry. Read the other swordsman's rhythm, deflect on time, finish them when their posture breaks. Plays offline on iPhone, iPad and Android.", "p", "lede"),
         trailer_btn=t("Xem trailer", "Watch the trailer"),

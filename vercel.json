@@ -33,6 +33,8 @@
     {"source": "/synq/guides", "destination": "/synq/guides.html"},
     {"source": "/synq/guides/:slug", "destination": "/synq/guides/:slug.html"},
     {"source": "/kagezan", "destination": "/kagezan.html"},
+    { "source": "/kagezan/news", "destination": "/kagezan/news.html" },
+    { "source": "/kagezan/news/:slug", "destination": "/kagezan/news/:slug.html" },
     {"source": "/kagezan-privacy", "destination": "/kagezan-privacy.html"},
     {"source": "/kagezan-terms", "destination": "/kagezan-terms.html"},
     {"source": "/kagezan-support", "destination": "/kagezan-support.html"},
