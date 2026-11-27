@@ -26,6 +26,12 @@ BASE_CSS = '''
 '''
 
 
+def _pre(h1):
+    """Put the "Kagezan — " prefix on its own small line so the title itself wraps cleanly.
+    The text content stays identical (store-linked pages)."""
+    return h1.replace('>Kagezan — ', '><span class="lg-pre">Kagezan — </span>', 1)
+
+
 def page(slug, title_en, desc_en, body, extra_css=""):
     """Legal / support pages: the legacy content styles (styles.css) wrapped in the shared site chrome."""
     return f'''<!DOCTYPE html>
@@ -175,7 +181,7 @@ def legal_page(slug, title_en, desc_en, body, steps=False, cta=None):
       </article>
     </div>
   </div>
-</main>""" % dict(eyebrow=eyebrow.replace('Kagezan', '<a href="/kagezan">Kagezan</a>'), h1v=h1v.replace('<h1', '<h1 class="display"'), h1e=h1e.replace('<h1', '<h1 class="display"'),
+</main>""" % dict(eyebrow=eyebrow.replace('Kagezan', '<a href="/kagezan">Kagezan</a>'), h1v=_pre(h1v.replace('<h1', '<h1 class="display"')), h1e=_pre(h1e.replace('<h1', '<h1 class="display"')),
                   sv=sv.replace('class="subtitle"', 'class="lg-sub"'), se=se.replace('class="subtitle"', 'class="lg-sub"'), upd=upd_m.group(1),
                   toclabel=t("Mục lục", "Contents"), toclabel_plain="Mục lục / Contents", toc=toc, secs=secs, contact=contact_html, top=t("Lên đầu trang", "Back to top"))
     page = head(title_en, desc_en, '/' + slug, 'studio legal', og='/store/shadowblade/feature.jpg', icon='/store/shadowblade/icon.png')
