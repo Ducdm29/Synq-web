@@ -9,35 +9,22 @@
   <meta property="og:title" content="Kagezan — Support" />
   <meta property="og:description" content="Help for Kagezan: moving your progress to a new phone, deflecting, stamina, weekly rewards, performance and contacting us." />
   <meta property="og:image" content="https://synqstudio.cloud/store/shadowblade/feature.jpg" />
-  <link rel="icon" type="image/png" href="/store/shadowblade/icon.png" />
-  <link rel="stylesheet" href="/styles.css" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#f5f5f3" />
+  <link rel="icon" type="image/svg+xml" href="/store/shadowblade/icon.png" />
+  <link rel="preload" href="/fonts/bvp-600-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/chrome.css" />
+  <link rel="stylesheet" href="/studio.css" />
   <script>if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' anim';}</script>
   <script src="/chrome.js" defer></script>
-  <style>
-    html[lang="en"] [data-lang-block="vi"] { display: none; }
-    html[lang="vi"] [data-lang-block="en"] { display: none; }
-    .sb-wrap { max-width: 760px; margin: 0 auto; }
-    .sb-back { display:inline-flex; gap:6px; font-size: var(--text-caption); color: var(--text-tertiary); text-decoration:none; margin-bottom: var(--space-5); }
-    .sb-back:hover { color: var(--accent); }
-    .sb-sec { text-align: left; margin-top: var(--space-7); }
-    .sb-sec > h2 { font-family: var(--font-display); font-size: var(--text-h3); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: var(--space-4); }
-    .sb-faq { border-top: 1px solid var(--border-subtle); padding: var(--space-4) 0; }
-    .sb-faq h3 { font-family: var(--font-body); font-size: var(--text-body); color: var(--text-primary); font-weight: var(--weight-semibold); margin-bottom: 6px; }
-    .sb-faq p, .sb-faq li { font-size: var(--text-caption); color: var(--text-tertiary); line-height: var(--leading-relaxed); }
-    .sb-faq ul { margin: 6px 0 0 18px; }
-    .sb-faq a, .policy-section a { color: var(--accent); }
-    .sb-shot { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--border-subtle); display:block; margin: var(--space-4) 0; }
-  </style>
+  <script src="/legal.js" defer></script>
+  <script src="/faq.js" defer></script>
 </head>
-<body>
-
-<div class="site-wrapper">
-
+<body class="studio legal">
 <!--sq:header-->
 <script>var l=null;try{l=localStorage.getItem('synq-lang')}catch(e){}if(!l){var n=(navigator.languages&&navigator.languages[0])||navigator.language||'en';l=/^vi/i.test(n)?'vi':'en'}document.documentElement.lang=l;</script>
 <a class="sq-skip" href="#main-content"><span data-lang-block="vi">Bỏ qua điều hướng</span><span data-lang-block="en">Skip to content</span></a>
-<header class="sq-header" data-theme="dark">
+<header class="sq-header" data-theme="light">
   <div class="sq-bar">
     <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
     <nav class="sq-nav" id="sq-nav" aria-label="Main"><a href="/#products"><span data-lang-block="vi">Sản phẩm</span><span data-lang-block="en">Products</span></a><a href="/help"><span data-lang-block="vi">Hỗ trợ</span><span data-lang-block="en">Support</span></a></nav>
@@ -50,76 +37,60 @@
     </div>
   </div>
 </header>
-<!--/sq:header-->
+<!--/sq:header--><main id="main-content">
+  <div class="lg wrap">
+    <header class="lg-head">
+      <p class="lg-eyebrow">Support · <a href="/kagezan">Kagezan</a></p>
+      <h1 class="display" data-lang-block="vi">Hỗ trợ Kagezan</h1>
+      <h1 class="display" data-lang-block="en">Kagezan Support</h1>
+      <p class="lg-sub" data-lang-block="vi">Câu trả lời cho những câu hỏi hay gặp. Không thấy điều bạn cần? Gửi email cho chúng tôi.</p>
+      <p class="lg-sub" data-lang-block="en">Answers to the questions we hear most. Can't find yours? Email us.</p>
+      <div class="fq-search">
+        <label class="fq-label" for="fq-q"><span data-lang-block="vi">Câu hỏi thường gặp</span><span data-lang-block="en">Frequently asked questions</span></label>
+        <input id="fq-q" class="fq-input" type="search" autocomplete="off" data-ph-vi="Tìm câu hỏi…" data-ph-en="Search questions…" placeholder="Search questions…" />
+      </div>
+    </header>
+    <div class="lg-grid">
+      <aside class="lg-toc">
+        <details class="lg-toc-d" open>
+          <summary><span data-lang-block="vi">Mục lục</span><span data-lang-block="en">Contents</span></summary>
+          <nav aria-label="Mục lục / Contents"><ol><li><a href="#account" data-toc="account"><span data-lang-block="vi">Tài khoản và tiến trình</span><span data-lang-block="en">Account and progress</span></a></li><li><a href="#gameplay" data-toc="gameplay"><span data-lang-block="vi">Cách chơi</span><span data-lang-block="en">Gameplay</span></a></li><li><a href="#problems" data-toc="problems"><span data-lang-block="vi">Lỗi và hiệu năng</span><span data-lang-block="en">Problems</span></a></li></ol></nav>
+        </details>
+      </aside>
+      <script>if(window.matchMedia&&matchMedia('(max-width:1023px)').matches)document.querySelector('.lg-toc-d').open=false;</script>
+      <article class="lg-body">
+        <div class="fq-empty" role="status" hidden><p data-lang-block="vi">Chưa có câu hỏi nào khớp. Gửi email cho chúng tôi: <a href="mailto:support.synq@gmail.com?subject=Kagezan%20support">support.synq@gmail.com</a></p><p data-lang-block="en">No question matches yet. Email us: <a href="mailto:support.synq@gmail.com?subject=Kagezan%20support">support.synq@gmail.com</a></p></div>
+<section class="lg-sec fq-group" id="account" aria-labelledby="account-h"><h2 id="account-h"><span data-lang-block="vi">Tài khoản và tiến trình</span><span data-lang-block="en">Account and progress</span></h2>
+<details class="fq-item" id="keep-progress"><summary><span class="fq-q"><span data-lang-block="vi">Làm sao giữ tiến trình khi đổi máy?</span><span data-lang-block="en">How do I keep my progress on a new phone?</span></span><a class="lg-anchor" href="#keep-progress" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Vào <strong>Cài đặt → Tài khoản</strong> và bấm <strong>Liên kết Google</strong> (hoặc <strong>Liên kết Apple</strong> trên iPhone). Trên máy mới, cài game rồi đăng nhập cùng tài khoản đó, tiến trình sẽ tải về. Nếu cả máy và tài khoản đều có tiến trình, game hỏi bạn giữ bản nào.</p><p data-lang-block="en">Go to <strong>Settings → Account</strong> and tap <strong>Link Google</strong> (or <strong>Link Apple</strong> on iPhone). On the new phone, install the game and sign in with the same account and your progress comes down. If both the phone and the account have progress, the game asks which one to keep.</p></div></div></details>
+<details class="fq-item" id="lost-progress"><summary><span class="fq-q"><span data-lang-block="vi">Tôi mất tiến trình sau khi cài lại game</span><span data-lang-block="en">I lost my progress after reinstalling</span></span><a class="lg-anchor" href="#lost-progress" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Nếu trước đó bạn đã liên kết Google hoặc Apple, chỉ cần đăng nhập lại ở <strong>Cài đặt → Tài khoản</strong>. Nếu chưa liên kết, tiến trình chỉ nằm trên máy cũ. Hãy gửi email kèm tên hiển thị “Lãng khách #mã” của bạn, chúng tôi sẽ xem có khôi phục được không.</p><p data-lang-block="en">If you had linked Google or Apple, just sign in again under <strong>Settings → Account</strong>. If you hadn't, the progress lived only on the old device. Email us with your board name (“Wanderer #code”) and we will check whether it can be recovered.</p></div></div></details>
+<details class="fq-item" id="data-and-account"><summary><span class="fq-q"><span data-lang-block="vi">Dữ liệu và tài khoản</span><span data-lang-block="en">Data and account</span></span><a class="lg-anchor" href="#data-and-account" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi"><a href="/kagezan-privacy">Chính sách quyền riêng tư</a> · <a href="/kagezan-terms">Điều khoản sử dụng</a> · <a href="/kagezan-delete-account">Xoá tài khoản</a></p><p data-lang-block="en"><a href="/kagezan-privacy">Privacy Policy</a> · <a href="/kagezan-terms">Terms of Use</a> · <a href="/kagezan-delete-account">Delete your account</a></p></div></div></details>
+</section>
+<section class="lg-sec fq-group" id="gameplay" aria-labelledby="gameplay-h"><h2 id="gameplay-h"><span data-lang-block="vi">Cách chơi</span><span data-lang-block="en">Gameplay</span></h2>
+<details class="fq-item" id="deflect"><summary><span class="fq-q"><span data-lang-block="vi">Gạt đòn thế nào cho chuẩn?</span><span data-lang-block="en">How do I deflect properly?</span></span><a class="lg-anchor" href="#deflect" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Bấm <strong>Đỡ</strong> đúng lúc lưỡi kiếm của địch chạm tới, không bấm giữ từ sớm. Đòn có chữ 危 là đòn hiểm: quét thì <strong>Nhảy</strong>, đâm thì bấm <strong>Chém</strong> ngay trước khi trúng để phản đòn Nhất Thiểm, túm thì <strong>Lướt</strong> né. Muốn được dạy từng loại, vào <strong>Cài đặt → Hướng dẫn</strong> chọn <strong>Chi tiết</strong>: chương đầu sẽ làm chậm và chỉ cách đỡ mỗi đòn mới.</p><p data-lang-block="en">Tap <strong>Guard</strong> right as the enemy blade lands, not held early. Attacks marked 危 are perilous: <strong>Jump</strong> a sweep, tap <strong>Slash</strong> just before a thrust lands for an Issen counter, <strong>Dash</strong> out of a grab. To be taught each one, set <strong>Settings → Tutorial</strong> to <strong>Detailed</strong>: chapter 1 slows each new attack down and shows the answer.</p></div></div></details>
+<details class="fq-item" id="stamina"><summary><span class="fq-q"><span data-lang-block="vi">Thể lực là gì, hồi bao lâu?</span><span data-lang-block="en">What is stamina and how fast does it refill?</span></span><a class="lg-anchor" href="#stamina" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Mỗi lần vào chương hoặc Sinh tồn tốn 4 đến 6 thể lực. Thể lực tối đa 30, hồi 1 điểm mỗi 12 phút. Bạn có thể xem quảng cáo có thưởng để nhận thêm thể lực.</p><p data-lang-block="en">Each chapter or Survival run costs 4 to 6 stamina. You hold up to 30 and regain 1 point every 12 minutes. You can watch a rewarded ad for extra stamina.</p></div></div></details>
+<details class="fq-item" id="weekly-rewards"><summary><span class="fq-q"><span data-lang-block="vi">Khi nào nhận thưởng bảng xếp hạng tuần?</span><span data-lang-block="en">When are weekly leaderboard rewards paid?</span></span><a class="lg-anchor" href="#weekly-rewards" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Boss tuần và Sinh tồn chốt bảng vào cuối tuần và trả thưởng vào thứ Hai. Các trận lọt nhóm có thưởng được máy chủ chạy lại để kiểm tra trước khi trả. Thưởng về khi bạn mở game có kết nối mạng.</p><p data-lang-block="en">The Weekly Boss and Survival boards close at the end of the week and pay out on Monday. Runs in a rewarded bracket are replayed by our server to verify them first. Rewards arrive the next time you open the game online.</p></div></div></details>
+<details class="fq-item" id="language"><summary><span class="fq-q"><span data-lang-block="vi">Đổi ngôn ngữ ở đâu?</span><span data-lang-block="en">How do I change the language?</span></span><a class="lg-anchor" href="#language" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi"><strong>Cài đặt → Ngôn ngữ</strong>. Game có tiếng Việt, English, Español, Bahasa Indonesia, 日本語, 한국어, Português, Русский, ไทย và 中文.</p><p data-lang-block="en"><strong>Settings → Language</strong>. The game is in English, Tiếng Việt, Español, Bahasa Indonesia, 日本語, 한국어, Português, Русский, ไทย and 中文.</p></div></div></details>
+</section>
+<section class="lg-sec fq-group" id="problems" aria-labelledby="problems-h"><h2 id="problems-h"><span data-lang-block="vi">Lỗi và hiệu năng</span><span data-lang-block="en">Problems</span></h2>
+<details class="fq-item" id="stutter"><summary><span class="fq-q"><span data-lang-block="vi">Game chạy giật trên máy tôi</span><span data-lang-block="en">The game stutters on my phone</span></span><a class="lg-anchor" href="#stutter" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Vào <strong>Cài đặt → Đồ hoạ</strong> và chọn <strong>1080p</strong> hoặc <strong>Tiết kiệm pin</strong>. Game cũng tự hạ đồ hoạ khi máy không theo kịp. Nếu vẫn giật, gửi email cho chúng tôi kèm tên máy để chúng tôi tối ưu thêm.</p><p data-lang-block="en">Go to <strong>Settings → Graphics</strong> and pick <strong>1080p</strong> or <strong>Battery saver</strong>. The game also steps graphics down by itself when the phone can't keep up. If it still stutters, email us your phone model so we can tune it.</p></div></div></details>
+<details class="fq-item" id="ad-wont-load"><summary><span class="fq-q"><span data-lang-block="vi">Quảng cáo không tải được</span><span data-lang-block="en">An ad won't load</span></span><a class="lg-anchor" href="#ad-wont-load" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Quảng cáo có thưởng cần mạng ổn định. Thử lại sau ít phút. Ở EU/UK, nếu bạn đã từ chối mọi quảng cáo trong biểu mẫu đồng ý, có thể không có quảng cáo nào để xem.</p><p data-lang-block="en">Rewarded ads need a stable connection; try again in a few minutes. In the EU/UK, if you refused all ads in the consent form, there may be none to show.</p></div></div></details>
+<details class="fq-item" id="report-a-bug"><summary><span class="fq-q"><span data-lang-block="vi">Báo lỗi</span><span data-lang-block="en">Reporting a bug</span></span><a class="lg-anchor" href="#report-a-bug" aria-label="Liên kết tới câu hỏi này / Link to this question">#</a><i class="fq-chev" aria-hidden="true"></i></summary><div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">Gửi email tới <a href="mailto:support.synq@gmail.com?subject=Kagezan%20bug">support.synq@gmail.com</a> kèm: tên máy và hệ điều hành, phiên bản game (xem ở trang của game trên App Store hoặc Google Play), chương hoặc chế độ đang chơi, và ảnh chụp hay video nếu có.</p><p data-lang-block="en">Email <a href="mailto:support.synq@gmail.com?subject=Kagezan%20bug">support.synq@gmail.com</a> with: your phone model and OS, the game version (shown on the game&rsquo;s App Store or Google Play page), the chapter or mode you were in, and a screenshot or video if you have one.</p></div></div></details>
+</section>
 
-  <main class="page-main" id="main-content">
-    <div class="sb-wrap">
-      <a class="sb-back" href="/kagezan"><span data-lang-block="vi">← Về trang Kagezan</span><span data-lang-block="en">← Back to Kagezan</span></a>
-    <section class="page-hero">
-      <span class="eyebrow">Support · Kagezan</span>
-      <h1 data-lang-block="vi">Hỗ trợ Kagezan</h1>
-      <h1 data-lang-block="en">Kagezan Support</h1>
-      <p class="subtitle" data-lang-block="vi">Câu trả lời cho những câu hỏi hay gặp. Không thấy điều bạn cần? Gửi email cho chúng tôi.</p>
-      <p class="subtitle" data-lang-block="en">Answers to the questions we hear most. Can't find yours? Email us.</p>
-    </section>
-      <img class="sb-shot" src="/store/shadowblade/vi_01_kurohebi.jpg" alt="Kagezan" loading="lazy" data-lang-block="vi" />
-      <img class="sb-shot" src="/store/shadowblade/en_01_kurohebi.jpg" alt="Kagezan" loading="lazy" data-lang-block="en" />
-      <section class="sb-sec">
-        <h2><span data-lang-block="vi">Câu hỏi thường gặp</span><span data-lang-block="en">Frequently asked questions</span></h2>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Làm sao giữ tiến trình khi đổi máy?</h3><h3 data-lang-block="en">How do I keep my progress on a new phone?</h3>
-          <p data-lang-block="vi">Vào <strong>Cài đặt → Tài khoản</strong> và bấm <strong>Liên kết Google</strong> (hoặc <strong>Liên kết Apple</strong> trên iPhone). Trên máy mới, cài game rồi đăng nhập cùng tài khoản đó, tiến trình sẽ tải về. Nếu cả máy và tài khoản đều có tiến trình, game hỏi bạn giữ bản nào.</p><p data-lang-block="en">Go to <strong>Settings → Account</strong> and tap <strong>Link Google</strong> (or <strong>Link Apple</strong> on iPhone). On the new phone, install the game and sign in with the same account and your progress comes down. If both the phone and the account have progress, the game asks which one to keep.</p>
+        <div class="lg-contact">
+          <p class="contact-label"><span data-lang-block="vi">Cần giúp?</span><span data-lang-block="en">Need help?</span></p>
+          <h2><span data-lang-block="vi">Chúng tôi trả lời trong 1–2 ngày làm việc</span><span data-lang-block="en">We reply within 1–2 working days</span></h2>
+          <a href="mailto:support.synq@gmail.com?subject=Kagezan%20support" class="btn">support.synq@gmail.com</a>
+          <p class="fq-hint"><span data-lang-block="vi">Khi báo lỗi, gửi kèm: tên máy, phiên bản game, mô tả ngắn.</span><span data-lang-block="en">When reporting a bug, include: device, game version, a short description.</span></p>
+          <ul class="fq-links"><li><a href="/kagezan-privacy"><span data-lang-block="vi">Quyền riêng tư</span><span data-lang-block="en">Privacy</span></a></li><li><a href="/kagezan-terms"><span data-lang-block="vi">Điều khoản</span><span data-lang-block="en">Terms</span></a></li><li><a href="/kagezan-delete-account"><span data-lang-block="vi">Xoá tài khoản</span><span data-lang-block="en">Delete account</span></a></li></ul>
         </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Tôi mất tiến trình sau khi cài lại game</h3><h3 data-lang-block="en">I lost my progress after reinstalling</h3>
-          <p data-lang-block="vi">Nếu trước đó bạn đã liên kết Google hoặc Apple, chỉ cần đăng nhập lại ở <strong>Cài đặt → Tài khoản</strong>. Nếu chưa liên kết, tiến trình chỉ nằm trên máy cũ. Hãy gửi email kèm tên hiển thị “Lãng khách #mã” của bạn, chúng tôi sẽ xem có khôi phục được không.</p><p data-lang-block="en">If you had linked Google or Apple, just sign in again under <strong>Settings → Account</strong>. If you hadn't, the progress lived only on the old device. Email us with your board name (“Wanderer #code”) and we will check whether it can be recovered.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Gạt đòn thế nào cho chuẩn?</h3><h3 data-lang-block="en">How do I deflect properly?</h3>
-          <p data-lang-block="vi">Bấm <strong>Đỡ</strong> đúng lúc lưỡi kiếm của địch chạm tới, không bấm giữ từ sớm. Đòn có chữ 危 là đòn hiểm: quét thì <strong>Nhảy</strong>, đâm thì bấm <strong>Chém</strong> ngay trước khi trúng để phản đòn Nhất Thiểm, túm thì <strong>Lướt</strong> né. Muốn được dạy từng loại, vào <strong>Cài đặt → Hướng dẫn</strong> chọn <strong>Chi tiết</strong>: chương đầu sẽ làm chậm và chỉ cách đỡ mỗi đòn mới.</p><p data-lang-block="en">Tap <strong>Guard</strong> right as the enemy blade lands, not held early. Attacks marked 危 are perilous: <strong>Jump</strong> a sweep, tap <strong>Slash</strong> just before a thrust lands for an Issen counter, <strong>Dash</strong> out of a grab. To be taught each one, set <strong>Settings → Tutorial</strong> to <strong>Detailed</strong>: chapter 1 slows each new attack down and shows the answer.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Thể lực là gì, hồi bao lâu?</h3><h3 data-lang-block="en">What is stamina and how fast does it refill?</h3>
-          <p data-lang-block="vi">Mỗi lần vào chương hoặc Sinh tồn tốn 4 đến 6 thể lực. Thể lực tối đa 30, hồi 1 điểm mỗi 12 phút. Bạn có thể xem quảng cáo có thưởng để nhận thêm thể lực.</p><p data-lang-block="en">Each chapter or Survival run costs 4 to 6 stamina. You hold up to 30 and regain 1 point every 12 minutes. You can watch a rewarded ad for extra stamina.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Khi nào nhận thưởng bảng xếp hạng tuần?</h3><h3 data-lang-block="en">When are weekly leaderboard rewards paid?</h3>
-          <p data-lang-block="vi">Boss tuần và Sinh tồn chốt bảng vào cuối tuần và trả thưởng vào thứ Hai. Các trận lọt nhóm có thưởng được máy chủ chạy lại để kiểm tra trước khi trả. Thưởng về khi bạn mở game có kết nối mạng.</p><p data-lang-block="en">The Weekly Boss and Survival boards close at the end of the week and pay out on Monday. Runs in a rewarded bracket are replayed by our server to verify them first. Rewards arrive the next time you open the game online.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Game chạy giật trên máy tôi</h3><h3 data-lang-block="en">The game stutters on my phone</h3>
-          <p data-lang-block="vi">Vào <strong>Cài đặt → Đồ hoạ</strong> và chọn <strong>1080p</strong> hoặc <strong>Tiết kiệm pin</strong>. Game cũng tự hạ đồ hoạ khi máy không theo kịp. Nếu vẫn giật, gửi email cho chúng tôi kèm tên máy để chúng tôi tối ưu thêm.</p><p data-lang-block="en">Go to <strong>Settings → Graphics</strong> and pick <strong>1080p</strong> or <strong>Battery saver</strong>. The game also steps graphics down by itself when the phone can't keep up. If it still stutters, email us your phone model so we can tune it.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Quảng cáo không tải được</h3><h3 data-lang-block="en">An ad won't load</h3>
-          <p data-lang-block="vi">Quảng cáo có thưởng cần mạng ổn định. Thử lại sau ít phút. Ở EU/UK, nếu bạn đã từ chối mọi quảng cáo trong biểu mẫu đồng ý, có thể không có quảng cáo nào để xem.</p><p data-lang-block="en">Rewarded ads need a stable connection; try again in a few minutes. In the EU/UK, if you refused all ads in the consent form, there may be none to show.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Đổi ngôn ngữ ở đâu?</h3><h3 data-lang-block="en">How do I change the language?</h3>
-          <p data-lang-block="vi"><strong>Cài đặt → Ngôn ngữ</strong>. Game có tiếng Việt, English, Español, Bahasa Indonesia, 日本語, 한국어, Português, Русский, ไทย và 中文.</p><p data-lang-block="en"><strong>Settings → Language</strong>. The game is in English, Tiếng Việt, Español, Bahasa Indonesia, 日本語, 한국어, Português, Русский, ไทย and 中文.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Báo lỗi</h3><h3 data-lang-block="en">Reporting a bug</h3>
-          <p data-lang-block="vi">Gửi email tới <a href="mailto:support.synq@gmail.com?subject=Shadow%20Blade%20bug">support.synq@gmail.com</a> kèm: tên máy và hệ điều hành, phiên bản game (xem ở trang của game trên App Store hoặc Google Play), chương hoặc chế độ đang chơi, và ảnh chụp hay video nếu có.</p>
-          <p data-lang-block="en">Email <a href="mailto:support.synq@gmail.com?subject=Shadow%20Blade%20bug">support.synq@gmail.com</a> with: your phone model and OS, the game version (shown on the game&rsquo;s App Store or Google Play page), the chapter or mode you were in, and a screenshot or video if you have one.</p>
-        </div>
-        <div class="sb-faq">
-          <h3 data-lang-block="vi">Dữ liệu và tài khoản</h3><h3 data-lang-block="en">Data and account</h3>
-          <p data-lang-block="vi"><a href="/kagezan-privacy">Chính sách quyền riêng tư</a> · <a href="/kagezan-terms">Điều khoản sử dụng</a> · <a href="/kagezan-delete-account">Xoá tài khoản</a></p>
-          <p data-lang-block="en"><a href="/kagezan-privacy">Privacy Policy</a> · <a href="/kagezan-terms">Terms of Use</a> · <a href="/kagezan-delete-account">Delete your account</a></p>
-        </div>
-      </section>
-    <div class="contact-card reveal">
-      <p class="contact-label"><span data-lang-block="vi">Cần giúp?</span><span data-lang-block="en">Need help?</span></p>
-      <h2><span data-lang-block="vi">Chúng tôi trả lời trong 1–2 ngày làm việc</span><span data-lang-block="en">We reply within 1–2 working days</span></h2>
-      <a href="mailto:support.synq@gmail.com?subject=Shadow%20Blade%20support" class="btn-primary">support.synq@gmail.com</a>
+        <p class="lg-top"><a href="/kagezan"><span data-lang-block="vi">← Về trang Kagezan</span><span data-lang-block="en">← Back to Kagezan</span></a> &nbsp;·&nbsp; <a href="#main-content"><span data-lang-block="vi">Lên đầu trang</span><span data-lang-block="en">Back to top</span></a></p>
+      </article>
     </div>
-    </div>
-
-  </main>
-
+  </div>
+</main>
 <!--sq:footer-->
-<footer class="sq-footer" data-theme="dark">
+<footer class="sq-footer" data-theme="light">
   <div class="sq-foot">
     <div class="sq-col sq-about">
       <a class="sq-brand" href="/"><b>SYNQ</b> <span>Studio</span></a>
@@ -133,11 +104,6 @@
   <p class="sq-legal">© 2026 SYNQ Studio</p>
 </footer>
 <!--/sq:footer-->
-
-</div>
-
-<script src="/i18n.js"></script>
-<script src="/enhance.js" defer></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

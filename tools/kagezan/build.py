@@ -10,6 +10,6 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', '..', 'publ
 live = news.build()
 print('news live:', ', '.join(p['slug'] for p in live) or '-')
 for name, html in [("kagezan.html", landing.build()), ("kagezan-privacy.html", legal.privacy()), ("kagezan-terms.html", legal.terms()),
-                   ("kagezan-support.html", hp.support()), ("kagezan-delete-account.html", hp.delete())]:
+                   ("kagezan-support.html", hp.support_html()), ("kagezan-delete-account.html", hp.delete())]:
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(html)
     print(name, len(html))

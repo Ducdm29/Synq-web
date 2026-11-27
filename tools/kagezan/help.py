@@ -29,35 +29,89 @@ FAQ = [
 ]
 
 
+# (id, group) for each question; group order = account, gameplay, problems
+GROUPS = [
+    ("account", "Tài khoản và tiến trình", "Account and progress"),
+    ("gameplay", "Cách chơi", "Gameplay"),
+    ("problems", "Lỗi và hiệu năng", "Problems"),
+]
+FAQ_IDS = ["keep-progress", "lost-progress", "deflect", "stamina", "weekly-rewards", "stutter", "ad-wont-load", "language"]
+FAQ_GROUP = {"keep-progress": "account", "lost-progress": "account", "data-and-account": "account",
+             "deflect": "gameplay", "stamina": "gameplay", "weekly-rewards": "gameplay", "language": "gameplay",
+             "stutter": "problems", "ad-wont-load": "problems", "report-a-bug": "problems"}
+ANCHOR_LABEL = "Liên kết tới câu hỏi này / Link to this question"
+
+
 def support():
-    b = '    <div class="sb-wrap">\n'
-    b += '      <a class="sb-back" href="/kagezan"><span data-lang-block="vi">← Về trang Kagezan</span><span data-lang-block="en">← Back to Kagezan</span></a>\n'
-    b += hero("Support · Kagezan", "Hỗ trợ Kagezan", "Kagezan Support",
-              "Câu trả lời cho những câu hỏi hay gặp. Không thấy điều bạn cần? Gửi email cho chúng tôi.",
-              "Answers to the questions we hear most. Can't find yours? Email us.")
-    b += '      <img class="sb-shot" src="/store/shadowblade/vi_01_kurohebi.jpg" alt="Kagezan" loading="lazy" data-lang-block="vi" />\n'
-    b += '      <img class="sb-shot" src="/store/shadowblade/en_01_kurohebi.jpg" alt="Kagezan" loading="lazy" data-lang-block="en" />\n'
-    b += '      <section class="sb-sec">\n'
-    b += '        <h2><span data-lang-block="vi">Câu hỏi thường gặp</span><span data-lang-block="en">Frequently asked questions</span></h2>\n'
-    for qv, qe, av, ae in FAQ:
-        b += ('        <div class="sb-faq">\n'
-              f'          <h3 data-lang-block="vi">{qv}</h3><h3 data-lang-block="en">{qe}</h3>\n'
-              f'          <p data-lang-block="vi">{av}</p><p data-lang-block="en">{ae}</p>\n'
-              '        </div>\n')
-    b += ('        <div class="sb-faq">\n'
-          '          <h3 data-lang-block="vi">Báo lỗi</h3><h3 data-lang-block="en">Reporting a bug</h3>\n'
-          f'          <p data-lang-block="vi">Gửi email tới <a href="mailto:{EMAIL}?subject=Shadow%20Blade%20bug">{EMAIL}</a> kèm: tên máy và hệ điều hành, phiên bản game (xem ở trang của game trên App Store hoặc Google Play), chương hoặc chế độ đang chơi, và ảnh chụp hay video nếu có.</p>\n'
-          f'          <p data-lang-block="en">Email <a href="mailto:{EMAIL}?subject=Shadow%20Blade%20bug">{EMAIL}</a> with: your phone model and OS, the game version (shown on the game&rsquo;s App Store or Google Play page), the chapter or mode you were in, and a screenshot or video if you have one.</p>\n'
-          '        </div>\n')
-    b += ('        <div class="sb-faq">\n'
-          '          <h3 data-lang-block="vi">Dữ liệu và tài khoản</h3><h3 data-lang-block="en">Data and account</h3>\n'
-          '          <p data-lang-block="vi"><a href="/kagezan-privacy">Chính sách quyền riêng tư</a> · <a href="/kagezan-terms">Điều khoản sử dụng</a> · <a href="/kagezan-delete-account">Xoá tài khoản</a></p>\n'
-          '          <p data-lang-block="en"><a href="/kagezan-privacy">Privacy Policy</a> · <a href="/kagezan-terms">Terms of Use</a> · <a href="/kagezan-delete-account">Delete your account</a></p>\n'
-          '        </div>\n')
-    b += '      </section>\n'
-    b += contact("Chúng tôi trả lời trong 1–2 ngày làm việc", "We reply within 1–2 working days", "Shadow%20Blade%20support")
-    b += '    </div>\n'
-    return page("kagezan-support", "Kagezan — Support", "Help for Kagezan: moving your progress to a new phone, deflecting, stamina, weekly rewards, performance and contacting us.", b)
+    import re
+    items = {}
+    for fid, (qv, qe, av, ae) in zip(FAQ_IDS, FAQ):
+        items[fid] = (qv, qe, av, ae)
+    items["report-a-bug"] = ("Báo lỗi", "Reporting a bug",
+        f'Gửi email tới <a href="mailto:{EMAIL}?subject=Kagezan%20bug">{EMAIL}</a> kèm: tên máy và hệ điều hành, phiên bản game (xem ở trang của game trên App Store hoặc Google Play), chương hoặc chế độ đang chơi, và ảnh chụp hay video nếu có.',
+        f'Email <a href="mailto:{EMAIL}?subject=Kagezan%20bug">{EMAIL}</a> with: your phone model and OS, the game version (shown on the game&rsquo;s App Store or Google Play page), the chapter or mode you were in, and a screenshot or video if you have one.')
+    items["data-and-account"] = ("Dữ liệu và tài khoản", "Data and account",
+        '<a href="/kagezan-privacy">Chính sách quyền riêng tư</a> · <a href="/kagezan-terms">Điều khoản sử dụng</a> · <a href="/kagezan-delete-account">Xoá tài khoản</a>',
+        '<a href="/kagezan-privacy">Privacy Policy</a> · <a href="/kagezan-terms">Terms of Use</a> · <a href="/kagezan-delete-account">Delete your account</a>')
+    return items
+
+
+def support_html():
+    from build_pages import t, ARROW
+    items = support()
+    # keep the exact original texts of the two hand-written answers (read back from the old markup is not needed: they are literals above)
+    toc, groups = "", ""
+    for gid, gv, ge in GROUPS:
+        toc += '<li><a href="#%s" data-toc="%s"><span data-lang-block="vi">%s</span><span data-lang-block="en">%s</span></a></li>' % (gid, gid, gv, ge)
+        qs = ""
+        for fid in [k for k in list(items) if FAQ_GROUP[k] == gid]:
+            qv, qe, av, ae = items[fid]
+            qs += ('<details class="fq-item" id="%s"><summary><span class="fq-q"><span data-lang-block="vi">%s</span><span data-lang-block="en">%s</span></span>'
+                   '<a class="lg-anchor" href="#%s" aria-label="%s">#</a><i class="fq-chev" aria-hidden="true"></i></summary>'
+                   '<div class="fq-a"><div class="fq-a-in"><p data-lang-block="vi">%s</p><p data-lang-block="en">%s</p></div></div></details>\n') % (fid, qv, qe, fid, ANCHOR_LABEL, av, ae)
+        groups += '<section class="lg-sec fq-group" id="%s" aria-labelledby="%s-h"><h2 id="%s-h">%s</h2>\n%s</section>\n' % (gid, gid, gid, t(gv, ge), qs)
+    main = """<main id="main-content">
+  <div class="lg wrap">
+    <header class="lg-head">
+      <p class="lg-eyebrow">Support · <a href="/kagezan">Kagezan</a></p>
+      <h1 class="display" data-lang-block="vi">Hỗ trợ Kagezan</h1>
+      <h1 class="display" data-lang-block="en">Kagezan Support</h1>
+      <p class="lg-sub" data-lang-block="vi">Câu trả lời cho những câu hỏi hay gặp. Không thấy điều bạn cần? Gửi email cho chúng tôi.</p>
+      <p class="lg-sub" data-lang-block="en">Answers to the questions we hear most. Can't find yours? Email us.</p>
+      <div class="fq-search">
+        <label class="fq-label" for="fq-q">%(faq)s</label>
+        <input id="fq-q" class="fq-input" type="search" autocomplete="off" data-ph-vi="Tìm câu hỏi…" data-ph-en="Search questions…" placeholder="Search questions…" />
+      </div>
+    </header>
+    <div class="lg-grid">
+      <aside class="lg-toc">
+        <details class="lg-toc-d" open>
+          <summary>%(toclabel)s</summary>
+          <nav aria-label="Mục lục / Contents"><ol>%(toc)s</ol></nav>
+        </details>
+      </aside>
+      <script>if(window.matchMedia&&matchMedia('(max-width:1023px)').matches)document.querySelector('.lg-toc-d').open=false;</script>
+      <article class="lg-body">
+        <div class="fq-empty" role="status" hidden>%(empty)s</div>
+%(groups)s
+        <div class="lg-contact">
+          <p class="contact-label">%(need)s</p>
+          <h2>%(reply)s</h2>
+          <a href="mailto:%(email)s?subject=Kagezan%%20support" class="btn">%(email)s</a>
+          <p class="fq-hint">%(hint)s</p>
+          <ul class="fq-links"><li><a href="/kagezan-privacy">%(l1)s</a></li><li><a href="/kagezan-terms">%(l2)s</a></li><li><a href="/kagezan-delete-account">%(l3)s</a></li></ul>
+        </div>
+        <p class="lg-top"><a href="/kagezan">%(back)s</a> &nbsp;·&nbsp; <a href="#main-content">%(top)s</a></p>
+      </article>
+    </div>
+  </div>
+</main>""" % dict(faq=t("Câu hỏi thường gặp", "Frequently asked questions"), toclabel=t("Mục lục", "Contents"), toc=toc, groups=groups, email=EMAIL,
+                  empty=t('Chưa có câu hỏi nào khớp. Gửi email cho chúng tôi: <a href="mailto:%s?subject=Kagezan%%20support">%s</a>' % (EMAIL, EMAIL), 'No question matches yet. Email us: <a href="mailto:%s?subject=Kagezan%%20support">%s</a>' % (EMAIL, EMAIL), 'p'),
+                  need=t("Cần giúp?", "Need help?"), reply=t("Chúng tôi trả lời trong 1–2 ngày làm việc", "We reply within 1–2 working days"),
+                  hint=t("Khi báo lỗi, gửi kèm: tên máy, phiên bản game, mô tả ngắn.", "When reporting a bug, include: device, game version, a short description.", "span"),
+                  l1=t("Quyền riêng tư", "Privacy"), l2=t("Điều khoản", "Terms"), l3=t("Xoá tài khoản", "Delete account"),
+                  back=t("← Về trang Kagezan", "← Back to Kagezan"), top=t("Lên đầu trang", "Back to top"))
+    return support_page("kagezan-support", "Kagezan — Support", "Help for Kagezan: moving your progress to a new phone, deflecting, stamina, weekly rewards, performance and contacting us.", main)
 
 
 def delete():

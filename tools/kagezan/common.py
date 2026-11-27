@@ -187,3 +187,11 @@ def legal_page(slug, title_en, desc_en, body, steps=False, cta=None):
     page = head(title_en, desc_en, '/' + slug, 'studio legal', og='/store/shadowblade/feature.jpg', icon='/store/shadowblade/icon.png')
     page = page.replace('<script src="/dots.js" defer></script>', '<script src="/legal.js" defer></script>').replace('<script src="/site.js" defer></script>\n  ', '')
     return page + header('light') + main + '\n' + footer('light') + TAIL
+
+
+def support_page(slug, title_en, desc_en, main):
+    """Same shell as legal_page, for the support FAQ (adds the FAQ script)."""
+    from build_pages import head, TAIL
+    page = head(title_en, desc_en, '/' + slug, 'studio legal', og='/store/shadowblade/feature.jpg', icon='/store/shadowblade/icon.png')
+    page = page.replace('<script src="/dots.js" defer></script>', '<script src="/legal.js" defer></script>\n  <script src="/faq.js" defer></script>').replace('<script src="/site.js" defer></script>\n  ', '')
+    return page + header('light') + main + '\n' + footer('light') + TAIL
